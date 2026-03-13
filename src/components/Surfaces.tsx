@@ -23,24 +23,33 @@ export default function Surfaces() {
     const cRect = card.getBoundingClientRect();
     const sRect = section.getBoundingClientRect();
 
-    // Center the detail card above the clicked card
-    const cardCenterX = cRect.left - sRect.left + cRect.width / 2;
-    const cardTopY = cRect.top - sRect.top;
-
-    setDetailPos({ x: cardCenterX, y: cardTopY });
+    setDetailPos({
+      x: cRect.left - sRect.left + cRect.width / 2,
+      y: cRect.top - sRect.top,
+    });
     setSelected(index);
   }, [selected]);
 
+  // Close on Escape or click outside
   useEffect(() => {
     if (selected === null) return;
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelected(null);
     };
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("[data-surface-detail]") && !target.closest("[data-surface-card]")) {
+        setSelected(null);
+      }
+    };
     window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    window.addEventListener("click", handleClick, { capture: true });
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      window.removeEventListener("click", handleClick, { capture: true });
+    };
   }, [selected]);
 
-  const closeDetail = useCallback(() => setSelected(null), []);
   const isOpen = selected !== null;
 
   return (
@@ -70,30 +79,31 @@ export default function Surfaces() {
                 return (
                   <div
                     key={surface.name}
+                    data-surface-card
                     ref={(el) => { cardRefs.current[i] = el; }}
                     onMouseEnter={() => setHovered(i)}
                     onMouseLeave={() => setHovered(null)}
-                    onClick={() => handleCardClick(i)}
+                    onClick={(e) => { e.stopPropagation(); handleCardClick(i); }}
                     className="cursor-pointer"
                     style={{
                       transformStyle: "preserve-3d",
                       transition: "transform 280ms cubic-bezier(0.34, 1.4, 0.64, 1), opacity 250ms ease",
                       transform: isSelected
-                        ? "scale(1.08) translateZ(25px)"
+                        ? "scale(1.1) translateZ(30px)"
                         : isHovered
                           ? "scale(1.06) translateZ(20px)"
-                          : isDimmed || (isOpen && !isSelected)
+                          : isDimmed
                             ? "scale(0.97) translateZ(-8px)"
                             : "scale(1) translateZ(0)",
-                      opacity: (isDimmed || (isOpen && !isSelected)) ? 0.4 : 1,
+                      opacity: isDimmed ? 0.5 : 1,
                       zIndex: isSelected ? 20 : isHovered ? 10 : 1,
                       position: "relative",
                     }}
                   >
                     <div
-                      className={`bg-white border rounded-sm overflow-hidden transition-colors duration-200 ${
+                      className={`bg-white border rounded-sm overflow-hidden transition-all duration-200 ${
                         isSelected
-                          ? "border-accent shadow-lg"
+                          ? "border-accent shadow-xl"
                           : isHovered
                             ? "border-accent/50 shadow-md"
                             : "border-border"
@@ -136,39 +146,28 @@ export default function Surfaces() {
             </div>
           </div>
 
-          {/* Backdrop */}
-          {isOpen && (
-            <div
-              onClick={closeDetail}
-              className="fixed inset-0 z-40"
-              style={{
-                background: "rgba(0,0,0,0.25)",
-                backdropFilter: "blur(2px)",
-              }}
-            />
-          )}
-
-          {/* Detail card - fixed size, positioned near clicked card */}
+          {/* Detail tooltip - pops up above card, no backdrop */}
           {selected !== null && detailPos && (
             <div
+              data-surface-detail
               className="absolute z-50"
               style={{
                 left: `clamp(0px, ${detailPos.x - 140}px, calc(100% - 280px))`,
                 bottom: `calc(100% - ${detailPos.y}px + 8px)`,
                 width: 280,
-                animation: "detailAppear 280ms cubic-bezier(0.34, 1.4, 0.64, 1) forwards",
+                animation: "detailPop 250ms cubic-bezier(0.34, 1.4, 0.64, 1) forwards",
               }}
             >
               <div
-                className="bg-white border border-accent/30 rounded-sm overflow-hidden"
+                className="bg-white border border-accent/40 rounded-sm overflow-hidden relative"
                 style={{
-                  boxShadow: "0 16px 48px -8px rgba(0,0,0,0.18), 0 4px 16px -4px rgba(46,204,113,0.12)",
+                  boxShadow: "0 12px 40px -8px rgba(0,0,0,0.15), 0 4px 12px -4px rgba(197,165,90,0.12)",
                 }}
               >
                 {/* Close */}
                 <button
-                  onClick={(e) => { e.stopPropagation(); closeDetail(); }}
-                  className="absolute top-2.5 right-2.5 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-white border border-border text-muted hover:text-heading hover:border-border-dark transition-colors"
+                  onClick={(e) => { e.stopPropagation(); setSelected(null); }}
+                  className="absolute top-2 right-2 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-white border border-border text-muted hover:text-heading transition-colors"
                 >
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M1 1l6 6M7 1l-6 6" />
@@ -177,7 +176,7 @@ export default function Surfaces() {
 
                 {/* Color preview */}
                 <div
-                  className="h-16 relative overflow-hidden"
+                  className="h-14 relative overflow-hidden"
                   style={{ background: surfaces[selected].color }}
                 >
                   <div
@@ -186,7 +185,6 @@ export default function Surfaces() {
                   />
                 </div>
 
-                {/* Content */}
                 <div className="p-4">
                   <div className="flex items-baseline justify-between mb-1">
                     <h4 className="font-display text-[13px] font-semibold text-heading">
@@ -217,9 +215,9 @@ export default function Surfaces() {
                   </ul>
                 </div>
 
-                {/* Arrow pointing down to card */}
+                {/* Arrow pointing down */}
                 <div
-                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-accent/30 rotate-45"
+                  className="absolute -bottom-[5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white border-r border-b border-accent/40 rotate-45"
                 />
               </div>
             </div>
@@ -228,10 +226,10 @@ export default function Surfaces() {
       </RevealOnScroll>
 
       <style jsx>{`
-        @keyframes detailAppear {
+        @keyframes detailPop {
           from {
             opacity: 0;
-            transform: translateY(8px) scale(0.95);
+            transform: translateY(6px) scale(0.96);
           }
           to {
             opacity: 1;

@@ -17,10 +17,10 @@ const config: Config = {
         light: "#FFFFFF",
         "light-secondary": "#F7F7F7",
         "light-tertiary": "#EFEFEF",
-        // Accent
-        accent: "#2ECC71",
-        "accent-hover": "#27AE60",
-        "accent-soft": "#E8F8EF",
+        // Accent (light gold / prestige)
+        accent: "#C5A55A",
+        "accent-hover": "#B8963F",
+        "accent-soft": "#F8F3E8",
         // Neutral
         silver: "#C0C0C0",
         "silver-dark": "#888888",

@@ -46,7 +46,7 @@ body {
 
 /* Gradient text utility */
 .text-gradient {
-  background: linear-gradient(135deg, #2ECC71, #27AE60);
+  background: linear-gradient(135deg, #C5A55A, #B8963F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -117,9 +117,9 @@ body {
 
 /* Glow effect on accent elements */
 .glow-accent {
-  box-shadow: 0 0 20px rgba(46, 204, 113, 0.15);
+  box-shadow: 0 0 20px rgba(197, 165, 90, 0.15);
   transition: box-shadow 0.3s;
 }
 .glow-accent:hover {
-  box-shadow: 0 0 40px rgba(46, 204, 113, 0.25);
+  box-shadow: 0 0 40px rgba(197, 165, 90, 0.25);
 }
