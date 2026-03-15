@@ -1,3 +1,4 @@
+import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 
@@ -41,11 +42,15 @@ export default function About() {
           </div>
         </RevealOnScroll>
         <RevealOnScroll delay={200}>
-          <div className="aspect-square bg-light-secondary border border-border rounded-sm flex items-center justify-center relative overflow-hidden">
-            <div className="absolute inset-3 border border-border/50 rounded-sm" />
-            <span className="text-muted text-[10px] tracking-[0.18em] uppercase">
-              Foto realizace
-            </span>
+          <div className="aspect-square bg-light-secondary border border-border rounded-sm relative overflow-hidden">
+            <Image
+              src="/images/about-bedroom-led.jpg"
+              alt="Napínaný strop s LED osvětlením v ložnici"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           </div>
         </RevealOnScroll>
       </div>

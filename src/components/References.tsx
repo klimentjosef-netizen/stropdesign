@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
@@ -31,9 +32,18 @@ export default function References() {
             <RevealOnScroll key={ref.title} delay={i * 100}>
               <div className="card-hover bg-white border border-border rounded-sm overflow-hidden cursor-pointer group hover:border-accent/30">
                 <div
-                  className={`h-44 relative overflow-hidden flex items-end p-3.5 bg-gradient-to-br ${ref.gradient}`}
+                  className={`h-44 relative overflow-hidden flex items-end p-3.5 ${ref.image ? "" : `bg-gradient-to-br ${ref.gradient}`}`}
                 >
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+                  {ref.image && (
+                    <Image
+                      src={ref.image}
+                      alt={ref.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500" />
                   <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium">
                     {ref.tag}
                   </div>

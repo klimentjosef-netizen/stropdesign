@@ -3,65 +3,71 @@ export interface Reference {
   meta: string;
   tag: string;
   gradient: string;
+  image?: string;
   description?: string;
 }
 
 export const references: Reference[] = [
   {
+    title: "Moderní kuchyně s LED",
+    meta: "Kuchyně · 18 m²",
+    tag: "Matný + LED",
+    gradient: "from-[#1a1a2e] to-[#12121f]",
+    image: "/images/ref-kitchen-led.jpg",
+    description:
+      "Matný strop s integrovaným LED páskem v moderní kuchyni. Čistý design a funkční osvětlení pracovní plochy.",
+  },
+  {
+    title: "Designové LED linie",
+    meta: "Chodba · 22 m²",
+    tag: "Matný + LED linie",
+    gradient: "from-[#0f1208] to-[#141a0a]",
+    image: "/images/ref-hallway-led.jpg",
+    description:
+      "Geometrické LED linie v chodbě vytvářejí moderní industriální atmosféru. Napínaný strop s integrovaným osvětlením.",
+  },
+  {
+    title: "Strop s vlastním tiskem",
+    meta: "Koupelna · 8 m²",
+    tag: "Vlastní tisk + podsvícení",
+    gradient: "from-[#1a0e08] to-[#120a06]",
+    image: "/images/ref-bathroom-sky.jpg",
+    description:
+      "Průsvitný strop s potiskem oblohy v koupelně. Vodotěsné řešení, které přináší pocit otevřeného prostoru.",
+  },
+  {
+    title: "Průsvitný strop se zlatým vzorem",
+    meta: "Hala · 15 m²",
+    tag: "Průsvitný + tisk",
+    gradient: "from-[#0a1212] to-[#081010]",
+    image: "/images/ref-print-gold.jpg",
+    description:
+      "Průsvitný strop s designovým potiskem zlatých vln a LED podsvícením. Luxusní prvek v reprezentativním prostoru.",
+  },
+  {
+    title: "LED kosočtverec v ložnici",
+    meta: "Ložnice · 20 m²",
+    tag: "Matný + LED design",
+    gradient: "from-[#100d1a] to-[#0e0b16]",
+    image: "/images/led-design-pattern.jpg",
+    description:
+      "Kreativní LED vzor z překrývajících se kosočtverců. Unikátní řešení, které slouží jako hlavní osvětlení i designový prvek.",
+  },
+  {
     title: "Rodinný dům Ostrava",
     meta: "Obývací pokoj · 28 m²",
     tag: "Lesklý povrch",
-    gradient: "from-[#1a1a2e] to-[#12121f]",
+    gradient: "from-[#1a1008] to-[#14100a]",
     description:
       "Kompletní stropní řešení pro moderní obývací pokoj. Lesklý povrch opticky zvětšil prostor a dodal místnosti vzdušnost.",
-  },
-  {
-    title: "Kancelářský prostor",
-    meta: "Open space · 120 m²",
-    tag: "Průsvitný + LED",
-    gradient: "from-[#0f1208] to-[#141a0a]",
-    description:
-      "Průsvitný strop s integrovaným LED podsvícením pro rovnoměrné osvětlení celého open space kancelářského prostoru.",
-  },
-  {
-    title: "Restaurace Frýdek",
-    meta: "Hlavní sál · 65 m²",
-    tag: "Metalický",
-    gradient: "from-[#1a0e08] to-[#120a06]",
-    description:
-      "Metalický strop v hlavním sálu restaurace. Prémiový dojem, který podtrhuje atmosféru celého prostoru.",
-  },
-  {
-    title: "Bytový komplex",
-    meta: "Chodba · 18 m²",
-    tag: "Matný + tisk",
-    gradient: "from-[#0a1212] to-[#081010]",
-    description:
-      "Matný strop s vlastním potiskem pro společné prostory bytového komplexu. Odolný a snadno udržovatelný.",
   },
   {
     title: "Wellness centrum",
     meta: "Recepce · 40 m²",
     tag: "Saténový",
-    gradient: "from-[#100d1a] to-[#0e0b16]",
-    description:
-      "Saténový povrch pro recepci wellness centra. Jemný lesk dodává prostoru eleganci a profesionalitu.",
-  },
-  {
-    title: "Prodejna Opava",
-    meta: "Prodejní plocha · 55 m²",
-    tag: "Vlastní potisk",
-    gradient: "from-[#1a1008] to-[#14100a]",
-    description:
-      "Strop s vlastním potiskem loga a brandingu prodejny. Unikátní řešení pro komerční prostory.",
-  },
-  {
-    title: "Rodinný dům Havířov",
-    meta: "Koupelna · 12 m²",
-    tag: "Lesklý + LED",
     gradient: "from-[#0d1218] to-[#080d12]",
     description:
-      "Lesklý strop s LED bodovými světly v koupelně. Odolnost proti vlhkosti a moderní vzhled.",
+      "Saténový povrch pro recepci wellness centra. Jemný lesk dodává prostoru eleganci a profesionalitu.",
   },
   {
     title: "Hotel Ostrava",

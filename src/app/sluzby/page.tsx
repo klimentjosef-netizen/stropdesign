@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
@@ -15,7 +16,7 @@ export default function SluzbyPage() {
     <>
       {/* Hero */}
       <section className="py-20 lg:py-28 px-6 lg:px-10 border-b border-border">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <RevealOnScroll>
             <SectionEyebrow text="Co nabízíme" />
             <h1 className="font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.1] mb-6 text-heading">
@@ -27,6 +28,18 @@ export default function SluzbyPage() {
               Široký výběr povrchů a barev. Každý typ má specifické vlastnosti
               a vizuální efekt. Poradíme vám s výběrem na míru.
             </p>
+          </RevealOnScroll>
+          <RevealOnScroll delay={200}>
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-border">
+              <Image
+                src="/images/hero-kitchen.jpg"
+                alt="Moderní kuchyně s napínaným stropem a LED osvětlením"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            </div>
           </RevealOnScroll>
         </div>
       </section>
