@@ -130,13 +130,28 @@ export default function Surfaces() {
                       </div>
                       <div className="px-2.5 py-2">
                         <span
-                          className="text-[10px] tracking-[0.05em] transition-colors duration-200"
+                          className="text-[10px] tracking-[0.05em] transition-colors duration-200 block"
                           style={{
                             color: isHovered || isSelected ? surface.accent : undefined,
                             fontWeight: isHovered || isSelected ? 500 : 400,
                           }}
                         >
                           {surface.name}
+                        </span>
+                        <span
+                          className="flex items-center gap-1 text-[8px] tracking-[0.04em] transition-all duration-250 overflow-hidden"
+                          style={{
+                            color: surface.accent,
+                            opacity: isHovered && !isSelected ? 1 : 0,
+                            maxHeight: isHovered && !isSelected ? "16px" : "0",
+                            marginTop: isHovered && !isSelected ? "2px" : "0",
+                          }}
+                        >
+                          <svg width="7" height="7" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                            <circle cx="5" cy="5" r="4" />
+                            <path d="M5 3.5v1.5M5 6.5v.01" />
+                          </svg>
+                          Zobrazit detail
                         </span>
                       </div>
                     </div>
