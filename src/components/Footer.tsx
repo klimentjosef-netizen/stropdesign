@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -11,13 +12,8 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
             {/* Brand */}
             <div>
-              <Link href="/" className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-white flex items-center justify-center">
-                  <span className="font-display text-[18px] font-bold text-dark leading-none">N</span>
-                </div>
-                <span className="text-accent text-[11px] font-semibold tracking-[0.18em] uppercase">
-                  Strop Design
-                </span>
+              <Link href="/">
+                <Logo variant="light" size={34} showUrl />
               </Link>
               <p className="mt-4 text-sm text-white/50 leading-relaxed">
                 Designové stropní podhledy formou napínaných stropů v Ostravě a okolí.

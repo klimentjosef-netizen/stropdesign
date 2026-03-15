@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "./Logo";
 
 const navLinks = [
   { label: "O nás", href: "/o-nas" },
@@ -18,16 +19,8 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-[68px]">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 bg-heading flex items-center justify-center relative overflow-hidden">
-            <span className="font-display text-[18px] font-bold text-white leading-none">N</span>
-            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent transition-transform duration-300 origin-left group-hover:scale-x-100 scale-x-0" />
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="text-accent text-[11px] font-semibold tracking-[0.18em] uppercase">
-              Strop Design
-            </span>
-          </div>
+        <Link href="/">
+          <Logo variant="dark" size={34} />
         </Link>
 
         {/* Desktop links */}
