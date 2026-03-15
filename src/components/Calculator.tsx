@@ -495,7 +495,7 @@ export default function Calculator() {
           width: 18px;
           height: 18px;
           background: white;
-          border: 2px solid #C5A55A;
+          border: 2px solid #C49A30;
           border-radius: 50%;
           cursor: grab;
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
@@ -503,25 +503,25 @@ export default function Calculator() {
         }
         .calc-range::-webkit-slider-thumb:hover {
           transform: scale(1.2);
-          box-shadow: 0 2px 8px rgba(197, 165, 90, 0.3);
+          box-shadow: 0 2px 8px rgba(196, 154, 48, 0.3);
         }
         .calc-range::-webkit-slider-thumb:active {
           cursor: grabbing;
           transform: scale(1.15);
-          box-shadow: 0 2px 12px rgba(197, 165, 90, 0.4);
+          box-shadow: 0 2px 12px rgba(196, 154, 48, 0.4);
         }
         .calc-range::-moz-range-thumb {
           width: 18px;
           height: 18px;
           background: white;
-          border: 2px solid #C5A55A;
+          border: 2px solid #C49A30;
           border-radius: 50%;
           cursor: grab;
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
         }
         .calc-range::-moz-range-thumb:hover {
           transform: scale(1.2);
-          box-shadow: 0 2px 8px rgba(197, 165, 90, 0.3);
+          box-shadow: 0 2px 8px rgba(196, 154, 48, 0.3);
         }
         .calc-range::-moz-range-track {
           background: transparent;

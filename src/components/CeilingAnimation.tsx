@@ -55,7 +55,7 @@ export default function CeilingAnimation() {
       ctx.fillRect(fR - 1, fT, 5, fH);
 
       // Corner dots
-      ctx.fillStyle = "rgba(197, 165, 90, 0.7)";
+      ctx.fillStyle = "rgba(196, 154, 48, 0.7)";
       [[fL, fT], [fR, fT], [fL, fB], [fR, fB]].forEach(([x, y]) => {
         ctx.beginPath();
         ctx.arc(x, y, 3, 0, Math.PI * 2);
@@ -136,16 +136,16 @@ export default function CeilingAnimation() {
 
         // Glow
         const glow = ctx.createRadialGradient(x, y, 0, x, y, 18);
-        glow.addColorStop(0, `rgba(197, 165, 90, ${0.25 * pulse})`);
-        glow.addColorStop(0.5, `rgba(197, 165, 90, ${0.08 * pulse})`);
-        glow.addColorStop(1, "rgba(197, 165, 90, 0)");
+        glow.addColorStop(0, `rgba(196, 154, 48, ${0.25 * pulse})`);
+        glow.addColorStop(0.5, `rgba(196, 154, 48, ${0.08 * pulse})`);
+        glow.addColorStop(1, "rgba(196, 154, 48, 0)");
         ctx.fillStyle = glow;
         ctx.fillRect(x - 22, y - 22, 44, 44);
 
         // Dot
         ctx.beginPath();
         ctx.arc(x, y, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(197, 165, 90, ${0.8 * pulse})`;
+        ctx.fillStyle = `rgba(196, 154, 48, ${0.8 * pulse})`;
         ctx.fill();
       });
 
