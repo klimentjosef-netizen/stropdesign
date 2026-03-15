@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 import { surfaces } from "@/data/products";
@@ -45,6 +46,7 @@ const minPrice = Math.min(...surfaces.map((s) => s.price));
 const maxPrice = Math.max(...surfaces.map((s) => s.price));
 
 export default function Calculator() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSurface, setSelectedSurface] = useState(0);
   const [area, setArea] = useState(24);
@@ -592,12 +594,32 @@ export default function Calculator() {
                   </div>
                 )}
 
-                <a
-                  href="/kontakt"
+                <button
+                  onClick={() => {
+                    const selectedAddons = Array.from(addons)
+                      .map((i) => addonsList[i].name)
+                      .join(", ");
+                    const room = `${surfaces[selectedSurface].name} povrch, ${area} m²`;
+                    const lines = [
+                      `Povrch: ${surfaces[selectedSurface].name} (${pricePerSqm} Kč/m²)`,
+                      `Plocha: ${area} m²`,
+                      lights > 0 ? `Bodová světla: ${lights} ks` : "",
+                      selectedAddons ? `Doplňky: ${selectedAddons}` : "",
+                      `Orientační cena: ${total.toLocaleString("cs-CZ")} Kč`,
+                    ]
+                      .filter(Boolean)
+                      .join("\n");
+                    const params = new URLSearchParams({
+                      room,
+                      message: `Poptávka z kalkulačky:\n${lines}`,
+                    });
+                    setIsOpen(false);
+                    router.push(`/kontakt?${params.toString()}`);
+                  }}
                   className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-sm"
                 >
                   Poptat tento strop →
-                </a>
+                </button>
                 <p className="text-muted text-[9px] text-center mt-2.5 leading-[1.5]">
                   Přesná nabídka s fixní cenou do 24 hodin.
                 </p>

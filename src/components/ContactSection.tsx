@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 
 const inputClass =
-  "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(46,204,113,0.1)] hover:border-border-dark rounded-sm";
+  "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(196,154,48,0.1)] hover:border-border-dark rounded-sm";
 
-export default function ContactSection() {
+function ContactForm() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -16,11 +18,83 @@ export default function ContactSection() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  // Prefill from calculator URL params
+  useEffect(() => {
+    const calcRoom = searchParams.get("room");
+    const calcMessage = searchParams.get("message");
+    if (calcRoom || calcMessage) {
+      setFormData((prev) => ({
+        ...prev,
+        room: calcRoom || prev.room,
+        message: calcMessage || prev.message,
+      }));
+    }
+  }, [searchParams]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
 
+  if (submitted) {
+    return (
+      <div className="bg-white border border-accent/20 rounded-sm p-10 text-center">
+        <div className="w-12 h-12 border-2 border-accent rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 className="font-display text-xl font-semibold mb-2 text-heading">Děkujeme za poptávku!</h3>
+        <p className="text-body text-sm font-light">
+          Ozveme se vám do 24 hodin s nabídkou na míru.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <input
+        type="text"
+        placeholder="Jméno a příjmení"
+        required
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        className={inputClass}
+      />
+      <input
+        type="tel"
+        placeholder="Telefon"
+        required
+        value={formData.phone}
+        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+        className={inputClass}
+      />
+      <input
+        type="text"
+        placeholder="Typ místnosti a přibližná plocha"
+        value={formData.room}
+        onChange={(e) => setFormData({ ...formData, room: e.target.value })}
+        className={inputClass}
+      />
+      <textarea
+        placeholder="Zpráva (nepovinné)"
+        rows={4}
+        value={formData.message}
+        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+        className={`${inputClass} resize-y min-h-[90px]`}
+      />
+      <button
+        type="submit"
+        className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-sm"
+      >
+        Odeslat poptávku
+      </button>
+    </form>
+  );
+}
+
+export default function ContactSection() {
   return (
     <section className="bg-light-secondary border-t border-border py-14 lg:py-20 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -57,58 +131,9 @@ export default function ContactSection() {
         </RevealOnScroll>
 
         <RevealOnScroll delay={200}>
-          {submitted ? (
-            <div className="bg-white border border-accent/20 rounded-sm p-10 text-center">
-              <div className="w-12 h-12 border-2 border-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="font-display text-xl font-semibold mb-2 text-heading">Děkujeme za poptávku!</h3>
-              <p className="text-body text-sm font-light">
-                Ozveme se vám do 24 hodin s nabídkou na míru.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-              <input
-                type="text"
-                placeholder="Jméno a příjmení"
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={inputClass}
-              />
-              <input
-                type="tel"
-                placeholder="Telefon"
-                required
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={inputClass}
-              />
-              <input
-                type="text"
-                placeholder="Typ místnosti a přibližná plocha"
-                value={formData.room}
-                onChange={(e) => setFormData({ ...formData, room: e.target.value })}
-                className={inputClass}
-              />
-              <textarea
-                placeholder="Zpráva (nepovinné)"
-                rows={3}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className={`${inputClass} resize-y min-h-[90px]`}
-              />
-              <button
-                type="submit"
-                className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-sm"
-              >
-                Odeslat poptávku
-              </button>
-            </form>
-          )}
+          <Suspense fallback={<div className="h-[300px]" />}>
+            <ContactForm />
+          </Suspense>
         </RevealOnScroll>
       </div>
     </section>
