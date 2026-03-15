@@ -4,6 +4,7 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import { steps } from "@/data/steps";
 import { faqs } from "@/data/faq";
+import { comparisonRows } from "@/data/comparison";
 
 export const metadata: Metadata = {
   title: "Jak to funguje | StropDesign",
@@ -69,6 +70,59 @@ export default function PostupPage() {
               </div>
             </RevealOnScroll>
           ))}
+        </div>
+      </section>
+
+      {/* Comparison */}
+      <section className="py-16 lg:py-24 px-6 lg:px-10 border-t border-border">
+        <div className="max-w-4xl mx-auto">
+          <RevealOnScroll>
+            <SectionEyebrow text="Srovnání" />
+            <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] mb-10 text-heading">
+              Napínaný strop vs. sádrokarton
+            </h2>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b-2 border-accent/30">
+                    <th className="text-left py-3 pr-4 font-display font-semibold text-heading text-[13px]">
+                      Vlastnost
+                    </th>
+                    <th className="text-left py-3 px-4 font-display font-semibold text-accent text-[13px]">
+                      Napínaný strop
+                    </th>
+                    <th className="text-left py-3 pl-4 font-display font-semibold text-muted text-[13px]">
+                      Sádrokarton
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row, i) => (
+                    <tr key={i} className="border-b border-border">
+                      <td className="py-3.5 pr-4 font-medium text-heading text-[13px]">
+                        {row.feature}
+                      </td>
+                      <td className="py-3.5 px-4 text-body text-[13px]">
+                        <span className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                          {row.strop}
+                        </span>
+                      </td>
+                      <td className="py-3.5 pl-4 text-muted text-[13px]">
+                        <span className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
+                          {row.sdk}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 
