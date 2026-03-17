@@ -6,7 +6,7 @@ import References from "@/components/References";
 import Testimonials from "@/components/Testimonials";
 import ContactSection from "@/components/ContactSection";
 
-export default function Home() {
+export default function HomeEN() {
   return (
     <>
       <Hero />

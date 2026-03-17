@@ -6,7 +6,7 @@ import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 
 const inputClass =
-  "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(196,154,48,0.1)] hover:border-border-dark rounded-sm";
+  "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.1)] hover:border-border-dark rounded-sm";
 
 function ContactForm() {
   const searchParams = useSearchParams();
@@ -17,6 +17,8 @@ function ContactForm() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   // Prefill from calculator URL params
   useEffect(() => {
@@ -31,9 +33,29 @@ function ContactForm() {
     }
   }, [searchParams]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Chyba při odesílání.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Nepodařilo se odeslat formulář.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (submitted) {
@@ -84,11 +106,15 @@ function ContactForm() {
         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
         className={`${inputClass} resize-y min-h-[90px]`}
       />
+      {error && (
+        <p className="text-red-600 text-sm font-light">{error}</p>
+      )}
       <button
         type="submit"
-        className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-sm"
+        disabled={sending}
+        className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-sm disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Odeslat poptávku
+        {sending ? "Odesílám…" : "Odeslat poptávku"}
       </button>
     </form>
   );

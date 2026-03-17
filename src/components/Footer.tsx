@@ -31,6 +31,7 @@ export default function Footer() {
                   { label: "Co nabízíme", href: "/sluzby" },
                   { label: "Jak to funguje", href: "/postup" },
                   { label: "Reference", href: "/reference" },
+                  { label: "Blog", href: "/blog" },
                 ].map((link) => (
                   <li key={link.href}>
                     <Link

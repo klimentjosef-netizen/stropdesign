@@ -14,7 +14,7 @@ export const surfaces: Surface[] = [
     name: "Matný",
     slug: "matny",
     color: "#E8E8E8",
-    accent: "#C49A30",
+    accent: "#847631",
     price: 600,
     priceLabel: "od 600 Kč/m²",
     description:

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
-import { references } from "@/data/references";
+import ReferenceGrid from "@/components/ReferenceGrid";
 
 export const metadata: Metadata = {
   title: "Reference | StropDesign",
@@ -25,40 +25,15 @@ export default function ReferencePage() {
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
               Každý projekt je originál. Podívejte se na naše dokončené realizace
-              v Ostravě a okolí.
+              v Ostravě a okolí. Klikněte na fotku pro zvětšení.
             </p>
           </RevealOnScroll>
         </div>
       </section>
 
-      {/* Grid */}
+      {/* Grid with Lightbox */}
       <section className="py-16 lg:py-24 px-6 lg:px-10 bg-light-secondary">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {references.map((ref, i) => (
-            <RevealOnScroll key={ref.title} delay={i * 80}>
-              <div className="bg-white border border-border overflow-hidden group hover:border-accent/30 transition-colors duration-300 rounded-sm">
-                <div
-                  className={`h-48 relative overflow-hidden flex items-end p-4 bg-gradient-to-br ${ref.gradient}`}
-                >
-                  <div className="bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium">
-                    {ref.tag}
-                  </div>
-                </div>
-                <div className="p-6 border-t border-border">
-                  <h3 className="font-display text-lg font-medium text-heading mb-1 group-hover:text-accent transition-colors">
-                    {ref.title}
-                  </h3>
-                  <p className="text-muted text-[11px] tracking-[0.04em] mb-3">
-                    {ref.meta}
-                  </p>
-                  <p className="text-body text-sm leading-[1.6] font-light">
-                    {ref.description}
-                  </p>
-                </div>
-              </div>
-            </RevealOnScroll>
-          ))}
-        </div>
+        <ReferenceGrid />
       </section>
 
       {/* CTA */}

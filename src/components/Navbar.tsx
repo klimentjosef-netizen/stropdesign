@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "./Logo";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const navLinks = [
   { label: "O nás", href: "/o-nas" },
   { label: "Co nabízíme", href: "/sluzby" },
   { label: "Jak to funguje", href: "/postup" },
   { label: "Reference", href: "/reference" },
+  { label: "Blog", href: "/blog" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
@@ -37,13 +39,16 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <Link
-          href="/kontakt"
-          className="hidden lg:inline-block bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200"
-        >
-          Poptávka zdarma
-        </Link>
+        {/* CTA + Language */}
+        <div className="hidden lg:flex items-center gap-4">
+          <LanguageSwitcher />
+          <Link
+            href="/kontakt"
+            className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200"
+          >
+            Poptávka zdarma
+          </Link>
+        </div>
 
         {/* Mobile hamburger */}
         <button
