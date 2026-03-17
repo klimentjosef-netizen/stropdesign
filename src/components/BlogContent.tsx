@@ -61,7 +61,6 @@ const components = {
 export default function BlogContent({ content }: { content: string }) {
   return (
     <article className="prose-custom">
-      {/* @ts-expect-error RSC MDX component */}
       <MDXRemote source={content} components={components} />
     </article>
   );
