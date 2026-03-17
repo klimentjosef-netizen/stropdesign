@@ -4,71 +4,56 @@ import { useState, useEffect, useCallback } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 
-/* ── Typy ──────────────────────────────── */
-
-interface DisplayReview {
+interface Testimonial {
   name: string;
   text: string;
   rating: number;
   subtitle: string;
-  photoUrl?: string;
-  source: "google" | "static";
 }
 
-/* ── Statické fallback recenze (zobrazí se, než se načtou Google recenze,
-      nebo pokud API klíč není nastavený) ──── */
-
-const fallbackReviews: DisplayReview[] = [
+const testimonials: Testimonial[] = [
   {
     name: "Martin K.",
     text: "Skvělá práce, rychlá montáž bez prachu. Strop vypadá naprosto luxusně a hlavně — celá realizace proběhla přesně podle domluvy. Doporučuji každému.",
     rating: 5,
     subtitle: "Ostrava-Poruba · Matný + LED pásky",
-    source: "static",
   },
   {
     name: "Jana M.",
     text: "Nechali jsme si udělat napínaný strop do koupelny s potiskem oblohy. Výsledek předčil očekávání. Koupelna teď vypadá jako ze showroomu.",
     rating: 5,
     subtitle: "Frýdek-Místek · Vlastní tisk",
-    source: "static",
   },
   {
     name: "Petr V.",
     text: "Profesionální přístup od konzultace po montáž. Ocenili jsme zejména pomoc s výběrem povrchu a návrhem osvětlení. Cena odpovídá kvalitě.",
     rating: 5,
     subtitle: "Havířov · Saténový povrch",
-    source: "static",
   },
   {
     name: "Lucie S.",
     text: "Napínaný strop v obýváku kompletně změnil atmosféru celé místnosti. Lesklý povrch prostor opticky zvětšil. Montáž za půl dne, žádný nepořádek.",
     rating: 5,
     subtitle: "Opava · Lesklý povrch",
-    source: "static",
   },
   {
     name: "Tomáš R.",
     text: "Řešili jsme vlhký strop ve sklepě a napínaný strop byl ideální volba. Žádná kondenzace, skvěle vypadá a montáž bez komplikací.",
     rating: 5,
     subtitle: "Ostrava-Zábřeh · Matný povrch",
-    source: "static",
   },
   {
     name: "Eva D.",
     text: "Pro naši lékařskou ordinaci jsme potřebovali čisté a hygienické řešení. StropDesign dodal přesně to — akustický strop s integrovaným osvětlením.",
     rating: 5,
     subtitle: "Karviná · Akustický povrch",
-    source: "static",
   },
 ];
-
-/* ── Hvězdičky ──────────────────────────── */
 
 function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
-      {Array.from({ length: Math.round(count) }).map((_, i) => (
+      {Array.from({ length: count }).map((_, i) => (
         <svg
           key={i}
           className="w-3.5 h-3.5 text-accent"
@@ -82,8 +67,6 @@ function Stars({ count }: { count: number }) {
   );
 }
 
-/* ── Google logo ikona ──────────────────── */
-
 function GoogleIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
@@ -95,54 +78,17 @@ function GoogleIcon() {
   );
 }
 
-/* ── Hlavní komponent ───────────────────── */
+// Google Maps review link — nahraď skutečným Place ID nebo search query
+const GOOGLE_REVIEW_URL =
+  "https://www.google.com/maps/place/StropDesign+-+Nap%C3%ADnan%C3%A9+stropy/";
 
 export default function Testimonials() {
-  const [reviews, setReviews] = useState<DisplayReview[]>(fallbackReviews);
-  const [googleRating, setGoogleRating] = useState(5.0);
-  const [totalReviews, setTotalReviews] = useState(200);
-  const [isGoogle, setIsGoogle] = useState(false);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  // Načti Google recenze
-  useEffect(() => {
-    async function fetchReviews() {
-      try {
-        const res = await fetch("/api/reviews");
-        const data = await res.json();
-
-        if (data.reviews && data.reviews.length > 0 && !data.fallback) {
-          const googleReviews: DisplayReview[] = data.reviews
-            .filter((r: { text?: string }) => r.text && r.text.length > 0)
-            .map((r: { author_name: string; text: string; rating: number; relative_time_description: string; profile_photo_url?: string }) => ({
-              name: r.author_name,
-              text: r.text,
-              rating: r.rating,
-              subtitle: r.relative_time_description,
-              photoUrl: r.profile_photo_url,
-              source: "google" as const,
-            }));
-
-          if (googleReviews.length > 0) {
-            setReviews(googleReviews);
-            setGoogleRating(data.rating);
-            setTotalReviews(data.totalReviews);
-            setIsGoogle(true);
-            setActive(0);
-          }
-        }
-      } catch {
-        // Fallback zůstane — ticho
-      }
-    }
-
-    fetchReviews();
-  }, []);
-
   const next = useCallback(() => {
-    setActive((prev) => (prev + 1) % reviews.length);
-  }, [reviews.length]);
+    setActive((prev) => (prev + 1) % testimonials.length);
+  }, []);
 
   useEffect(() => {
     if (paused) return;
@@ -150,7 +96,7 @@ export default function Testimonials() {
     return () => clearInterval(timer);
   }, [paused, next]);
 
-  const t = reviews[active];
+  const t = testimonials[active];
 
   return (
     <section className="py-20 lg:py-24 px-6 lg:px-10 bg-light-secondary border-t border-border">
@@ -161,14 +107,6 @@ export default function Testimonials() {
             <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] text-heading">
               Co říkají naši zákazníci
             </h2>
-            {isGoogle && (
-              <div className="flex items-center justify-center gap-2 mt-3">
-                <GoogleIcon />
-                <span className="text-muted text-[12px] tracking-[0.04em]">
-                  Recenze z Google
-                </span>
-              </div>
-            )}
           </div>
         </RevealOnScroll>
 
@@ -180,23 +118,11 @@ export default function Testimonials() {
           >
             {/* Main testimonial card */}
             <div className="bg-white border border-border rounded-sm p-8 lg:p-10 text-center relative">
-              {/* Quote mark */}
               <div className="absolute top-4 left-6 text-accent/10 font-display text-[80px] leading-none select-none">
                 &ldquo;
               </div>
 
-              <div className="flex items-center justify-center gap-3">
-                {/* Google profile photo */}
-                {t.photoUrl && (
-                  <img
-                    src={t.photoUrl}
-                    alt={t.name}
-                    className="w-8 h-8 rounded-full"
-                    referrerPolicy="no-referrer"
-                  />
-                )}
-                <Stars count={t.rating} />
-              </div>
+              <Stars count={t.rating} />
 
               <p className="mt-6 mb-6 text-body text-[15px] leading-[1.8] font-light italic relative z-10">
                 &ldquo;{t.text}&rdquo;
@@ -210,21 +136,11 @@ export default function Testimonials() {
               <p className="text-muted text-[12px] tracking-[0.04em] mt-0.5">
                 {t.subtitle}
               </p>
-
-              {/* Google badge */}
-              {t.source === "google" && (
-                <div className="flex items-center justify-center gap-1.5 mt-3">
-                  <GoogleIcon />
-                  <span className="text-muted text-[10px] tracking-[0.04em]">
-                    Google recenze
-                  </span>
-                </div>
-              )}
             </div>
 
             {/* Dots navigation */}
             <div className="flex justify-center gap-2 mt-6">
-              {reviews.map((_, i) => (
+              {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActive(i)}
@@ -237,6 +153,29 @@ export default function Testimonials() {
                 />
               ))}
             </div>
+
+            {/* Google CTA */}
+            <div className="flex justify-center mt-8">
+              <a
+                href={GOOGLE_REVIEW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 bg-white border border-border rounded-sm px-6 py-3 hover:border-accent/30 transition-colors duration-300 group"
+              >
+                <GoogleIcon />
+                <span className="text-body text-[13px] font-medium group-hover:text-heading transition-colors">
+                  Zobrazit všechny recenze na Google
+                </span>
+                <svg
+                  className="w-3.5 h-3.5 text-muted group-hover:text-accent transition-colors"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
           </div>
         </RevealOnScroll>
 
@@ -244,8 +183,8 @@ export default function Testimonials() {
         <RevealOnScroll delay={200}>
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto text-center">
             {[
-              { value: googleRating.toFixed(1), label: "Google hodnocení" },
-              { value: `${totalReviews}+`, label: "Realizací" },
+              { value: "5.0", label: "Google hodnocení" },
+              { value: "200+", label: "Realizací" },
               { value: "100%", label: "Spokojených klientů" },
               { value: "12 let", label: "Záruka na barvu" },
             ].map((stat) => (
