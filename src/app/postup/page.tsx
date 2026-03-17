@@ -3,8 +3,8 @@ import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import { steps } from "@/data/steps";
-import { faqs } from "@/data/faq";
 import { comparisonRows } from "@/data/comparison";
+import Faq from "@/components/Faq";
 
 export const metadata: Metadata = {
   title: "Jak to funguje | StropDesign",
@@ -127,31 +127,7 @@ export default function PostupPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 lg:py-24 px-6 lg:px-10 border-t border-border">
-        <div className="max-w-3xl mx-auto">
-          <RevealOnScroll>
-            <SectionEyebrow text="Časté dotazy" />
-            <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] mb-10 text-heading">
-              Na co se nás ptáte nejčastěji
-            </h2>
-          </RevealOnScroll>
-
-          <div className="flex flex-col">
-            {faqs.map((faq, i) => (
-              <RevealOnScroll key={i} delay={i * 60}>
-                <div className="py-6 border-b border-border">
-                  <h3 className="font-display text-base font-medium mb-2 text-heading">
-                    {faq.question}
-                  </h3>
-                  <p className="text-body text-sm leading-[1.7] font-light">
-                    {faq.answer}
-                  </p>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Faq />
 
       {/* CTA */}
       <section className="py-16 lg:py-20 px-6 lg:px-10 bg-light-secondary border-t border-border">

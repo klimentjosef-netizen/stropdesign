@@ -4,6 +4,7 @@ import Surfaces from "@/components/Surfaces";
 import Calculator from "@/components/Calculator";
 import References from "@/components/References";
 import Testimonials from "@/components/Testimonials";
+import Faq from "@/components/Faq";
 import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <Calculator />
       <References />
       <Testimonials />
+      <Faq />
       <ContactSection />
     </>
   );
