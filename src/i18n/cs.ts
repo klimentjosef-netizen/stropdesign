@@ -97,7 +97,19 @@ const cs = {
     copyright: "StropDesign / Derbau s.r.o. Ostrava",
     madeBy: "Web vytvořil",
   },
-} as const;
+};
 
 export default cs;
-export type Dictionary = typeof cs;
+
+// Rekurzivní typ, který převede readonly literály na string
+type DeepStringify<T> = {
+  [K in keyof T]: T[K] extends readonly string[]
+    ? string[]
+    : T[K] extends string
+      ? string
+      : T[K] extends object
+        ? DeepStringify<T[K]>
+        : T[K];
+};
+
+export type Dictionary = DeepStringify<typeof cs>;
