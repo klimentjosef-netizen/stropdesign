@@ -30,7 +30,7 @@ export default function SluzbyPage() {
             </p>
           </RevealOnScroll>
           <RevealOnScroll delay={200}>
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-border">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border">
               <Image
                 src="/images/hero-kitchen.jpg"
                 alt="Moderní kuchyně s napínaným stropem a LED osvětlením"
@@ -49,7 +49,7 @@ export default function SluzbyPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {surfaces.map((product, i) => (
             <RevealOnScroll key={product.name} delay={i * 80}>
-              <div className="bg-white border border-border p-8 flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-sm">
+              <div className="bg-white border border-border p-8 flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl">
                 <div className="text-accent text-[10px] tracking-[0.12em] uppercase font-medium mb-4">
                   {product.priceLabel}
                 </div>
@@ -73,7 +73,7 @@ export default function SluzbyPage() {
 
                 <Link
                   href="/kontakt"
-                  className="text-center border border-accent/30 text-accent text-[10px] font-medium tracking-[0.1em] uppercase px-4 py-2.5 hover:bg-accent hover:text-white transition-all duration-200 rounded-sm"
+                  className="text-center border border-accent/30 text-accent text-[10px] font-medium tracking-[0.1em] uppercase px-4 py-2.5 hover:bg-accent hover:text-white transition-all duration-200 rounded-full"
                 >
                   Poptat tento povrch
                 </Link>
@@ -96,7 +96,7 @@ export default function SluzbyPage() {
             </p>
             <Link
               href="/kontakt"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-sm"
+              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Nezávazná poptávka
             </Link>

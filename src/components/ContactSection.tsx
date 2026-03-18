@@ -6,7 +6,7 @@ import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 
 const inputClass =
-  "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.1)] hover:border-border-dark rounded-sm";
+  "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.1)] hover:border-border-dark rounded-xl";
 
 function ContactForm() {
   const searchParams = useSearchParams();
@@ -60,7 +60,7 @@ function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="bg-white border border-accent/20 rounded-sm p-10 text-center">
+      <div className="bg-white border border-accent/20 rounded-2xl p-10 text-center">
         <div className="w-12 h-12 border-2 border-accent rounded-full flex items-center justify-center mx-auto mb-4">
           <svg className="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -112,7 +112,7 @@ function ContactForm() {
       <button
         type="submit"
         disabled={sending}
-        className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-sm disabled:opacity-60 disabled:cursor-not-allowed"
+        className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-full disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {sending ? "Odesílám…" : "Odeslat poptávku"}
       </button>

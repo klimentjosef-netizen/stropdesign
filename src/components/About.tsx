@@ -31,7 +31,7 @@ export default function About() {
           <div className="flex flex-col gap-3.5">
             {advantages.map((text, i) => (
               <div key={i} className="flex gap-3.5 items-start">
-                <div className="w-7 h-7 border border-accent/30 bg-accent-soft flex-shrink-0 flex items-center justify-center rounded-sm">
+                <div className="w-7 h-7 border border-accent/30 bg-accent-soft flex-shrink-0 flex items-center justify-center rounded-lg">
                   <div className="w-1.5 h-1.5 bg-accent rounded-full" />
                 </div>
                 <p className="text-[13px] text-body leading-[1.5] font-light">
@@ -42,7 +42,7 @@ export default function About() {
           </div>
         </RevealOnScroll>
         <RevealOnScroll delay={200}>
-          <div className="aspect-square bg-light-secondary border border-border rounded-sm relative overflow-hidden">
+          <div className="aspect-square bg-light-secondary border border-border rounded-2xl relative overflow-hidden">
             <Image
               src="/images/about-bedroom-led.jpg"
               alt="Napínaný strop s LED osvětlením v ložnici"

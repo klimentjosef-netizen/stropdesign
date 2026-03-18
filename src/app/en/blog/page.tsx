@@ -44,7 +44,7 @@ export default function BlogPageEN() {
               {posts.map((post, i) => (
                 <RevealOnScroll key={post.slug} delay={i * 80}>
                   <Link href={`/en/blog/${post.slug}`} className="block group">
-                    <article className="bg-white border border-border rounded-sm overflow-hidden hover:border-accent/30 transition-colors duration-300 h-full flex flex-col">
+                    <article className="bg-white border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-colors duration-300 h-full flex flex-col">
                       <div className="h-2 bg-gradient-to-r from-accent to-accent-hover" />
                       <div className="p-6 flex flex-col flex-1">
                         <div className="flex flex-wrap gap-2 mb-3">

@@ -84,7 +84,7 @@ export default function BlogPostPage({ params }: Props) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2.5 py-1 font-medium"
+                className="text-[10px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2.5 py-1 font-medium rounded-full"
               >
                 {tag}
               </span>
@@ -111,7 +111,7 @@ export default function BlogPostPage({ params }: Props) {
           </p>
           <Link
             href="/kontakt"
-            className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-sm"
+            className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
           >
             Nezávazná poptávka
           </Link>

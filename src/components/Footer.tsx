@@ -75,7 +75,7 @@ export default function Footer() {
               </p>
               <Link
                 href="/kontakt"
-                className="inline-block bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200"
+                className="inline-block bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200 rounded-full"
               >
                 Nezávazná poptávka
               </Link>

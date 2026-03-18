@@ -63,7 +63,7 @@ export default function Lightbox({
         </button>
 
         {/* Image */}
-        <div className="relative w-full aspect-[16/10] bg-black rounded-sm overflow-hidden">
+        <div className="relative w-full aspect-[16/10] bg-black rounded-2xl overflow-hidden">
           <Image
             src={img.src}
             alt={img.alt}

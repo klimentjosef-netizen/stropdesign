@@ -38,14 +38,14 @@ export default function ONasPage() {
             </p>
             <Link
               href="/kontakt"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-sm"
+              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Ozvěte se nám
             </Link>
           </RevealOnScroll>
 
           <RevealOnScroll delay={200}>
-            <div className="aspect-[4/3] bg-light-tertiary border border-border flex items-center justify-center relative rounded-sm">
+            <div className="aspect-[4/3] bg-light-tertiary border border-border flex items-center justify-center relative rounded-2xl">
               <div className="absolute inset-3 border border-accent/10" />
               <span className="text-muted text-[10px] tracking-[0.18em] uppercase">
                 Foto týmu
@@ -86,8 +86,8 @@ export default function ONasPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {reasons.map((reason, i) => (
               <RevealOnScroll key={reason.title} delay={i * 80}>
-                <div className="bg-light-secondary border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-sm">
-                  <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-sm">
+                <div className="bg-light-secondary border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
+                  <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
                     <div className="w-2 h-2 bg-accent rounded-full" />
                   </div>
                   <h3 className="font-display text-base font-medium mb-2 text-heading">
@@ -115,7 +115,7 @@ export default function ONasPage() {
             </p>
             <Link
               href="/kontakt"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-sm"
+              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Nezávazná poptávka
             </Link>

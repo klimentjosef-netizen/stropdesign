@@ -117,7 +117,7 @@ export default function Testimonials() {
             onMouseLeave={() => setPaused(false)}
           >
             {/* Main testimonial card */}
-            <div className="bg-white border border-border rounded-sm p-8 lg:p-10 text-center relative">
+            <div className="bg-white border border-border rounded-2xl p-8 lg:p-10 text-center relative">
               <div className="absolute top-4 left-6 text-accent/10 font-display text-[80px] leading-none select-none">
                 &ldquo;
               </div>
@@ -160,7 +160,7 @@ export default function Testimonials() {
                 href={GOOGLE_REVIEW_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 bg-white border border-border rounded-sm px-6 py-3 hover:border-accent/30 transition-colors duration-300 group"
+                className="inline-flex items-center gap-2.5 bg-white border border-border rounded-full px-6 py-3 hover:border-accent/30 transition-colors duration-300 group"
               >
                 <GoogleIcon />
                 <span className="text-body text-[13px] font-medium group-hover:text-heading transition-colors">

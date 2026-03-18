@@ -83,7 +83,7 @@ export default function BlogPostPageEN({ params }: Props) {
           </p>
           <Link
             href="/en/kontakt"
-            className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-sm"
+            className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
           >
             Free enquiry
           </Link>

@@ -101,7 +101,7 @@ export default function Surfaces() {
                     }}
                   >
                     <div
-                      className={`bg-white border rounded-sm overflow-hidden transition-all duration-200 ${
+                      className={`bg-white border rounded-xl overflow-hidden transition-all duration-200 ${
                         isSelected
                           ? "border-accent shadow-xl"
                           : isHovered
@@ -174,7 +174,7 @@ export default function Surfaces() {
               }}
             >
               <div
-                className="bg-white border border-accent/40 rounded-sm overflow-hidden relative"
+                className="bg-white border border-accent/40 rounded-2xl overflow-hidden relative"
                 style={{
                   boxShadow: "0 12px 40px -8px rgba(0,0,0,0.15), 0 4px 12px -4px rgba(197,165,90,0.12)",
                 }}

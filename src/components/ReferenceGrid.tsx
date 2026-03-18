@@ -25,7 +25,7 @@ export default function ReferenceGrid() {
         {references.map((ref, i) => (
           <RevealOnScroll key={ref.title} delay={i * 80}>
             <div
-              className={`bg-white border border-border overflow-hidden group hover:border-accent/30 transition-colors duration-300 rounded-sm ${ref.image ? "cursor-pointer" : ""}`}
+              className={`bg-white border border-border overflow-hidden group hover:border-accent/30 transition-colors duration-300 rounded-2xl ${ref.image ? "cursor-pointer" : ""}`}
               onClick={() => ref.image && openLightbox(i)}
             >
               <div
@@ -43,7 +43,7 @@ export default function ReferenceGrid() {
                 {ref.image && (
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
                 )}
-                <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium">
+                <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
                   {ref.tag}
                 </div>
                 {/* Magnify icon on hover */}

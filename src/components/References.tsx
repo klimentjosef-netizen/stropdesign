@@ -20,7 +20,7 @@ export default function References() {
             </div>
             <Link
               href="/reference"
-              className="flex-shrink-0 bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200 text-center"
+              className="flex-shrink-0 bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200 text-center rounded-full"
             >
               Zobrazit vše
             </Link>
@@ -30,7 +30,7 @@ export default function References() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {shown.map((ref, i) => (
             <RevealOnScroll key={ref.title} delay={i * 100}>
-              <div className="card-hover bg-white border border-border rounded-sm overflow-hidden cursor-pointer group hover:border-accent/30">
+              <div className="card-hover bg-white border border-border rounded-2xl overflow-hidden cursor-pointer group hover:border-accent/30">
                 <div
                   className={`h-44 relative overflow-hidden flex items-end p-3.5 ${ref.image ? "" : `bg-gradient-to-br ${ref.gradient}`}`}
                 >
@@ -44,7 +44,7 @@ export default function References() {
                     />
                   )}
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500" />
-                  <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium">
+                  <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
                     {ref.tag}
                   </div>
                 </div>

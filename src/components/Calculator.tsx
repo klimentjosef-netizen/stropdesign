@@ -109,7 +109,7 @@ export default function Calculator() {
       >
         <div className="max-w-3xl mx-auto">
           <RevealOnScroll>
-            <div className="bg-white border border-border rounded-sm overflow-hidden shadow-sm">
+            <div className="bg-white border border-border rounded-2xl overflow-hidden shadow-sm">
               <div className="p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10">
                 {/* Left - text */}
                 <div className="flex-1">
@@ -138,7 +138,7 @@ export default function Calculator() {
                   </div>
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="btn-shimmer glow-accent bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-sm whitespace-nowrap"
+                    className="btn-shimmer glow-accent bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-full whitespace-nowrap"
                   >
                     Spočítat přesnou cenu →
                   </button>
@@ -186,7 +186,7 @@ export default function Calculator() {
 
           {/* Modal content */}
           <div
-            className="relative w-full max-w-[1100px] max-h-[100dvh] overflow-y-auto bg-white mx-4 my-4 lg:my-8 rounded-sm shadow-2xl"
+            className="relative w-full max-w-[1100px] max-h-[100dvh] overflow-y-auto bg-white mx-4 my-4 lg:my-8 rounded-2xl shadow-2xl"
             style={{
               animation: "calcSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards",
             }}
@@ -237,7 +237,7 @@ export default function Calculator() {
                       <button
                         key={s.name}
                         onClick={() => setSelectedSurface(i)}
-                        className={`border text-left px-3 py-2.5 transition-all duration-200 rounded-sm relative overflow-hidden ${
+                        className={`border text-left px-3 py-2.5 transition-all duration-200 rounded-xl relative overflow-hidden ${
                           selectedSurface === i
                             ? "border-accent bg-accent-soft shadow-sm"
                             : "border-border bg-light-secondary/50 hover:border-border-dark"
@@ -292,7 +292,7 @@ export default function Calculator() {
                       Plocha stropu
                     </label>
                   </div>
-                  <div className="bg-light-secondary/50 border border-border rounded-sm p-4">
+                  <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                     <div className="flex justify-between items-baseline mb-3">
                       <span className="text-[11px] text-body">
                         Velikost místnosti
@@ -300,7 +300,7 @@ export default function Calculator() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => setArea((a) => Math.max(5, a - 1))}
-                          className="w-6 h-6 flex items-center justify-center border border-border rounded-sm text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                          className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
                         >
                           −
                         </button>
@@ -309,7 +309,7 @@ export default function Calculator() {
                         </span>
                         <button
                           onClick={() => setArea((a) => Math.min(100, a + 1))}
-                          className="w-6 h-6 flex items-center justify-center border border-border rounded-sm text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                          className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
                         >
                           +
                         </button>
@@ -348,7 +348,7 @@ export default function Calculator() {
                       Bodová světla
                     </label>
                   </div>
-                  <div className="bg-light-secondary/50 border border-border rounded-sm p-4">
+                  <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                     <div className="flex justify-between items-baseline mb-3">
                       <span className="text-[11px] text-body">
                         Počet světel (350 Kč/ks)
@@ -356,7 +356,7 @@ export default function Calculator() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => setLights((l) => Math.max(0, l - 1))}
-                          className="w-6 h-6 flex items-center justify-center border border-border rounded-sm text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                          className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
                         >
                           −
                         </button>
@@ -365,7 +365,7 @@ export default function Calculator() {
                         </span>
                         <button
                           onClick={() => setLights((l) => Math.min(20, l + 1))}
-                          className="w-6 h-6 flex items-center justify-center border border-border rounded-sm text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                          className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
                         >
                           +
                         </button>
@@ -417,7 +417,7 @@ export default function Calculator() {
                       return (
                         <div
                           key={cat}
-                          className="border border-border rounded-sm overflow-hidden"
+                          className="border border-border rounded-xl overflow-hidden"
                         >
                           <button
                             onClick={() => toggleCategory(cat)}
@@ -467,7 +467,7 @@ export default function Calculator() {
                                     onClick={() =>
                                       toggleAddon(addon.originalIndex)
                                     }
-                                    className={`flex items-center justify-between px-3 py-2 rounded-sm text-[11px] transition-all duration-200 ${
+                                    className={`flex items-center justify-between px-3 py-2 rounded-lg text-[11px] transition-all duration-200 ${
                                       isActive
                                         ? "bg-accent-soft border border-accent/30 text-heading"
                                         : "bg-light-secondary/50 border border-transparent text-body hover:bg-light-secondary"
@@ -475,7 +475,7 @@ export default function Calculator() {
                                   >
                                     <div className="flex items-center gap-2.5">
                                       <div
-                                        className={`w-3.5 h-3.5 rounded-sm border flex items-center justify-center transition-all duration-200 ${
+                                        className={`w-3.5 h-3.5 rounded border flex items-center justify-center transition-all duration-200 ${
                                           isActive
                                             ? "bg-accent border-accent"
                                             : "border-border bg-white"
@@ -520,7 +520,7 @@ export default function Calculator() {
               {/* Right: Sticky price summary */}
               <div className="p-6 lg:p-8 lg:sticky lg:top-[73px] lg:self-start">
                 <div
-                  className="h-1.5 rounded-t-sm -mx-6 lg:-mx-8 -mt-6 lg:-mt-8 mb-6"
+                  className="h-1.5 rounded-t-2xl -mx-6 lg:-mx-8 -mt-6 lg:-mt-8 mb-6"
                   style={{ background: surfaces[selectedSurface].accent }}
                 />
 
@@ -585,7 +585,7 @@ export default function Calculator() {
                       {Array.from(addons).map((i) => (
                         <span
                           key={i}
-                          className="text-[9px] bg-accent-soft text-accent px-2 py-0.5 rounded-sm"
+                          className="text-[9px] bg-accent-soft text-accent px-2 py-0.5 rounded-full"
                         >
                           {addonsList[i].name}
                         </span>
@@ -616,7 +616,7 @@ export default function Calculator() {
                     setIsOpen(false);
                     router.push(`/kontakt?${params.toString()}`);
                   }}
-                  className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-sm"
+                  className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
                 >
                   Poptat tento strop →
                 </button>

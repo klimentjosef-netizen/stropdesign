@@ -34,8 +34,8 @@ export default function KontaktPage() {
       <section className="py-12 lg:py-16 px-6 lg:px-10 bg-light-secondary border-b border-border">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
           <RevealOnScroll>
-            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-sm">
-              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-sm">
+            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
+              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
                 <div className="w-2 h-2 bg-accent rounded-full" />
               </div>
               <h3 className="font-display text-base font-medium mb-2 text-heading">
@@ -52,8 +52,8 @@ export default function KontaktPage() {
           </RevealOnScroll>
 
           <RevealOnScroll delay={100}>
-            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-sm">
-              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-sm">
+            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
+              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
                 <div className="w-2 h-2 bg-accent rounded-full" />
               </div>
               <h3 className="font-display text-base font-medium mb-2 text-heading">
@@ -70,8 +70,8 @@ export default function KontaktPage() {
           </RevealOnScroll>
 
           <RevealOnScroll delay={200}>
-            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-sm">
-              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-sm">
+            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
+              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
                 <div className="w-2 h-2 bg-accent rounded-full" />
               </div>
               <h3 className="font-display text-base font-medium mb-2 text-heading">

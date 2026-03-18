@@ -44,7 +44,7 @@ export default function Navbar() {
           <LanguageSwitcher />
           <Link
             href="/kontakt"
-            className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200"
+            className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
             Poptávka zdarma
           </Link>
@@ -94,7 +94,7 @@ export default function Navbar() {
           <Link
             href="/kontakt"
             onClick={() => setIsOpen(false)}
-            className="mt-2 text-center bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-all duration-200"
+            className="mt-2 text-center bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
             Poptávka zdarma
           </Link>
