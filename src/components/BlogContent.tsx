@@ -1,4 +1,4 @@
-"use client";
+
 
 import { MDXRemote } from "next-mdx-remote/rsc";
 
