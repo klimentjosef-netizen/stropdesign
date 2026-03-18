@@ -9,9 +9,18 @@ import { references } from "@/data/references";
 export default function ReferenceGrid() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  // Build proper alt texts for accessibility & SEO
+  const altTexts: Record<string, string> = {
+    "Moderní kuchyně s LED": "napínaný strop matný s LED páskem – kuchyně, Ostrava",
+    "Designové LED linie": "napínaný strop matný s LED liniemi – chodba, Ostrava",
+    "Strop s vlastním tiskem": "napínaný strop průsvitný s potiskem oblohy – koupelna, Frýdek-Místek",
+    "Průsvitný strop se zlatým vzorem": "napínaný strop průsvitný s potiskem – hala, Ostrava",
+    "LED kosočtverec v ložnici": "napínaný strop matný s LED designem – ložnice, Ostrava",
+  };
+
   // Only references with images can be opened in lightbox
   const lightboxImages = references
-    .map((ref, i) => (ref.image ? { src: ref.image, alt: ref.title, caption: ref.description, originalIndex: i } : null))
+    .map((ref, i) => (ref.image ? { src: ref.image, alt: altTexts[ref.title] || ref.title, caption: ref.description, originalIndex: i } : null))
     .filter((x): x is NonNullable<typeof x> => x !== null);
 
   const openLightbox = useCallback((refIndex: number) => {
@@ -29,19 +38,31 @@ export default function ReferenceGrid() {
               onClick={() => ref.image && openLightbox(i)}
             >
               <div
-                className={`h-48 relative overflow-hidden flex items-end p-4 ${ref.image ? "" : `bg-gradient-to-br ${ref.gradient}`}`}
+                className={`h-48 relative overflow-hidden flex items-end p-4 ${ref.image ? "" : "bg-[#1a1a1a]"}`}
               >
-                {ref.image && (
-                  <Image
-                    src={ref.image}
-                    alt={ref.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                )}
-                {ref.image && (
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+                {ref.image ? (
+                  <>
+                    {/* TODO: ověřit kvalitu foto – {ref.title} */}
+                    <Image
+                      src={ref.image}
+                      alt={altTexts[ref.title] || ref.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+                  </>
+                ) : (
+                  /* TODO: doplnit foto – placeholder pro realizace bez fotky */
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                    <span className="text-2xl mb-2" role="img" aria-label="fotoaparát">📷</span>
+                    <span className="text-white/60 text-[11px] font-medium tracking-[0.06em] uppercase">
+                      Foto připravujeme
+                    </span>
+                    <span className="text-white/30 text-[10px] mt-1">
+                      {ref.title}
+                    </span>
+                  </div>
                 )}
                 <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
                   {ref.tag}
