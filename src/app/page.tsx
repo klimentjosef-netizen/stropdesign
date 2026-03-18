@@ -3,8 +3,7 @@ import About from "@/components/About";
 import Surfaces from "@/components/Surfaces";
 import Calculator from "@/components/Calculator";
 import References from "@/components/References";
-import Testimonials from "@/components/Testimonials";
-import Faq from "@/components/Faq";
+import FaqAndTestimonials from "@/components/FaqAndTestimonials";
 import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
@@ -15,8 +14,7 @@ export default function Home() {
       <Surfaces />
       <Calculator />
       <References />
-      <Testimonials />
-      <Faq />
+      <FaqAndTestimonials />
       <ContactSection />
     </>
   );
