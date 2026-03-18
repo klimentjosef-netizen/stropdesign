@@ -79,22 +79,19 @@ export default function StarlightCanvas() {
 
     function buildSpots() {
       spots = [];
-      // Place ~12 static spot lights scattered across the canvas
-      // Avoid the very center (where text is) by using a margin
       const cx = W / 2, cy = H / 2;
-      const count = 12 + Math.floor(Math.random() * 4);
+      const count = 28 + Math.floor(Math.random() * 8);
       for (let i = 0; i < count; i++) {
         let x: number, y: number;
-        // Keep trying until we get a spot not too close to center text area
         do {
-          x = 60 + Math.random() * (W - 120);
-          y = 60 + Math.random() * (H - 120);
-        } while (Math.abs(x - cx) < 200 && Math.abs(y - cy) < 120);
+          x = 30 + Math.random() * (W - 60);
+          y = 30 + Math.random() * (H - 60);
+        } while (Math.abs(x - cx) < 160 && Math.abs(y - cy) < 90);
 
         spots.push({
           x, y,
           phase: Math.random() * Math.PI * 2,
-          breatheSpeed: 0.3 + Math.random() * 0.5,
+          breatheSpeed: 0.2 + Math.random() * 0.6,
           glow: 0,
         });
       }
@@ -136,9 +133,9 @@ export default function StarlightCanvas() {
         seg.glow += (hoverTarget - seg.glow) * 0.08;
 
         const pulse = 0.72 + 0.28 * Math.sin(t * seg.pulseSpeed + seg.phase);
-        const baseOp = 0.22 + seg.glow * 0.55;
+        const baseOp = 0.28 + seg.glow * 0.55;
         const finalOp = baseOp * pulse * seg.progress;
-        const lw = 1.0 + seg.glow * 1.6;
+        const lw = 1.8 + seg.glow * 2.2;
 
         const ex = a.x + (b.x - a.x) * seg.progress;
         const ey = a.y + (b.y - a.y) * seg.progress;
@@ -170,43 +167,37 @@ export default function StarlightCanvas() {
         }
       });
 
-      // Static spot lights — breathing + mouse-reactive
+      // Static spot lights — pure glow, no hard edges
       spots.forEach((spot) => {
         const { x, y, phase, breatheSpeed, glow } = spot;
 
-        // Slow breathing: 0.15–0.55 base intensity
-        const breathe = 0.15 + 0.4 * (0.5 + 0.5 * Math.sin(t * breatheSpeed + phase));
-        // Mouse boost adds up to 0.45 more
-        const intensity = breathe + glow * 0.45;
+        // Slow breathing
+        const breathe = 0.12 + 0.45 * (0.5 + 0.5 * Math.sin(t * breatheSpeed + phase));
+        const intensity = breathe + glow * 0.5;
 
-        // Outer warm glow — soft light spill
-        const outerR = 22 + glow * 18;
+        // Wide soft glow — the main light spill
+        const outerR = 30 + glow * 25;
         try {
           const gl = ctx!.createRadialGradient(x, y, 0, x, y, outerR);
-          gl.addColorStop(0, `rgba(255,220,120,${intensity * 0.2})`);
-          gl.addColorStop(0.25, `rgba(245,205,100,${intensity * 0.1})`);
-          gl.addColorStop(0.6, `rgba(212,185,110,${intensity * 0.03})`);
+          gl.addColorStop(0, `rgba(255,225,130,${intensity * 0.22})`);
+          gl.addColorStop(0.15, `rgba(255,215,110,${intensity * 0.14})`);
+          gl.addColorStop(0.4, `rgba(230,195,90,${intensity * 0.05})`);
+          gl.addColorStop(0.7, `rgba(200,175,80,${intensity * 0.015})`);
           gl.addColorStop(1, "transparent");
           ctx!.fillStyle = gl;
           ctx!.fillRect(x - outerR, y - outerR, outerR * 2, outerR * 2);
         } catch {}
 
-        // Inner core glow
-        const coreR = 3 + glow * 2;
+        // Tight bright center — no hard circle, just concentrated glow
+        const innerR = 8 + glow * 6;
         try {
-          const cg = ctx!.createRadialGradient(x, y, 0, x, y, coreR * 2);
-          cg.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.6)})`);
-          cg.addColorStop(0.5, `rgba(255,220,120,${intensity * 0.25})`);
-          cg.addColorStop(1, "transparent");
-          ctx!.fillStyle = cg;
-          ctx!.fillRect(x - coreR * 2, y - coreR * 2, coreR * 4, coreR * 4);
+          const ig = ctx!.createRadialGradient(x, y, 0, x, y, innerR);
+          ig.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.5)})`);
+          ig.addColorStop(0.3, `rgba(255,225,140,${intensity * 0.2})`);
+          ig.addColorStop(1, "transparent");
+          ctx!.fillStyle = ig;
+          ctx!.fillRect(x - innerR, y - innerR, innerR * 2, innerR * 2);
         } catch {}
-
-        // Crisp bright center dot
-        ctx!.beginPath();
-        ctx!.arc(x, y, 1.5 + glow * 1, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(255,235,170,${Math.min(1, intensity * 0.55)})`;
-        ctx!.fill();
       });
 
       // Anchor dots
