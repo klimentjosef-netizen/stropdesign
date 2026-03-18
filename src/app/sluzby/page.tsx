@@ -6,9 +6,9 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import { surfaces } from "@/data/products";
 
 export const metadata: Metadata = {
-  title: "Co nabízíme | StropDesign",
+  title: "Typy napínaných stropů | Matný, lesklý, průsvitný | StropDesign Ostrava",
   description:
-    "Napínané stropy v různých provedeních: matné, saténové, lesklé, metalické, průsvitné a s vlastním potiskem. Vyberte si povrch pro váš interiér.",
+    "Přehled všech typů napínaných stropů — od matného po vlastní tisk. Ceny od 600 Kč/m². Realizace v Ostravě a okolí.",
 };
 
 export default function SluzbyPage() {

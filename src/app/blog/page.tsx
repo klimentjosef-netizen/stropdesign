@@ -5,9 +5,9 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog | StropDesign",
+  title: "Blog o napínaných stropech | Tipy, trendy, srovnání | StropDesign",
   description:
-    "Články, tipy a novinky ze světa napínaných stropů. Poradíme vám s výběrem povrchu, osvětlením i údržbou.",
+    "Praktické rady a tipy k napínaným stropům. Srovnání se sádrokartonem, výběr osvětlení, realizace v koupelně.",
 };
 
 export default function BlogPage() {

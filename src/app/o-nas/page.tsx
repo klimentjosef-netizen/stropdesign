@@ -5,9 +5,9 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import { reasons } from "@/data/reasons";
 
 export const metadata: Metadata = {
-  title: "O nás | StropDesign",
+  title: "O nás | Specialisté na napínané stropy v Ostravě | StropDesign",
   description:
-    "Jsme StropDesign, specialisté na napínané stropy v Ostravě a okolí. Precizní práce, individuální přístup a více než 200 dokončených realizací.",
+    "StropDesign – divize Derbau s.r.o. Přes 200 realizací, záruka 12 let, vlastní montáž bez subdodavatelů. Ostrava.",
 };
 
 const stats = [
