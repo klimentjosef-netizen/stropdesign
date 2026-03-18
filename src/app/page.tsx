@@ -1,9 +1,7 @@
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Surfaces from "@/components/Surfaces";
-import Calculator from "@/components/Calculator";
 import References from "@/components/References";
-import ReviewCards from "@/components/ReviewCards";
+import Calculator from "@/components/Calculator";
+import Surfaces from "@/components/Surfaces";
 import FaqAndTestimonials from "@/components/FaqAndTestimonials";
 import ContactSection from "@/components/ContactSection";
 
@@ -40,11 +38,9 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
       <Hero />
-      <About />
-      <Surfaces />
-      <Calculator />
       <References />
-      <ReviewCards />
+      <Calculator />
+      <Surfaces />
       <FaqAndTestimonials />
       <ContactSection />
     </>
