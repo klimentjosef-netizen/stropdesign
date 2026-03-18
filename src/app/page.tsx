@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Surfaces from "@/components/Surfaces";
-import PriceCalculator from "@/components/PriceCalculator";
+import Calculator from "@/components/Calculator";
 import References from "@/components/References";
 import ReviewCards from "@/components/ReviewCards";
 import FaqAndTestimonials from "@/components/FaqAndTestimonials";
@@ -42,7 +42,7 @@ export default function Home() {
       <Hero />
       <About />
       <Surfaces />
-      <PriceCalculator />
+      <Calculator />
       <References />
       <ReviewCards />
       <FaqAndTestimonials />
