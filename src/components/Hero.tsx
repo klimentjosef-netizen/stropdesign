@@ -132,12 +132,12 @@ export default function Hero() {
           }`}
           style={{ transitionDelay: "1.1s" }}
         >
-          <Link
-            href="/kontakt"
+          <a
+            href="#kalkulacka"
             className="btn-shimmer glow-accent bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-8 py-4 hover:brightness-110 transition-all duration-200"
           >
-            Nezávazná poptávka
-          </Link>
+            Spočítat cenu
+          </a>
           <Link
             href="/reference"
             className="flex items-center gap-2.5 text-[11px] font-medium tracking-[0.06em] group transition-colors duration-200"
