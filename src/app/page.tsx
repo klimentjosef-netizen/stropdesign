@@ -38,9 +38,9 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
       <Hero />
-      <References />
-      <Calculator />
       <Surfaces />
+      <Calculator />
+      <References />
       <FaqAndTestimonials />
       <ContactSection />
     </>
