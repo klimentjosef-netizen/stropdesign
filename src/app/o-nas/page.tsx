@@ -45,11 +45,33 @@ export default function ONasPage() {
           </RevealOnScroll>
 
           <RevealOnScroll delay={200}>
-            <div className="aspect-[4/3] bg-light-tertiary border border-border flex items-center justify-center relative rounded-2xl">
-              <div className="absolute inset-3 border border-accent/10" />
-              <span className="text-muted text-[10px] tracking-[0.18em] uppercase">
-                Foto týmu
-              </span>
+            <div className="bg-light-secondary border border-border p-8 rounded-2xl">
+              <SectionEyebrow text="Tým za StropDesign" />
+
+              <div className="flex flex-col items-center text-center mt-6">
+                {/* TODO: nahradit foto majitele, jméno: [doplnit] */}
+                <div className="w-[120px] h-[120px] rounded-full bg-[#1a1a1a] flex items-center justify-center mb-5">
+                  <svg className="w-12 h-12 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                </div>
+
+                {/* TODO: doplnit jméno */}
+                <h3 className="font-display text-lg font-semibold text-heading">
+                  Zakladatel &amp; hlavní montér
+                </h3>
+                <p className="text-accent text-[11px] tracking-[0.1em] uppercase font-medium mt-1">
+                  StropDesign / Derbau s.r.o.
+                </p>
+
+                {/* TODO: upřesnit délku praxe */}
+                <p className="text-body text-sm leading-[1.7] font-light mt-4 max-w-xs">
+                  Napínaným stropům se věnuji přes X let. Každou realizaci
+                  dělám osobně — od zaměření až po předání.
+                </p>
+              </div>
+
+              {/* ⚠️ TODO: majitel dodá: 1) fotku (ideálně čtvercový formát, min 400x400px), 2) jméno, 3) délku praxe */}
             </div>
           </RevealOnScroll>
         </div>
