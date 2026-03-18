@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface LogoProps {
   variant?: "dark" | "light";
   showText?: boolean;
@@ -7,29 +9,22 @@ interface LogoProps {
 }
 
 export function LogoMark({
-  color = "#0A0A0A",
+  variant = "dark",
   size = 36,
 }: {
+  variant?: "dark" | "light";
   color?: string;
   size?: number;
 }) {
-  // Geometric "N" matching the brand logo:
-  // Two thick vertical bars connected by a diagonal from top-left to bottom-right
   return (
-    <svg
+    <Image
+      src={variant === "dark" ? "/images/logo-mark-dark.jpg" : "/images/logo-mark-light.jpg"}
+      alt="StropDesign"
       width={size}
       height={size}
-      viewBox="0 0 100 100"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Left vertical bar */}
-      <rect x="8" y="5" width="22" height="90" fill={color} />
-      {/* Diagonal from top-left to bottom-right */}
-      <polygon points="8,5 30,5 92,95 70,95" fill={color} />
-      {/* Right vertical bar */}
-      <rect x="70" y="5" width="22" height="90" fill={color} />
-    </svg>
+      className="object-contain"
+      priority
+    />
   );
 }
 
@@ -40,17 +35,12 @@ export default function Logo({
   className = "",
   size = 36,
 }: LogoProps) {
-  const nColor = variant === "dark" ? "#0A0A0A" : "#FFFFFF";
-  const textColor = variant === "dark" ? "text-accent" : "text-accent";
-
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <LogoMark color={nColor} size={size} />
+      <LogoMark variant={variant} size={size} />
       {showText && (
         <div className="flex flex-col leading-none">
-          <span
-            className={`${textColor} text-[11px] font-semibold tracking-[0.22em] uppercase`}
-          >
+          <span className="text-accent text-[11px] font-semibold tracking-[0.22em] uppercase">
             Strop Design
           </span>
           {showUrl && (

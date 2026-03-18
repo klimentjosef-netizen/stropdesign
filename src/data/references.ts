@@ -58,6 +58,7 @@ export const references: Reference[] = [
     meta: "Obývací pokoj · 28 m²",
     tag: "Lesklý povrch",
     gradient: "from-[#1a1008] to-[#14100a]",
+    image: "/images/ref-kitchen-modern.jpg",
     description:
       "Kompletní stropní řešení pro moderní obývací pokoj. Lesklý povrch opticky zvětšil prostor a dodal místnosti vzdušnost.",
   },
@@ -66,6 +67,7 @@ export const references: Reference[] = [
     meta: "Recepce · 40 m²",
     tag: "Saténový",
     gradient: "from-[#0d1218] to-[#080d12]",
+    image: "/images/ref-print-abstract.jpg",
     description:
       "Saténový povrch pro recepci wellness centra. Jemný lesk dodává prostoru eleganci a profesionalitu.",
   },
@@ -74,6 +76,7 @@ export const references: Reference[] = [
     meta: "Lobby · 85 m²",
     tag: "Průsvitný",
     gradient: "from-[#12100d] to-[#0d0b08]",
+    image: "/images/ref-hallway-lines.jpg",
     description:
       "Průsvitný strop s podsvícením v hotelové lobby. Reprezentativní řešení pro prémiové prostory.",
   },
@@ -82,6 +85,7 @@ export const references: Reference[] = [
     meta: "Čekárna · 22 m²",
     tag: "Matný",
     gradient: "from-[#0d0d14] to-[#08080f]",
+    image: "/images/ref-bedroom-rect.jpg",
     description:
       "Matný strop pro čekárnu lékařské ordinace. Čistý a profesionální vzhled s integrovaným osvětlením.",
   },
