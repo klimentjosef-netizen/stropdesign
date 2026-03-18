@@ -86,7 +86,7 @@ export default function Hero() {
             className="text-[10px] font-semibold tracking-[0.2em] uppercase"
             style={{ color: "var(--gold, #A8935A)" }}
           >
-            Ostrava a okolí
+            Realizujeme v celé ČR
           </span>
           <div className="w-10 h-px bg-accent" />
         </div>
@@ -121,8 +121,8 @@ export default function Hero() {
             maxWidth: 480,
           }}
         >
-          Designové stropní podhledy formou napínaných stropů. Precizní montáž,
-          průsvitné stropy jako noční obloha, zlaté linie jako z Rolls Royce.
+          Rychlá instalace bez prachu a nepořádku. Hladký bezešvý povrch,
+          který nepraská a nepotřebuje údržbu.
         </p>
 
         {/* CTAs */}
