@@ -8,9 +8,11 @@ interface Segment {
   progress: number; delay: number;
   glow: number; phase: number; pulseSpeed: number;
 }
-interface Drop {
-  segIdx: number; t: number;
-  speed: number; dir: number; alpha: number;
+interface SpotLight {
+  x: number; y: number;
+  phase: number;        // offset for breathing
+  breatheSpeed: number; // how fast it pulses
+  glow: number;         // current mouse-reactive glow 0–1
 }
 
 function distToSegment(
@@ -50,7 +52,7 @@ export default function StarlightCanvas() {
 
     let anchors: Anchor[] = [];
     let segments: Segment[] = [];
-    let drops: Drop[] = [];
+    let spots: SpotLight[] = [];
 
     function buildAnchors() {
       anchors = [];
@@ -75,19 +77,27 @@ export default function StarlightCanvas() {
       });
     }
 
-    function buildDrops() {
-      drops = [];
-      segments.forEach((_, i) => {
-        if (Math.random() < 0.32) {
-          drops.push({
-            segIdx: i,
-            t: Math.random(),
-            speed: 0.04 + Math.random() * 0.08,
-            dir: Math.random() < 0.5 ? 1 : -1,
-            alpha: 0.5 + Math.random() * 0.4,
-          });
-        }
-      });
+    function buildSpots() {
+      spots = [];
+      // Place ~12 static spot lights scattered across the canvas
+      // Avoid the very center (where text is) by using a margin
+      const cx = W / 2, cy = H / 2;
+      const count = 12 + Math.floor(Math.random() * 4);
+      for (let i = 0; i < count; i++) {
+        let x: number, y: number;
+        // Keep trying until we get a spot not too close to center text area
+        do {
+          x = 60 + Math.random() * (W - 120);
+          y = 60 + Math.random() * (H - 120);
+        } while (Math.abs(x - cx) < 200 && Math.abs(y - cy) < 120);
+
+        spots.push({
+          x, y,
+          phase: Math.random() * Math.PI * 2,
+          breatheSpeed: 0.3 + Math.random() * 0.5,
+          glow: 0,
+        });
+      }
     }
 
     function resize() {
@@ -95,7 +105,7 @@ export default function StarlightCanvas() {
       H = canvas!.height = window.innerHeight;
       buildAnchors();
       buildSegments();
-      buildDrops();
+      buildSpots();
     }
 
     function draw(now: number) {
@@ -103,11 +113,11 @@ export default function StarlightCanvas() {
       if (!started) { animFrame = requestAnimationFrame(draw); return; }
       const t = now / 1000;
 
-      // Update drops
-      drops.forEach((d) => {
-        d.t += d.speed * d.dir * 0.016;
-        if (d.t > 1.05) d.t = -0.05;
-        if (d.t < -0.05) d.t = 1.05;
+      // Update spot lights — mouse proximity glow
+      spots.forEach((spot) => {
+        const dist = Math.hypot(mouse.x - spot.x, mouse.y - spot.y);
+        const target = dist < 150 ? Math.pow(1 - dist / 150, 1.4) : 0;
+        spot.glow += (target - spot.glow) * 0.06;
       });
 
       // Draw segments
@@ -160,48 +170,42 @@ export default function StarlightCanvas() {
         }
       });
 
-      // Light drops — warm spotlight effect
-      drops.forEach((d) => {
-        const seg = segments[d.segIdx];
-        if (!seg || seg.progress < 0.95) return;
-        const a = anchors[seg.a];
-        const b = anchors[seg.b];
-        const dt = Math.max(0, Math.min(1, d.t));
-        const x = a.x + (b.x - a.x) * dt;
-        const y = a.y + (b.y - a.y) * dt;
+      // Static spot lights — breathing + mouse-reactive
+      spots.forEach((spot) => {
+        const { x, y, phase, breatheSpeed, glow } = spot;
 
-        const edgeFade = dt < 0.1 ? dt / 0.1 : dt > 0.9 ? (1 - dt) / 0.1 : 1;
-        const glowBoost = seg.glow;
-        const intensity = d.alpha * edgeFade * (0.45 + glowBoost * 0.55);
-        if (intensity < 0.02) return;
+        // Slow breathing: 0.15–0.55 base intensity
+        const breathe = 0.15 + 0.4 * (0.5 + 0.5 * Math.sin(t * breatheSpeed + phase));
+        // Mouse boost adds up to 0.45 more
+        const intensity = breathe + glow * 0.45;
 
-        // Outer warm glow — like light spilling from a spot
-        const outerR = 18 + glowBoost * 10;
+        // Outer warm glow — soft light spill
+        const outerR = 22 + glow * 18;
         try {
           const gl = ctx!.createRadialGradient(x, y, 0, x, y, outerR);
-          gl.addColorStop(0, `rgba(255,220,120,${intensity * 0.18})`);
-          gl.addColorStop(0.3, `rgba(240,200,100,${intensity * 0.08})`);
-          gl.addColorStop(0.7, `rgba(212,185,110,${intensity * 0.025})`);
+          gl.addColorStop(0, `rgba(255,220,120,${intensity * 0.2})`);
+          gl.addColorStop(0.25, `rgba(245,205,100,${intensity * 0.1})`);
+          gl.addColorStop(0.6, `rgba(212,185,110,${intensity * 0.03})`);
           gl.addColorStop(1, "transparent");
           ctx!.fillStyle = gl;
           ctx!.fillRect(x - outerR, y - outerR, outerR * 2, outerR * 2);
         } catch {}
 
-        // Inner bright core
-        const coreR = 2.0 + glowBoost * 1.2;
+        // Inner core glow
+        const coreR = 3 + glow * 2;
         try {
-          const cg = ctx!.createRadialGradient(x, y, 0, x, y, coreR * 2.5);
-          cg.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.7)})`);
-          cg.addColorStop(0.4, `rgba(255,220,120,${intensity * 0.35})`);
+          const cg = ctx!.createRadialGradient(x, y, 0, x, y, coreR * 2);
+          cg.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.6)})`);
+          cg.addColorStop(0.5, `rgba(255,220,120,${intensity * 0.25})`);
           cg.addColorStop(1, "transparent");
           ctx!.fillStyle = cg;
-          ctx!.fillRect(x - coreR * 2.5, y - coreR * 2.5, coreR * 5, coreR * 5);
+          ctx!.fillRect(x - coreR * 2, y - coreR * 2, coreR * 4, coreR * 4);
         } catch {}
 
-        // Crisp dot center
+        // Crisp bright center dot
         ctx!.beginPath();
-        ctx!.arc(x, y, coreR * 0.6, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(255,235,170,${Math.min(1, intensity * 0.6)})`;
+        ctx!.arc(x, y, 1.5 + glow * 1, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(255,235,170,${Math.min(1, intensity * 0.55)})`;
         ctx!.fill();
       });
 
