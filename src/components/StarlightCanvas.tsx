@@ -126,9 +126,9 @@ export default function StarlightCanvas() {
         seg.glow += (hoverTarget - seg.glow) * 0.08;
 
         const pulse = 0.72 + 0.28 * Math.sin(t * seg.pulseSpeed + seg.phase);
-        const baseOp = 0.09 + seg.glow * 0.55;
+        const baseOp = 0.22 + seg.glow * 0.55;
         const finalOp = baseOp * pulse * seg.progress;
-        const lw = 0.6 + seg.glow * 1.4;
+        const lw = 1.0 + seg.glow * 1.6;
 
         const ex = a.x + (b.x - a.x) * seg.progress;
         const ey = a.y + (b.y - a.y) * seg.progress;
@@ -160,7 +160,7 @@ export default function StarlightCanvas() {
         }
       });
 
-      // Light drops
+      // Light drops — warm spotlight effect
       drops.forEach((d) => {
         const seg = segments[d.segIdx];
         if (!seg || seg.progress < 0.95) return;
@@ -172,21 +172,36 @@ export default function StarlightCanvas() {
 
         const edgeFade = dt < 0.1 ? dt / 0.1 : dt > 0.9 ? (1 - dt) / 0.1 : 1;
         const glowBoost = seg.glow;
-        const a2 = d.alpha * edgeFade * (0.35 + glowBoost * 0.65);
-        if (a2 < 0.02) return;
+        const intensity = d.alpha * edgeFade * (0.45 + glowBoost * 0.55);
+        if (intensity < 0.02) return;
 
-        const r = 1.2 + glowBoost * 1.5;
+        // Outer warm glow — like light spilling from a spot
+        const outerR = 18 + glowBoost * 10;
         try {
-          const gl = ctx!.createRadialGradient(x, y, 0, x, y, r * 6);
-          gl.addColorStop(0, `rgba(212,185,110,${a2 * 0.6})`);
+          const gl = ctx!.createRadialGradient(x, y, 0, x, y, outerR);
+          gl.addColorStop(0, `rgba(255,220,120,${intensity * 0.18})`);
+          gl.addColorStop(0.3, `rgba(240,200,100,${intensity * 0.08})`);
+          gl.addColorStop(0.7, `rgba(212,185,110,${intensity * 0.025})`);
           gl.addColorStop(1, "transparent");
           ctx!.fillStyle = gl;
-          ctx!.fillRect(x - r * 6, y - r * 6, r * 12, r * 12);
+          ctx!.fillRect(x - outerR, y - outerR, outerR * 2, outerR * 2);
         } catch {}
 
+        // Inner bright core
+        const coreR = 2.0 + glowBoost * 1.2;
+        try {
+          const cg = ctx!.createRadialGradient(x, y, 0, x, y, coreR * 2.5);
+          cg.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.7)})`);
+          cg.addColorStop(0.4, `rgba(255,220,120,${intensity * 0.35})`);
+          cg.addColorStop(1, "transparent");
+          ctx!.fillStyle = cg;
+          ctx!.fillRect(x - coreR * 2.5, y - coreR * 2.5, coreR * 5, coreR * 5);
+        } catch {}
+
+        // Crisp dot center
         ctx!.beginPath();
-        ctx!.arc(x, y, r, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(235,210,150,${Math.min(1, a2)})`;
+        ctx!.arc(x, y, coreR * 0.6, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(255,235,170,${Math.min(1, intensity * 0.6)})`;
         ctx!.fill();
       });
 
@@ -196,9 +211,9 @@ export default function StarlightCanvas() {
         segments.forEach((s) => {
           if ((s.a === i || s.b === i) && s.glow > maxGlow) maxGlow = s.glow;
         });
-        const aOp = 0.12 + maxGlow * 0.65;
+        const aOp = 0.25 + maxGlow * 0.65;
         ctx!.beginPath();
-        ctx!.arc(a.x, a.y, 1.2 + maxGlow * 2, 0, Math.PI * 2);
+        ctx!.arc(a.x, a.y, 1.5 + maxGlow * 2.5, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(168,147,90,${aOp})`;
         ctx!.fill();
       });
