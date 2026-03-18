@@ -5,6 +5,7 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import { steps } from "@/data/steps";
 import { comparisonRows } from "@/data/comparison";
 import Faq from "@/components/Faq";
+import { faqs } from "@/data/faq";
 
 export const metadata: Metadata = {
   title: "Jak to funguje | StropDesign",
@@ -12,9 +13,26 @@ export const metadata: Metadata = {
     "Postup montáže napínaného stropu ve 3 krocích. Od první konzultace po finální předání. Čistá montáž bez prachu.",
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((faq) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer,
+    },
+  })),
+};
+
 export default function PostupPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       {/* Hero */}
       <section className="py-20 lg:py-28 px-6 lg:px-10 border-b border-border">
         <div className="max-w-7xl mx-auto">
