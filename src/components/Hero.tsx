@@ -1,189 +1,213 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import CeilingAnimation from "./CeilingAnimation";
+import { useEffect, useState, useRef } from "react";
+import StarlightCanvas from "./StarlightCanvas";
+
+function useCounter(target: number, suffix: string, decimals: boolean, delay: number) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const timer = setTimeout(() => {
+      const dur = 1800;
+      const start = performance.now();
+
+      function update(now: number) {
+        const p = Math.min(1, (now - start) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+
+        if (decimals) {
+          el!.textContent = (e * target).toFixed(1);
+        } else {
+          el!.textContent = Math.round(e * target) + suffix;
+        }
+        if (target === 200 && p >= 1) el!.textContent = "200+";
+        if (p < 1) requestAnimationFrame(update);
+      }
+
+      requestAnimationFrame(update);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [target, suffix, decimals, delay]);
+
+  return ref;
+}
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+
+  const s1 = useCounter(200, "", false, 1500);
+  const s2 = useCounter(7, " dní", false, 1600);
+  const s3 = useCounter(5.0, "", true, 1700);
 
   useEffect(() => {
     setLoaded(true);
   }, []);
 
   return (
-    <section className="relative min-h-[92vh] grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
-      {/* Left content */}
-      <div className="relative flex flex-col justify-center px-6 lg:px-16 py-20 lg:py-24 z-10">
-        {/* Animated dot grid background */}
+    <section
+      className="relative w-full overflow-hidden flex items-center justify-center"
+      style={{ height: "100vh", background: "#F7F4EE" }}
+    >
+      {/* Dot grid */}
+      <div
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-[2s] ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(0,0,0,0.048) 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+          zIndex: 0,
+        }}
+      />
+
+      {/* Canvas lines */}
+      <StarlightCanvas />
+
+      {/* Center content */}
+      <div
+        className="relative flex flex-col items-center text-center px-8"
+        style={{ zIndex: 10, maxWidth: 720 }}
+      >
+        {/* Eyebrow */}
         <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-[2s] ${
-            loaded ? "opacity-20" : "opacity-0"
+          className={`flex items-center gap-3.5 mb-7 transition-all duration-800 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "0.5s" }}
+        >
+          <div className="w-10 h-px bg-accent" />
+          <span
+            className="text-[10px] font-semibold tracking-[0.2em] uppercase"
+            style={{ color: "var(--gold, #A8935A)" }}
+          >
+            Ostrava a okolí
+          </span>
+          <div className="w-10 h-px bg-accent" />
+        </div>
+
+        {/* Heading */}
+        <h1
+          className={`font-display font-bold leading-[1.06] tracking-tight mb-5 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
           style={{
-            backgroundImage:
-              "radial-gradient(circle, #222 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
+            transitionDelay: "0.7s",
+            fontSize: "clamp(48px, 5.5vw, 82px)",
+            color: "#111",
           }}
-        />
+        >
+          Napínané stropy,
+          <br />
+          které <em className="italic text-accent">promění</em>
+          <br />
+          váš interiér.
+        </h1>
 
-        <div className="relative">
-          {/* Eyebrow with line grow animation */}
-          <div
-            className={`flex items-center gap-3 mb-7 transition-all duration-700 ${
-              loaded
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-6"
-            }`}
-            style={{ transitionDelay: "0.3s" }}
+        {/* Subtitle */}
+        <p
+          className={`font-light leading-[1.8] mb-10 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{
+            transitionDelay: "0.9s",
+            fontSize: 14,
+            color: "#666",
+            maxWidth: 480,
+          }}
+        >
+          Designové stropní podhledy formou napínaných stropů. Precizní montáž,
+          průsvitné stropy jako noční obloha, zlaté linie jako z Rolls Royce.
+        </p>
+
+        {/* CTAs */}
+        <div
+          className={`flex items-center gap-5 mb-16 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "1.1s" }}
+        >
+          <Link
+            href="/kontakt"
+            className="btn-shimmer glow-accent bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-8 py-4 hover:brightness-110 transition-all duration-200"
           >
-            <div className={`h-px bg-accent ${loaded ? "animate-line-grow w-8" : "w-0"}`}
-                 style={{ animationDelay: "0.4s" }} />
-            <span className="text-accent text-[10px] font-medium tracking-[0.2em] uppercase">
-              Ostrava a okolí
-            </span>
-          </div>
-
-          {/* Heading with staggered word reveal */}
-          <h1 className="font-display text-[clamp(36px,4.5vw,58px)] font-bold leading-[1.08] tracking-tight mb-6">
-            <span
-              className={`inline-block transition-all duration-700 ${
-                loaded
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: "0.4s" }}
-            >
-              Napínané stropy,
-            </span>
-            <br />
-            <span
-              className={`inline-block transition-all duration-700 ${
-                loaded
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: "0.55s" }}
-            >
-              které{" "}
-              <em className="italic text-gradient">promění</em>
-            </span>
-            <br />
-            <span
-              className={`inline-block transition-all duration-700 ${
-                loaded
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: "0.7s" }}
-            >
-              váš interiér.
-            </span>
-          </h1>
-
-          {/* Subheadline */}
-          <p
-            className={`text-muted text-[15px] leading-[1.75] max-w-[420px] mb-10 font-light transition-all duration-700 ${
-              loaded
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-6"
-            }`}
-            style={{ transitionDelay: "0.9s" }}
+            Nezávazná poptávka
+          </Link>
+          <Link
+            href="/reference"
+            className="flex items-center gap-2.5 text-[11px] font-medium tracking-[0.06em] group transition-colors duration-200"
+            style={{ color: "#999" }}
           >
-            Designové stropní podhledy formou napínaných stropů. Precizní
-            montáž, široký výběr povrchů a dlouhá životnost bez kompromisů.
-          </p>
-
-          {/* Actions */}
-          <div
-            className={`flex flex-wrap items-center gap-6 mb-14 transition-all duration-700 ${
-              loaded
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-6"
-            }`}
-            style={{ transitionDelay: "1.05s" }}
-          >
-            <Link
-              href="/kontakt"
-              className="btn-shimmer glow-accent bg-accent text-primary text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 whitespace-nowrap rounded-full"
-            >
-              Nezávazná poptávka
-            </Link>
-            <Link
-              href="/reference"
-              className="text-faint text-[12px] tracking-[0.06em] flex items-center gap-2 hover:text-white transition-colors duration-200 group"
-            >
-              <span className="block w-5 h-px bg-current group-hover:w-8 transition-all duration-300" />
+            <span className="block w-6 h-px bg-current group-hover:w-10 transition-all duration-300" />
+            <span className="group-hover:text-accent transition-colors duration-200">
               Prohlédnout reference
-            </Link>
-          </div>
+            </span>
+          </Link>
+        </div>
 
-          {/* Stats with counter animation */}
-          <div className="flex gap-8">
-            {[
-              { n: "200+", label: "Realizací", delay: "1.2s" },
-              { n: "7 dní", label: "Montáž", delay: "1.35s" },
-              { n: "5,0", label: "Hodnocení", delay: "1.5s" },
-            ].map((stat, i, arr) => (
-              <div key={stat.label} className="flex gap-8">
-                <div
-                  className={`flex flex-col gap-1 transition-all duration-600 ${
-                    loaded
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-5"
-                  }`}
-                  style={{ transitionDelay: stat.delay }}
-                >
-                  <span className="font-display text-[28px] font-semibold leading-none">
-                    {stat.n}
-                  </span>
-                  <span className="text-faint text-[11px] tracking-[0.06em] uppercase">
-                    {stat.label}
-                  </span>
-                </div>
-                {i < arr.length - 1 && (
-                  <div
-                    className={`w-px self-stretch transition-all duration-700 ${
-                      loaded ? "bg-white/10 scale-y-100" : "bg-transparent scale-y-0"
-                    }`}
-                    style={{ transitionDelay: stat.delay }}
-                  />
-                )}
+        {/* Stats */}
+        <div
+          className={`flex gap-0 w-full justify-center pt-7 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{
+            transitionDelay: "1.3s",
+            borderTop: "1px solid rgba(168,147,90,0.18)",
+          }}
+        >
+          {[
+            { ref: s1, label: "Realizací" },
+            { ref: s2, label: "Montáž" },
+            { ref: s3, label: "Hodnocení" },
+          ].map((stat, i, arr) => (
+            <div
+              key={stat.label}
+              className="px-10"
+              style={{
+                borderRight: i < arr.length - 1 ? "1px solid rgba(168,147,90,0.15)" : "none",
+              }}
+            >
+              <div
+                className="font-display text-[34px] font-semibold leading-none mb-1"
+                style={{ color: "#111" }}
+              >
+                <span ref={stat.ref}>0</span>
               </div>
-            ))}
-          </div>
+              <div
+                className="text-[9px] font-semibold tracking-[0.15em] uppercase"
+                style={{ color: "#bbb" }}
+              >
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Right visual panel - CEILING STRETCH ANIMATION */}
-      <div className="relative hidden lg:block bg-navy overflow-hidden">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-navy to-[#1a1428]" />
-
-        {/* Fade edge */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-primary to-transparent z-10" />
-
-        {/* Canvas ceiling animation */}
-        <CeilingAnimation />
-
-        {/* Pulsing glow orb */}
+      {/* Scroll hint */}
+      <div
+        className={`absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-1000 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ transitionDelay: "2.2s", zIndex: 10 }}
+      >
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full z-[5] animate-pulse-glow"
+          className="w-px h-7 animate-pulse"
           style={{
-            background:
-              "radial-gradient(circle, rgba(46,204,113,0.08) 0%, transparent 70%)",
+            background: "linear-gradient(to bottom, rgba(168,147,90,0.4), transparent)",
           }}
         />
-
-        {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] z-30">
-          <div
-            className={`w-full h-full bg-gradient-to-r from-transparent via-accent/40 to-transparent transition-opacity duration-1000 ${
-              loaded ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ transitionDelay: "4s" }}
-          />
-        </div>
+        <span
+          className="text-[8.5px] font-semibold tracking-[0.18em] uppercase"
+          style={{ color: "rgba(168,147,90,0.35)" }}
+        >
+          Prohlédnout
+        </span>
       </div>
     </section>
   );
