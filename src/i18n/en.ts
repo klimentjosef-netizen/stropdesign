@@ -22,8 +22,8 @@ const en: Dictionary = {
     stat1Label: "projects",
     stat2: "5.0",
     stat2Label: "Google rating",
-    stat3: "7 days",
-    stat3Label: "average installation",
+    stat3: "1 day",
+    stat3Label: "room installation",
   },
   about: {
     eyebrow: "About us",

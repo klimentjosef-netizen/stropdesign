@@ -10,7 +10,7 @@ import { faqs } from "@/data/faq";
 export const metadata: Metadata = {
   title: "Jak probíhá montáž napínaného stropu | StropDesign Ostrava",
   description:
-    "Od poptávky po hotový strop za 7 dní. Konzultace, výroba na míru, čistá montáž za 1 den. Ostrava a okolí.",
+    "Od poptávky po hotový strop. Konzultace, výroba na míru, čistá montáž za 1 den. Realizace v celé ČR.",
 };
 
 const faqJsonLd = {
@@ -41,7 +41,7 @@ export default function PostupPage() {
             <h1 className="font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.1] mb-6 text-heading">
               Od poptávky po hotový strop
               <br />
-              <em className="italic text-accent">za 7 dní</em>.
+              <em className="italic text-accent">bez starostí</em>.
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
               Celý proces je jednoduchý a bezstarostný. Postaráme se o vše od

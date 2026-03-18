@@ -41,7 +41,7 @@ export default function Hero() {
   const [loaded, setLoaded] = useState(false);
 
   const s1 = useCounter(200, "", false, 1500);
-  const s2 = useCounter(7, " dní", false, 1600);
+  const s2 = useCounter(1, " den", false, 1600);
   const s3 = useCounter(5.0, "", true, 1700);
 
   useEffect(() => {
@@ -162,7 +162,7 @@ export default function Hero() {
         >
           {[
             { ref: s1, label: "Realizací" },
-            { ref: s2, label: "Montáž" },
+            { ref: s2, label: "Montáž místnosti" },
             { ref: s3, label: "Hodnocení" },
           ].map((stat, i, arr) => (
             <div

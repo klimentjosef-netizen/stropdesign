@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const stats = [
   { number: "200+", label: "Dokončených realizací" },
   { number: "5,0", label: "Hodnocení na Google" },
-  { number: "7 dní", label: "Průměrná doba realizace" },
+  { number: "1 den", label: "Montáž místnosti" },
   { number: "15+", label: "Let životnosti stropu" },
 ];
 

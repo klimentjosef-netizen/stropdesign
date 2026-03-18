@@ -26,6 +26,6 @@ export const reasons: Reason[] = [
   },
   {
     title: "Rychlá realizace",
-    text: "Od schůzky po hotový strop za 7 dní. Montáž běžné místnosti zvládneme za 1 den bez nutnosti stěhovat nábytek.",
+    text: "Montáž běžné místnosti zvládneme za 1 den bez nutnosti stěhovat nábytek. Čistá a rychlá práce bez prachu.",
   },
 ];

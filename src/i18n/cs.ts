@@ -20,8 +20,8 @@ const cs = {
     stat1Label: "realizací",
     stat2: "5.0",
     stat2Label: "Google hodnocení",
-    stat3: "7 dní",
-    stat3Label: "průměrná realizace",
+    stat3: "1 den",
+    stat3Label: "montáž místnosti",
   },
   about: {
     eyebrow: "O nás",
