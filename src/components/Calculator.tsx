@@ -186,13 +186,13 @@ export default function Calculator() {
 
           {/* Modal content */}
           <div
-            className="relative w-full max-w-[1100px] max-h-[100dvh] overflow-y-auto bg-white mx-4 my-4 lg:my-8 rounded-2xl shadow-2xl"
+            className="relative w-full max-w-[1100px] max-h-[100dvh] flex flex-col bg-white mx-4 my-4 lg:my-8 rounded-2xl shadow-2xl"
             style={{
               animation: "calcSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards",
             }}
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 bg-white border-b border-border px-6 lg:px-10 py-4 flex items-center justify-between">
+            <div className="z-10 bg-white border-b border-border px-6 lg:px-10 py-4 flex items-center justify-between flex-shrink-0">
               <div>
                 <h2 className="font-display text-lg font-semibold text-heading">
                   Kalkulačka ceny stropu
@@ -219,9 +219,9 @@ export default function Calculator() {
             </div>
 
             {/* Body - two columns */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] flex-1 min-h-0 overflow-hidden">
               {/* Left: Form */}
-              <div className="p-6 lg:p-10 lg:border-r lg:border-border">
+              <div className="p-6 lg:p-10 lg:border-r lg:border-border overflow-y-auto">
                 {/* Step 1: Surface */}
                 <div className="mb-8">
                   <div className="flex items-center gap-2.5 mb-3">
@@ -518,7 +518,7 @@ export default function Calculator() {
               </div>
 
               {/* Right: Sticky price summary */}
-              <div className="p-6 lg:p-8 lg:sticky lg:top-[73px] lg:self-start">
+              <div className="p-6 lg:p-8 overflow-y-auto">
                 <div
                   className="h-1.5 rounded-t-2xl -mx-6 lg:-mx-8 -mt-6 lg:-mt-8 mb-6"
                   style={{ background: surfaces[selectedSurface].accent }}
