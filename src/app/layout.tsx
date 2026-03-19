@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import { LocaleProvider } from "@/i18n/LocaleContext";
 
 const playfair = Playfair_Display({
   subsets: ["latin", "latin-ext"],
@@ -49,10 +50,12 @@ export default function RootLayout({
   return (
     <html lang="cs" className={`${playfair.variable} ${dmSans.variable}`}>
       <body className="font-body bg-light text-heading">
-        <JsonLd />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <LocaleProvider locale="cs">
+          <JsonLd />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LocaleProvider>
       </body>
     </html>
   );

@@ -4,24 +4,28 @@ import Link from "next/link";
 import { useState } from "react";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
-
-const navLinks = [
-  { label: "O nás", href: "/o-nas" },
-  { label: "Co nabízíme", href: "/sluzby" },
-  { label: "Jak to funguje", href: "/postup" },
-  { label: "Reference", href: "/reference" },
-  { label: "Blog", href: "/blog" },
-  { label: "Kontakt", href: "/kontakt" },
-];
+import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const d = useDict();
+
+  const navLinks = [
+    { label: d.nav.about, href: useLocalePath("/o-nas") },
+    { label: d.nav.services, href: useLocalePath("/sluzby") },
+    { label: d.nav.process, href: useLocalePath("/postup") },
+    { label: d.nav.references, href: useLocalePath("/reference") },
+    { label: d.nav.blog, href: useLocalePath("/blog") },
+    { label: d.nav.contact, href: useLocalePath("/kontakt") },
+  ];
+
+  const contactHref = useLocalePath("/kontakt");
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-[68px]">
         {/* Logo */}
-        <Link href="/">
+        <Link href={useLocalePath("/")}>
           <Logo variant="dark" size={46} />
         </Link>
 
@@ -43,10 +47,10 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <LanguageSwitcher />
           <Link
-            href="/kontakt"
+            href={contactHref}
             className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
-            Poptávka zdarma
+            {d.nav.cta}
           </Link>
         </div>
 
@@ -91,12 +95,15 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <div className="mt-2 flex items-center gap-3">
+            <LanguageSwitcher />
+          </div>
           <Link
-            href="/kontakt"
+            href={contactHref}
             onClick={() => setIsOpen(false)}
-            className="mt-2 text-center bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
+            className="text-center bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
-            Poptávka zdarma
+            {d.nav.cta}
           </Link>
         </div>
       </div>

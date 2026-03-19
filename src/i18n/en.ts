@@ -14,10 +14,12 @@ const en: Dictionary = {
     title1: "Stretch ceilings",
     title2: "that transform",
     title3: "your interior",
+    eyebrow: "We operate across the Czech Republic",
     subtitle:
-      "Designer ceiling solutions in Ostrava and surroundings. Precise installation, wide selection of finishes, and lasting quality.",
+      "Fast installation without dust or mess. Smooth seamless surface that doesn't crack and requires no maintenance.",
     cta: "Calculate price",
     ctaSecondary: "View portfolio",
+    scroll: "Explore",
     stat1: "200+",
     stat1Label: "projects",
     stat2: "5.0",

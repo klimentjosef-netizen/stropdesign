@@ -1,7 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import Logo from "./Logo";
+import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
 export default function Footer() {
+  const d = useDict();
+
+  const navLinks = [
+    { label: d.nav.about, href: useLocalePath("/o-nas") },
+    { label: d.nav.services, href: useLocalePath("/sluzby") },
+    { label: d.nav.process, href: useLocalePath("/postup") },
+    { label: d.nav.references, href: useLocalePath("/reference") },
+    { label: d.nav.blog, href: useLocalePath("/blog") },
+  ];
+
+  const contactHref = useLocalePath("/kontakt");
+
   return (
     <>
       {/* Accent line */}
@@ -12,27 +27,21 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
             {/* Brand */}
             <div>
-              <Link href="/">
+              <Link href={useLocalePath("/")}>
                 <Logo variant="light" size={34} showUrl />
               </Link>
               <p className="mt-4 text-sm text-white/50 leading-relaxed">
-                Designové stropní podhledy formou napínaných stropů v Ostravě a okolí.
+                {d.footer.description}
               </p>
             </div>
 
             {/* Navigation */}
             <div>
               <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
-                Navigace
+                {d.footer.navigation}
               </h4>
               <ul className="space-y-2.5">
-                {[
-                  { label: "O nás", href: "/o-nas" },
-                  { label: "Co nabízíme", href: "/sluzby" },
-                  { label: "Jak to funguje", href: "/postup" },
-                  { label: "Reference", href: "/reference" },
-                  { label: "Blog", href: "/blog" },
-                ].map((link) => (
+                {navLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -48,7 +57,7 @@ export default function Footer() {
             {/* Contact */}
             <div>
               <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
-                Kontakt
+                {d.footer.contact}
               </h4>
               <ul className="space-y-2.5 text-sm text-white/50">
                 <li>
@@ -61,23 +70,23 @@ export default function Footer() {
                     info@stropdesign.cz
                   </a>
                 </li>
-                <li>Ostrava a okolí</li>
+                <li>{d.contact.area}</li>
               </ul>
             </div>
 
             {/* CTA */}
             <div>
               <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
-                Začněte ještě dnes
+                {d.footer.startToday}
               </h4>
               <p className="text-sm text-white/50 mb-4">
-                Nezávazná poptávka zdarma. Odpovídáme do 24 hodin.
+                {d.footer.startTodaySub}
               </p>
               <Link
-                href="/kontakt"
+                href={contactHref}
                 className="inline-block bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200 rounded-full"
               >
-                Nezávazná poptávka
+                {d.footer.ctaButton}
               </Link>
             </div>
           </div>
@@ -85,10 +94,10 @@ export default function Footer() {
           {/* Bottom bar */}
           <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs text-white/30">
-              &copy; {new Date().getFullYear()} StropDesign / Derbau s.r.o. Ostrava
+              &copy; {new Date().getFullYear()} {d.footer.copyright}
             </p>
             <p className="text-xs text-white/30">
-              Web vytvořil{" "}
+              {d.footer.madeBy}{" "}
               <a
                 href="https://webbykliment.com"
                 target="_blank"

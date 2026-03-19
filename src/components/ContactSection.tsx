@@ -4,12 +4,14 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
+import { useDict } from "@/i18n/LocaleContext";
 
 const inputClass =
   "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.1)] hover:border-border-dark rounded-xl";
 
 function ContactForm() {
   const searchParams = useSearchParams();
+  const d = useDict();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -20,7 +22,6 @@ function ContactForm() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
-  // Prefill from calculator URL params
   useEffect(() => {
     const calcRoom = searchParams.get("room");
     const calcMessage = searchParams.get("message");
@@ -47,12 +48,12 @@ function ContactForm() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Chyba při odesílání.");
+        throw new Error(data.error || "Error");
       }
 
       setSubmitted(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Nepodařilo se odeslat formulář.");
+      setError(err instanceof Error ? err.message : "Error");
     } finally {
       setSending(false);
     }
@@ -66,88 +67,53 @@ function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-display text-xl font-semibold mb-2 text-heading">Děkujeme za poptávku!</h3>
-        <p className="text-body text-sm font-light">
-          Ozveme se vám do 24 hodin s nabídkou na míru.
-        </p>
+        <h3 className="font-display text-xl font-semibold mb-2 text-heading">{d.contact.success}</h3>
+        <p className="text-body text-sm font-light">{d.contact.successSub}</p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <input
-        type="text"
-        placeholder="Jméno a příjmení"
-        required
-        value={formData.name}
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-        className={inputClass}
-      />
-      <input
-        type="tel"
-        placeholder="Telefon"
-        required
-        value={formData.phone}
-        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-        className={inputClass}
-      />
-      <input
-        type="text"
-        placeholder="Typ místnosti a přibližná plocha"
-        value={formData.room}
-        onChange={(e) => setFormData({ ...formData, room: e.target.value })}
-        className={inputClass}
-      />
-      <textarea
-        placeholder="Zpráva (nepovinné)"
-        rows={4}
-        value={formData.message}
-        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-        className={`${inputClass} resize-y min-h-[90px]`}
-      />
-      {error && (
-        <p className="text-red-600 text-sm font-light">{error}</p>
-      )}
-      <button
-        type="submit"
-        disabled={sending}
-        className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-full disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {sending ? "Odesílám…" : "Odeslat poptávku"}
+      <input type="text" placeholder={d.contact.name} required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputClass} />
+      <input type="tel" placeholder={d.contact.phone} required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={inputClass} />
+      <input type="text" placeholder={d.contact.room} value={formData.room} onChange={(e) => setFormData({ ...formData, room: e.target.value })} className={inputClass} />
+      <textarea placeholder={d.contact.message} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className={`${inputClass} resize-y min-h-[90px]`} />
+      {error && <p className="text-red-600 text-sm font-light">{error}</p>}
+      <button type="submit" disabled={sending} className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-full disabled:opacity-60 disabled:cursor-not-allowed">
+        {sending ? d.contact.sending : d.contact.submit}
       </button>
     </form>
   );
 }
 
 export default function ContactSection() {
+  const d = useDict();
+
   return (
-    <section className="bg-light-secondary border-t border-border py-14 lg:py-20 px-6 lg:px-10">
+    <section id="kontakt-formular" className="bg-light-secondary border-t border-border py-14 lg:py-20 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <RevealOnScroll>
-          <SectionEyebrow text="Kontakt" />
+          <SectionEyebrow text={d.contact.eyebrow} />
           <h2 className="font-display text-[28px] font-semibold mb-3 text-heading">
-            Udělejte první krok
+            {d.contact.title1}
             <br />
-            k dokonalému stropu.
+            {d.contact.title2}
           </h2>
           <p className="text-body text-[13px] leading-[1.7] mb-6">
-            Zavolejte nám nebo vyplňte formulář. Odpovídáme do 24 hodin a
-            nabídku připravíme přesně na míru vašeho projektu.
+            {d.contact.subtitle}
           </p>
 
           <div className="flex flex-col gap-3">
             {[
               { text: "+420 739 457 794", href: "tel:+420739457794" },
               { text: "stropdesign.cz", href: undefined },
-              { text: "Ostrava a okolí", href: undefined },
+              { text: d.contact.area, href: undefined },
             ].map((item) => (
               <div key={item.text} className="flex items-center gap-3 text-[13px] text-body group">
                 <div className="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0 group-hover:scale-150 transition-transform duration-300" />
                 {item.href ? (
-                  <a href={item.href} className="hover:text-accent transition-colors duration-300">
-                    {item.text}
-                  </a>
+                  <a href={item.href} className="hover:text-accent transition-colors duration-300">{item.text}</a>
                 ) : (
                   <span>{item.text}</span>
                 )}

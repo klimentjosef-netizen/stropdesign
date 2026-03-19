@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import StarlightCanvas from "./StarlightCanvas";
+import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
 function useCounter(target: number, suffix: string, decimals: boolean, delay: number) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -39,10 +39,13 @@ function useCounter(target: number, suffix: string, decimals: boolean, delay: nu
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+  const d = useDict();
 
   const s1 = useCounter(200, "", false, 1500);
-  const s2 = useCounter(1, " den", false, 1600);
+  const s2 = useCounter(1, d.hero.stat3 === "1 day" ? " day" : " den", false, 1600);
   const s3 = useCounter(5.0, "", true, 1700);
+
+  const refHref = useLocalePath("/reference");
 
   useEffect(() => {
     setLoaded(true);
@@ -86,7 +89,7 @@ export default function Hero() {
             className="text-[10px] font-semibold tracking-[0.2em] uppercase"
             style={{ color: "var(--gold, #A8935A)" }}
           >
-            Realizujeme v celé ČR
+            {d.hero.eyebrow}
           </span>
           <div className="w-10 h-px bg-accent" />
         </div>
@@ -102,11 +105,14 @@ export default function Hero() {
             color: "#111",
           }}
         >
-          Napínané stropy,
+          {d.hero.title1}
           <br />
-          které <em className="italic text-accent">promění</em>
+          {d.hero.title2.split(" ").slice(0, -1).join(" ")}{" "}
+          <em className="italic text-accent">
+            {d.hero.title2.split(" ").pop()}
+          </em>
           <br />
-          váš interiér.
+          {d.hero.title3}.
         </h1>
 
         {/* Subtitle */}
@@ -121,8 +127,7 @@ export default function Hero() {
             maxWidth: 480,
           }}
         >
-          Rychlá instalace bez prachu a nepořádku. Hladký bezešvý povrch,
-          který nepraská a nepotřebuje údržbu.
+          {d.hero.subtitle}
         </p>
 
         {/* CTAs */}
@@ -136,18 +141,18 @@ export default function Hero() {
             href="#kalkulacka"
             className="btn-shimmer glow-accent bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-8 py-4 hover:brightness-110 transition-all duration-200"
           >
-            Spočítat cenu
+            {d.hero.cta}
           </a>
-          <Link
-            href="/reference"
+          <a
+            href={refHref}
             className="flex items-center gap-2.5 text-[11px] font-medium tracking-[0.06em] group transition-colors duration-200"
             style={{ color: "#999" }}
           >
             <span className="block w-6 h-px bg-current group-hover:w-10 transition-all duration-300" />
             <span className="group-hover:text-accent transition-colors duration-200">
-              Prohlédnout reference
+              {d.hero.ctaSecondary}
             </span>
-          </Link>
+          </a>
         </div>
 
         {/* Stats */}
@@ -161,9 +166,9 @@ export default function Hero() {
           }}
         >
           {[
-            { ref: s1, label: "Realizací" },
-            { ref: s2, label: "Montáž místnosti" },
-            { ref: s3, label: "Hodnocení" },
+            { ref: s1, label: d.hero.stat1Label },
+            { ref: s2, label: d.hero.stat3Label },
+            { ref: s3, label: d.hero.stat2Label },
           ].map((stat, i, arr) => (
             <div
               key={stat.label}
@@ -206,7 +211,7 @@ export default function Hero() {
           className="text-[8.5px] font-semibold tracking-[0.18em] uppercase"
           style={{ color: "rgba(168,147,90,0.35)" }}
         >
-          Prohlédnout
+          {d.hero.scroll}
         </span>
       </div>
     </section>

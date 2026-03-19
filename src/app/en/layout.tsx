@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LocaleProvider } from "@/i18n/LocaleContext";
 
 export const metadata: Metadata = {
   title: "StropDesign | Stretch Ceilings Ostrava",
@@ -18,5 +19,5 @@ export default function EnLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <LocaleProvider locale="en">{children}</LocaleProvider>;
 }
