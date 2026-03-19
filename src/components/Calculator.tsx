@@ -387,7 +387,7 @@ export default function Calculator() {
                       Doplňky & příslušenství
                     </label>
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                  <div className="lg:columns-2 gap-2 space-y-2">
                     {CATEGORIES.map((cat) => {
                       const catAddons = addonsList
                         .map((a, i) => ({ ...a, originalIndex: i }))
@@ -400,7 +400,7 @@ export default function Calculator() {
                       return (
                         <div
                           key={cat}
-                          className="border border-border rounded-xl overflow-hidden"
+                          className="border border-border rounded-xl overflow-hidden break-inside-avoid"
                         >
                           <button
                             onClick={() => toggleCategory(cat)}
