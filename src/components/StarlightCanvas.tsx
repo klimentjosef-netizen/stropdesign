@@ -2,7 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
-interface Anchor { x: number; y: number }
+interface Anchor {
+  x: number; y: number;
+  baseX: number; baseY: number;
+  driftSpeedX: number; driftSpeedY: number;
+  driftAmpX: number; driftAmpY: number;
+  driftPhaseX: number; driftPhaseY: number;
+}
 interface Segment {
   a: number; b: number;
   progress: number; delay: number;
@@ -54,12 +60,24 @@ export default function StarlightCanvas() {
     let segments: Segment[] = [];
     let spots: SpotLight[] = [];
 
+    function makeAnchor(x: number, y: number): Anchor {
+      return {
+        x, y, baseX: x, baseY: y,
+        driftSpeedX: 0.08 + Math.random() * 0.18,
+        driftSpeedY: 0.08 + Math.random() * 0.18,
+        driftAmpX: 15 + Math.random() * 30,
+        driftAmpY: 15 + Math.random() * 30,
+        driftPhaseX: Math.random() * Math.PI * 2,
+        driftPhaseY: Math.random() * Math.PI * 2,
+      };
+    }
+
     function buildAnchors() {
       anchors = [];
-      for (let i = 0; i <= 6; i++) anchors.push({ x: W * (i / 6), y: 0 });
-      for (let i = 1; i <= 4; i++) anchors.push({ x: W, y: H * (i / 5) });
-      for (let i = 6; i >= 0; i--) anchors.push({ x: W * (i / 6), y: H });
-      for (let i = 4; i >= 1; i--) anchors.push({ x: 0, y: H * (i / 5) });
+      for (let i = 0; i <= 6; i++) anchors.push(makeAnchor(W * (i / 6), 0));
+      for (let i = 1; i <= 4; i++) anchors.push(makeAnchor(W, H * (i / 5)));
+      for (let i = 6; i >= 0; i--) anchors.push(makeAnchor(W * (i / 6), H));
+      for (let i = 4; i >= 1; i--) anchors.push(makeAnchor(0, H * (i / 5)));
     }
 
     function buildSegments() {
@@ -110,6 +128,12 @@ export default function StarlightCanvas() {
       if (!started) { animFrame = requestAnimationFrame(draw); return; }
       const t = now / 1000;
 
+      // Drift anchors slowly
+      anchors.forEach((a) => {
+        a.x = a.baseX + Math.sin(t * a.driftSpeedX + a.driftPhaseX) * a.driftAmpX;
+        a.y = a.baseY + Math.sin(t * a.driftSpeedY + a.driftPhaseY) * a.driftAmpY;
+      });
+
       // Update spot lights — mouse proximity glow
       spots.forEach((spot) => {
         const dist = Math.hypot(mouse.x - spot.x, mouse.y - spot.y);
@@ -132,10 +156,10 @@ export default function StarlightCanvas() {
         const hoverTarget = hover < 55 ? Math.pow(1 - hover / 55, 1.6) : 0;
         seg.glow += (hoverTarget - seg.glow) * 0.08;
 
-        const pulse = 0.72 + 0.28 * Math.sin(t * seg.pulseSpeed + seg.phase);
-        const baseOp = 0.28 + seg.glow * 0.55;
+        const pulse = 0.65 + 0.35 * Math.sin(t * seg.pulseSpeed + seg.phase);
+        const baseOp = 0.42 + seg.glow * 0.45;
         const finalOp = baseOp * pulse * seg.progress;
-        const lw = 1.8 + seg.glow * 2.2;
+        const lw = 2.2 + seg.glow * 2.2;
 
         const ex = a.x + (b.x - a.x) * seg.progress;
         const ey = a.y + (b.y - a.y) * seg.progress;
@@ -172,14 +196,14 @@ export default function StarlightCanvas() {
         const { x, y, phase, breatheSpeed, glow } = spot;
 
         // Slow breathing
-        const breathe = 0.12 + 0.45 * (0.5 + 0.5 * Math.sin(t * breatheSpeed + phase));
-        const intensity = breathe + glow * 0.5;
+        const breathe = 0.25 + 0.55 * (0.5 + 0.5 * Math.sin(t * breatheSpeed + phase));
+        const intensity = breathe + glow * 0.7;
 
         // Wide soft glow — the main light spill
-        const outerR = 30 + glow * 25;
+        const outerR = 40 + glow * 25;
         try {
           const gl = ctx!.createRadialGradient(x, y, 0, x, y, outerR);
-          gl.addColorStop(0, `rgba(255,225,130,${intensity * 0.22})`);
+          gl.addColorStop(0, `rgba(255,225,130,${intensity * 0.35})`);
           gl.addColorStop(0.15, `rgba(255,215,110,${intensity * 0.14})`);
           gl.addColorStop(0.4, `rgba(230,195,90,${intensity * 0.05})`);
           gl.addColorStop(0.7, `rgba(200,175,80,${intensity * 0.015})`);
@@ -192,7 +216,7 @@ export default function StarlightCanvas() {
         const innerR = 8 + glow * 6;
         try {
           const ig = ctx!.createRadialGradient(x, y, 0, x, y, innerR);
-          ig.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.5)})`);
+          ig.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.7)})`);
           ig.addColorStop(0.3, `rgba(255,225,140,${intensity * 0.2})`);
           ig.addColorStop(1, "transparent");
           ctx!.fillStyle = ig;
