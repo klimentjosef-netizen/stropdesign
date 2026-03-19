@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
-import { faqs } from "@/data/faq";
+import { useDict } from "@/i18n/LocaleContext";
 
 /* ── Testimonials data ── */
 
@@ -125,8 +125,14 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 /* ── Main component ── */
 
 export default function FaqAndTestimonials() {
+  const d = useDict();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+
+  const localFaqs = d.faq.questions.map((q: string, i: number) => ({
+    question: q,
+    answer: d.faq.answers[i],
+  }));
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -146,12 +152,12 @@ export default function FaqAndTestimonials() {
         {/* LEFT — FAQ */}
         <RevealOnScroll>
           <div>
-            <SectionEyebrow text="Časté dotazy" />
+            <SectionEyebrow text={d.faq.eyebrow} />
             <h2 className="font-display text-[clamp(24px,2.5vw,34px)] font-semibold leading-[1.15] mb-8 text-heading">
-              Na co se nás ptáte nejčastěji
+              {d.faq.title}
             </h2>
             <div className="flex flex-col">
-              {faqs.map((faq, i) => (
+              {localFaqs.map((faq: { question: string; answer: string }, i: number) => (
                 <FaqItem key={i} question={faq.question} answer={faq.answer} />
               ))}
             </div>
@@ -161,9 +167,9 @@ export default function FaqAndTestimonials() {
         {/* RIGHT — Testimonials */}
         <RevealOnScroll delay={150}>
           <div>
-            <SectionEyebrow text="Hodnocení" />
+            <SectionEyebrow text={d.testimonials.eyebrow} />
             <h2 className="font-display text-[clamp(24px,2.5vw,34px)] font-semibold leading-[1.15] mb-8 text-heading">
-              Co říkají naši zákazníci
+              {d.testimonials.title}
             </h2>
 
             <div
@@ -201,7 +207,7 @@ export default function FaqAndTestimonials() {
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       i === active ? "bg-accent w-6" : "bg-border hover:bg-muted"
                     }`}
-                    aria-label={`Hodnocení ${i + 1}`}
+                    aria-label={`${d.testimonials.eyebrow} ${i + 1}`}
                   />
                 ))}
               </div>
@@ -215,7 +221,7 @@ export default function FaqAndTestimonials() {
               >
                 <GoogleIcon />
                 <span className="text-body text-[12px] font-medium group-hover:text-heading transition-colors">
-                  Recenze na Google
+                  {d.faq.googleReview}
                 </span>
                 <svg
                   className="w-3.5 h-3.5 text-muted group-hover:text-accent transition-colors"
@@ -230,10 +236,10 @@ export default function FaqAndTestimonials() {
               {/* Stats row */}
               <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-border">
                 {[
-                  { value: "5.0", label: "Google hodnocení" },
-                  { value: "150+", label: "Realizací" },
-                  { value: "100%", label: "Spokojených klientů" },
-                  { value: "12 let", label: "Záruka na barvu" },
+                  { value: "5.0", label: d.testimonials.googleRating },
+                  { value: "150+", label: d.testimonials.projects },
+                  { value: "100%", label: d.testimonials.satisfaction },
+                  { value: "12 let", label: d.testimonials.warranty },
                 ].map((stat) => (
                   <div key={stat.label}>
                     <p className="font-display text-xl font-bold text-accent">

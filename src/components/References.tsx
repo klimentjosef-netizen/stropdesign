@@ -1,10 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 import { references } from "@/data/references";
+import { useDict } from "@/i18n/LocaleContext";
 
 export default function References() {
+  const d = useDict();
   const shown = references.slice(0, 6);
 
   return (
@@ -12,9 +16,9 @@ export default function References() {
       <div className="max-w-7xl mx-auto">
         <RevealOnScroll>
           <div className="mb-10">
-              <SectionEyebrow text="Reference" />
+              <SectionEyebrow text={d.references.eyebrow} />
               <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] text-heading">
-                Realizace, na které jsme hrdí
+                {d.references.title}
               </h2>
           </div>
         </RevealOnScroll>
@@ -41,7 +45,7 @@ export default function References() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
                       </svg>
                       <span className="text-white/40 text-[10px] tracking-[0.1em] uppercase font-medium">
-                        Foto připravujeme
+                        {d.surfaces.photoPlaceholder}
                       </span>
                     </div>
                   )}
@@ -69,7 +73,7 @@ export default function References() {
               href="/reference"
               className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-8 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
             >
-              Zobrazit vše
+              {d.references.showAll}
             </Link>
           </div>
         </RevealOnScroll>

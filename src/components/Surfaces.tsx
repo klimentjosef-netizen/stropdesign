@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import { surfaces } from "@/data/products";
+import { useDict } from "@/i18n/LocaleContext";
 
 export default function Surfaces() {
+  const d = useDict();
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
 
@@ -40,13 +42,13 @@ export default function Surfaces() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-5">
             <span className="text-muted text-[10px] tracking-[0.16em] uppercase">
-              Výběr povrchu
+              {d.surfaces.eyebrow}
             </span>
             <a
               href="/sluzby"
               className="text-accent text-[10px] tracking-[0.1em] uppercase hover:text-accent-hover transition-colors"
             >
-              Zobrazit vše
+              {d.surfaces.viewAll}
             </a>
           </div>
 
@@ -126,14 +128,14 @@ export default function Surfaces() {
                               fontWeight: isHovered || isSelected ? 500 : 400,
                             }}
                           >
-                            {surface.name}
+                            {d.surfaces.names[i]}
                           </span>
                           {isSelected && (
                             <span
                               className="text-[8px] font-medium tracking-wide whitespace-nowrap"
                               style={{ color: surface.accent }}
                             >
-                              {surface.priceLabel}
+                              {d.surfaces.priceLabels[i]}
                             </span>
                           )}
                         </div>
@@ -148,10 +150,10 @@ export default function Surfaces() {
                           }}
                         >
                           <p className="text-body text-[9px] leading-[1.6] font-light mb-2">
-                            {surface.description}
+                            {d.surfaces.descriptions[i]}
                           </p>
                           <ul className="flex flex-col gap-0.5">
-                            {surface.features.map((f) => (
+                            {d.surfaces.features[i].map((f: string) => (
                               <li key={f} className="flex items-center gap-1 text-[8px] text-muted">
                                 <div
                                   className="w-1 h-1 rounded-full flex-shrink-0"
@@ -178,7 +180,7 @@ export default function Surfaces() {
                               <circle cx="5" cy="5" r="4" />
                               <path d="M5 3.5v1.5M5 6.5v.01" />
                             </svg>
-                            Detail
+                            {d.surfaces.detail}
                           </span>
                         )}
                       </div>

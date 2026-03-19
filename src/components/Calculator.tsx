@@ -6,6 +6,7 @@ import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 import { surfaces } from "@/data/products";
 import { addons as addonsList, categoryLabels, type Addon } from "@/data/addons";
+import { useDict } from "@/i18n/LocaleContext";
 
 const CATEGORIES = Object.keys(categoryLabels) as Addon["category"][];
 
@@ -47,6 +48,7 @@ const maxPrice = Math.max(...surfaces.map((s) => s.price));
 
 export default function Calculator() {
   const router = useRouter();
+  const d = useDict();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSurface, setSelectedSurface] = useState(0);
   const [area, setArea] = useState(24);
@@ -113,13 +115,12 @@ export default function Calculator() {
               <div className="p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10">
                 {/* Left - text */}
                 <div className="flex-1">
-                  <SectionEyebrow text="Cenový odhad" />
+                  <SectionEyebrow text={d.calculator.teaserEyebrow} />
                   <h2 className="font-display text-[clamp(22px,2.5vw,30px)] font-semibold leading-[1.2] text-heading mb-2">
-                    Kolik stojí napínaný strop?
+                    {d.calculator.teaserTitle}
                   </h2>
                   <p className="text-body text-[13px] font-light leading-[1.7]">
-                    Ceny jsou orientační a fixní. Žádné překvapení.
-                    Přesnou nabídku připravíme do 24 hodin.
+                    {d.calculator.teaserText}
                   </p>
                 </div>
 
@@ -127,20 +128,20 @@ export default function Calculator() {
                 <div className="flex flex-col items-center lg:items-end gap-3 flex-shrink-0">
                   <div className="text-center lg:text-right">
                     <div className="text-muted text-[9px] tracking-[0.12em] uppercase mb-1">
-                      Cena od
+                      {d.calculator.priceFrom}
                     </div>
                     <div className="font-display text-[32px] font-semibold text-accent leading-none tabular-nums">
-                      {minPrice} <span className="text-[14px] text-muted">Kč/m²</span>
+                      {minPrice} <span className="text-[14px] text-muted">{d.calculator.currency}/{d.calculator.sqm}</span>
                     </div>
                     <div className="text-muted text-[10px] mt-1">
-                      až {maxPrice} Kč/m² dle povrchu
+                      {d.calculator.priceUpTo.replace("{max}", String(maxPrice))}
                     </div>
                   </div>
                   <button
                     onClick={() => setIsOpen(true)}
                     className="btn-shimmer glow-accent bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-full whitespace-nowrap"
                   >
-                    Spočítat přesnou cenu →
+                    {d.calculator.ctaTeaser}
                   </button>
                 </div>
               </div>
@@ -175,10 +176,10 @@ export default function Calculator() {
             <div className="z-10 bg-white border-b border-border px-6 lg:px-10 py-4 flex items-center justify-between flex-shrink-0">
               <div>
                 <h2 className="font-display text-lg font-semibold text-heading">
-                  Kalkulačka ceny stropu
+                  {d.calculator.modalTitle}
                 </h2>
                 <p className="text-muted text-[11px]">
-                  Vyberte parametry a ihned uvidíte orientační cenu
+                  {d.calculator.modalSubtitle}
                 </p>
               </div>
               <button
@@ -209,7 +210,7 @@ export default function Calculator() {
                       1
                     </span>
                     <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      Typ povrchu
+                      {d.calculator.step1}
                     </label>
                   </div>
                   <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
@@ -239,7 +240,7 @@ export default function Calculator() {
                                 : "text-body"
                             }`}
                           >
-                            {s.name}
+                            {d.surfaces.names[i]}
                           </span>
                         </div>
                         <span
@@ -249,7 +250,7 @@ export default function Calculator() {
                               : "text-muted"
                           }`}
                         >
-                          {s.priceLabel}
+                          {d.surfaces.priceLabels[i]}
                         </span>
                         {selectedSurface === i && (
                           <div
@@ -271,13 +272,13 @@ export default function Calculator() {
                       2
                     </span>
                     <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      Plocha stropu
+                      {d.calculator.step2}
                     </label>
                   </div>
                   <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                     <div className="flex justify-between items-baseline mb-3">
                       <span className="text-[11px] text-body">
-                        Velikost místnosti
+                        {d.calculator.areaLabel}
                       </span>
                       <div className="flex items-center gap-2">
                         <button
@@ -287,7 +288,7 @@ export default function Calculator() {
                           −
                         </button>
                         <span className="font-display text-lg text-accent min-w-[3.5rem] text-center tabular-nums">
-                          {area} m²
+                          {area} {d.calculator.sqm}
                         </span>
                         <button
                           onClick={() => setArea((a) => Math.min(100, a + 1))}
@@ -314,8 +315,8 @@ export default function Calculator() {
                       </div>
                     </div>
                     <div className="flex justify-between mt-1.5">
-                      <span className="text-muted text-[10px]">5 m²</span>
-                      <span className="text-muted text-[10px]">100 m²</span>
+                      <span className="text-muted text-[10px]">5 {d.calculator.sqm}</span>
+                      <span className="text-muted text-[10px]">100 {d.calculator.sqm}</span>
                     </div>
                   </div>
                 </div>
@@ -327,13 +328,13 @@ export default function Calculator() {
                       3
                     </span>
                     <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      Bodová světla
+                      {d.calculator.step3}
                     </label>
                   </div>
                   <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                     <div className="flex justify-between items-baseline mb-3">
                       <span className="text-[11px] text-body">
-                        Počet světel (350 Kč/ks)
+                        {d.calculator.lightsLabel}
                       </span>
                       <div className="flex items-center gap-2">
                         <button
@@ -343,7 +344,7 @@ export default function Calculator() {
                           −
                         </button>
                         <span className="font-display text-lg text-accent min-w-[2.5rem] text-center tabular-nums">
-                          {lights} ks
+                          {lights} {d.calculator.pcs}
                         </span>
                         <button
                           onClick={() => setLights((l) => Math.min(20, l + 1))}
@@ -370,8 +371,8 @@ export default function Calculator() {
                       </div>
                     </div>
                     <div className="flex justify-between mt-1.5">
-                      <span className="text-muted text-[10px]">0 ks</span>
-                      <span className="text-muted text-[10px]">20 ks</span>
+                      <span className="text-muted text-[10px]">0 {d.calculator.pcs}</span>
+                      <span className="text-muted text-[10px]">20 {d.calculator.pcs}</span>
                     </div>
                   </div>
                 </div>
@@ -384,7 +385,7 @@ export default function Calculator() {
                       4
                     </span>
                     <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      Doplňky & příslušenství
+                      {d.calculator.step4}
                     </label>
                   </div>
                   <div className="lg:columns-2 gap-2 space-y-2">
@@ -486,7 +487,7 @@ export default function Calculator() {
                                           : "text-muted"
                                       }`}
                                     >
-                                      +{addon.price.toLocaleString("cs-CZ")} Kč
+                                      +{addon.price.toLocaleString("cs-CZ")} {d.calculator.currency}
                                     </span>
                                   </button>
                                 );
@@ -509,53 +510,52 @@ export default function Calculator() {
 
                 <div className="border-b border-border pb-5 mb-5">
                   <div className="text-muted text-[10px] tracking-[0.14em] uppercase mb-2">
-                    Orientační cena
+                    {d.calculator.orientPrice}
                   </div>
                   <div className="font-display text-[38px] font-semibold text-accent leading-none tabular-nums">
                     <AnimatedPrice value={total} />{" "}
-                    <span className="text-[15px] text-muted">Kč</span>
+                    <span className="text-[15px] text-muted">{d.calculator.currency}</span>
                   </div>
                   <div className="text-[10px] text-muted mt-1.5">
-                    {Math.round(total / area).toLocaleString("cs-CZ")} Kč/m²
-                    vč. příslušenství
+                    {Math.round(total / area).toLocaleString("cs-CZ")} {d.calculator.pricePerSqm}
                   </div>
                 </div>
 
                 {/* Breakdown */}
                 <div className="flex flex-col gap-2 mb-5">
                   <div className="flex justify-between text-[11px]">
-                    <span className="text-muted">Povrch</span>
+                    <span className="text-muted">{d.calculator.surface}</span>
                     <span className="text-body font-medium">
-                      {surfaces[selectedSurface].name}
+                      {d.surfaces.names[selectedSurface]}
                     </span>
                   </div>
                   <div className="flex justify-between text-[11px]">
-                    <span className="text-muted">Plocha</span>
-                    <span className="text-body">{area} m²</span>
+                    <span className="text-muted">{d.calculator.area}</span>
+                    <span className="text-body">{area} {d.calculator.sqm}</span>
                   </div>
                   <div className="flex justify-between text-[11px]">
-                    <span className="text-muted">Materiál + montáž</span>
+                    <span className="text-muted">{d.calculator.materialInstall}</span>
                     <span className="text-body">
-                      {(area * pricePerSqm).toLocaleString("cs-CZ")} Kč
+                      {(area * pricePerSqm).toLocaleString("cs-CZ")} {d.calculator.currency}
                     </span>
                   </div>
                   {lights > 0 && (
                     <div className="flex justify-between text-[11px]">
                       <span className="text-muted">
-                        Světla ({lights}×)
+                        {d.calculator.lights} ({lights}×)
                       </span>
                       <span className="text-body">
-                        {lightCost.toLocaleString("cs-CZ")} Kč
+                        {lightCost.toLocaleString("cs-CZ")} {d.calculator.currency}
                       </span>
                     </div>
                   )}
                   {addons.size > 0 && (
                     <div className="flex justify-between text-[11px]">
                       <span className="text-muted">
-                        Doplňky ({addons.size}×)
+                        {d.calculator.addons} ({addons.size}×)
                       </span>
                       <span className="text-body">
-                        {addonsCost.toLocaleString("cs-CZ")} Kč
+                        {addonsCost.toLocaleString("cs-CZ")} {d.calculator.currency}
                       </span>
                     </div>
                   )}
@@ -582,29 +582,29 @@ export default function Calculator() {
                     const selectedAddons = Array.from(addons)
                       .map((i) => addonsList[i].name)
                       .join(", ");
-                    const room = `${surfaces[selectedSurface].name} povrch, ${area} m²`;
+                    const room = `${d.surfaces.names[selectedSurface]} povrch, ${area} ${d.calculator.sqm}`;
                     const lines = [
-                      `Povrch: ${surfaces[selectedSurface].name} (${pricePerSqm} Kč/m²)`,
-                      `Plocha: ${area} m²`,
-                      lights > 0 ? `Bodová světla: ${lights} ks` : "",
-                      selectedAddons ? `Doplňky: ${selectedAddons}` : "",
-                      `Orientační cena: ${total.toLocaleString("cs-CZ")} Kč`,
+                      `${d.calculator.surface}: ${d.surfaces.names[selectedSurface]} (${pricePerSqm} ${d.calculator.currency}/${d.calculator.sqm})`,
+                      `${d.calculator.area}: ${area} ${d.calculator.sqm}`,
+                      lights > 0 ? `${d.calculator.lights}: ${lights} ${d.calculator.pcs}` : "",
+                      selectedAddons ? `${d.calculator.addons}: ${selectedAddons}` : "",
+                      `${d.calculator.orientPrice}: ${total.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
                     ]
                       .filter(Boolean)
                       .join("\n");
                     const params = new URLSearchParams({
                       room,
-                      message: `Poptávka z kalkulačky:\n${lines}`,
+                      message: `${d.calculator.enquiryPrefix}\n${lines}`,
                     });
                     setIsOpen(false);
                     router.push(`/kontakt?${params.toString()}`);
                   }}
                   className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
                 >
-                  Poptat tento strop →
+                  {d.calculator.ctaSubmit}
                 </button>
                 <p className="text-muted text-[9px] text-center mt-2.5 leading-[1.5]">
-                  Přesná nabídka s fixní cenou do 24 hodin.
+                  {d.calculator.ctaNote}
                 </p>
               </div>
             </div>
