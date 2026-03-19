@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import ContactSection from "@/components/ContactSection";
+import Calculator from "@/components/Calculator";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
 
@@ -85,6 +86,9 @@ export default function KontaktPage() {
           </RevealOnScroll>
         </div>
       </section>
+
+      {/* Calculator */}
+      <Calculator />
 
       {/* Contact form */}
       <ContactSection />
