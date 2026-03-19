@@ -24,7 +24,7 @@ function useCounter(target: number, suffix: string, decimals: boolean, delay: nu
         } else {
           el!.textContent = Math.round(e * target) + suffix;
         }
-        if (target === 200 && p >= 1) el!.textContent = "200+";
+        if (target === 150 && p >= 1) el!.textContent = "150+";
         if (p < 1) requestAnimationFrame(update);
       }
 
@@ -41,8 +41,8 @@ export default function Hero() {
   const [loaded, setLoaded] = useState(false);
   const d = useDict();
 
-  const s1 = useCounter(200, "", false, 1500);
-  const s2 = useCounter(1, d.hero.stat3 === "1 day" ? " day" : " den", false, 1600);
+  const s1 = useCounter(150, "", false, 1500);
+  const s2 = useCounter(12, " let", false, 1600);
   const s3 = useCounter(5.0, "", true, 1700);
 
   const refHref = useLocalePath("/reference");

@@ -7,7 +7,7 @@ export const faqs: FaqItem[] = [
   {
     question: "Jak dlouho trvá montáž napínaného stropu?",
     answer:
-      "Montáž běžné místnosti (do 30 m²) trvá zpravidla 1 den. Větší prostory nebo složitější projekty mohou trvat 2-3 dny.",
+      "Montáž běžné místnosti (do 30 m²) zvládneme rychle a čistě, obvykle do 1–2 dnů. Větší prostory nebo složitější projekty mohou trvat 2–3 dny.",
   },
   {
     question: "Je potřeba stěhovat nábytek?",
@@ -17,7 +17,7 @@ export const faqs: FaqItem[] = [
   {
     question: "Jaká je životnost napínaného stropu?",
     answer:
-      "Napínaný strop má životnost 15-25 let. Materiál je odolný proti vlhkosti, prasklinám a nezmění barvu ani po letech používání. Poskytujeme záruku 12 let na stálost barev.",
+      "Napínaný strop má životnost 15–25 let. Materiál je odolný proti vlhkosti, prasklinám a nezmění barvu ani po letech používání. Poskytujeme záruku 2 roky na montáž a 12 let na stálost barev.",
   },
   {
     question: "Lze do stropu integrovat osvětlení?",

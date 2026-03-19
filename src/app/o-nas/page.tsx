@@ -7,14 +7,14 @@ import { reasons } from "@/data/reasons";
 export const metadata: Metadata = {
   title: "O nás | Specialisté na napínané stropy v Ostravě | StropDesign",
   description:
-    "StropDesign – divize Derbau s.r.o. Přes 200 realizací, záruka 12 let, vlastní montáž bez subdodavatelů. Ostrava.",
+    "StropDesign – divize Derbau s.r.o. Přes 150 realizací, záruka 12 let na barvu, 2 roky na montáž. Ostrava.",
 };
 
 const stats = [
-  { number: "200+", label: "Dokončených realizací" },
+  { number: "150+", label: "Dokončených realizací" },
   { number: "5,0", label: "Hodnocení na Google" },
-  { number: "1 den", label: "Montáž místnosti" },
-  { number: "15+", label: "Let životnosti stropu" },
+  { number: "2 roky", label: "Záruka na montáž" },
+  { number: "12 let", label: "Záruka na barvu" },
 ];
 
 export default function ONasPage() {

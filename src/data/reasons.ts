@@ -22,10 +22,10 @@ export const reasons: Reason[] = [
   },
   {
     title: "Záruka kvality",
-    text: "Na každou realizaci poskytujeme záruku 12 let na stálost barev. Používáme kvalitní PVC materiály od prověřených dodavatelů.",
+    text: "Na každou realizaci poskytujeme 2 roky záruku na montáž a 12 let na stálost barev. Používáme kvalitní PVC materiály od prověřených dodavatelů.",
   },
   {
     title: "Rychlá realizace",
-    text: "Montáž běžné místnosti zvládneme za 1 den bez nutnosti stěhovat nábytek. Čistá a rychlá práce bez prachu.",
+    text: "Montáž běžné místnosti zvládneme rychle a čistě, bez nutnosti stěhovat nábytek. Žádný prach, žádný nepořádek.",
   },
 ];

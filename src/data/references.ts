@@ -5,9 +5,37 @@ export interface Reference {
   gradient: string;
   image?: string;
   description?: string;
+  featured?: boolean;
 }
 
 export const references: Reference[] = [
+  {
+    title: "HHSpa — hvězdná obloha",
+    meta: "Wellness · kompletní stropy",
+    tag: "Hvězdná obloha + LED",
+    gradient: "from-[#0a0a1a] to-[#050510]",
+    description:
+      "Kompletní stropy s hvězdnou oblohou a podsvícením pro wellness centrum HHSpa. Unikátní atmosféra, která přenáší hosty pod noční oblohu.",
+    featured: true,
+  },
+  {
+    title: "Makronkárna Ostrava",
+    meta: "Kavárna · atypické tvary",
+    tag: "Vlastní tisk + podsvícení",
+    gradient: "from-[#1a0e14] to-[#120a0e]",
+    description:
+      "Atypické tvary stropu s potiskem a LED podsvícením. Originální design, který podtrhuje jedinečný koncept kavárny.",
+    featured: true,
+  },
+  {
+    title: "Smuteční síň Slavkov u Opavy",
+    meta: "Veřejný prostor · dvouúrovňový strop",
+    tag: "Dvouúrovňový + LED",
+    gradient: "from-[#0d0d12] to-[#08080d]",
+    description:
+      "Dvouúrovňový strop s LED podsvícením pro důstojný a klidný prostor smuteční síně. Citlivé řešení s důrazem na atmosféru.",
+    featured: true,
+  },
   {
     title: "Moderní kuchyně s LED",
     meta: "Kuchyně · 18 m²",

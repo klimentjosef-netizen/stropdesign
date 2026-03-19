@@ -34,9 +34,9 @@ export const steps: Step[] = [
     number: "03",
     title: "Montáž a předání",
     description:
-      "Montáž trvá zpravidla jeden den. Pracujeme čistě, bez prachu a nepořádku. Po dokončení prostor uklidíme a předáme hotový strop připravený k užívání.",
+      "Pracujeme rychle, čistě a bez prachu. Po dokončení prostor uklidíme a předáme hotový strop připravený k užívání.",
     details: [
-      "Montáž za 1 den",
+      "Rychlá a čistá montáž",
       "Čistá práce bez prachu",
       "Instalace osvětlení",
       "Úklid a předání",

@@ -66,7 +66,7 @@ export default function ReviewCards() {
         <RevealOnScroll delay={300}>
           <div className="flex justify-center mt-10">
             <a
-              href="https://www.google.com/maps/place/StropDesign/"
+              href="https://www.google.com/search?sca_esv=c1aee945acc89b8a&q=strop+design&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOSoIVhG44J1F14tVdiuftmyvOEsuV2wCc4xWAeeTo_Nb0vDCgowLCFaWhJEMwmVZPLInovM%3D&uds=ALYpb_kPfttAwudk1x-HGnga9iDDgBWpVX4BktQyA-tg2NtL0hFccrlPGlFsJINLW4KPT6vtO-EGA5hYDSUQCu0TDWGjFZwpCib3RQgneU-Nl2wZQhn4BoM"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-accent text-[12px] font-medium tracking-[0.06em] hover:text-accent-hover transition-colors duration-200 group"

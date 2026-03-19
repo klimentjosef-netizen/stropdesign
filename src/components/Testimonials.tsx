@@ -78,9 +78,8 @@ function GoogleIcon() {
   );
 }
 
-// Google Maps review link — nahraď skutečným Place ID nebo search query
 const GOOGLE_REVIEW_URL =
-  "https://www.google.com/maps/place/StropDesign+-+Nap%C3%ADnan%C3%A9+stropy/";
+  "https://www.google.com/search?sca_esv=c1aee945acc89b8a&q=strop+design&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOSoIVhG44J1F14tVdiuftmyvOEsuV2wCc4xWAeeTo_Nb0vDCgowLCFaWhJEMwmVZPLInovM%3D&uds=ALYpb_kPfttAwudk1x-HGnga9iDDgBWpVX4BktQyA-tg2NtL0hFccrlPGlFsJINLW4KPT6vtO-EGA5hYDSUQCu0TDWGjFZwpCib3RQgneU-Nl2wZQhn4BoM";
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);
@@ -184,7 +183,7 @@ export default function Testimonials() {
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto text-center">
             {[
               { value: "5.0", label: "Google hodnocení" },
-              { value: "200+", label: "Realizací" },
+              { value: "150+", label: "Realizací" },
               { value: "100%", label: "Spokojených klientů" },
               { value: "12 let", label: "Záruka na barvu" },
             ].map((stat) => (
