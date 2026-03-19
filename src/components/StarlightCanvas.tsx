@@ -234,19 +234,6 @@ export default function StarlightCanvas() {
         }
       });
 
-      // Anchor dots
-      anchors.forEach((a, i) => {
-        let maxGlow = 0;
-        segments.forEach((s) => {
-          if ((s.a === i || s.b === i) && s.glow > maxGlow) maxGlow = s.glow;
-        });
-        const aOp = 0.25 + maxGlow * 0.65;
-        ctx!.beginPath();
-        ctx!.arc(a.x, a.y, 1.5 + maxGlow * 2.5, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(168,147,90,${aOp})`;
-        ctx!.fill();
-      });
-
       // Mouse cursor glow
       if (mouse.x > 0 && mouse.x < W) {
         try {
@@ -285,7 +272,7 @@ export default function StarlightCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block"
       style={{ zIndex: 1 }}
     />
   );

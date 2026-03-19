@@ -56,9 +56,9 @@ export default function Hero() {
       className="relative w-full overflow-hidden flex items-center justify-center"
       style={{ height: "100vh", background: "#F7F4EE" }}
     >
-      {/* Dot grid */}
+      {/* Dot grid — hidden on mobile */}
       <div
-        className={`absolute inset-0 pointer-events-none transition-opacity duration-[2s] ${
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-[2s] hidden lg:block ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         style={{
@@ -74,7 +74,7 @@ export default function Hero() {
 
       {/* Center content */}
       <div
-        className="relative flex flex-col items-center text-center px-8"
+        className="relative flex flex-col items-center text-center px-5 lg:px-8"
         style={{ zIndex: 10, maxWidth: 720 }}
       >
         {/* Eyebrow */}
@@ -139,7 +139,7 @@ export default function Hero() {
         >
           <a
             href="#kalkulacka"
-            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-8 py-4 rounded-full hover:brightness-110 transition-all duration-200"
+            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full hover:brightness-110 transition-all duration-200"
           >
             {d.hero.cta}
           </a>
@@ -172,13 +172,13 @@ export default function Hero() {
           ].map((stat, i, arr) => (
             <div
               key={stat.label}
-              className="px-10"
+              className="px-4 lg:px-10"
               style={{
                 borderRight: i < arr.length - 1 ? "1px solid rgba(168,147,90,0.15)" : "none",
               }}
             >
               <div
-                className="font-display text-[34px] font-semibold leading-none mb-1"
+                className="font-display text-[24px] lg:text-[34px] font-semibold leading-none mb-1"
                 style={{ color: "#111" }}
               >
                 <span ref={stat.ref}>0</span>

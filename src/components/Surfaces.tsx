@@ -67,10 +67,10 @@ export default function Surfaces() {
                     className="cursor-pointer min-w-0"
                     style={{
                       flex: isSelected ? "2.5 1 0%" : "1 1 0%",
-                      transition: "flex 350ms cubic-bezier(0.34, 1, 0.64, 1), opacity 300ms ease, transform 350ms cubic-bezier(0.34, 1, 0.64, 1), filter 300ms ease",
+                      transition: "flex 400ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 300ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 300ms ease",
                       transformStyle: "preserve-3d",
                       transform: isSelected
-                        ? "scale(1.05) translateZ(20px)"
+                        ? "scale(1.08) translateZ(25px)"
                         : isDimmed
                           ? "scale(0.97) translateZ(-5px)"
                           : isHovered
