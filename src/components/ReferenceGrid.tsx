@@ -6,8 +6,10 @@ import RevealOnScroll from "./RevealOnScroll";
 import Lightbox from "./Lightbox";
 import SectionEyebrow from "./SectionEyebrow";
 import { references } from "@/data/references";
+import { useDict } from "@/i18n/LocaleContext";
 
 export default function ReferenceGrid() {
+  const d = useDict();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   // Build proper alt texts for accessibility & SEO
@@ -59,7 +61,7 @@ export default function ReferenceGrid() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
                       </svg>
               <span className="text-white/60 text-[11px] font-medium tracking-[0.06em] uppercase">
-                Foto připravujeme
+                {d.surfaces.photoPlaceholder}
               </span>
               <span className="text-white/30 text-[10px] mt-1">
                 {ref.title}
@@ -100,9 +102,9 @@ export default function ReferenceGrid() {
       {featuredRefs.length > 0 && (
         <div className="max-w-7xl mx-auto mb-16">
           <RevealOnScroll>
-            <SectionEyebrow text="Zajímavé projekty" />
+            <SectionEyebrow text={d.references.featuredEyebrow} />
             <h2 className="font-display text-[clamp(24px,2.5vw,34px)] font-semibold leading-[1.15] mb-8 text-heading">
-              Projekty, které nás baví
+              {d.references.featuredTitle}
             </h2>
           </RevealOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -118,7 +120,7 @@ export default function ReferenceGrid() {
       <div className="max-w-7xl mx-auto">
         <RevealOnScroll>
           <h2 className="font-display text-[clamp(20px,2vw,28px)] font-semibold leading-[1.15] mb-8 text-heading">
-            Všechny realizace
+            {d.references.allTitle}
           </h2>
         </RevealOnScroll>
       </div>

@@ -409,7 +409,7 @@ export default function Calculator() {
                           >
                             <div className="flex items-center gap-2">
                               <span className="text-[11px] font-medium text-heading tracking-[0.04em]">
-                                {categoryLabels[cat]}
+                                {d.calculator.categoryLabels[CATEGORIES.indexOf(cat)]}
                               </span>
                               {selectedCount > 0 && (
                                 <span className="bg-accent text-white text-[9px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">
@@ -478,7 +478,7 @@ export default function Calculator() {
                                           </svg>
                                         )}
                                       </div>
-                                      <span>{addon.name}</span>
+                                      <span>{d.calculator.addonNames[addon.originalIndex]}</span>
                                     </div>
                                     <span
                                       className={`text-[10px] tabular-nums ${
@@ -570,7 +570,7 @@ export default function Calculator() {
                           key={i}
                           className="text-[9px] bg-accent-soft text-accent px-2 py-0.5 rounded-full"
                         >
-                          {addonsList[i].name}
+                          {d.calculator.addonNames[i]}
                         </span>
                       ))}
                     </div>
@@ -580,7 +580,7 @@ export default function Calculator() {
                 <button
                   onClick={() => {
                     const selectedAddons = Array.from(addons)
-                      .map((i) => addonsList[i].name)
+                      .map((i) => d.calculator.addonNames[i])
                       .join(", ");
                     const room = `${d.surfaces.names[selectedSurface]} povrch, ${area} ${d.calculator.sqm}`;
                     const lines = [

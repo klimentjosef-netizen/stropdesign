@@ -19,43 +19,43 @@ const testimonials: Testimonial[] = [
     name: "Veronika Sváčková",
     text: "Moc děkuji této firmě, během jediného dne proměnila naši výrobnu a pak prodejnu k nepoznání. Když někoho jeho řemeslo opravdu baví, je to hned vidět. Práce byla odvedena kvalitně, precizně a s maximální pečlivostí.",
     rating: 5,
-    subtitle: "Google recenze",
+    subtitle: "google_review",
   },
   {
     name: "Petr Zajac",
     text: "Rád bych vyzdvihnul velmi pečlivou a spolehlivou práci, toto inovativní řešení při rekonstrukci bytu ušetří spoustu peněz a času.",
     rating: 5,
-    subtitle: "Google recenze",
+    subtitle: "google_review",
   },
   {
     name: "Michal Burek",
     text: "Maminka chtěla do svého bytu změnu a nejvíc ji trápil strop a světla. S výsledkem byla víc než spokojená. Firma odvedla rychlou a zároveň precizní práci. Můžu jen doporučit!",
     rating: 5,
-    subtitle: "Google recenze",
+    subtitle: "google_review",
   },
   {
     name: "Tomáš Kantor",
     text: "Naprostá spokojenost. Domluva, realizace, top, připevnění ať už k nábytku, stěně nebo kachlím. A hlavně ta údržba? Omyvatelnost 11/10!",
     rating: 5,
-    subtitle: "Google recenze",
+    subtitle: "google_review",
   },
   {
     name: "Tomas Bolcek",
     text: "Velice doporučuji. Od začátku až do konce průběhu profesionální přístup. Výběr z velké škály provedení. A výsledek? Naprosto předčil má očekávání.",
     rating: 5,
-    subtitle: "Google recenze",
+    subtitle: "google_review",
   },
   {
     name: "Ales Kotasek",
     text: "Hodně dobře to mají kluci vymyšlené, poradí co jak, práci udělají rychle, kvalitně a přesně. Podsvícení vypadá ještě líp než jsem vůbec čekal. Můžu jen doporučit.",
     rating: 5,
-    subtitle: "Google recenze",
+    subtitle: "google_review",
   },
   {
     name: "Fakerman",
     text: "Můžu jen doporučit, preciznost, rychlost, profesionální přístup mají samozřejmostí. S neobvyklými tvary a překážkami si umí poradit.",
     rating: 5,
-    subtitle: "Google recenze",
+    subtitle: "google_review",
   },
 ];
 
@@ -194,7 +194,7 @@ export default function FaqAndTestimonials() {
                   {t.name}
                 </p>
                 <p className="text-muted text-[11px] tracking-[0.04em] mt-0.5">
-                  {t.subtitle}
+                  {d.faq.googleReview}
                 </p>
               </div>
 
@@ -239,7 +239,7 @@ export default function FaqAndTestimonials() {
                   { value: "5.0", label: d.testimonials.googleRating },
                   { value: "150+", label: d.testimonials.projects },
                   { value: "100%", label: d.testimonials.satisfaction },
-                  { value: "12 let", label: d.testimonials.warranty },
+                  { value: d.testimonials.warrantyValue, label: d.testimonials.warranty },
                 ].map((stat) => (
                   <div key={stat.label}>
                     <p className="font-display text-xl font-bold text-accent">

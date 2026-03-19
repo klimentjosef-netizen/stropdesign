@@ -27,14 +27,16 @@ const cs = {
   },
   about: {
     eyebrow: "O nás",
-    title: "Proč StropDesign?",
+    title: "Precizní práce, na kterou se spolehněte.",
+    subtitle: "Napínané stropy jsou ideální volbou pro hladký, bezešvý povrch a estetické provedení interiéru. Slouží k zakrytí nerovností, instalaci osvětlení i jako designový prvek prostoru. Specializujeme se na precizní montáž po celé České republice.",
+    imageAlt: "Napínaný strop s LED osvětlením v ložnici",
     features: [
-      "Rychlá a čistá montáž bez prachu",
-      "12 let záruka na barevnou stálost",
-      "Stovky barev a povrchů na výběr",
-      "Vodotěsné řešení pro vlhké prostory",
-      "Integrované LED osvětlení",
+      "Rychlá a čistá instalace bez prachu a nepořádku",
+      "PVC membrány odolné proti vlhkosti a prasklinám",
+      "Široká škála designů: matný, saténový, lesklý, metalický, průsvitný i tisk",
       "Individuální přístup ke každému projektu",
+      "Integrované osvětlení, reproduktory a Smart Home",
+      "Antistatický povrch odolný proti prachu, bez náročné údržby",
     ],
   },
   contact: {
@@ -60,6 +62,7 @@ const cs = {
     projects: "Realizací",
     satisfaction: "Spokojených klientů",
     warranty: "Záruka na barvu",
+    warrantyValue: "12 let",
   },
   references: {
     eyebrow: "Reference",
@@ -74,6 +77,9 @@ const cs = {
     ctaSubtitle:
       "Každý strop děláme na míru. Ozvěte se a společně najdeme řešení pro váš prostor.",
     ctaButton: "Nezávazná poptávka",
+    featuredEyebrow: "Zajímavé projekty",
+    featuredTitle: "Projekty, které nás baví",
+    allTitle: "Všechny realizace",
   },
   blog: {
     eyebrow: "Blog",
@@ -144,6 +150,14 @@ const cs = {
     enquiryPrefix: "Poptávka z kalkulačky:",
     sqm: "m²",
     pcs: "ks",
+    addonNames: [
+      "Bodová světla", "LED pásky", "Lustr / závěsné svítidlo",
+      "Lineární difuzor", "Kulatý difuzor", "Ventilační mřížka",
+      "Protipožární systém", "Kouřový detektor", "Nouzové osvětlení",
+      "Reproduktory", "Smart Home integrace", "Bezpečnostní kamera",
+      "Rolety / žaluzie", "Revizní dvířka",
+    ],
+    categoryLabels: ["Osvětlení", "Klimatizace & ventilace", "Bezpečnost", "Technologie", "Ostatní"],
   },
   faq: {
     eyebrow: "Časté dotazy",

@@ -29,14 +29,16 @@ const en: Dictionary = {
   },
   about: {
     eyebrow: "About us",
-    title: "Why StropDesign?",
+    title: "Precise work you can rely on.",
+    subtitle: "Stretch ceilings are the ideal choice for a smooth, seamless surface and aesthetic interior design. They cover imperfections, integrate lighting, and serve as a design element. We specialize in precise installation across the Czech Republic.",
+    imageAlt: "Stretch ceiling with LED lighting in a bedroom",
     features: [
-      "Fast and clean installation without dust",
-      "12-year color stability warranty",
-      "Hundreds of colors and finishes to choose from",
-      "Waterproof solution for humid spaces",
-      "Integrated LED lighting",
+      "Fast and clean installation without dust or mess",
+      "PVC membranes resistant to moisture and cracks",
+      "Wide range of designs: matte, satin, glossy, metallic, translucent & print",
       "Individual approach to every project",
+      "Integrated lighting, speakers and Smart Home",
+      "Antistatic surface resistant to dust, low maintenance",
     ],
   },
   contact: {
@@ -62,6 +64,7 @@ const en: Dictionary = {
     projects: "Projects",
     satisfaction: "Satisfied clients",
     warranty: "Color warranty",
+    warrantyValue: "12 years",
   },
   references: {
     eyebrow: "Portfolio",
@@ -76,6 +79,9 @@ const en: Dictionary = {
     ctaSubtitle:
       "Every ceiling is custom-made. Get in touch and we will find the right solution for your space.",
     ctaButton: "Free enquiry",
+    featuredEyebrow: "Featured projects",
+    featuredTitle: "Projects we enjoy",
+    allTitle: "All projects",
   },
   blog: {
     eyebrow: "Blog",
@@ -146,6 +152,14 @@ const en: Dictionary = {
     enquiryPrefix: "Calculator enquiry:",
     sqm: "m²",
     pcs: "pcs",
+    addonNames: [
+      "Spot lights", "LED strips", "Chandelier / pendant light",
+      "Linear diffuser", "Round diffuser", "Ventilation grille",
+      "Fire protection system", "Smoke detector", "Emergency lighting",
+      "Speakers", "Smart Home integration", "Security camera",
+      "Blinds / shutters", "Access hatch",
+    ],
+    categoryLabels: ["Lighting", "Climate & ventilation", "Safety", "Technology", "Other"],
   },
   faq: {
     eyebrow: "FAQ",
