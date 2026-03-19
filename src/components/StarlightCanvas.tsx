@@ -14,11 +14,13 @@ interface Segment {
   progress: number; delay: number;
   glow: number; phase: number; pulseSpeed: number;
 }
-interface SpotLight {
+interface Star {
   x: number; y: number;
-  phase: number;        // offset for breathing
-  breatheSpeed: number; // how fast it pulses
-  glow: number;         // current mouse-reactive glow 0–1
+  size: number;         // 0.5–2.5px
+  phase: number;        // offset for twinkle
+  speed: number;        // twinkle speed (rad/s)
+  brightness: number;   // base brightness 0–1
+  glow: number;         // mouse-reactive glow 0–1
 }
 
 function distToSegment(
@@ -58,7 +60,7 @@ export default function StarlightCanvas() {
 
     let anchors: Anchor[] = [];
     let segments: Segment[] = [];
-    let spots: SpotLight[] = [];
+    let stars: Star[] = [];
 
     function makeAnchor(x: number, y: number): Anchor {
       return {
@@ -95,21 +97,26 @@ export default function StarlightCanvas() {
       });
     }
 
-    function buildSpots() {
-      spots = [];
+    function buildStars() {
+      stars = [];
       const cx = W / 2, cy = H / 2;
-      const count = 28 + Math.floor(Math.random() * 8);
+      const count = 120 + Math.floor(Math.random() * 60);
       for (let i = 0; i < count; i++) {
         let x: number, y: number;
         do {
-          x = 30 + Math.random() * (W - 60);
-          y = 30 + Math.random() * (H - 60);
-        } while (Math.abs(x - cx) < 160 && Math.abs(y - cy) < 90);
+          x = 10 + Math.random() * (W - 20);
+          y = 10 + Math.random() * (H - 20);
+        } while (Math.abs(x - cx) < 140 && Math.abs(y - cy) < 80);
 
-        spots.push({
-          x, y,
+        // Most stars small, a few larger
+        const r = Math.random();
+        const size = r < 0.7 ? 0.5 + Math.random() * 0.7 : 1.2 + Math.random() * 1.3;
+
+        stars.push({
+          x, y, size,
           phase: Math.random() * Math.PI * 2,
-          breatheSpeed: 0.2 + Math.random() * 0.6,
+          speed: r < 0.5 ? 0.3 + Math.random() * 0.3 : 0.7 + Math.random() * 0.8,
+          brightness: 0.3 + Math.random() * 0.7,
           glow: 0,
         });
       }
@@ -120,7 +127,7 @@ export default function StarlightCanvas() {
       H = canvas!.height = window.innerHeight;
       buildAnchors();
       buildSegments();
-      buildSpots();
+      buildStars();
     }
 
     function draw(now: number) {
@@ -134,11 +141,11 @@ export default function StarlightCanvas() {
         a.y = a.baseY + Math.sin(t * a.driftSpeedY + a.driftPhaseY) * a.driftAmpY;
       });
 
-      // Update spot lights — mouse proximity glow
-      spots.forEach((spot) => {
-        const dist = Math.hypot(mouse.x - spot.x, mouse.y - spot.y);
-        const target = dist < 150 ? Math.pow(1 - dist / 150, 1.4) : 0;
-        spot.glow += (target - spot.glow) * 0.06;
+      // Update stars — mouse proximity glow
+      stars.forEach((star) => {
+        const dist = Math.hypot(mouse.x - star.x, mouse.y - star.y);
+        const target = dist < 100 ? Math.pow(1 - dist / 100, 1.6) : 0;
+        star.glow += (target - star.glow) * 0.08;
       });
 
       // Draw segments
@@ -191,37 +198,40 @@ export default function StarlightCanvas() {
         }
       });
 
-      // Static spot lights — pure glow, no hard edges
-      spots.forEach((spot) => {
-        const { x, y, phase, breatheSpeed, glow } = spot;
+      // Stars — Rolls-Royce starlight ceiling effect
+      stars.forEach((star) => {
+        const { x, y, size, phase, speed, brightness, glow } = star;
 
-        // Slow breathing
-        const breathe = 0.25 + 0.55 * (0.5 + 0.5 * Math.sin(t * breatheSpeed + phase));
-        const intensity = breathe + glow * 0.7;
+        // Twinkle: sinusoidal brightness with own phase and speed
+        const twinkle = 0.5 + 0.5 * Math.sin(t * speed + phase);
+        const alpha = (brightness * twinkle * 0.6 + glow * 0.5);
+        if (alpha < 0.02) return;
 
-        // Wide soft glow — the main light spill
-        const outerR = 40 + glow * 25;
+        // Subtle halo glow around star
+        const haloR = size * 3.5 + glow * 5;
         try {
-          const gl = ctx!.createRadialGradient(x, y, 0, x, y, outerR);
-          gl.addColorStop(0, `rgba(255,225,130,${intensity * 0.35})`);
-          gl.addColorStop(0.15, `rgba(255,215,110,${intensity * 0.14})`);
-          gl.addColorStop(0.4, `rgba(230,195,90,${intensity * 0.05})`);
-          gl.addColorStop(0.7, `rgba(200,175,80,${intensity * 0.015})`);
-          gl.addColorStop(1, "transparent");
-          ctx!.fillStyle = gl;
-          ctx!.fillRect(x - outerR, y - outerR, outerR * 2, outerR * 2);
+          const hg = ctx!.createRadialGradient(x, y, 0, x, y, haloR);
+          hg.addColorStop(0, `rgba(168,147,90,${alpha * 0.2})`);
+          hg.addColorStop(0.5, `rgba(168,147,90,${alpha * 0.06})`);
+          hg.addColorStop(1, "transparent");
+          ctx!.fillStyle = hg;
+          ctx!.fillRect(x - haloR, y - haloR, haloR * 2, haloR * 2);
         } catch {}
 
-        // Tight bright center — no hard circle, just concentrated glow
-        const innerR = 8 + glow * 6;
-        try {
-          const ig = ctx!.createRadialGradient(x, y, 0, x, y, innerR);
-          ig.addColorStop(0, `rgba(255,240,180,${Math.min(1, intensity * 0.7)})`);
-          ig.addColorStop(0.3, `rgba(255,225,140,${intensity * 0.2})`);
-          ig.addColorStop(1, "transparent");
-          ctx!.fillStyle = ig;
-          ctx!.fillRect(x - innerR, y - innerR, innerR * 2, innerR * 2);
-        } catch {}
+        // Sharp bright center dot
+        const dotSize = size + glow * 1.5;
+        ctx!.beginPath();
+        ctx!.arc(x, y, dotSize, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(190,170,100,${Math.min(1, alpha * 1.2)})`;
+        ctx!.fill();
+
+        // Tiny bright core for larger stars
+        if (size > 1.0) {
+          ctx!.beginPath();
+          ctx!.arc(x, y, dotSize * 0.4, 0, Math.PI * 2);
+          ctx!.fillStyle = `rgba(240,225,180,${Math.min(1, alpha * 1.5)})`;
+          ctx!.fill();
+        }
       });
 
       // Anchor dots
