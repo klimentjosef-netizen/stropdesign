@@ -123,3 +123,16 @@ body {
 .glow-accent:hover {
   box-shadow: 0 0 40px rgba(132, 118, 49, 0.25);
 }
+
+/* Pulsating glow for CTA buttons */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(132,118,49,0.2), 0 0 30px rgba(132,118,49,0.1); }
+  50% { box-shadow: 0 0 25px rgba(132,118,49,0.4), 0 0 50px rgba(132,118,49,0.2); }
+}
+.btn-glow-pulse {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+.btn-glow-pulse:hover {
+  animation: none;
+  box-shadow: 0 0 30px rgba(132,118,49,0.45), 0 0 60px rgba(132,118,49,0.25);
+}

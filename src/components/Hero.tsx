@@ -139,7 +139,7 @@ export default function Hero() {
         >
           <a
             href="#kalkulacka"
-            className="btn-shimmer glow-accent bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-8 py-4 hover:brightness-110 transition-all duration-200"
+            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-8 py-4 rounded-full hover:brightness-110 transition-all duration-200"
           >
             {d.hero.cta}
           </a>
