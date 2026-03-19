@@ -22,9 +22,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "StropDesign | Napínané stropy Ostrava",
+  title: "StropDesign | Napínané stropy",
   description:
-    "Designové stropní podhledy formou napínaných stropů v Ostravě a okolí. Precizní montáž, široký výběr povrchů a dlouhá životnost.",
+    "Designové stropní podhledy formou napínaných stropů po celé České republice. Precizní montáž, široký výběr povrchů a dlouhá životnost.",
   keywords: [
     "napínané stropy",
     "napínané stropy Ostrava",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     "Derbau",
   ],
   openGraph: {
-    title: "StropDesign | Napínané stropy Ostrava",
+    title: "StropDesign | Napínané stropy",
     description:
-      "Designové stropní podhledy formou napínaných stropů v Ostravě a okolí.",
+      "Designové stropní podhledy formou napínaných stropů po celé České republice.",
     locale: "cs_CZ",
     type: "website",
   },

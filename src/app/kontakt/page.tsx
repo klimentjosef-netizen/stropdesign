@@ -7,7 +7,7 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 export const metadata: Metadata = {
   title: "Kontakt | StropDesign",
   description:
-    "Kontaktujte nás pro nezávaznou poptávku na napínané stropy. Telefon: +420 739 457 794. Ostrava a okolí.",
+    "Kontaktujte nás pro nezávaznou poptávku na napínané stropy. Telefon: +420 739 457 794. Realizujeme po celé ČR.",
 };
 
 export default function KontaktPage() {

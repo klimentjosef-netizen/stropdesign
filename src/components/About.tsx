@@ -26,7 +26,7 @@ export default function About() {
             Napínané stropy jsou ideální volbou pro hladký, bezešvý povrch a
             estetické provedení interiéru. Slouží k zakrytí nerovností, instalaci
             osvětlení i jako designový prvek prostoru. Specializujeme se na
-            precizní montáž v Ostravě a okolí.
+            precizní montáž po celé České republice.
           </p>
           <div className="flex flex-col gap-3.5">
             {advantages.map((text, i) => (

@@ -4,12 +4,25 @@ import { useEffect, useState, useRef } from "react";
 import StarlightCanvas from "./StarlightCanvas";
 import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
+function formatValue(value: number, target: number, suffix: string, decimals: boolean) {
+  if (target === 150 && value >= 150) return "150+";
+  if (decimals) return (value).toFixed(1).replace(".", ",");
+  return Math.round(value) + suffix;
+}
+
 function useCounter(target: number, suffix: string, decimals: boolean, delay: number) {
   const ref = useRef<HTMLSpanElement>(null);
+  const animRef = useRef<number>(0);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Set final value immediately as fallback
+    el.textContent = formatValue(target, target, suffix, decimals);
+
+    // Then animate from 0
+    el.textContent = decimals ? "0,0" : "0";
 
     const timer = setTimeout(() => {
       const dur = 1800;
@@ -18,20 +31,24 @@ function useCounter(target: number, suffix: string, decimals: boolean, delay: nu
       function update(now: number) {
         const p = Math.min(1, (now - start) / dur);
         const e = 1 - Math.pow(1 - p, 3);
+        const current = e * target;
 
-        if (decimals) {
-          el!.textContent = (e * target).toFixed(1);
-        } else {
-          el!.textContent = Math.round(e * target) + suffix;
+        el!.textContent = formatValue(current, target, suffix, decimals);
+
+        if (p < 1) {
+          animRef.current = requestAnimationFrame(update);
         }
-        if (target === 150 && p >= 1) el!.textContent = "150+";
-        if (p < 1) requestAnimationFrame(update);
       }
 
-      requestAnimationFrame(update);
+      animRef.current = requestAnimationFrame(update);
     }, delay);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(animRef.current);
+      // Ensure final value is set on cleanup
+      if (el) el.textContent = formatValue(target, target, suffix, decimals);
+    };
   }, [target, suffix, decimals, delay]);
 
   return ref;

@@ -5,7 +5,7 @@ export default function JsonLd() {
     name: "StropDesign",
     alternateName: "Derbau s.r.o.",
     description:
-      "Designové stropní podhledy formou napínaných stropů v Ostravě a okolí. Precizní montáž, široký výběr povrchů a dlouhá životnost.",
+      "Designové stropní podhledy formou napínaných stropů po celé České republice. Precizní montáž, široký výběr povrchů a dlouhá životnost.",
     url: "https://www.stropdesign.cz",
     telephone: "+420739457794",
     address: {
@@ -19,13 +19,10 @@ export default function JsonLd() {
       latitude: 49.8209,
       longitude: 18.2625,
     },
-    areaServed: [
-      { "@type": "City", name: "Ostrava" },
-      { "@type": "City", name: "Frýdek-Místek" },
-      { "@type": "City", name: "Opava" },
-      { "@type": "City", name: "Havířov" },
-      { "@type": "City", name: "Karviná" },
-    ],
+    areaServed: {
+      "@type": "Country",
+      name: "Czech Republic",
+    },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "5.0",

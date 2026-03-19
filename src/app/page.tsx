@@ -9,7 +9,7 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "StropDesign",
-  "description": "Montáž napínaných stropů v Ostravě a okolí",
+  "description": "Montáž napínaných stropů po celé České republice",
   "url": "https://stropdesign.vercel.app",
   "telephone": "+420739457794",
   "email": "info@stropdesign.cz",
@@ -18,7 +18,7 @@ const localBusinessJsonLd = {
     "addressLocality": "Ostrava",
     "addressCountry": "CZ",
   },
-  "areaServed": ["Ostrava", "Frýdek-Místek", "Opava", "Havířov", "Karviná"],
+  "areaServed": { "@type": "Country", "name": "Czech Republic" },
   "priceRange": "600–1200 Kč/m²",
   "aggregateRating": {
     "@type": "AggregateRating",

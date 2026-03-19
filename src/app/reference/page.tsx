@@ -5,9 +5,9 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import ReferenceGrid from "@/components/ReferenceGrid";
 
 export const metadata: Metadata = {
-  title: "Reference a realizace napínaných stropů | StropDesign Ostrava",
+  title: "Reference a realizace napínaných stropů | StropDesign",
   description:
-    "Prohlédněte si dokončené realizace napínaných stropů v Ostravě — kuchyně, ložnice, koupelny, komerční prostory.",
+    "Prohlédněte si dokončené realizace napínaných stropů — kuchyně, ložnice, koupelny, komerční prostory. Celá ČR.",
 };
 
 export default function ReferencePage() {
@@ -25,7 +25,7 @@ export default function ReferencePage() {
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
               Každý projekt je originál. Podívejte se na naše dokončené realizace
-              v Ostravě a okolí. Klikněte na fotku pro zvětšení.
+              po celé ČR. Klikněte na fotku pro zvětšení.
             </p>
           </RevealOnScroll>
         </div>

@@ -51,7 +51,7 @@ const cs = {
     sending: "Odesílám…",
     success: "Děkujeme za poptávku!",
     successSub: "Ozveme se vám do 24 hodin s nabídkou na míru.",
-    area: "Ostrava a okolí",
+    area: "Celá Česká republika",
   },
   testimonials: {
     eyebrow: "Hodnocení",
@@ -69,7 +69,7 @@ const cs = {
     heroTitle2: "jsme",
     heroTitle3: "hrdí",
     heroSubtitle:
-      "Každý projekt je originál. Podívejte se na naše dokončené realizace v Ostravě a okolí. Klikněte na fotku pro zvětšení.",
+      "Každý projekt je originál. Podívejte se na naše dokončené realizace po celé ČR. Klikněte na fotku pro zvětšení.",
     ctaTitle: "Chcete podobný výsledek?",
     ctaSubtitle:
       "Každý strop děláme na míru. Ozvěte se a společně najdeme řešení pro váš prostor.",
@@ -90,7 +90,7 @@ const cs = {
   },
   footer: {
     description:
-      "Designové stropní podhledy formou napínaných stropů v Ostravě a okolí.",
+      "Designové stropní podhledy formou napínaných stropů po celé České republice.",
     navigation: "Navigace",
     contact: "Kontakt",
     startToday: "Začněte ještě dnes",

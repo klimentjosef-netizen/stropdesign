@@ -5,16 +5,16 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import { reasons } from "@/data/reasons";
 
 export const metadata: Metadata = {
-  title: "O nás | Specialisté na napínané stropy v Ostravě | StropDesign",
+  title: "O nás | Specialisté na napínané stropy | StropDesign",
   description:
-    "StropDesign – divize Derbau s.r.o. Přes 150 realizací, záruka 12 let na barvu, 2 roky na montáž. Ostrava.",
+    "StropDesign – divize Derbau s.r.o. Přes 150 realizací, záruka 12 let na barvu. Realizujeme po celé České republice.",
 };
 
 const stats = [
   { number: "150+", label: "Dokončených realizací" },
   { number: "5,0", label: "Hodnocení na Google" },
-  { number: "2 roky", label: "Záruka na montáž" },
   { number: "12 let", label: "Záruka na barvu" },
+  { number: "15–25 let", label: "Životnost" },
 ];
 
 export default function ONasPage() {
@@ -28,7 +28,7 @@ export default function ONasPage() {
             <h1 className="font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.1] mb-6 text-heading">
               Specialisté na napínané stropy
               <br />
-              <em className="italic text-accent">v Ostravě a okolí</em>.
+              <em className="italic text-accent">po celé ČR</em>.
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light mb-8">
               Jsme StropDesign, divize společnosti Derbau s.r.o. Zabýváme se
@@ -71,7 +71,7 @@ export default function ONasPage() {
                 </p>
               </div>
 
-              {/* ⚠️ TODO: majitel dodá: 1) fotku (ideálně čtvercový formát, min 400x400px), 2) jméno, 3) délku praxe */}
+              {/* TODO: doplnit foto a jméno majitele */}
             </div>
           </RevealOnScroll>
         </div>

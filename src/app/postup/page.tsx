@@ -8,7 +8,7 @@ import Faq from "@/components/Faq";
 import { faqs } from "@/data/faq";
 
 export const metadata: Metadata = {
-  title: "Jak probíhá montáž napínaného stropu | StropDesign Ostrava",
+  title: "Jak probíhá montáž napínaného stropu | StropDesign",
   description:
     "Od poptávky po hotový strop. Konzultace, výroba na míru, čistá a rychlá montáž. Realizace v celé ČR.",
 };

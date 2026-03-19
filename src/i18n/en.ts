@@ -53,7 +53,7 @@ const en: Dictionary = {
     sending: "Sending…",
     success: "Thank you for your enquiry!",
     successSub: "We will get back to you within 24 hours with a custom offer.",
-    area: "Ostrava & surroundings",
+    area: "Entire Czech Republic",
   },
   testimonials: {
     eyebrow: "Reviews",
@@ -71,7 +71,7 @@ const en: Dictionary = {
     heroTitle2: "proud",
     heroTitle3: "of",
     heroSubtitle:
-      "Every project is unique. Browse our completed installations in Ostrava and surroundings. Click a photo to enlarge.",
+      "Every project is unique. Browse our completed installations across the Czech Republic. Click a photo to enlarge.",
     ctaTitle: "Want a similar result?",
     ctaSubtitle:
       "Every ceiling is custom-made. Get in touch and we will find the right solution for your space.",
@@ -92,7 +92,7 @@ const en: Dictionary = {
   },
   footer: {
     description:
-      "Designer stretch ceiling solutions in Ostrava and surroundings.",
+      "Designer stretch ceiling solutions across the Czech Republic.",
     navigation: "Navigation",
     contact: "Contact",
     startToday: "Get started today",
