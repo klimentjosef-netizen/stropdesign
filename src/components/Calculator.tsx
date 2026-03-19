@@ -186,7 +186,7 @@ export default function Calculator() {
 
           {/* Modal content */}
           <div
-            className="relative w-full max-w-[1100px] max-h-[100dvh] flex flex-col bg-white mx-4 my-4 lg:my-8 rounded-2xl shadow-2xl"
+            className="relative w-full max-w-[1300px] max-h-[100dvh] flex flex-col bg-white mx-4 my-4 lg:my-8 rounded-2xl shadow-2xl"
             style={{
               animation: "calcSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards",
             }}
@@ -221,9 +221,9 @@ export default function Calculator() {
             {/* Body - two columns */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] flex-1 min-h-0 overflow-hidden">
               {/* Left: Form */}
-              <div className="p-6 lg:p-10 lg:border-r lg:border-border overflow-y-auto">
+              <div className="p-6 lg:p-8 lg:border-r lg:border-border overflow-y-auto">
                 {/* Step 1: Surface */}
-                <div className="mb-8">
+                <div className="mb-5">
                   <div className="flex items-center gap-2.5 mb-3">
                     <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
                       1
@@ -282,8 +282,10 @@ export default function Calculator() {
                   </div>
                 </div>
 
+                {/* Steps 2 & 3 side by side */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
                 {/* Step 2: Area */}
-                <div className="mb-8">
+                <div>
                   <div className="flex items-center gap-2.5 mb-3">
                     <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
                       2
@@ -339,7 +341,7 @@ export default function Calculator() {
                 </div>
 
                 {/* Step 3: Lights */}
-                <div className="mb-8">
+                <div>
                   <div className="flex items-center gap-2.5 mb-3">
                     <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
                       3
@@ -393,6 +395,7 @@ export default function Calculator() {
                     </div>
                   </div>
                 </div>
+                </div>
 
                 {/* Step 4: Addons */}
                 <div>
@@ -404,7 +407,7 @@ export default function Calculator() {
                       Doplňky & příslušenství
                     </label>
                   </div>
-                  <div className="flex flex-col gap-2">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                     {CATEGORIES.map((cat) => {
                       const catAddons = addonsList
                         .map((a, i) => ({ ...a, originalIndex: i }))
