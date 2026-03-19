@@ -84,7 +84,9 @@ export default function StarlightCanvas() {
 
     function buildSegments() {
       segments = [];
-      SEGMENT_PAIRS.forEach(([ai, bi], idx) => {
+      const isMobile = W < 768;
+      const pairs = isMobile ? SEGMENT_PAIRS.slice(0, 8) : SEGMENT_PAIRS;
+      pairs.forEach(([ai, bi], idx) => {
         if (ai >= anchors.length || bi >= anchors.length) return;
         segments.push({
           a: ai, b: bi,
@@ -100,7 +102,8 @@ export default function StarlightCanvas() {
     function buildStars() {
       stars = [];
       const cx = W / 2, cy = H / 2;
-      const count = 120 + Math.floor(Math.random() * 60);
+      const isMobile = W < 768;
+      const count = isMobile ? 30 + Math.floor(Math.random() * 15) : 120 + Math.floor(Math.random() * 60);
       for (let i = 0; i < count; i++) {
         let x: number, y: number;
         do {
@@ -272,7 +275,7 @@ export default function StarlightCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block"
+      className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ zIndex: 1 }}
     />
   );

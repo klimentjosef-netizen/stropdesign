@@ -51,7 +51,8 @@ export default function Surfaces() {
           </div>
 
           <div style={{ perspective: "800px" }}>
-            <div className="flex gap-2.5" style={{ flexWrap: "nowrap" }}>
+            {/* Desktop: flex row | Mobile: 2-column grid */}
+            <div className="grid grid-cols-2 gap-2.5 lg:flex lg:flex-nowrap lg:gap-2.5">
               {surfaces.map((surface, i) => {
                 const isHovered = hovered === i && !isOpen;
                 const isDimmed = isOpen && selected !== i;
@@ -64,7 +65,7 @@ export default function Surfaces() {
                     onMouseEnter={() => setHovered(i)}
                     onMouseLeave={() => setHovered(null)}
                     onClick={(e) => { e.stopPropagation(); handleCardClick(i); }}
-                    className="cursor-pointer min-w-0"
+                    className={`cursor-pointer min-w-0 ${isSelected ? "col-span-2 lg:col-span-1" : ""}`}
                     style={{
                       flex: isSelected ? "2.5 1 0%" : "1 1 0%",
                       transition: "flex 400ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 300ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 300ms ease",

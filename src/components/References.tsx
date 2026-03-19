@@ -11,19 +11,11 @@ export default function References() {
     <section className="py-20 lg:py-24 px-6 lg:px-10 border-b border-border">
       <div className="max-w-7xl mx-auto">
         <RevealOnScroll>
-          <div className="flex flex-col lg:flex-row justify-between lg:items-end gap-4 mb-10">
-            <div>
+          <div className="mb-10">
               <SectionEyebrow text="Reference" />
               <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] text-heading">
                 Realizace, na které jsme hrdí
               </h2>
-            </div>
-            <Link
-              href="/reference"
-              className="flex-shrink-0 bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200 text-center rounded-full"
-            >
-              Zobrazit vše
-            </Link>
           </div>
         </RevealOnScroll>
 
@@ -60,6 +52,17 @@ export default function References() {
             </RevealOnScroll>
           ))}
         </div>
+
+        <RevealOnScroll delay={300}>
+          <div className="flex justify-center mt-10">
+            <Link
+              href="/reference"
+              className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-8 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
+            >
+              Zobrazit vše
+            </Link>
+          </div>
+        </RevealOnScroll>
       </div>
     </section>
   );

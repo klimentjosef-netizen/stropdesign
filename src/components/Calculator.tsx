@@ -146,15 +146,15 @@ export default function Calculator() {
               </div>
 
               {/* Bottom surface preview strip */}
-              <div className="border-t border-border px-8 lg:px-10 py-3 flex items-center gap-4 overflow-x-auto">
+              <div className="border-t border-border px-8 lg:px-10 py-3 flex flex-col lg:flex-row items-start lg:items-center gap-2 lg:gap-4">
                 <span className="text-muted text-[9px] tracking-[0.1em] uppercase flex-shrink-0">
                   Povrchy:
                 </span>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1 lg:flex lg:gap-2">
                   {surfaces.map((s) => (
                     <div
                       key={s.slug}
-                      className="flex items-center gap-1.5 flex-shrink-0"
+                      className="flex items-center gap-1.5"
                     >
                       <div
                         className="w-2.5 h-2.5 rounded-full border border-border-dark/30"
