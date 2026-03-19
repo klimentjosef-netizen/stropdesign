@@ -32,6 +32,6 @@ export const faqs: FaqItem[] = [
   {
     question: "Děláte i mimo Ostravu?",
     answer:
-      "Ano, realizujeme projekty v Ostravě a okolí, včetně Frýdku-Místku, Opavy, Havířova a Karviné.",
+      "Ano, realizujeme projekty po celé České republice. Sídlíme v Ostravě, ale rádi dojedeme kamkoli.",
   },
 ];
