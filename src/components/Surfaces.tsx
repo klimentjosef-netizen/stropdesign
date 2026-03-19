@@ -52,7 +52,7 @@ export default function Surfaces() {
 
           <div style={{ perspective: "800px" }}>
             {/* Desktop: flex row | Mobile: 2-column grid */}
-            <div className="grid grid-cols-2 gap-2.5 lg:flex lg:flex-nowrap lg:gap-2.5">
+            <div className="grid grid-cols-4 gap-1.5 md:gap-2.5 lg:flex lg:flex-nowrap lg:gap-2.5">
               {surfaces.map((surface, i) => {
                 const isHovered = hovered === i && !isOpen;
                 const isDimmed = isOpen && selected !== i;
@@ -65,7 +65,7 @@ export default function Surfaces() {
                     onMouseEnter={() => setHovered(i)}
                     onMouseLeave={() => setHovered(null)}
                     onClick={(e) => { e.stopPropagation(); handleCardClick(i); }}
-                    className={`cursor-pointer min-w-0 ${isSelected ? "col-span-2 lg:col-span-1" : ""}`}
+                    className={`cursor-pointer min-w-0 ${isSelected ? "col-span-4 md:col-span-2 lg:col-span-1" : ""}`}
                     style={{
                       flex: isSelected ? "2.5 1 0%" : "1 1 0%",
                       transition: "flex 400ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 300ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 300ms ease",
@@ -97,7 +97,7 @@ export default function Surfaces() {
                     >
                       {/* Color preview bar */}
                       <div
-                        className="h-14 relative overflow-hidden"
+                        className="h-8 md:h-14 relative overflow-hidden"
                         style={{ background: surface.color }}
                       >
                         <div
@@ -117,10 +117,10 @@ export default function Surfaces() {
                       </div>
 
                       {/* Card body */}
-                      <div className="px-2.5 py-2">
+                      <div className="px-1.5 py-1 md:px-2.5 md:py-2">
                         <div className="flex items-baseline justify-between gap-1">
                           <span
-                            className="text-[10px] tracking-[0.05em] transition-colors duration-200 whitespace-nowrap"
+                            className="text-[8px] md:text-[10px] tracking-[0.05em] transition-colors duration-200 whitespace-nowrap"
                             style={{
                               color: isHovered || isSelected ? surface.accent : undefined,
                               fontWeight: isHovered || isSelected ? 500 : 400,

@@ -62,13 +62,13 @@ export default function StarlightCanvas() {
     let segments: Segment[] = [];
     let stars: Star[] = [];
 
-    function makeAnchor(x: number, y: number): Anchor {
+    function makeAnchor(x: number, y: number, driftScale = 1): Anchor {
       return {
         x, y, baseX: x, baseY: y,
         driftSpeedX: 0.08 + Math.random() * 0.18,
         driftSpeedY: 0.08 + Math.random() * 0.18,
-        driftAmpX: 15 + Math.random() * 30,
-        driftAmpY: 15 + Math.random() * 30,
+        driftAmpX: (15 + Math.random() * 30) * driftScale,
+        driftAmpY: (15 + Math.random() * 30) * driftScale,
         driftPhaseX: Math.random() * Math.PI * 2,
         driftPhaseY: Math.random() * Math.PI * 2,
       };
@@ -76,10 +76,15 @@ export default function StarlightCanvas() {
 
     function buildAnchors() {
       anchors = [];
-      for (let i = 0; i <= 6; i++) anchors.push(makeAnchor(W * (i / 6), 0));
-      for (let i = 1; i <= 4; i++) anchors.push(makeAnchor(W, H * (i / 5)));
-      for (let i = 6; i >= 0; i--) anchors.push(makeAnchor(W * (i / 6), H));
-      for (let i = 4; i >= 1; i--) anchors.push(makeAnchor(0, H * (i / 5)));
+      const isMobile = W < 768;
+      const inset = isMobile ? W * 0.12 : 0;
+      const usableW = W - inset * 2;
+      const ds = isMobile ? 0.4 : 1; // drift scale
+
+      for (let i = 0; i <= 6; i++) anchors.push(makeAnchor(inset + usableW * (i / 6), 0, ds));
+      for (let i = 1; i <= 4; i++) anchors.push(makeAnchor(W - inset, H * (i / 5), ds));
+      for (let i = 6; i >= 0; i--) anchors.push(makeAnchor(inset + usableW * (i / 6), H, ds));
+      for (let i = 4; i >= 1; i--) anchors.push(makeAnchor(inset, H * (i / 5), ds));
     }
 
     function buildSegments() {

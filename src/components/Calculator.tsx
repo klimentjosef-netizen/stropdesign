@@ -145,26 +145,6 @@ export default function Calculator() {
                 </div>
               </div>
 
-              {/* Bottom surface preview strip */}
-              <div className="border-t border-border px-8 lg:px-10 py-3 flex flex-col lg:flex-row items-start lg:items-center gap-2 lg:gap-4">
-                <span className="text-muted text-[9px] tracking-[0.1em] uppercase flex-shrink-0">
-                  Povrchy:
-                </span>
-                <div className="grid grid-cols-2 gap-x-3 gap-y-1 lg:flex lg:gap-2">
-                  {surfaces.map((s) => (
-                    <div
-                      key={s.slug}
-                      className="flex items-center gap-1.5"
-                    >
-                      <div
-                        className="w-2.5 h-2.5 rounded-full border border-border-dark/30"
-                        style={{ background: s.color }}
-                      />
-                      <span className="text-[10px] text-muted">{s.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
           </RevealOnScroll>
         </div>
@@ -232,20 +212,20 @@ export default function Calculator() {
                       Typ povrchu
                     </label>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
                     {surfaces.map((s, i) => (
                       <button
                         key={s.name}
                         onClick={() => setSelectedSurface(i)}
-                        className={`border text-left px-3 py-2.5 transition-all duration-200 rounded-xl relative overflow-hidden ${
+                        className={`border text-left px-2 py-2 sm:px-3 sm:py-2.5 transition-all duration-200 rounded-xl relative overflow-hidden ${
                           selectedSurface === i
                             ? "border-accent bg-accent-soft shadow-sm"
                             : "border-border bg-light-secondary/50 hover:border-border-dark"
                         }`}
                       >
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
                           <div
-                            className="w-3 h-3 rounded-full border flex-shrink-0"
+                            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border flex-shrink-0"
                             style={{
                               background: s.color,
                               borderColor:
@@ -253,7 +233,7 @@ export default function Calculator() {
                             }}
                           />
                           <span
-                            className={`text-[11px] ${
+                            className={`text-[9px] sm:text-[11px] ${
                               selectedSurface === i
                                 ? "text-heading font-medium"
                                 : "text-body"
@@ -263,7 +243,7 @@ export default function Calculator() {
                           </span>
                         </div>
                         <span
-                          className={`text-[9px] ${
+                          className={`text-[8px] sm:text-[9px] ${
                             selectedSurface === i
                               ? "text-accent font-medium"
                               : "text-muted"

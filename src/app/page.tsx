@@ -38,8 +38,8 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
       <Hero />
-      <Surfaces />
       <Calculator />
+      <Surfaces />
       <References />
       <FaqAndTestimonials />
       <ContactSection />
