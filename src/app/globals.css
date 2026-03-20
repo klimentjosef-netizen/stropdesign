@@ -124,6 +124,12 @@ body {
   box-shadow: 0 0 40px rgba(132, 118, 49, 0.25);
 }
 
+/* Mascot breathing animation */
+@keyframes mascotBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
 /* Pulsating glow for CTA buttons */
 @keyframes glowPulse {
   0%, 100% { box-shadow: 0 0 15px rgba(132,118,49,0.2), 0 0 30px rgba(132,118,49,0.1); }

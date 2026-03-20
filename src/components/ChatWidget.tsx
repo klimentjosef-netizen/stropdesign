@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 interface Message {
   role: "user" | "assistant";
@@ -222,6 +223,13 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
 
+  // Allow other components (e.g. Calculator) to open the chat
+  useEffect(() => {
+    const handler = () => setIsOpen(true);
+    window.addEventListener("openStropKecka", handler);
+    return () => window.removeEventListener("openStropKecka", handler);
+  }, []);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -351,16 +359,19 @@ export default function ChatWidget() {
             <path d="M4 4l12 12M16 4l-12 12" />
           </svg>
         ) : (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
+          <div
+            className="w-9 h-9 rounded-full overflow-hidden"
+            style={{ animation: "mascotBreathe 3s ease-in-out infinite" }}
           >
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-          </svg>
+            <Image
+              src="/images/logo-mark-light.jpg"
+              alt="Strop kecka"
+              width={36}
+              height={36}
+              className="object-cover w-full h-full"
+              priority
+            />
+          </div>
         )}
       </button>
 
@@ -368,10 +379,10 @@ export default function ChatWidget() {
       {!isOpen && messages.length === 0 && (
         <>
           <div
-            className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[11px] font-medium px-3 py-2 rounded-sm shadow-lg pointer-events-none max-w-[180px] text-center leading-[1.5]"
+            className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[11px] font-medium px-3 py-2 rounded-sm shadow-lg pointer-events-none max-w-[220px] text-center leading-[1.5]"
             style={{ animation: "chatSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both" }}
           >
-            Nevíte si rady? Napište nám!
+            Popište co potřebujete a ihned dostanete orientační cenu
             <div className="absolute -bottom-1 right-5 w-2 h-2 bg-dark rotate-45" />
           </div>
           <div className="fixed bottom-6 right-6 z-[89] w-14 h-14 rounded-full animate-ping bg-accent/20 pointer-events-none" />
@@ -389,8 +400,8 @@ export default function ChatWidget() {
         >
           {/* Header */}
           <div className="bg-dark px-4 py-3 flex items-center gap-3 flex-shrink-0">
-            <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-              <span className="text-white text-[13px] font-semibold">S</span>
+            <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+              <Image src="/images/logo-mark-light.jpg" alt="Strop kecka" width={32} height={32} className="object-cover w-full h-full" />
             </div>
             <div className="flex-1">
               <div className="text-white text-[13px] font-medium">
@@ -474,20 +485,24 @@ export default function ChatWidget() {
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
             {messages.length === 0 && (
               <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-                <div className="w-12 h-12 bg-accent-soft rounded-full flex items-center justify-center mb-3">
-                  <span className="text-accent text-xl font-display font-semibold">
-                    S
-                  </span>
+                <div
+                  className="w-14 h-14 rounded-full overflow-hidden mb-3"
+                  style={{ animation: "floatSlow 4s ease-in-out infinite" }}
+                >
+                  <Image
+                    src="/images/logo-mark-light.jpg"
+                    alt="Strop kecka"
+                    width={56}
+                    height={56}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
                 <p className="text-heading text-[14px] font-medium mb-1">
-                  Nevíte si rady? Poradíme!
+                  Zjistěte cenu během minuty
                 </p>
-                <p className="text-muted text-[12px] leading-[1.6] mb-1.5">
-                  Popište svými slovy, co potřebujete — jakou máte
-                  místnost, co od stropu očekáváte, jaký máte rozpočet.
-                </p>
-                <p className="text-accent text-[11px] font-medium mb-4">
-                  My vám doporučíme to nejlepší řešení a rovnou spočítáme cenu.
+                <p className="text-muted text-[12px] leading-[1.6] mb-4">
+                  Popište svou místnost, doporučíme nejlepší řešení
+                  a rovnou spočítáme orientační cenu. Bez čekání, bez závazků.
                 </p>
                 <div className="flex flex-col gap-1.5 w-full">
                   {[

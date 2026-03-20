@@ -616,6 +616,15 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 <p className="text-muted text-[9px] text-center mt-2.5 leading-[1.5]">
                   {d.calculator.ctaNote}
                 </p>
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.dispatchEvent(new CustomEvent("openStropKecka"));
+                  }}
+                  className="block w-full text-center text-[11px] text-accent hover:underline mt-3 transition-colors"
+                >
+                  Nevíte co vybrat? Poradíme!
+                </button>
               </div>
             </div>
           </div>
