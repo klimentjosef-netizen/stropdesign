@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
+import MascotA from "./MascotA";
+import MascotB from "./MascotB";
 
 interface Message {
   role: "user" | "assistant";
@@ -490,17 +492,20 @@ export default function ChatWidget() {
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
             {messages.length === 0 && (
               <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-                <div
-                  className="w-14 h-14 rounded-full overflow-hidden mb-3"
-                  style={{ animation: "floatSlow 4s ease-in-out infinite" }}
-                >
-                  <Image
-                    src="/images/logo-mark-light.jpg"
-                    alt="Strop kecka"
-                    width={56}
-                    height={56}
-                    className="object-cover w-full h-full"
-                  />
+                {/* Mascot preview — obě varianty vedle sebe */}
+                <div className="flex gap-6 mb-4">
+                  <div className="flex flex-col items-center gap-1.5">
+                    <div style={{ animation: "floatSlow 4s ease-in-out infinite" }}>
+                      <MascotA size={64} />
+                    </div>
+                    <span className="text-[9px] text-muted tracking-wide uppercase">A: Montér</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1.5">
+                    <div style={{ animation: "floatSlow 4s ease-in-out infinite 0.5s" }}>
+                      <MascotB size={64} />
+                    </div>
+                    <span className="text-[9px] text-muted tracking-wide uppercase">B: Strop</span>
+                  </div>
                 </div>
                 <p className="text-heading text-[14px] font-medium mb-1">
                   Zjistěte cenu během minuty
