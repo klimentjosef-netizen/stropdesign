@@ -36,8 +36,8 @@ const config: Config = {
         "border-dark": "#D0D0D0",
       },
       fontFamily: {
-        display: ["var(--font-playfair)", "serif"],
-        body: ["var(--font-dm-sans)", "sans-serif"],
+        display: ["var(--font-ibm-plex)", "sans-serif"],
+        body: ["var(--font-ibm-plex)", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out forwards",
