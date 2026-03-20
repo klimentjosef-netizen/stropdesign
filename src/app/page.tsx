@@ -4,6 +4,7 @@ import Calculator from "@/components/Calculator";
 import Surfaces from "@/components/Surfaces";
 import FaqAndTestimonials from "@/components/FaqAndTestimonials";
 import ContactSection from "@/components/ContactSection";
+import { getSurfaces, getReferences, getAddons, getTestimonials, getFaqs } from "@/lib/keystatic";
 
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -30,7 +31,15 @@ const localBusinessJsonLd = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const [surfaces, references, addons, testimonials, faqs] = await Promise.all([
+    getSurfaces("cs"),
+    getReferences("cs"),
+    getAddons(),
+    getTestimonials("cs"),
+    getFaqs("cs"),
+  ]);
+
   return (
     <>
       <script
@@ -38,10 +47,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
       <Hero />
-      <Surfaces />
-      <Calculator />
-      <References />
-      <FaqAndTestimonials />
+      <Surfaces surfaces={surfaces} />
+      <Calculator surfaces={surfaces} addons={addons} />
+      <References references={references} />
+      <FaqAndTestimonials testimonials={testimonials} faqs={faqs} />
       <ContactSection />
     </>
   );

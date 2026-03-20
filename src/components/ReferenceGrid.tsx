@@ -5,9 +5,8 @@ import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
 import Lightbox from "./Lightbox";
 import SectionEyebrow from "./SectionEyebrow";
-import { references } from "@/data/references";
-import { referencesEn } from "@/data/references-en";
 import { useDict, useLocale } from "@/i18n/LocaleContext";
+import type { Reference } from "@/lib/keystatic";
 
 const altTextsCs: Record<string, string> = {
   "Moderní kuchyně s LED": "napínaný strop matný s LED páskem – kuchyně, Ostrava",
@@ -25,15 +24,18 @@ const altTextsEn: Record<string, string> = {
   "LED Diamond in Bedroom": "matte stretch ceiling with LED design – bedroom, Ostrava",
 };
 
-export default function ReferenceGrid() {
+interface ReferenceGridProps {
+  references: Reference[];
+}
+
+export default function ReferenceGrid({ references }: ReferenceGridProps) {
   const d = useDict();
   const locale = useLocale();
-  const refs = locale === "en" ? referencesEn : references;
   const altTexts = locale === "en" ? altTextsEn : altTextsCs;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   // Only references with images can be opened in lightbox
-  const lightboxImages = refs
+  const lightboxImages = references
     .map((ref, i) => (ref.image ? { src: ref.image, alt: altTexts[ref.title] || ref.title, caption: ref.description, originalIndex: i } : null))
     .filter((x): x is NonNullable<typeof x> => x !== null);
 
@@ -42,10 +44,10 @@ export default function ReferenceGrid() {
     if (lbIdx !== -1) setLightboxIndex(lbIdx);
   }, [lightboxImages]);
 
-  const featuredRefs = refs.filter((r) => r.featured);
-  const regularRefs = refs.filter((r) => !r.featured);
+  const featuredRefs = references.filter((r) => r.featured);
+  const regularRefs = references.filter((r) => !r.featured);
 
-  const renderCard = (ref: typeof refs[0], i: number, globalIndex: number) => (
+  const renderCard = (ref: typeof references[0], i: number, globalIndex: number) => (
     <RevealOnScroll key={ref.title} delay={i * 80}>
       <div
         className={`bg-white border border-border overflow-hidden group hover:border-accent/30 transition-colors duration-300 rounded-2xl ${ref.image ? "cursor-pointer" : ""}`}
@@ -120,7 +122,7 @@ export default function ReferenceGrid() {
           </RevealOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {featuredRefs.map((ref, i) => {
-              const globalIndex = refs.indexOf(ref);
+              const globalIndex = references.indexOf(ref);
               return renderCard(ref, i, globalIndex);
             })}
           </div>
@@ -137,7 +139,7 @@ export default function ReferenceGrid() {
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {regularRefs.map((ref, i) => {
-          const globalIndex = refs.indexOf(ref);
+          const globalIndex = references.indexOf(ref);
           return renderCard(ref, i, globalIndex);
         })}
       </div>

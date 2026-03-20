@@ -1,0 +1,14 @@
+{
+  "name": "Matte",
+  "color": "#E8E8E8",
+  "accent": "#847631",
+  "price": 600,
+  "priceLabel": "from 600 CZK/m²",
+  "description": "Traditional look of a perfectly painted surface. Matte ceiling doesn't attract attention but gives the room a clean, calm feel. No glare, no reflections. Ideal for bedrooms, offices and living rooms.",
+  "features": [
+    "No glare or reflections",
+    "Easy maintenance",
+    "Suitable for all spaces"
+  ],
+  "sortOrder": 0
+}

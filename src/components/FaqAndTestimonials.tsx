@@ -3,106 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
-import { useDict, useLocale } from "@/i18n/LocaleContext";
-
-/* ── Testimonials data ── */
-
-interface Testimonial {
-  name: string;
-  text: string;
-  rating: number;
-  subtitle: string;
-}
-
-const testimonialsCs: Testimonial[] = [
-  {
-    name: "Veronika Sváčková",
-    text: "Moc děkuji této firmě, během jediného dne proměnila naši výrobnu a pak prodejnu k nepoznání. Když někoho jeho řemeslo opravdu baví, je to hned vidět. Práce byla odvedena kvalitně, precizně a s maximální pečlivostí.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Petr Zajac",
-    text: "Rád bych vyzdvihnul velmi pečlivou a spolehlivou práci, toto inovativní řešení při rekonstrukci bytu ušetří spoustu peněz a času.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Michal Burek",
-    text: "Maminka chtěla do svého bytu změnu a nejvíc ji trápil strop a světla. S výsledkem byla víc než spokojená. Firma odvedla rychlou a zároveň precizní práci. Můžu jen doporučit!",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Tomáš Kantor",
-    text: "Naprostá spokojenost. Domluva, realizace, top, připevnění ať už k nábytku, stěně nebo kachlím. A hlavně ta údržba? Omyvatelnost 11/10!",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Tomas Bolcek",
-    text: "Velice doporučuji. Od začátku až do konce průběhu profesionální přístup. Výběr z velké škály provedení. A výsledek? Naprosto předčil má očekávání.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Ales Kotasek",
-    text: "Hodně dobře to mají kluci vymyšlené, poradí co jak, práci udělají rychle, kvalitně a přesně. Podsvícení vypadá ještě líp než jsem vůbec čekal. Můžu jen doporučit.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Fakerman",
-    text: "Můžu jen doporučit, preciznost, rychlost, profesionální přístup mají samozřejmostí. S neobvyklými tvary a překážkami si umí poradit.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-];
-
-const testimonialsEn: Testimonial[] = [
-  {
-    name: "Veronika Sváčková",
-    text: "A big thank you to this company — in a single day they completely transformed our production space and then our shop. When someone truly loves their craft, it shows. The work was done with quality, precision and the utmost care.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Petr Zajac",
-    text: "I'd like to highlight the very careful and reliable work. This innovative solution saves a lot of money and time during apartment renovation.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Michal Burek",
-    text: "My mum wanted a change in her flat and the ceiling and lights bothered her the most. She was more than happy with the result. The company did fast yet precise work. I can only recommend!",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Tomáš Kantor",
-    text: "Completely satisfied. Communication, execution — top notch. Mounting to furniture, walls or tiles, everything perfect. And the maintenance? Washability 11/10!",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Tomas Bolcek",
-    text: "Highly recommend. Professional approach from start to finish. A wide range of finishes to choose from. And the result? It absolutely exceeded my expectations.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Ales Kotasek",
-    text: "The guys have it really well figured out — they advise on everything, work quickly, with quality and precision. The backlighting looks even better than I ever expected. Can only recommend.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-  {
-    name: "Fakerman",
-    text: "I can only recommend — precision, speed and a professional approach are a given for them. They handle unusual shapes and obstacles with ease.",
-    rating: 5,
-    subtitle: "google_review",
-  },
-];
+import { useDict } from "@/i18n/LocaleContext";
+import type { Testimonial, FaqItem } from "@/lib/keystatic";
 
 const GOOGLE_REVIEW_URL =
   "https://www.google.com/search?sca_esv=c1aee945acc89b8a&q=strop+design&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOSoIVhG44J1F14tVdiuftmyvOEsuV2wCc4xWAeeTo_Nb0vDCgowLCFaWhJEMwmVZPLInovM%3D&uds=ALYpb_kPfttAwudk1x-HGnga9iDDgBWpVX4BktQyA-tg2NtL0hFccrlPGlFsJINLW4KPT6vtO-EGA5hYDSUQCu0TDWGjFZwpCib3RQgneU-Nl2wZQhn4BoM";
@@ -132,7 +34,7 @@ function GoogleIcon() {
   );
 }
 
-function FaqItem({ question, answer }: { question: string; answer: string }) {
+function FaqItemComponent({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -169,17 +71,15 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 
 /* ── Main component ── */
 
-export default function FaqAndTestimonials() {
+interface FaqAndTestimonialsProps {
+  testimonials: Testimonial[];
+  faqs: FaqItem[];
+}
+
+export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimonialsProps) {
   const d = useDict();
-  const locale = useLocale();
-  const testimonials = locale === "en" ? testimonialsEn : testimonialsCs;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-
-  const localFaqs = d.faq.questions.map((q: string, i: number) => ({
-    question: q,
-    answer: d.faq.answers[i],
-  }));
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -204,8 +104,8 @@ export default function FaqAndTestimonials() {
               {d.faq.title}
             </h2>
             <div className="flex flex-col">
-              {localFaqs.map((faq: { question: string; answer: string }, i: number) => (
-                <FaqItem key={i} question={faq.question} answer={faq.answer} />
+              {faqs.map((faq, i) => (
+                <FaqItemComponent key={i} question={faq.question} answer={faq.answer} />
               ))}
             </div>
           </div>

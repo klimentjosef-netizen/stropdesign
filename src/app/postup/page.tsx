@@ -5,7 +5,7 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import { steps } from "@/data/steps";
 import { comparisonRows } from "@/data/comparison";
 import Faq from "@/components/Faq";
-import { faqs } from "@/data/faq";
+import { getFaqs } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
   title: "Jak probíhá montáž napínaného stropu | StropDesign",
@@ -17,20 +17,21 @@ export const metadata: Metadata = {
   },
 };
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map((faq) => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer,
-    },
-  })),
-};
+export default async function PostupPage() {
+  const faqs = await getFaqs("cs");
 
-export default function PostupPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
   return (
     <>
       <script

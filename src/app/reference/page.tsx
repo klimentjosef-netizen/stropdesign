@@ -3,6 +3,7 @@ import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import ReferenceGrid from "@/components/ReferenceGrid";
+import { getReferences } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
   title: "Reference a realizace napínaných stropů | StropDesign",
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ReferencePage() {
+export default async function ReferencePage() {
+  const references = await getReferences("cs");
   return (
     <>
       {/* Hero */}
@@ -37,7 +39,7 @@ export default function ReferencePage() {
 
       {/* Grid with Lightbox */}
       <section className="py-16 lg:py-24 px-6 lg:px-10 bg-light-secondary">
-        <ReferenceGrid />
+        <ReferenceGrid references={references} />
       </section>
 
       {/* CTA */}

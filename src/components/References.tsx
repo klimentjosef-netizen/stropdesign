@@ -4,16 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
-import { references } from "@/data/references";
-import { referencesEn } from "@/data/references-en";
-import { useDict, useLocale, useLocalePath } from "@/i18n/LocaleContext";
+import { useDict, useLocalePath } from "@/i18n/LocaleContext";
+import type { Reference } from "@/lib/keystatic";
 
-export default function References() {
+interface ReferencesProps {
+  references: Reference[];
+}
+
+export default function References({ references }: ReferencesProps) {
   const d = useDict();
-  const locale = useLocale();
   const refHref = useLocalePath("/reference");
-  const refs = locale === "en" ? referencesEn : references;
-  const shown = refs.slice(0, 6);
+  const shown = references.slice(0, 6);
 
   return (
     <section className="py-20 lg:py-24 px-6 lg:px-10 border-b border-border">

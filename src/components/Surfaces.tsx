@@ -2,10 +2,14 @@
 
 import { useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
-import { surfaces } from "@/data/products";
 import { useDict, useLocalePath } from "@/i18n/LocaleContext";
+import type { Surface } from "@/lib/keystatic";
 
-export default function Surfaces() {
+interface SurfacesProps {
+  surfaces: Surface[];
+}
+
+export default function Surfaces({ surfaces }: SurfacesProps) {
   const d = useDict();
   const sluzbyHref = useLocalePath("/sluzby");
   const [hovered, setHovered] = useState<number | null>(null);
@@ -129,14 +133,14 @@ export default function Surfaces() {
                               fontWeight: isHovered || isSelected ? 500 : 400,
                             }}
                           >
-                            {d.surfaces.names[i]}
+                            {surface.name}
                           </span>
                           {isSelected && (
                             <span
                               className="text-[8px] font-medium tracking-wide whitespace-nowrap"
                               style={{ color: surface.accent }}
                             >
-                              {d.surfaces.priceLabels[i]}
+                              {surface.priceLabel}
                             </span>
                           )}
                         </div>
@@ -151,10 +155,10 @@ export default function Surfaces() {
                           }}
                         >
                           <p className="text-body text-[9px] leading-[1.6] font-light mb-2">
-                            {d.surfaces.descriptions[i]}
+                            {surface.description}
                           </p>
                           <ul className="flex flex-col gap-0.5">
-                            {d.surfaces.features[i].map((f: string) => (
+                            {surface.features.map((f: string) => (
                               <li key={f} className="flex items-center gap-1 text-[8px] text-muted">
                                 <div
                                   className="w-1 h-1 rounded-full flex-shrink-0"

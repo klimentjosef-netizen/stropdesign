@@ -1,0 +1,8 @@
+{
+  "nameCz": "Kouřový detektor",
+  "nameEn": "Smoke detector",
+  "price": 400,
+  "icon": "🚨",
+  "category": "safety",
+  "sortOrder": 7
+}

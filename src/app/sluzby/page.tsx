@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
-import { surfaces } from "@/data/products";
+import { getSurfaces } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
   title: "Typy napínaných stropů | Matný, lesklý, průsvitný | StropDesign",
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SluzbyPage() {
+export default async function SluzbyPage() {
+  const surfaces = await getSurfaces("cs");
   return (
     <>
       {/* Hero */}

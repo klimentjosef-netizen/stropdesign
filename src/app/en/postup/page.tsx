@@ -5,7 +5,7 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import { stepsEn } from "@/data/steps-en";
 import { comparisonRowsEn } from "@/data/comparison-en";
 import FaqEn from "@/components/FaqEn";
-import { faqsEn } from "@/data/faq-en";
+import { getFaqs } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
   title: "How Stretch Ceiling Installation Works | StropDesign",
@@ -17,20 +17,21 @@ export const metadata: Metadata = {
   },
 };
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqsEn.map((faq) => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer,
-    },
-  })),
-};
+export default async function ProcessPageEN() {
+  const faqs = await getFaqs("en");
 
-export default function ProcessPageEN() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
   return (
     <>
       <script

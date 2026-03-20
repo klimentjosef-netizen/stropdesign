@@ -3,6 +3,7 @@ import ContactSection from "@/components/ContactSection";
 import Calculator from "@/components/Calculator";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
+import { getSurfaces, getAddons } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
   title: "Contact | StropDesign",
@@ -14,7 +15,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPageEN() {
+export default async function ContactPageEN() {
+  const [surfaces, addons] = await Promise.all([
+    getSurfaces("en"),
+    getAddons(),
+  ]);
   return (
     <>
       {/* Hero */}
@@ -92,7 +97,7 @@ export default function ContactPageEN() {
       </section>
 
       {/* Calculator */}
-      <Calculator />
+      <Calculator surfaces={surfaces} addons={addons} />
 
       {/* Contact form */}
       <ContactSection />

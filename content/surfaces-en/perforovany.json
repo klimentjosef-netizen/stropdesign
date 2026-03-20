@@ -1,0 +1,14 @@
+{
+  "name": "Perforated",
+  "color": "#E5E5E0",
+  "accent": "#E67E22",
+  "price": 950,
+  "priceLabel": "from 950 CZK/m²",
+  "description": "Distinctive decorative look for any space. Perforated film with precisely cut openings creates a visual play of light and shadow. Two-layer system with contrasting base layer adds 3D depth.",
+  "features": [
+    "Decorative perforation patterns",
+    "Starry sky effect with backlighting",
+    "Two-layer system for 3D effect"
+  ],
+  "sortOrder": 6
+}

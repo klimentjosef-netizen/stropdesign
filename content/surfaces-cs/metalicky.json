@@ -1,0 +1,14 @@
+{
+  "name": "Metalický",
+  "color": "#D8D8D8",
+  "accent": "#C0C0C0",
+  "price": 820,
+  "priceLabel": "od 820 Kč/m²",
+  "description": "Kovový vzhled pro moderní interiéry. Metalický povrch simuluje broušený nebo leštěný kov v odstínech stříbra, zlata i mědi. Prémiový industriální styl bez hmotnosti skutečného kovu.",
+  "features": [
+    "Efekt broušeného kovu",
+    "Odstíny stříbra, zlata, mědi",
+    "Prémiový industriální styl"
+  ],
+  "sortOrder": 3
+}

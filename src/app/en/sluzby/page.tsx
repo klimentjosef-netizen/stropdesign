@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
-import { surfacesEn } from "@/data/products-en";
+import { getSurfaces } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
   title: "Stretch Ceiling Types | Matte, Glossy, Translucent | StropDesign",
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ServicesPageEN() {
+export default async function ServicesPageEN() {
+  const surfaces = await getSurfaces("en");
   return (
     <>
       {/* Hero */}
@@ -51,7 +52,7 @@ export default function ServicesPageEN() {
       {/* Products grid */}
       <section className="py-16 lg:py-24 px-6 lg:px-10 bg-light-secondary">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {surfacesEn.map((product, i) => (
+          {surfaces.map((product, i) => (
             <RevealOnScroll key={product.name} delay={i * 80}>
               <div className="bg-white border border-border p-8 flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl">
                 <div className="text-accent text-[10px] tracking-[0.12em] uppercase font-medium mb-4">

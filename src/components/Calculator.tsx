@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
-import { surfaces } from "@/data/products";
-import { addons as addonsList, categoryLabels, type Addon } from "@/data/addons";
-import { useDict, useLocalePath } from "@/i18n/LocaleContext";
+import { useDict, useLocalePath, useLocale } from "@/i18n/LocaleContext";
+import type { Surface, Addon } from "@/lib/keystatic";
 
-const CATEGORIES = Object.keys(categoryLabels) as Addon["category"][];
+const CATEGORIES: string[] = ["lighting", "climate", "safety", "tech", "other"];
 
 function AnimatedPrice({ value }: { value: number }) {
   const [display, setDisplay] = useState(value);
@@ -42,13 +41,15 @@ function AnimatedPrice({ value }: { value: number }) {
   return <>{display.toLocaleString("cs-CZ")}</>;
 }
 
-// Min/max price range for teaser
-const minPrice = Math.min(...surfaces.map((s) => s.price));
-const maxPrice = Math.max(...surfaces.map((s) => s.price));
+interface CalculatorProps {
+  surfaces: Surface[];
+  addons: Addon[];
+}
 
-export default function Calculator() {
+export default function Calculator({ surfaces, addons: addonsList }: CalculatorProps) {
   const router = useRouter();
   const d = useDict();
+  const locale = useLocale();
   const kontaktHref = useLocalePath("/kontakt");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSurface, setSelectedSurface] = useState(0);
@@ -59,6 +60,10 @@ export default function Calculator() {
     new Set(["lighting"])
   );
 
+  // Min/max price range for teaser
+  const minPrice = useMemo(() => Math.min(...surfaces.map((s) => s.price)), [surfaces]);
+  const maxPrice = useMemo(() => Math.max(...surfaces.map((s) => s.price)), [surfaces]);
+
   const pricePerSqm = surfaces[selectedSurface].price;
   const lightCost = lights * 350;
   const addonsCost = Array.from(addons).reduce(
@@ -66,6 +71,10 @@ export default function Calculator() {
     0
   );
   const total = area * pricePerSqm + lightCost + addonsCost;
+
+  const getAddonName = useCallback((addon: Addon) => {
+    return locale === "en" ? addon.nameEn : addon.nameCz;
+  }, [locale]);
 
   const toggleAddon = useCallback((index: number) => {
     setAddons((prev) => {
@@ -241,7 +250,7 @@ export default function Calculator() {
                                 : "text-body"
                             }`}
                           >
-                            {d.surfaces.names[i]}
+                            {s.name}
                           </span>
                         </div>
                         <span
@@ -251,7 +260,7 @@ export default function Calculator() {
                               : "text-muted"
                           }`}
                         >
-                          {d.surfaces.priceLabels[i]}
+                          {s.priceLabel}
                         </span>
                         {selectedSurface === i && (
                           <div
@@ -390,7 +399,7 @@ export default function Calculator() {
                     </label>
                   </div>
                   <div className="lg:columns-2 gap-2 space-y-2">
-                    {CATEGORIES.map((cat) => {
+                    {CATEGORIES.map((cat, catIdx) => {
                       const catAddons = addonsList
                         .map((a, i) => ({ ...a, originalIndex: i }))
                         .filter((a) => a.category === cat);
@@ -410,7 +419,7 @@ export default function Calculator() {
                           >
                             <div className="flex items-center gap-2">
                               <span className="text-[11px] font-medium text-heading tracking-[0.04em]">
-                                {d.calculator.categoryLabels[CATEGORIES.indexOf(cat)]}
+                                {d.calculator.categoryLabels[catIdx]}
                               </span>
                               {selectedCount > 0 && (
                                 <span className="bg-accent text-white text-[9px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">
@@ -448,7 +457,7 @@ export default function Calculator() {
                                 const isActive = addons.has(addon.originalIndex);
                                 return (
                                   <button
-                                    key={addon.name}
+                                    key={addon.nameCz}
                                     onClick={() =>
                                       toggleAddon(addon.originalIndex)
                                     }
@@ -479,7 +488,7 @@ export default function Calculator() {
                                           </svg>
                                         )}
                                       </div>
-                                      <span>{d.calculator.addonNames[addon.originalIndex]}</span>
+                                      <span>{getAddonName(addon)}</span>
                                     </div>
                                     <span
                                       className={`text-[10px] tabular-nums ${
@@ -527,7 +536,7 @@ export default function Calculator() {
                   <div className="flex justify-between text-[11px]">
                     <span className="text-muted">{d.calculator.surface}</span>
                     <span className="text-body font-medium">
-                      {d.surfaces.names[selectedSurface]}
+                      {surfaces[selectedSurface].name}
                     </span>
                   </div>
                   <div className="flex justify-between text-[11px]">
@@ -571,7 +580,7 @@ export default function Calculator() {
                           key={i}
                           className="text-[9px] bg-accent-soft text-accent px-2 py-0.5 rounded-full"
                         >
-                          {d.calculator.addonNames[i]}
+                          {getAddonName(addonsList[i])}
                         </span>
                       ))}
                     </div>
@@ -581,11 +590,11 @@ export default function Calculator() {
                 <button
                   onClick={() => {
                     const selectedAddons = Array.from(addons)
-                      .map((i) => d.calculator.addonNames[i])
+                      .map((i) => getAddonName(addonsList[i]))
                       .join(", ");
-                    const room = `${d.surfaces.names[selectedSurface]} povrch, ${area} ${d.calculator.sqm}`;
+                    const room = `${surfaces[selectedSurface].name} povrch, ${area} ${d.calculator.sqm}`;
                     const lines = [
-                      `${d.calculator.surface}: ${d.surfaces.names[selectedSurface]} (${pricePerSqm} ${d.calculator.currency}/${d.calculator.sqm})`,
+                      `${d.calculator.surface}: ${surfaces[selectedSurface].name} (${pricePerSqm} ${d.calculator.currency}/${d.calculator.sqm})`,
                       `${d.calculator.area}: ${area} ${d.calculator.sqm}`,
                       lights > 0 ? `${d.calculator.lights}: ${lights} ${d.calculator.pcs}` : "",
                       selectedAddons ? `${d.calculator.addons}: ${selectedAddons}` : "",

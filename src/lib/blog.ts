@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const BLOG_DIR = path.join(process.cwd(), "content/blog");
+const BLOG_DIR = path.join(process.cwd(), "content/blog-cs");
 const BLOG_DIR_EN = path.join(process.cwd(), "content/blog-en");
 
 function getBlogDir(locale: string = "cs"): string {

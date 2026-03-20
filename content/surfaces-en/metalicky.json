@@ -1,0 +1,14 @@
+{
+  "name": "Metallic",
+  "color": "#D8D8D8",
+  "accent": "#C0C0C0",
+  "price": 820,
+  "priceLabel": "from 820 CZK/m²",
+  "description": "Metallic look for modern interiors. Metallic surface simulates brushed or polished metal in shades of silver, gold and copper. Premium industrial style without the weight of real metal.",
+  "features": [
+    "Brushed metal effect",
+    "Silver, gold & copper shades",
+    "Premium industrial style"
+  ],
+  "sortOrder": 3
+}

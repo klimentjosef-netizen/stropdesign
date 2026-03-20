@@ -1,0 +1,14 @@
+{
+  "name": "Custom print",
+  "color": "#EAE0EA",
+  "accent": "#FF6B9D",
+  "price": 1200,
+  "priceLabel": "from 1,200 CZK/m²",
+  "description": "Original design element with material quality and easy installation. Photos, patterns or graphics in HD resolution directly on the ceiling. Popular motifs: sky, starry night, nature and corporate branding.",
+  "features": [
+    "HD print of any design",
+    "UV-resistant colors",
+    "Combine with backlighting for lightbox effect"
+  ],
+  "sortOrder": 5
+}

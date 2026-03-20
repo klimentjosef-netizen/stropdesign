@@ -4,15 +4,24 @@ import Calculator from "@/components/Calculator";
 import References from "@/components/References";
 import FaqAndTestimonials from "@/components/FaqAndTestimonials";
 import ContactSection from "@/components/ContactSection";
+import { getSurfaces, getReferences, getAddons, getTestimonials, getFaqs } from "@/lib/keystatic";
 
-export default function HomeEN() {
+export default async function HomeEN() {
+  const [surfaces, references, addons, testimonials, faqs] = await Promise.all([
+    getSurfaces("en"),
+    getReferences("en"),
+    getAddons(),
+    getTestimonials("en"),
+    getFaqs("en"),
+  ]);
+
   return (
     <>
       <Hero />
-      <Surfaces />
-      <Calculator />
-      <References />
-      <FaqAndTestimonials />
+      <Surfaces surfaces={surfaces} />
+      <Calculator surfaces={surfaces} addons={addons} />
+      <References references={references} />
+      <FaqAndTestimonials testimonials={testimonials} faqs={faqs} />
       <ContactSection />
     </>
   );
