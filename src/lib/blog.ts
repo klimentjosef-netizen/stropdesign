@@ -3,6 +3,11 @@ import path from "path";
 import matter from "gray-matter";
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
+const BLOG_DIR_EN = path.join(process.cwd(), "content/blog-en");
+
+function getBlogDir(locale: string = "cs"): string {
+  return locale === "en" ? BLOG_DIR_EN : BLOG_DIR;
+}
 
 export interface BlogPost {
   slug: string;
@@ -27,20 +32,21 @@ export interface BlogPostMeta {
   readingTime: string;
 }
 
-function estimateReadingTime(text: string): string {
+function estimateReadingTime(text: string, locale: string = "cs"): string {
   const words = text.trim().split(/\s+/).length;
   const minutes = Math.ceil(words / 200);
-  return `${minutes} min čtení`;
+  return locale === "en" ? `${minutes} min read` : `${minutes} min čtení`;
 }
 
-export function getAllPosts(): BlogPostMeta[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
+export function getAllPosts(locale: string = "cs"): BlogPostMeta[] {
+  const dir = getBlogDir(locale);
+  if (!fs.existsSync(dir)) return [];
 
-  const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".mdx"));
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
 
   const posts = files.map((file) => {
     const slug = file.replace(/\.mdx$/, "");
-    const raw = fs.readFileSync(path.join(BLOG_DIR, file), "utf-8");
+    const raw = fs.readFileSync(path.join(dir, file), "utf-8");
     const { data, content } = matter(raw);
 
     return {
@@ -51,7 +57,7 @@ export function getAllPosts(): BlogPostMeta[] {
       author: data.author || "StropDesign",
       image: data.image || undefined,
       tags: data.tags || [],
-      readingTime: estimateReadingTime(content),
+      readingTime: estimateReadingTime(content, locale),
     };
   });
 
@@ -60,8 +66,9 @@ export function getAllPosts(): BlogPostMeta[] {
   );
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
-  const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
+export function getPostBySlug(slug: string, locale: string = "cs"): BlogPost | null {
+  const dir = getBlogDir(locale);
+  const filePath = path.join(dir, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
 
   const raw = fs.readFileSync(filePath, "utf-8");
@@ -75,15 +82,16 @@ export function getPostBySlug(slug: string): BlogPost | null {
     author: data.author || "StropDesign",
     image: data.image || undefined,
     tags: data.tags || [],
-    readingTime: estimateReadingTime(content),
+    readingTime: estimateReadingTime(content, locale),
     content,
   };
 }
 
-export function getAllSlugs(): string[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
+export function getAllSlugs(locale: string = "cs"): string[] {
+  const dir = getBlogDir(locale);
+  if (!fs.existsSync(dir)) return [];
   return fs
-    .readdirSync(BLOG_DIR)
+    .readdirSync(dir)
     .filter((f) => f.endsWith(".mdx"))
     .map((f) => f.replace(/\.mdx$/, ""));
 }

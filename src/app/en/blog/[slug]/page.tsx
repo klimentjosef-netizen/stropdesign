@@ -10,21 +10,25 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+  return getAllSlugs("en").map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlug(params.slug, "en");
   if (!post) return { title: "Article not found" };
 
   return {
     title: `${post.title} | StropDesign Blog`,
     description: post.description,
+    alternates: {
+      canonical: `/en/blog/${params.slug}`,
+      languages: { cs: `/blog/${params.slug}`, en: `/en/blog/${params.slug}` },
+    },
   };
 }
 
 export default function BlogPostPageEN({ params }: Props) {
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlug(params.slug, "en");
   if (!post) notFound();
 
   return (

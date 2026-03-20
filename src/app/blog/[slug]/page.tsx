@@ -27,6 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       authors: [post.author],
     },
+    alternates: {
+      canonical: `/blog/${params.slug}`,
+      languages: { cs: `/blog/${params.slug}`, en: `/en/blog/${params.slug}` },
+    },
   };
 }
 

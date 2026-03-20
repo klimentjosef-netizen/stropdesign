@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LocaleProvider } from "@/i18n/LocaleContext";
+import HtmlLang from "@/components/HtmlLang";
 
 export const metadata: Metadata = {
   title: "StropDesign | Stretch Ceilings Czech Republic",
@@ -12,6 +13,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  alternates: {
+    canonical: "/en",
+    languages: { cs: "/", en: "/en" },
+  },
 };
 
 export default function EnLayout({
@@ -19,5 +24,10 @@ export default function EnLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <LocaleProvider locale="en">{children}</LocaleProvider>;
+  return (
+    <LocaleProvider locale="en">
+      <HtmlLang lang="en" />
+      {children}
+    </LocaleProvider>
+  );
 }

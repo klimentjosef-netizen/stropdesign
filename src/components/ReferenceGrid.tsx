@@ -6,23 +6,34 @@ import RevealOnScroll from "./RevealOnScroll";
 import Lightbox from "./Lightbox";
 import SectionEyebrow from "./SectionEyebrow";
 import { references } from "@/data/references";
-import { useDict } from "@/i18n/LocaleContext";
+import { referencesEn } from "@/data/references-en";
+import { useDict, useLocale } from "@/i18n/LocaleContext";
+
+const altTextsCs: Record<string, string> = {
+  "Moderní kuchyně s LED": "napínaný strop matný s LED páskem – kuchyně, Ostrava",
+  "Designové LED linie": "napínaný strop matný s LED liniemi – chodba, Ostrava",
+  "Strop s vlastním tiskem": "napínaný strop průsvitný s potiskem oblohy – koupelna, Frýdek-Místek",
+  "Průsvitný strop se zlatým vzorem": "napínaný strop průsvitný s potiskem – hala, Ostrava",
+  "LED kosočtverec v ložnici": "napínaný strop matný s LED designem – ložnice, Ostrava",
+};
+
+const altTextsEn: Record<string, string> = {
+  "Modern Kitchen with LED": "matte stretch ceiling with LED strip – kitchen, Ostrava",
+  "Design LED Lines": "matte stretch ceiling with LED lines – hallway, Ostrava",
+  "Custom Print Ceiling": "translucent stretch ceiling with sky print – bathroom, Frýdek-Místek",
+  "Translucent Ceiling with Gold Pattern": "translucent stretch ceiling with print – hall, Ostrava",
+  "LED Diamond in Bedroom": "matte stretch ceiling with LED design – bedroom, Ostrava",
+};
 
 export default function ReferenceGrid() {
   const d = useDict();
+  const locale = useLocale();
+  const refs = locale === "en" ? referencesEn : references;
+  const altTexts = locale === "en" ? altTextsEn : altTextsCs;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  // Build proper alt texts for accessibility & SEO
-  const altTexts: Record<string, string> = {
-    "Moderní kuchyně s LED": "napínaný strop matný s LED páskem – kuchyně, Ostrava",
-    "Designové LED linie": "napínaný strop matný s LED liniemi – chodba, Ostrava",
-    "Strop s vlastním tiskem": "napínaný strop průsvitný s potiskem oblohy – koupelna, Frýdek-Místek",
-    "Průsvitný strop se zlatým vzorem": "napínaný strop průsvitný s potiskem – hala, Ostrava",
-    "LED kosočtverec v ložnici": "napínaný strop matný s LED designem – ložnice, Ostrava",
-  };
-
   // Only references with images can be opened in lightbox
-  const lightboxImages = references
+  const lightboxImages = refs
     .map((ref, i) => (ref.image ? { src: ref.image, alt: altTexts[ref.title] || ref.title, caption: ref.description, originalIndex: i } : null))
     .filter((x): x is NonNullable<typeof x> => x !== null);
 
@@ -31,10 +42,10 @@ export default function ReferenceGrid() {
     if (lbIdx !== -1) setLightboxIndex(lbIdx);
   }, [lightboxImages]);
 
-  const featuredRefs = references.filter((r) => r.featured);
-  const regularRefs = references.filter((r) => !r.featured);
+  const featuredRefs = refs.filter((r) => r.featured);
+  const regularRefs = refs.filter((r) => !r.featured);
 
-  const renderCard = (ref: typeof references[0], i: number, globalIndex: number) => (
+  const renderCard = (ref: typeof refs[0], i: number, globalIndex: number) => (
     <RevealOnScroll key={ref.title} delay={i * 80}>
       <div
         className={`bg-white border border-border overflow-hidden group hover:border-accent/30 transition-colors duration-300 rounded-2xl ${ref.image ? "cursor-pointer" : ""}`}
@@ -109,7 +120,7 @@ export default function ReferenceGrid() {
           </RevealOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {featuredRefs.map((ref, i) => {
-              const globalIndex = references.indexOf(ref);
+              const globalIndex = refs.indexOf(ref);
               return renderCard(ref, i, globalIndex);
             })}
           </div>
@@ -126,7 +137,7 @@ export default function ReferenceGrid() {
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {regularRefs.map((ref, i) => {
-          const globalIndex = references.indexOf(ref);
+          const globalIndex = refs.indexOf(ref);
           return renderCard(ref, i, globalIndex);
         })}
       </div>

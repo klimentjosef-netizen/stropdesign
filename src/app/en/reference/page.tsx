@@ -5,31 +5,31 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 import ReferenceGrid from "@/components/ReferenceGrid";
 
 export const metadata: Metadata = {
-  title: "Reference a realizace napínaných stropů | StropDesign",
+  title: "Portfolio & Completed Projects | StropDesign",
   description:
-    "Prohlédněte si dokončené realizace napínaných stropů — kuchyně, ložnice, koupelny, komerční prostory. Celá ČR.",
+    "Browse our completed stretch ceiling installations — kitchens, bedrooms, bathrooms, commercial spaces. Across the Czech Republic.",
   alternates: {
-    canonical: "/reference",
+    canonical: "/en/reference",
     languages: { cs: "/reference", en: "/en/reference" },
   },
 };
 
-export default function ReferencePage() {
+export default function PortfolioPageEN() {
   return (
     <>
       {/* Hero */}
       <section className="py-20 lg:py-28 px-6 lg:px-10 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <RevealOnScroll>
-            <SectionEyebrow text="Reference" />
+            <SectionEyebrow text="Portfolio" />
             <h1 className="font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.1] mb-6 text-heading">
-              Realizace, na které
+              Projects we are
               <br />
-              jsme <em className="italic text-accent">hrdí</em>.
+              <em className="italic text-accent">proud of</em>.
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
-              Každý projekt je originál. Podívejte se na naše dokončené realizace
-              po celé ČR. Klikněte na fotku pro zvětšení.
+              Every project is unique. Browse our completed installations
+              across the Czech Republic. Click a photo to enlarge.
             </p>
           </RevealOnScroll>
         </div>
@@ -45,16 +45,16 @@ export default function ReferencePage() {
         <div className="max-w-3xl mx-auto text-center">
           <RevealOnScroll>
             <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-4 text-heading">
-              Chcete podobný výsledek?
+              Want a similar result?
             </h2>
             <p className="text-body text-sm leading-[1.7] font-light mb-8">
-              Každý strop děláme na míru. Ozvěte se a společně najdeme řešení pro váš prostor.
+              Every ceiling is custom-made. Get in touch and we&apos;ll find the right solution for your space.
             </p>
             <Link
-              href="/kontakt"
+              href="/en/kontakt"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
-              Nezávazná poptávka
+              Free enquiry
             </Link>
           </RevealOnScroll>
         </div>

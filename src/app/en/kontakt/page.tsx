@@ -5,31 +5,31 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
 
 export const metadata: Metadata = {
-  title: "Kontakt | StropDesign",
+  title: "Contact | StropDesign",
   description:
-    "Kontaktujte nás pro nezávaznou poptávku na napínané stropy. Telefon: +420 739 457 794. Realizujeme po celé ČR.",
+    "Contact us for a free stretch ceiling quote. Phone: +420 739 457 794. We operate across the Czech Republic.",
   alternates: {
-    canonical: "/kontakt",
+    canonical: "/en/kontakt",
     languages: { cs: "/kontakt", en: "/en/kontakt" },
   },
 };
 
-export default function KontaktPage() {
+export default function ContactPageEN() {
   return (
     <>
       {/* Hero */}
       <section className="py-20 lg:py-28 px-6 lg:px-10 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <RevealOnScroll>
-            <SectionEyebrow text="Kontakt" />
+            <SectionEyebrow text="Contact" />
             <h1 className="font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.1] mb-6 text-heading">
-              Ozvěte se nám,
+              Get in touch,
               <br />
-              <em className="italic text-accent">rádi poradíme</em>.
+              <em className="italic text-accent">we&apos;re happy to help</em>.
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
-              Zavolejte, napište nebo vyplňte formulář. Odpovídáme do 24 hodin
-              a nabídku připravíme přesně na míru vašeho projektu.
+              Call us, send an email or fill out the form. We respond within
+              24 hours and prepare a tailor-made offer for your project.
             </p>
           </RevealOnScroll>
         </div>
@@ -44,7 +44,7 @@ export default function KontaktPage() {
                 <div className="w-2 h-2 bg-accent rounded-full" />
               </div>
               <h3 className="font-display text-base font-medium mb-2 text-heading">
-                Telefon
+                Phone
               </h3>
               <a
                 href="tel:+420739457794"
@@ -52,7 +52,7 @@ export default function KontaktPage() {
               >
                 +420 739 457 794
               </a>
-              <p className="text-muted text-[11px] mt-1">Po-Pá 8:00 - 18:00</p>
+              <p className="text-muted text-[11px] mt-1">Mon–Fri 8:00 AM – 6:00 PM</p>
             </div>
           </RevealOnScroll>
 
@@ -62,7 +62,7 @@ export default function KontaktPage() {
                 <div className="w-2 h-2 bg-accent rounded-full" />
               </div>
               <h3 className="font-display text-base font-medium mb-2 text-heading">
-                E-mail
+                Email
               </h3>
               <a
                 href="mailto:info@stropdesign.cz"
@@ -70,7 +70,7 @@ export default function KontaktPage() {
               >
                 info@stropdesign.cz
               </a>
-              <p className="text-muted text-[11px] mt-1">Odpovídáme do 24 hodin</p>
+              <p className="text-muted text-[11px] mt-1">We respond within 24 hours</p>
             </div>
           </RevealOnScroll>
 
@@ -80,9 +80,9 @@ export default function KontaktPage() {
                 <div className="w-2 h-2 bg-accent rounded-full" />
               </div>
               <h3 className="font-display text-base font-medium mb-2 text-heading">
-                Lokalita
+                Location
               </h3>
-              <p className="text-body text-sm">Ostrava a okolí</p>
+              <p className="text-body text-sm">Ostrava and surroundings</p>
               <p className="text-muted text-[11px] mt-1">
                 Frýdek-Místek, Opava, Havířov, Karviná
               </p>

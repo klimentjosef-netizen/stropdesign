@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import { surfaces } from "@/data/products";
-import { useDict } from "@/i18n/LocaleContext";
+import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
 export default function Surfaces() {
   const d = useDict();
+  const sluzbyHref = useLocalePath("/sluzby");
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
 
@@ -45,7 +46,7 @@ export default function Surfaces() {
               {d.surfaces.eyebrow}
             </span>
             <a
-              href="/sluzby"
+              href={sluzbyHref}
               className="text-accent text-[10px] tracking-[0.1em] uppercase hover:text-accent-hover transition-colors"
             >
               {d.surfaces.viewAll}

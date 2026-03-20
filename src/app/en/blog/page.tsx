@@ -8,10 +8,14 @@ export const metadata: Metadata = {
   title: "Blog | StropDesign",
   description:
     "Articles, tips and news about stretch ceilings. We help you choose the right surface, lighting, and maintenance.",
+  alternates: {
+    canonical: "/en/blog",
+    languages: { cs: "/blog", en: "/en/blog" },
+  },
 };
 
 export default function BlogPageEN() {
-  const posts = getAllPosts();
+  const posts = getAllPosts("en");
 
   return (
     <>

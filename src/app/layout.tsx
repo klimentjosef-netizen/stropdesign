@@ -40,6 +40,10 @@ export const metadata: Metadata = {
     locale: "cs_CZ",
     type: "website",
   },
+  alternates: {
+    canonical: "/",
+    languages: { cs: "/", en: "/en" },
+  },
 };
 
 export default function RootLayout({

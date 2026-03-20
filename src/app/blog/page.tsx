@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "Blog o napínaných stropech | Tipy, trendy, srovnání | StropDesign",
   description:
     "Praktické rady a tipy k napínaným stropům. Srovnání se sádrokartonem, výběr osvětlení, realizace v koupelně.",
+  alternates: {
+    canonical: "/blog",
+    languages: { cs: "/blog", en: "/en/blog" },
+  },
 };
 
 export default function BlogPage() {

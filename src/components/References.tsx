@@ -5,11 +5,15 @@ import Link from "next/link";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 import { references } from "@/data/references";
-import { useDict } from "@/i18n/LocaleContext";
+import { referencesEn } from "@/data/references-en";
+import { useDict, useLocale, useLocalePath } from "@/i18n/LocaleContext";
 
 export default function References() {
   const d = useDict();
-  const shown = references.slice(0, 6);
+  const locale = useLocale();
+  const refHref = useLocalePath("/reference");
+  const refs = locale === "en" ? referencesEn : references;
+  const shown = refs.slice(0, 6);
 
   return (
     <section className="py-20 lg:py-24 px-6 lg:px-10 border-b border-border">
@@ -70,7 +74,7 @@ export default function References() {
         <RevealOnScroll delay={300}>
           <div className="flex justify-center mt-10">
             <Link
-              href="/reference"
+              href={refHref}
               className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-8 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
             >
               {d.references.showAll}

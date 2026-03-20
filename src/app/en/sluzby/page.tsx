@@ -3,41 +3,41 @@ import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
-import { surfaces } from "@/data/products";
+import { surfacesEn } from "@/data/products-en";
 
 export const metadata: Metadata = {
-  title: "Typy napínaných stropů | Matný, lesklý, průsvitný | StropDesign",
+  title: "Stretch Ceiling Types | Matte, Glossy, Translucent | StropDesign",
   description:
-    "Přehled všech typů napínaných stropů — od matného po vlastní tisk. Ceny od 600 Kč/m². Realizujeme po celé ČR.",
+    "Overview of all stretch ceiling types — from matte to custom print. Prices from 600 CZK/m². We operate across the Czech Republic.",
   alternates: {
-    canonical: "/sluzby",
+    canonical: "/en/sluzby",
     languages: { cs: "/sluzby", en: "/en/sluzby" },
   },
 };
 
-export default function SluzbyPage() {
+export default function ServicesPageEN() {
   return (
     <>
       {/* Hero */}
       <section className="py-20 lg:py-28 px-6 lg:px-10 border-b border-border">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <RevealOnScroll>
-            <SectionEyebrow text="Co nabízíme" />
+            <SectionEyebrow text="Our services" />
             <h1 className="font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.1] mb-6 text-heading">
-              Napínané stropy
+              Stretch ceilings
               <br />
-              pro každý <em className="italic text-accent">interiér</em>.
+              for every <em className="italic text-accent">interior</em>.
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
-              Široký výběr povrchů a barev. Každý typ má specifické vlastnosti
-              a vizuální efekt. Poradíme vám s výběrem na míru.
+              A wide selection of surfaces and colors. Each type has specific
+              properties and visual effect. We&apos;ll help you choose the perfect match.
             </p>
           </RevealOnScroll>
           <RevealOnScroll delay={200}>
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border">
               <Image
                 src="/images/hero-kitchen.jpg"
-                alt="Moderní kuchyně s napínaným stropem a LED osvětlením"
+                alt="Modern kitchen with stretch ceiling and LED lighting"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -51,7 +51,7 @@ export default function SluzbyPage() {
       {/* Products grid */}
       <section className="py-16 lg:py-24 px-6 lg:px-10 bg-light-secondary">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {surfaces.map((product, i) => (
+          {surfacesEn.map((product, i) => (
             <RevealOnScroll key={product.name} delay={i * 80}>
               <div className="bg-white border border-border p-8 flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl">
                 <div className="text-accent text-[10px] tracking-[0.12em] uppercase font-medium mb-4">
@@ -76,10 +76,10 @@ export default function SluzbyPage() {
                 </ul>
 
                 <Link
-                  href="/kontakt"
+                  href="/en/kontakt"
                   className="text-center border border-accent/30 text-accent text-[10px] font-medium tracking-[0.1em] uppercase px-4 py-2.5 hover:bg-accent hover:text-white transition-all duration-200 rounded-full"
                 >
-                  Poptat tento povrch
+                  Request this surface
                 </Link>
               </div>
             </RevealOnScroll>
@@ -92,17 +92,17 @@ export default function SluzbyPage() {
         <div className="max-w-3xl mx-auto text-center">
           <RevealOnScroll>
             <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-4 text-heading">
-              Nevíte, jaký povrch zvolit?
+              Not sure which surface to choose?
             </h2>
             <p className="text-body text-sm leading-[1.7] font-light mb-8">
-              Poradíme vám na základě vaší místnosti, osvětlení a požadavků.
-              Stačí nám napsat nebo zavolat.
+              We&apos;ll advise you based on your room, lighting and requirements.
+              Just send us a message or give us a call.
             </p>
             <Link
-              href="/kontakt"
+              href="/en/kontakt"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
-              Nezávazná poptávka
+              Free enquiry
             </Link>
           </RevealOnScroll>
         </div>

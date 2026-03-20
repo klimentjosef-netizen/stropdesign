@@ -6,7 +6,7 @@ import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 import { surfaces } from "@/data/products";
 import { addons as addonsList, categoryLabels, type Addon } from "@/data/addons";
-import { useDict } from "@/i18n/LocaleContext";
+import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
 const CATEGORIES = Object.keys(categoryLabels) as Addon["category"][];
 
@@ -49,6 +49,7 @@ const maxPrice = Math.max(...surfaces.map((s) => s.price));
 export default function Calculator() {
   const router = useRouter();
   const d = useDict();
+  const kontaktHref = useLocalePath("/kontakt");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSurface, setSelectedSurface] = useState(0);
   const [area, setArea] = useState(24);
@@ -597,7 +598,7 @@ export default function Calculator() {
                       message: `${d.calculator.enquiryPrefix}\n${lines}`,
                     });
                     setIsOpen(false);
-                    router.push(`/kontakt?${params.toString()}`);
+                    router.push(`${kontaktHref}?${params.toString()}`);
                   }}
                   className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
                 >

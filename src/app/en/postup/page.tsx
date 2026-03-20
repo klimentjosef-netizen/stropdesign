@@ -2,17 +2,17 @@ import { Metadata } from "next";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
-import { steps } from "@/data/steps";
-import { comparisonRows } from "@/data/comparison";
-import Faq from "@/components/Faq";
-import { faqs } from "@/data/faq";
+import { stepsEn } from "@/data/steps-en";
+import { comparisonRowsEn } from "@/data/comparison-en";
+import FaqEn from "@/components/FaqEn";
+import { faqsEn } from "@/data/faq-en";
 
 export const metadata: Metadata = {
-  title: "Jak probíhá montáž napínaného stropu | StropDesign",
+  title: "How Stretch Ceiling Installation Works | StropDesign",
   description:
-    "Od poptávky po hotový strop. Konzultace, výroba na míru, čistá a rychlá montáž. Realizace v celé ČR.",
+    "From enquiry to finished ceiling. Consultation, custom manufacturing, clean and fast installation. We operate across the Czech Republic.",
   alternates: {
-    canonical: "/postup",
+    canonical: "/en/postup",
     languages: { cs: "/postup", en: "/en/postup" },
   },
 };
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map((faq) => ({
+  "mainEntity": faqsEn.map((faq) => ({
     "@type": "Question",
     "name": faq.question,
     "acceptedAnswer": {
@@ -30,7 +30,7 @@ const faqJsonLd = {
   })),
 };
 
-export default function PostupPage() {
+export default function ProcessPageEN() {
   return (
     <>
       <script
@@ -41,15 +41,15 @@ export default function PostupPage() {
       <section className="py-20 lg:py-28 px-6 lg:px-10 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <RevealOnScroll>
-            <SectionEyebrow text="Jak to funguje" />
+            <SectionEyebrow text="How it works" />
             <h1 className="font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.1] mb-6 text-heading">
-              Od poptávky po hotový strop
+              From enquiry to finished ceiling
               <br />
-              <em className="italic text-accent">bez starostí</em>.
+              <em className="italic text-accent">hassle-free</em>.
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
-              Celý proces je jednoduchý a bezstarostný. Postaráme se o vše od
-              konzultace po finální montáž.
+              The entire process is simple and stress-free. We take care of
+              everything from consultation to final installation.
             </p>
           </RevealOnScroll>
         </div>
@@ -58,11 +58,11 @@ export default function PostupPage() {
       {/* Steps */}
       <section className="py-16 lg:py-24 px-6 lg:px-10 bg-light-secondary">
         <div className="max-w-5xl mx-auto">
-          {steps.map((step, i) => (
+          {stepsEn.map((step, i) => (
             <RevealOnScroll key={step.number} delay={i * 100}>
               <div
                 className={`grid grid-cols-1 lg:grid-cols-[120px_1fr] gap-6 lg:gap-12 ${
-                  i < steps.length - 1
+                  i < stepsEn.length - 1
                     ? "pb-12 lg:pb-16 mb-12 lg:mb-16 border-b border-border"
                     : ""
                 }`}
@@ -99,9 +99,9 @@ export default function PostupPage() {
       <section className="py-16 lg:py-24 px-6 lg:px-10 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <RevealOnScroll>
-            <SectionEyebrow text="Srovnání" />
+            <SectionEyebrow text="Comparison" />
             <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] mb-10 text-heading">
-              Napínaný strop vs. sádrokarton
+              Stretch ceiling vs. drywall
             </h2>
           </RevealOnScroll>
 
@@ -111,18 +111,18 @@ export default function PostupPage() {
                 <thead>
                   <tr className="border-b-2 border-accent/30">
                     <th className="text-left py-3 pr-4 font-display font-semibold text-heading text-[13px]">
-                      Vlastnost
+                      Feature
                     </th>
                     <th className="text-left py-3 px-4 font-display font-semibold text-accent text-[13px]">
-                      Napínaný strop
+                      Stretch ceiling
                     </th>
                     <th className="text-left py-3 pl-4 font-display font-semibold text-muted text-[13px]">
-                      Sádrokarton
+                      Drywall
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonRows.map((row, i) => (
+                  {comparisonRowsEn.map((row, i) => (
                     <tr key={i} className="border-b border-border">
                       <td className="py-3.5 pr-4 font-medium text-heading text-[13px]">
                         {row.feature}
@@ -149,23 +149,23 @@ export default function PostupPage() {
       </section>
 
       {/* FAQ */}
-      <Faq />
+      <FaqEn />
 
       {/* CTA */}
       <section className="py-16 lg:py-20 px-6 lg:px-10 bg-light-secondary border-t border-border">
         <div className="max-w-3xl mx-auto text-center">
           <RevealOnScroll>
             <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-4 text-heading">
-              Připraveni začít?
+              Ready to get started?
             </h2>
             <p className="text-body text-sm leading-[1.7] font-light mb-8">
-              Stačí se ozvat. Odpovídáme do 24 hodin a nabídku připravíme přesně na míru.
+              Just get in touch. We respond within 24 hours and prepare a tailor-made offer.
             </p>
             <Link
-              href="/kontakt"
+              href="/en/kontakt"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
-              Nezávazná poptávka
+              Free enquiry
             </Link>
           </RevealOnScroll>
         </div>
