@@ -506,9 +506,9 @@ export default function ChatWidget() {
                 </p>
                 <div className="flex flex-col gap-1.5 w-full">
                   {[
-                    "Chci strop do obýváku, ať to vypadá luxusně",
-                    "Mám fitko v garáži, bude tam zima a vlhko",
-                    "Kolik by stál strop do koupelny 8 m²?",
+                    "Kolik stojí strop do obýváku 20 m²?",
+                    "Jaký strop je nejlepší do koupelny?",
+                    "Chci moderní strop s LED osvětlením",
                   ].map((q) => (
                     <button
                       key={q}
