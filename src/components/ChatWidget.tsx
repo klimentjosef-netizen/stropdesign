@@ -265,8 +265,22 @@ export default function ChatWidget() {
       if (!reader) throw new Error("No reader");
 
       const decoder = new TextDecoder();
+      let needsFlush = false;
 
       setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+
+      const flushText = () => {
+        const displayText = stripInquiryBlock(fullTextRef.current);
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = {
+            role: "assistant",
+            content: displayText,
+          };
+          return updated;
+        });
+        needsFlush = false;
+      };
 
       while (true) {
         const { done, value } = await reader.read();
@@ -283,15 +297,10 @@ export default function ChatWidget() {
               const parsed = JSON.parse(data);
               if (parsed.text) {
                 fullTextRef.current += parsed.text;
-                const displayText = stripInquiryBlock(fullTextRef.current);
-                setMessages((prev) => {
-                  const updated = [...prev];
-                  updated[updated.length - 1] = {
-                    role: "assistant",
-                    content: displayText,
-                  };
-                  return updated;
-                });
+                if (!needsFlush) {
+                  needsFlush = true;
+                  requestAnimationFrame(flushText);
+                }
               }
             } catch {
               // skip
@@ -299,6 +308,9 @@ export default function ChatWidget() {
           }
         }
       }
+
+      // Final flush to ensure all text is rendered
+      flushText();
 
       const inquiry = parseInquiryData(fullTextRef.current);
       if (inquiry) {
