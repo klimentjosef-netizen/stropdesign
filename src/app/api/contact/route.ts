@@ -9,7 +9,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 interface ContactBody {
   name: string;
-  phone: string;
+  email?: string;
+  phone?: string;
   room?: string;
   message?: string;
 }
@@ -19,9 +20,9 @@ export async function POST(req: NextRequest) {
     const body: ContactBody = await req.json();
 
     // Validace povinných polí
-    if (!body.name?.trim() || !body.phone?.trim()) {
+    if (!body.name?.trim() || (!body.email?.trim() && !body.phone?.trim())) {
       return NextResponse.json(
-        { error: "Jméno a telefon jsou povinné." },
+        { error: "Jméno a e-mail nebo telefon jsou povinné." },
         { status: 400 }
       );
     }
@@ -33,7 +34,8 @@ export async function POST(req: NextRequest) {
       <h2>Nová poptávka z webu StropDesign</h2>
       <table style="border-collapse:collapse;font-family:sans-serif;">
         <tr><td style="padding:6px 12px;font-weight:bold;">Jméno:</td><td style="padding:6px 12px;">${escapeHtml(body.name)}</td></tr>
-        <tr><td style="padding:6px 12px;font-weight:bold;">Telefon:</td><td style="padding:6px 12px;">${escapeHtml(body.phone)}</td></tr>
+        ${body.email ? `<tr><td style="padding:6px 12px;font-weight:bold;">E-mail:</td><td style="padding:6px 12px;">${escapeHtml(body.email)}</td></tr>` : ""}
+        ${body.phone ? `<tr><td style="padding:6px 12px;font-weight:bold;">Telefon:</td><td style="padding:6px 12px;">${escapeHtml(body.phone)}</td></tr>` : ""}
         ${body.room ? `<tr><td style="padding:6px 12px;font-weight:bold;">Místnost:</td><td style="padding:6px 12px;">${escapeHtml(body.room)}</td></tr>` : ""}
         ${body.message ? `<tr><td style="padding:6px 12px;font-weight:bold;">Zpráva:</td><td style="padding:6px 12px;">${escapeHtml(body.message)}</td></tr>` : ""}
       </table>
@@ -52,7 +54,7 @@ export async function POST(req: NextRequest) {
           to: [toEmail],
           subject: `Poptávka od ${body.name}`,
           html: htmlBody,
-          reply_to: undefined,
+          reply_to: body.email || undefined,
         }),
       });
 
@@ -68,7 +70,8 @@ export async function POST(req: NextRequest) {
       // Dev režim — logujeme do konzole
       console.log("═══ NOVÁ POPTÁVKA (dev mode) ═══");
       console.log("Jméno:", body.name);
-      console.log("Telefon:", body.phone);
+      console.log("E-mail:", body.email || "–");
+      console.log("Telefon:", body.phone || "–");
       console.log("Místnost:", body.room || "–");
       console.log("Zpráva:", body.message || "–");
       console.log("════════════════════════════════");

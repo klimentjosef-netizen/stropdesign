@@ -96,6 +96,7 @@ function SendInquiryForm({
   onClose: () => void;
 }) {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -112,6 +113,7 @@ function SendInquiryForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
+          email,
           phone,
           room: `${data.surface} povrch, ${data.area} m²`,
           message: `Poptávka ze Strop kecky:\n${data.summary}\n\nOrientační cena: ${data.totalPrice.toLocaleString("cs-CZ")} Kč`,
@@ -170,7 +172,7 @@ function SendInquiryForm({
   return (
     <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-2.5">
       <p className="text-[12px] text-body mb-1">
-        Vyplň jméno a telefon — ozveme se ti do 24 hodin.
+        Vyplň údaje a ozveme se ti do 24 hodin s nabídkou.
       </p>
       <input
         type="text"
@@ -181,9 +183,16 @@ function SendInquiryForm({
         className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
       />
       <input
-        type="tel"
-        placeholder="Telefon"
+        type="email"
+        placeholder="E-mail"
         required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
+      />
+      <input
+        type="tel"
+        placeholder="Telefon (nepovinné)"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
         className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
