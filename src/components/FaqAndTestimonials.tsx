@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
-import { useDict } from "@/i18n/LocaleContext";
+import { useDict, useLocale } from "@/i18n/LocaleContext";
 
 /* ── Testimonials data ── */
 
@@ -14,7 +14,7 @@ interface Testimonial {
   subtitle: string;
 }
 
-const testimonials: Testimonial[] = [
+const testimonialsCs: Testimonial[] = [
   {
     name: "Veronika Sváčková",
     text: "Moc děkuji této firmě, během jediného dne proměnila naši výrobnu a pak prodejnu k nepoznání. Když někoho jeho řemeslo opravdu baví, je to hned vidět. Práce byla odvedena kvalitně, precizně a s maximální pečlivostí.",
@@ -54,6 +54,51 @@ const testimonials: Testimonial[] = [
   {
     name: "Fakerman",
     text: "Můžu jen doporučit, preciznost, rychlost, profesionální přístup mají samozřejmostí. S neobvyklými tvary a překážkami si umí poradit.",
+    rating: 5,
+    subtitle: "google_review",
+  },
+];
+
+const testimonialsEn: Testimonial[] = [
+  {
+    name: "Veronika Sváčková",
+    text: "A big thank you to this company — in a single day they completely transformed our production space and then our shop. When someone truly loves their craft, it shows. The work was done with quality, precision and the utmost care.",
+    rating: 5,
+    subtitle: "google_review",
+  },
+  {
+    name: "Petr Zajac",
+    text: "I'd like to highlight the very careful and reliable work. This innovative solution saves a lot of money and time during apartment renovation.",
+    rating: 5,
+    subtitle: "google_review",
+  },
+  {
+    name: "Michal Burek",
+    text: "My mum wanted a change in her flat and the ceiling and lights bothered her the most. She was more than happy with the result. The company did fast yet precise work. I can only recommend!",
+    rating: 5,
+    subtitle: "google_review",
+  },
+  {
+    name: "Tomáš Kantor",
+    text: "Completely satisfied. Communication, execution — top notch. Mounting to furniture, walls or tiles, everything perfect. And the maintenance? Washability 11/10!",
+    rating: 5,
+    subtitle: "google_review",
+  },
+  {
+    name: "Tomas Bolcek",
+    text: "Highly recommend. Professional approach from start to finish. A wide range of finishes to choose from. And the result? It absolutely exceeded my expectations.",
+    rating: 5,
+    subtitle: "google_review",
+  },
+  {
+    name: "Ales Kotasek",
+    text: "The guys have it really well figured out — they advise on everything, work quickly, with quality and precision. The backlighting looks even better than I ever expected. Can only recommend.",
+    rating: 5,
+    subtitle: "google_review",
+  },
+  {
+    name: "Fakerman",
+    text: "I can only recommend — precision, speed and a professional approach are a given for them. They handle unusual shapes and obstacles with ease.",
     rating: 5,
     subtitle: "google_review",
   },
@@ -126,6 +171,8 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 
 export default function FaqAndTestimonials() {
   const d = useDict();
+  const locale = useLocale();
+  const testimonials = locale === "en" ? testimonialsEn : testimonialsCs;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -136,7 +183,7 @@ export default function FaqAndTestimonials() {
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length);
-  }, []);
+  }, [testimonials.length]);
 
   useEffect(() => {
     if (paused) return;
