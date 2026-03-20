@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { LocaleProvider } from "@/i18n/LocaleContext";
 import HtmlLang from "@/components/HtmlLang";
 
 export const metadata: Metadata = {
@@ -25,9 +24,9 @@ export default function EnLayout({
   children: React.ReactNode;
 }) {
   return (
-    <LocaleProvider locale="en">
+    <>
       <HtmlLang lang="en" />
       {children}
-    </LocaleProvider>
+    </>
   );
 }
