@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import AutoLocaleProvider from "@/components/AutoLocaleProvider";
+import ChatWidget from "@/components/ChatWidget";
 
 const playfair = Playfair_Display({
   subsets: ["latin", "latin-ext"],
@@ -60,6 +61,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </AutoLocaleProvider>
+        <ChatWidget />
       </body>
     </html>
   );
