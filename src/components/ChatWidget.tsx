@@ -585,7 +585,7 @@ export default function ChatWidget() {
                 style={{ minHeight: "38px" }}
               />
               <button
-                onClick={sendMessageWithTracking}
+                onClick={() => sendMessageWithTracking()}
                 disabled={!input.trim() || isStreaming}
                 className="bg-accent text-white w-9 h-[38px] flex items-center justify-center rounded-sm hover:bg-accent-hover transition-colors disabled:opacity-40 flex-shrink-0"
               >
