@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import Image from "next/image";
 import MascotA from "./MascotA";
-import MascotB from "./MascotB";
 
 interface Message {
   role: "user" | "assistant";
@@ -366,18 +364,8 @@ export default function ChatWidget() {
             <path d="M4 4l12 12M16 4l-12 12" />
           </svg>
         ) : (
-          <div
-            className="w-9 h-9 rounded-full overflow-hidden"
-            style={{ animation: "mascotBreathe 3s ease-in-out infinite" }}
-          >
-            <Image
-              src="/images/logo-mark-light.jpg"
-              alt="Strop kecka"
-              width={36}
-              height={36}
-              className="object-cover w-full h-full"
-              priority
-            />
+          <div style={{ animation: "floatSlow 4s ease-in-out infinite" }}>
+            <MascotA size={36} />
           </div>
         )}
       </button>
@@ -407,8 +395,8 @@ export default function ChatWidget() {
         >
           {/* Header */}
           <div className="bg-dark px-4 py-3 flex items-center gap-3 flex-shrink-0">
-            <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-              <Image src="/images/logo-mark-light.jpg" alt="Strop kecka" width={32} height={32} className="object-cover w-full h-full" />
+            <div className="flex-shrink-0">
+              <MascotA size={32} />
             </div>
             <div className="flex-1">
               <div className="text-white text-[13px] font-medium">
@@ -492,20 +480,11 @@ export default function ChatWidget() {
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
             {messages.length === 0 && (
               <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-                {/* Mascot preview — obě varianty vedle sebe */}
-                <div className="flex gap-6 mb-4">
-                  <div className="flex flex-col items-center gap-1.5">
-                    <div style={{ animation: "floatSlow 4s ease-in-out infinite" }}>
-                      <MascotA size={64} />
-                    </div>
-                    <span className="text-[9px] text-muted tracking-wide uppercase">A: Montér</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1.5">
-                    <div style={{ animation: "floatSlow 4s ease-in-out infinite 0.5s" }}>
-                      <MascotB size={64} />
-                    </div>
-                    <span className="text-[9px] text-muted tracking-wide uppercase">B: Strop</span>
-                  </div>
+                <div
+                  className="mb-3"
+                  style={{ animation: "floatSlow 4s ease-in-out infinite" }}
+                >
+                  <MascotA size={64} />
                 </div>
                 <p className="text-heading text-[14px] font-medium mb-1">
                   Zjistěte cenu během minuty
