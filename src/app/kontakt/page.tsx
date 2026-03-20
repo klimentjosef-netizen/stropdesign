@@ -101,15 +101,6 @@ export default async function KontaktPage() {
 
       {/* Contact form */}
       <ContactSection />
-
-      {/* Map placeholder */}
-      <section className="bg-light-tertiary border-t border-border">
-        <div className="h-[300px] lg:h-[400px] flex items-center justify-center">
-          <span className="text-muted text-[11px] tracking-[0.14em] uppercase">
-            Google Maps
-          </span>
-        </div>
-      </section>
     </>
   );
 }

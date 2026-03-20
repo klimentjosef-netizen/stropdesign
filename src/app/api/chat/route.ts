@@ -95,7 +95,8 @@ Tento blok přidej POUZE když máš kompletní konfiguraci (povrch, plochu, cen
 - Životnost 15+ let, záruka, nehořlavý materiál
 - Firma působí v Ostravě a okolí (Frýdek-Místek, Opava, Havířov, Karviná)
 - Telefon: +420 739 457 794
-- Pokud se zákazník ptá na něco mimo napínané stropy, zdvořile ho přesměruj zpět k tématu`;
+- Pokud se zákazník ptá na něco mimo napínané stropy, zdvořile ho přesměruj zpět k tématu
+- Pokud zákazník píše anglicky, odpovídej anglicky. Přizpůsob se jazyku zákazníka. Ceník a produkty zůstávají stejné, jen komunikuj v jeho jazyce.`;
 
 interface ChatMessage {
   role: "user" | "assistant";
