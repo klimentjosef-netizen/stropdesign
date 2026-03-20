@@ -216,6 +216,7 @@ export default function ChatWidget() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [inquiryForm, setInquiryForm] = useState<InquiryData | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const streamingRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const scrollToBottom = useCallback(() => {
@@ -282,22 +283,9 @@ export default function ChatWidget() {
       if (!reader) throw new Error("No reader");
 
       const decoder = new TextDecoder();
-      let needsFlush = false;
 
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
-
-      const flushText = () => {
-        const displayText = stripInquiryBlock(fullTextRef.current);
-        setMessages((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            role: "assistant",
-            content: displayText,
-          };
-          return updated;
-        });
-        needsFlush = false;
-      };
+      // Don't add to React state during streaming — update DOM directly
+      setMessages((prev) => [...prev, { role: "assistant", content: "\u200B" }]);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -314,9 +302,9 @@ export default function ChatWidget() {
               const parsed = JSON.parse(data);
               if (parsed.text) {
                 fullTextRef.current += parsed.text;
-                if (!needsFlush) {
-                  needsFlush = true;
-                  requestAnimationFrame(flushText);
+                // Direct DOM update — no React re-render
+                if (streamingRef.current) {
+                  streamingRef.current.textContent = stripInquiryBlock(fullTextRef.current);
                 }
               }
             } catch {
@@ -326,8 +314,16 @@ export default function ChatWidget() {
         }
       }
 
-      // Final flush to ensure all text is rendered
-      flushText();
+      // Streaming done — commit final text to React state
+      const finalText = stripInquiryBlock(fullTextRef.current);
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = {
+          role: "assistant",
+          content: finalText,
+        };
+        return updated;
+      });
 
       const inquiry = parseInquiryData(fullTextRef.current);
       if (inquiry) {
@@ -539,36 +535,41 @@ export default function ChatWidget() {
               </div>
             )}
 
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-              >
+            {messages.map((msg, i) => {
+              const isLastAssistant =
+                msg.role === "assistant" && i === messages.length - 1;
+              const isStreamingThis = isLastAssistant && isStreaming;
+
+              return (
                 <div
-                  className={`max-w-[85%] text-[12px] leading-[1.7] px-3.5 py-2.5 rounded-sm whitespace-pre-wrap ${
-                    msg.role === "user"
-                      ? "bg-accent text-white"
-                      : "bg-light-secondary text-body border border-border"
-                  }`}
+                  key={i}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  {msg.content}
-                  {/* Show inquiry card on last assistant message if we have data */}
-                  {msg.role === "assistant" &&
-                    i === messages.length - 1 &&
-                    lastInquiryData &&
-                    !isStreaming && (
-                      <InquiryCard
-                        data={lastInquiryData}
-                        onSend={() => setInquiryForm(lastInquiryData)}
-                      />
-                    )}
+                  <div
+                    ref={isStreamingThis ? streamingRef : undefined}
+                    className={`max-w-[85%] text-[12px] leading-[1.7] px-3.5 py-2.5 rounded-sm whitespace-pre-wrap ${
+                      msg.role === "user"
+                        ? "bg-accent text-white"
+                        : "bg-light-secondary text-body border border-border"
+                    }`}
+                  >
+                    {isStreamingThis ? null : msg.content}
+                    {isLastAssistant &&
+                      lastInquiryData &&
+                      !isStreaming && (
+                        <InquiryCard
+                          data={lastInquiryData}
+                          onSend={() => setInquiryForm(lastInquiryData)}
+                        />
+                      )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             {isStreaming &&
               messages.length > 0 &&
-              messages[messages.length - 1].content === "" && (
+              messages[messages.length - 1].content === "\u200B" && (
                 <div className="flex justify-start">
                   <div className="bg-light-secondary border border-border rounded-sm px-4 py-3 flex gap-1">
                     <span
