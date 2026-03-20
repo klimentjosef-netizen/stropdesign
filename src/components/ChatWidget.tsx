@@ -254,9 +254,8 @@ export default function ChatWidget() {
   // We need to detect inquiry data during streaming. Let's use a ref to track full text
   const fullTextRef = useRef("");
 
-  // Override sendMessage to track full text
-  const sendMessageWithTracking = async () => {
-    const text = input.trim();
+  const sendMessageWithTracking = async (directText?: string) => {
+    const text = (directText || input).trim();
     if (!text || isStreaming) return;
 
     const userMessage: Message = { role: "user", content: text };
@@ -312,6 +311,11 @@ export default function ChatWidget() {
             }
           }
         }
+      }
+
+      // Clear DOM text before React takes over — prevents double text
+      if (streamingRef.current) {
+        streamingRef.current.textContent = "";
       }
 
       // Streaming done — commit final text to React state
@@ -501,15 +505,7 @@ export default function ChatWidget() {
                   ].map((q) => (
                     <button
                       key={q}
-                      onClick={() => {
-                        setInput(q);
-                        setTimeout(() => {
-                          const textarea = inputRef.current;
-                          if (textarea) {
-                            textarea.focus();
-                          }
-                        }, 50);
-                      }}
+                      onClick={() => sendMessageWithTracking(q)}
                       className="text-left text-[11px] text-body bg-light-secondary border border-border px-3 py-2 rounded-sm hover:border-accent hover:text-accent transition-colors"
                     >
                       {q}
