@@ -352,9 +352,18 @@ export default function ChatWidget() {
         )}
       </button>
 
-      {/* Pulse ring on bubble when closed and no messages */}
+      {/* Tooltip + pulse ring when closed */}
       {!isOpen && messages.length === 0 && (
-        <div className="fixed bottom-6 right-6 z-[89] w-14 h-14 rounded-full animate-ping bg-accent/20 pointer-events-none" />
+        <>
+          <div
+            className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[11px] font-medium px-3 py-2 rounded-sm shadow-lg pointer-events-none max-w-[180px] text-center leading-[1.5]"
+            style={{ animation: "chatSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both" }}
+          >
+            Nevíte si rady? Napište nám!
+            <div className="absolute -bottom-1 right-5 w-2 h-2 bg-dark rotate-45" />
+          </div>
+          <div className="fixed bottom-6 right-6 z-[89] w-14 h-14 rounded-full animate-ping bg-accent/20 pointer-events-none" />
+        </>
       )}
 
       {/* Chat window */}
@@ -459,17 +468,20 @@ export default function ChatWidget() {
                   </span>
                 </div>
                 <p className="text-heading text-[14px] font-medium mb-1">
-                  Ahoj! Jsem Strop kecka
+                  Nevíte si rady? Poradíme!
                 </p>
-                <p className="text-muted text-[12px] leading-[1.6] mb-4">
-                  Pomůžu ti vybrat napínaný strop, spočítám cenu a rovnou
-                  pošleme poptávku.
+                <p className="text-muted text-[12px] leading-[1.6] mb-1.5">
+                  Popište svými slovy, co potřebujete — jakou máte
+                  místnost, co od stropu očekáváte, jaký máte rozpočet.
+                </p>
+                <p className="text-accent text-[11px] font-medium mb-4">
+                  My vám doporučíme to nejlepší řešení a rovnou spočítáme cenu.
                 </p>
                 <div className="flex flex-col gap-1.5 w-full">
                   {[
-                    "Jaký strop do obýváku?",
-                    "Potřebuju strop do fitka v garáži",
-                    "Kolik stojí akustický strop?",
+                    "Chci strop do obýváku, ať to vypadá luxusně",
+                    "Mám fitko v garáži, bude tam zima a vlhko",
+                    "Kolik by stál strop do koupelny 8 m²?",
                   ].map((q) => (
                     <button
                       key={q}
