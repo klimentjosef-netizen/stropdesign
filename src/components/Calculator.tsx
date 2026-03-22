@@ -71,7 +71,6 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
     0
   );
   const total = area * pricePerSqm + cornersCost + addonsCost;
-  const totalLow = Math.round(total * 0.8);
   const totalHigh = Math.round(total * 1.2);
 
   const getAddonName = useCallback((addon: Addon) => {
@@ -537,7 +536,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     {Math.round(total / area).toLocaleString("cs-CZ")} {d.calculator.pricePerSqm}
                   </div>
                   <div className="text-[10px] text-muted mt-1">
-                    Cenové rozpětí: {totalLow.toLocaleString("cs-CZ")} – {totalHigh.toLocaleString("cs-CZ")} {d.calculator.currency} (±20%)
+                    od {total.toLocaleString("cs-CZ")} až {totalHigh.toLocaleString("cs-CZ")} {d.calculator.currency}
                   </div>
                 </div>
 
@@ -608,8 +607,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                       `${d.calculator.area}: ${area} ${d.calculator.sqm}`,
                       corners > 4 ? `Rohy: ${corners} (${corners - 4} navíc, ${cornersCost} ${d.calculator.currency})` : "",
                       selectedAddons ? `${d.calculator.addons}: ${selectedAddons}` : "",
-                      `${d.calculator.orientPrice}: ${total.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
-                      `Cenové rozpětí: ${totalLow.toLocaleString("cs-CZ")} – ${totalHigh.toLocaleString("cs-CZ")} ${d.calculator.currency} (±20%)`,
+                      `${d.calculator.orientPrice}: od ${total.toLocaleString("cs-CZ")} až ${totalHigh.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
                     ]
                       .filter(Boolean)
                       .join("\n");

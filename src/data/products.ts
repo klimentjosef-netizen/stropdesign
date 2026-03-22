@@ -90,8 +90,8 @@ export const surfaces: Surface[] = [
     slug: "vlastni-tisk",
     color: "#EAE0EA",
     accent: "#FF6B9D",
-    price: 330,
-    priceLabel: "od 330 Kč/m² + cena zvoleného stropu",
+    price: 1130,
+    priceLabel: "od 1 130 Kč/m² (800 povrch + 330 tisk)",
     description:
       "Originální designový prvek. Fotografie, vzory nebo grafika v HD rozlišení přímo na stropě. Tisk je doplněk k libovolnému typu povrchu. Oblíbené motivy: obloha, hvězdná noc, příroda i firemní branding.",
     features: [
