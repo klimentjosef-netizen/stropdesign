@@ -7,7 +7,7 @@ import SectionEyebrow from "./SectionEyebrow";
 import { useDict, useLocalePath, useLocale } from "@/i18n/LocaleContext";
 import type { Surface, Addon } from "@/lib/keystatic";
 
-const CATEGORIES: string[] = ["lighting", "climate", "safety", "tech", "other"];
+const CATEGORIES: string[] = ["lighting", "tech", "other"];
 
 function AnimatedPrice({ value }: { value: number }) {
   const [display, setDisplay] = useState(value);
@@ -54,7 +54,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSurface, setSelectedSurface] = useState(0);
   const [area, setArea] = useState(24);
-  const [lights, setLights] = useState(6);
+  const [corners, setCorners] = useState(4);
   const [addons, setAddons] = useState<Set<number>>(new Set());
   const [expandedCats, setExpandedCats] = useState<Set<string>>(
     new Set(["lighting"])
@@ -65,12 +65,14 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   const maxPrice = useMemo(() => Math.max(...surfaces.map((s) => s.price)), [surfaces]);
 
   const pricePerSqm = surfaces[selectedSurface].price;
-  const lightCost = lights * 350;
+  const cornersCost = Math.max(0, corners - 4) * 200;
   const addonsCost = Array.from(addons).reduce(
     (sum, i) => sum + addonsList[i].price,
     0
   );
-  const total = area * pricePerSqm + lightCost + addonsCost;
+  const total = area * pricePerSqm + cornersCost + addonsCost;
+  const totalLow = Math.round(total * 0.8);
+  const totalHigh = Math.round(total * 1.2);
 
   const getAddonName = useCallback((addon: Addon) => {
     return locale === "en" ? addon.nameEn : addon.nameCz;
@@ -110,7 +112,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   }, [isOpen]);
 
   const areaPct = ((area - 5) / (100 - 5)) * 100;
-  const lightsPct = (lights / 20) * 100;
+  const cornersPct = ((corners - 3) / (12 - 3)) * 100;
 
   return (
     <>
@@ -331,33 +333,38 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   </div>
                 </div>
 
-                {/* Step 3: Lights */}
+                {/* Step 3: Corners */}
                 <div>
                   <div className="flex items-center gap-2.5 mb-3">
                     <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
                       3
                     </span>
                     <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      {d.calculator.step3}
+                      Počet rohů v místnosti
                     </label>
                   </div>
                   <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                     <div className="flex justify-between items-baseline mb-3">
-                      <span className="text-[11px] text-body">
-                        {d.calculator.lightsLabel}
-                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-[11px] text-body">
+                          Počet rohů
+                        </span>
+                        <span className="text-[9px] text-muted">
+                          Nad 4 rohy: 200 Kč/ks za každý další
+                        </span>
+                      </div>
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => setLights((l) => Math.max(0, l - 1))}
+                          onClick={() => setCorners((c) => Math.max(3, c - 1))}
                           className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
                         >
                           −
                         </button>
                         <span className="font-display text-lg text-accent min-w-[2.5rem] text-center tabular-nums">
-                          {lights} {d.calculator.pcs}
+                          {corners}
                         </span>
                         <button
-                          onClick={() => setLights((l) => Math.min(20, l + 1))}
+                          onClick={() => setCorners((c) => Math.min(12, c + 1))}
                           className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
                         >
                           +
@@ -367,22 +374,22 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     <div className="relative">
                       <input
                         type="range"
-                        min={0}
-                        max={20}
-                        value={lights}
-                        onChange={(e) => setLights(Number(e.target.value))}
+                        min={3}
+                        max={12}
+                        value={corners}
+                        onChange={(e) => setCorners(Number(e.target.value))}
                         className="calc-range w-full"
                       />
                       <div className="absolute top-1/2 left-0 right-0 h-[3px] -translate-y-1/2 bg-border rounded-full pointer-events-none">
                         <div
                           className="h-full bg-accent rounded-full transition-all duration-100"
-                          style={{ width: `${lightsPct}%` }}
+                          style={{ width: `${cornersPct}%` }}
                         />
                       </div>
                     </div>
                     <div className="flex justify-between mt-1.5">
-                      <span className="text-muted text-[10px]">0 {d.calculator.pcs}</span>
-                      <span className="text-muted text-[10px]">20 {d.calculator.pcs}</span>
+                      <span className="text-muted text-[10px]">3</span>
+                      <span className="text-muted text-[10px]">12</span>
                     </div>
                   </div>
                 </div>
@@ -529,6 +536,9 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   <div className="text-[10px] text-muted mt-1.5">
                     {Math.round(total / area).toLocaleString("cs-CZ")} {d.calculator.pricePerSqm}
                   </div>
+                  <div className="text-[10px] text-muted mt-1">
+                    Cenové rozpětí: {totalLow.toLocaleString("cs-CZ")} – {totalHigh.toLocaleString("cs-CZ")} {d.calculator.currency} (±20%)
+                  </div>
                 </div>
 
                 {/* Breakdown */}
@@ -549,13 +559,13 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                       {(area * pricePerSqm).toLocaleString("cs-CZ")} {d.calculator.currency}
                     </span>
                   </div>
-                  {lights > 0 && (
+                  {corners > 4 && (
                     <div className="flex justify-between text-[11px]">
                       <span className="text-muted">
-                        {d.calculator.lights} ({lights}×)
+                        Rohy ({corners}×, {corners - 4} navíc)
                       </span>
                       <span className="text-body">
-                        {lightCost.toLocaleString("cs-CZ")} {d.calculator.currency}
+                        {cornersCost.toLocaleString("cs-CZ")} {d.calculator.currency}
                       </span>
                     </div>
                   )}
@@ -596,9 +606,10 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     const lines = [
                       `${d.calculator.surface}: ${surfaces[selectedSurface].name} (${pricePerSqm} ${d.calculator.currency}/${d.calculator.sqm})`,
                       `${d.calculator.area}: ${area} ${d.calculator.sqm}`,
-                      lights > 0 ? `${d.calculator.lights}: ${lights} ${d.calculator.pcs}` : "",
+                      corners > 4 ? `Rohy: ${corners} (${corners - 4} navíc, ${cornersCost} ${d.calculator.currency})` : "",
                       selectedAddons ? `${d.calculator.addons}: ${selectedAddons}` : "",
                       `${d.calculator.orientPrice}: ${total.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
+                      `Cenové rozpětí: ${totalLow.toLocaleString("cs-CZ")} – ${totalHigh.toLocaleString("cs-CZ")} ${d.calculator.currency} (±20%)`,
                     ]
                       .filter(Boolean)
                       .join("\n");
@@ -615,6 +626,9 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 </button>
                 <p className="text-muted text-[9px] text-center mt-2.5 leading-[1.5]">
                   {d.calculator.ctaNote}
+                </p>
+                <p className="text-muted text-[8px] text-center mt-1.5 leading-[1.5]">
+                  Ceny jsou orientační bez DPH. Speciální požadavky vyžadují individuální cenovou nabídku.
                 </p>
                 <button
                   onClick={() => {
