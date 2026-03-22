@@ -2,13 +2,13 @@
   "name": "Perforovaný",
   "color": "#E5E5E0",
   "accent": "#E67E22",
-  "price": 950,
-  "priceLabel": "od 950 Kč/m²",
-  "description": "Atypický dekorativní vzhled do prostoru. Perforovaná fólie s přesně řezanými otvory vytváří vizuální hru světla a stínu. Dvouvrstvý systém s kontrastní spodní vrstvou dodává 3D hloubku.",
+  "price": 2000,
+  "priceLabel": "od 2 000 Kč/m² (individuální nacenění)",
+  "description": "Atypický dekorativní vzhled do prostoru. Perforovaná fólie s přesně řezanými otvory vytváří vizuální hru světla a stínu. Dvouvrstvý systém s kontrastní spodní vrstvou dodává 3D hloubku. Cena závisí na počtu a velikosti výřezů.",
   "features": [
     "Dekorativní vzory otvorů",
     "Efekt hvězdné oblohy s podsvícením",
-    "Dvouvrstvý systém pro 3D efekt"
+    "Cena dle individuální kalkulace"
   ],
   "sortOrder": 6
 }

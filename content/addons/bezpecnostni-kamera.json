@@ -1,8 +1,8 @@
 {
-  "nameCz": "Bezpečnostní kamera",
-  "nameEn": "Security camera",
-  "price": 1500,
+  "nameCz": "Bezpečnostní kamera (montáž)",
+  "nameEn": "Security camera (installation)",
+  "price": 200,
   "icon": "📷",
   "category": "tech",
-  "sortOrder": 11
+  "sortOrder": 8
 }

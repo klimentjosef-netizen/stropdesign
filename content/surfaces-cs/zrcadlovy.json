@@ -1,0 +1,14 @@
+{
+  "name": "Zrcadlový",
+  "color": "#D0D0E0",
+  "accent": "#8888CC",
+  "price": 2300,
+  "priceLabel": "od 2 300 Kč/m²",
+  "description": "Vysoce lesklý povrch s efektem zrcadla, který opticky zvětšuje prostor a dodává interiéru výrazný, moderní vzhled. Odráží světlo i okolní prvky, čímž vytváří pocit vzdušnosti a luxusu.",
+  "features": [
+    "Dokonalý zrcadlový efekt",
+    "Optické zvětšení prostoru",
+    "Ideální pro moderní a designové interiéry"
+  ],
+  "sortOrder": 8
+}

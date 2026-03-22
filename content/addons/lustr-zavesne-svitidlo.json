@@ -1,8 +1,8 @@
 {
-  "nameCz": "Lustr / závěsné svítidlo",
-  "nameEn": "Chandelier / pendant light",
-  "price": 600,
+  "nameCz": "Lustr / závěsné svítidlo (montáž)",
+  "nameEn": "Chandelier / pendant light (installation)",
+  "price": 200,
   "icon": "🔮",
   "category": "lighting",
-  "sortOrder": 2
+  "sortOrder": 3
 }

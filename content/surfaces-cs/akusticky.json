@@ -2,9 +2,9 @@
   "name": "Akustický",
   "color": "#E0E8E8",
   "accent": "#3498DB",
-  "price": 1100,
-  "priceLabel": "od 1 100 Kč/m²",
-  "description": "Fólie s mikroskopickými otvory (0,1-0,5 mm), které efektivně pohlcují zvuk. Vizuálně nerozeznatelný od matného povrchu, ale výrazně zlepšuje akustiku prostoru. Snižuje ozvěnu a dobu dozvuku.",
+  "price": 1200,
+  "priceLabel": "od 1 200 Kč/m²",
+  "description": "Fólie s mikroskopickými otvory (0,3 mm), které efektivně pohlcují zvuk. Vizuálně nerozeznatelný od matného povrchu, ale výrazně zlepšuje akustiku prostoru. Snižuje ozvěnu a dobu dozvuku.",
   "features": [
     "Pohlcování zvuku bez viditelných panelů",
     "Čistý vzhled jako matný povrch",

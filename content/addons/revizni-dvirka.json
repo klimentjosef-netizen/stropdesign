@@ -1,8 +1,8 @@
 {
   "nameCz": "Revizní dvířka",
   "nameEn": "Access hatch",
-  "price": 800,
+  "price": 4500,
   "icon": "🚪",
   "category": "other",
-  "sortOrder": 13
+  "sortOrder": 10
 }

@@ -2,12 +2,12 @@
   "name": "Lesklý",
   "color": "#EDE8D8",
   "accent": "#C9A84C",
-  "price": 750,
-  "priceLabel": "od 750 Kč/m²",
-  "description": "Zrcadlový efekt pro vizuální zvětšení prostoru. Vysoce lesklý povrch odráží světlo i interiér a opticky zdvojnásobuje výšku místnosti. Tmavé odstíny odrážejí až 90 % světla.",
+  "price": 900,
+  "priceLabel": "od 900 Kč/m²",
+  "description": "Lesklý povrch odráží světlo i interiér a opticky zvětšuje výšku místnosti. Elegantní volba pro moderní prostory.",
   "features": [
-    "Zrcadlový odraz až 90 %",
-    "Optické zvětšení prostoru",
+    "Odraz světla a prostoru",
+    "Optické zvětšení místnosti",
     "Moderní luxusní vzhled"
   ],
   "sortOrder": 2

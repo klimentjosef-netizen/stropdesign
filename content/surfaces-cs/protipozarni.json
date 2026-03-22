@@ -1,0 +1,14 @@
+{
+  "name": "Protipožární",
+  "color": "#F0E0E0",
+  "accent": "#CC4444",
+  "price": 1000,
+  "priceLabel": "od 1 000 Kč/m²",
+  "description": "Protipožární napínaný strop s certifikací. Dostupný v matné, lesklé, saténové i průsvitné variantě. Splňuje požární předpisy pro komerční i veřejné prostory.",
+  "features": [
+    "Certifikovaná požární odolnost",
+    "Dostupný ve 4 variantách povrchu",
+    "Vhodný pro komerční a veřejné prostory"
+  ],
+  "sortOrder": 9
+}

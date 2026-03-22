@@ -2,13 +2,13 @@
   "name": "Vlastní tisk",
   "color": "#EAE0EA",
   "accent": "#FF6B9D",
-  "price": 1200,
-  "priceLabel": "od 1 200 Kč/m²",
-  "description": "Originální designový prvek s kvalitou materiálu a jednoduchou instalací. Fotografie, vzory nebo grafika v HD rozlišení přímo na stropě. Oblíbené motivy: obloha, hvězdná noc, příroda i firemní branding.",
+  "price": 330,
+  "priceLabel": "od 330 Kč/m² + cena zvoleného stropu",
+  "description": "Originální designový prvek. Fotografie, vzory nebo grafika v HD rozlišení přímo na stropě. Tisk je doplněk k libovolnému typu povrchu. Oblíbené motivy: obloha, hvězdná noc, příroda i firemní branding.",
   "features": [
     "HD tisk libovolného motivu",
     "UV odolné barvy",
-    "Kombinace s podsvícením pro lightbox efekt"
+    "Lze tisknout na všechny druhy povrchů"
   ],
   "sortOrder": 5
 }
