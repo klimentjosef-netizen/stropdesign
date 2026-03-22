@@ -15,7 +15,7 @@ export const steps: Step[] = [
       "Bezplatná konzultace",
       "Zaměření místnosti na místě",
       "Výběr povrchu a barvy",
-      "Přesná cenová nabídka do 24 hodin",
+      "Přesná cenová nabídka do 48 hodin",
     ],
   },
   {

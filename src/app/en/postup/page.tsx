@@ -160,7 +160,7 @@ export default async function ProcessPageEN() {
               Ready to get started?
             </h2>
             <p className="text-body text-sm leading-[1.7] font-light mb-8">
-              Just get in touch. We respond within 24 hours and prepare a tailor-made offer.
+              Just get in touch. We respond within 48 hours and prepare a tailor-made offer.
             </p>
             <Link
               href="/en/kontakt"

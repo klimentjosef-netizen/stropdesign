@@ -18,7 +18,7 @@ const stats = [
   { number: "150+", label: "Dokončených realizací" },
   { number: "5,0", label: "Hodnocení na Google" },
   { number: "12 let", label: "Záruka na barvu" },
-  { number: "15–25 let", label: "Životnost" },
+  { number: "30+ let", label: "Životnost" },
 ];
 
 export default function ONasPage() {
@@ -68,9 +68,8 @@ export default function ONasPage() {
                   StropDesign / Derbau s.r.o.
                 </p>
 
-                {/* TODO: upřesnit délku praxe */}
                 <p className="text-body text-sm leading-[1.7] font-light mt-4 max-w-xs">
-                  Napínaným stropům se věnuji přes X let. Každou realizaci
+                  Napínaným stropům se věnuji přes 3 roky. Každou realizaci
                   dělám osobně — od zaměření až po předání.
                 </p>
               </div>

@@ -45,6 +45,19 @@ export default function Navbar() {
 
         {/* CTA + Language */}
         <div className="hidden lg:flex items-center gap-4">
+          <a
+            href="https://instagram.com/stropdesign"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:text-accent-hover transition-colors duration-200"
+            aria-label="Instagram"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
           <LanguageSwitcher />
           <Link
             href={contactHref}

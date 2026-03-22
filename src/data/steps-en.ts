@@ -10,7 +10,7 @@ export const stepsEn: Step[] = [
       "Free consultation",
       "On-site room measurement",
       "Surface & color selection",
-      "Precise quote within 24 hours",
+      "Precise quote within 48 hours",
     ],
   },
   {

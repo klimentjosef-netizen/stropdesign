@@ -34,7 +34,7 @@ export default async function ContactPageEN() {
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
               Call us, send an email or fill out the form. We respond within
-              24 hours and prepare a tailor-made offer for your project.
+              48 hours and prepare a tailor-made offer for your project.
             </p>
           </RevealOnScroll>
         </div>
@@ -75,7 +75,7 @@ export default async function ContactPageEN() {
               >
                 info@stropdesign.cz
               </a>
-              <p className="text-muted text-[11px] mt-1">We respond within 24 hours</p>
+              <p className="text-muted text-[11px] mt-1">We respond within 48 hours</p>
             </div>
           </RevealOnScroll>
 

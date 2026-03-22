@@ -101,6 +101,7 @@ function SendInquiryForm({
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [gdprConsent, setGdprConsent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -157,7 +158,7 @@ function SendInquiryForm({
           Odesláno!
         </p>
         <p className="text-[12px] text-muted">
-          Ozveme se do 24 hodin s nabídkou na míru.
+          Ozveme se do 48 hodin s nabídkou na míru.
         </p>
         <button
           onClick={onClose}
@@ -172,7 +173,7 @@ function SendInquiryForm({
   return (
     <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-2.5">
       <p className="text-[12px] text-body mb-1">
-        Vyplň údaje a ozveme se ti do 24 hodin s nabídkou.
+        Vyplň údaje a ozveme se ti do 48 hodin s nabídkou.
       </p>
       <input
         type="text"
@@ -198,9 +199,19 @@ function SendInquiryForm({
         className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
       />
       {error && <p className="text-red-600 text-[11px]">{error}</p>}
+      <label className="flex items-start gap-2 cursor-pointer text-[11px] text-body leading-[1.5]">
+        <input
+          type="checkbox"
+          required
+          checked={gdprConsent}
+          onChange={(e) => setGdprConsent(e.target.checked)}
+          className="mt-0.5 w-3.5 h-3.5 accent-accent flex-shrink-0"
+        />
+        <span>Souhlasím se zpracováním osobních údajů</span>
+      </label>
       <button
         type="submit"
-        disabled={sending}
+        disabled={sending || !gdprConsent}
         className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase py-3 hover:bg-accent-hover transition-colors rounded-sm disabled:opacity-60"
       >
         {sending ? "Odesílám..." : "Odeslat poptávku"}

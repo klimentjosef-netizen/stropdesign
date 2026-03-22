@@ -33,7 +33,7 @@ export default async function KontaktPage() {
               <em className="italic text-accent">rádi poradíme</em>.
             </h1>
             <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
-              Zavolejte, napište nebo vyplňte formulář. Odpovídáme do 24 hodin
+              Zavolejte, napište nebo vyplňte formulář. Odpovídáme do 48 hodin
               a nabídku připravíme přesně na míru vašeho projektu.
             </p>
           </RevealOnScroll>
@@ -42,6 +42,10 @@ export default async function KontaktPage() {
 
       {/* Contact cards */}
       <section className="py-12 lg:py-16 px-6 lg:px-10 bg-light-secondary border-b border-border">
+        <div className="max-w-7xl mx-auto mb-8 text-center">
+          <h2 className="font-display text-lg font-semibold text-heading">STROPDESIGN / DERBAU S.R.O.</h2>
+          <p className="text-muted text-[12px] mt-1">IČO: 24197564</p>
+        </div>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
           <RevealOnScroll>
             <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
@@ -75,7 +79,7 @@ export default async function KontaktPage() {
               >
                 info@stropdesign.cz
               </a>
-              <p className="text-muted text-[11px] mt-1">Odpovídáme do 24 hodin</p>
+              <p className="text-muted text-[11px] mt-1">Odpovídáme do 48 hodin</p>
             </div>
           </RevealOnScroll>
 

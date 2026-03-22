@@ -18,6 +18,7 @@ function ContactForm() {
     room: "",
     message: "",
   });
+  const [gdprConsent, setGdprConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
@@ -80,7 +81,17 @@ function ContactForm() {
       <input type="text" placeholder={d.contact.room} value={formData.room} onChange={(e) => setFormData({ ...formData, room: e.target.value })} className={inputClass} />
       <textarea placeholder={d.contact.message} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className={`${inputClass} resize-y min-h-[90px]`} />
       {error && <p className="text-red-600 text-sm font-light">{error}</p>}
-      <button type="submit" disabled={sending} className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-full disabled:opacity-60 disabled:cursor-not-allowed">
+      <label className="flex items-start gap-3 cursor-pointer text-[12px] text-body leading-[1.6]">
+        <input
+          type="checkbox"
+          required
+          checked={gdprConsent}
+          onChange={(e) => setGdprConsent(e.target.checked)}
+          className="mt-0.5 w-4 h-4 accent-accent flex-shrink-0"
+        />
+        <span>Souhlasím se zpracováním osobních údajů</span>
+      </label>
+      <button type="submit" disabled={sending || !gdprConsent} className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-full disabled:opacity-60 disabled:cursor-not-allowed">
         {sending ? d.contact.sending : d.contact.submit}
       </button>
     </form>

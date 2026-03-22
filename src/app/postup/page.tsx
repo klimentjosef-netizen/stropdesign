@@ -160,7 +160,7 @@ export default async function PostupPage() {
               Připraveni začít?
             </h2>
             <p className="text-body text-sm leading-[1.7] font-light mb-8">
-              Stačí se ozvat. Odpovídáme do 24 hodin a nabídku připravíme přesně na míru.
+              Stačí se ozvat. Odpovídáme do 48 hodin a nabídku připravíme přesně na míru.
             </p>
             <Link
               href="/kontakt"
