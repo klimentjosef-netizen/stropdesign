@@ -46,7 +46,7 @@ export default function Navbar() {
         {/* CTA + Language */}
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href="https://instagram.com/stropdesign"
+            href="https://www.instagram.com/strop_design/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent hover:text-accent-hover transition-colors duration-200"
