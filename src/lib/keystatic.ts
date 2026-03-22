@@ -25,6 +25,7 @@ export interface Reference {
   image: string | null;
   description: string;
   featured: boolean;
+  images: string[];
   sortOrder: number;
 }
 
@@ -82,6 +83,7 @@ export async function getReferences(locale: string = "cs"): Promise<Reference[]>
       image: e.entry.image ?? null,
       description: e.entry.description ?? "",
       featured: e.entry.featured ?? false,
+      images: (e.entry.images as string[]) ?? [],
       sortOrder: e.entry.sortOrder ?? 0,
     }))
     .sort((a, b) => a.sortOrder - b.sortOrder);

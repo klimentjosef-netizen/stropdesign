@@ -1,0 +1,17 @@
+{
+  "title": "Byt v Ostravě-Porubě",
+  "meta": "Byt · Ostrava-Poruba",
+  "tag": "Stropní povrchy",
+  "gradient": "from-[#1a2e1a] to-[#121f12]",
+  "image": "/images/references/byt-kubanska-poruba/1.jpeg",
+  "description": "Realizace stropních povrchů v bytě na Kubánské ulici v Ostravě-Porubě. Čisté linie a kvalitní provedení v moderním interiéru.",
+  "featured": false,
+  "images": [
+    "/images/references/byt-kubanska-poruba/1.jpeg",
+    "/images/references/byt-kubanska-poruba/2.jpeg",
+    "/images/references/byt-kubanska-poruba/3.jpeg",
+    "/images/references/byt-kubanska-poruba/4.jpeg",
+    "/images/references/byt-kubanska-poruba/5.jpeg"
+  ],
+  "sortOrder": 8
+}

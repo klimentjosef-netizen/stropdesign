@@ -1,0 +1,23 @@
+{
+  "title": "Rodinný dům v Hlučíně",
+  "meta": "Rodinný dům · Hlučín",
+  "tag": "Stropní povrchy",
+  "gradient": "from-[#1a2e1a] to-[#121f12]",
+  "image": "/images/references/rd-hlucin/1.jpeg",
+  "description": "Kompletní realizace stropních povrchů v rodinném domě v Hlučíně. Nadčasový design s důrazem na kvalitu a dlouhou životnost.",
+  "featured": false,
+  "images": [
+    "/images/references/rd-hlucin/1.jpeg",
+    "/images/references/rd-hlucin/2.jpeg",
+    "/images/references/rd-hlucin/3.jpeg",
+    "/images/references/rd-hlucin/4.jpeg",
+    "/images/references/rd-hlucin/5.jpeg",
+    "/images/references/rd-hlucin/6.jpeg",
+    "/images/references/rd-hlucin/7.jpeg",
+    "/images/references/rd-hlucin/8.jpeg",
+    "/images/references/rd-hlucin/9.jpeg",
+    "/images/references/rd-hlucin/10.jpeg",
+    "/images/references/rd-hlucin/11.jpeg"
+  ],
+  "sortOrder": 14
+}

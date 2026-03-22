@@ -61,6 +61,10 @@ function referencesCollection(locale: "cs" | "en") {
       }),
       description: fields.text({ label: "Description", multiline: true }),
       featured: fields.checkbox({ label: "Featured project", defaultValue: false }),
+      images: fields.array(
+        fields.text({ label: "Image path" }),
+        { label: "Gallery images", itemLabel: (props) => props.value }
+      ),
       sortOrder: fields.integer({ label: "Sort order", defaultValue: 0 }),
     },
   });

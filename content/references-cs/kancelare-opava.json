@@ -1,0 +1,16 @@
+{
+  "title": "Kancelářské prostory v Opavě",
+  "meta": "Kanceláře · Opava",
+  "tag": "Stropní povrchy",
+  "gradient": "from-[#1a1a2e] to-[#12121f]",
+  "image": "/images/references/kancelare-opava/1.jpeg",
+  "description": "Stropní povrchy v kancelářských prostorách v Opavě. Funkční a estetické řešení pro moderní pracovní prostředí.",
+  "featured": false,
+  "images": [
+    "/images/references/kancelare-opava/1.jpeg",
+    "/images/references/kancelare-opava/2.jpeg",
+    "/images/references/kancelare-opava/3.jpeg",
+    "/images/references/kancelare-opava/4.jpeg"
+  ],
+  "sortOrder": 12
+}

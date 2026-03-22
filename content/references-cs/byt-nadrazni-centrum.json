@@ -1,0 +1,16 @@
+{
+  "title": "Byt v centru Ostravy",
+  "meta": "Byt · Ostrava Centrum",
+  "tag": "Stropní povrchy",
+  "gradient": "from-[#1a1a2e] to-[#12121f]",
+  "image": "/images/references/byt-nadrazni-centrum/1.jpeg",
+  "description": "Stropní povrchy v bytě v centru Ostravy. Minimalistický design, který doplňuje městský charakter interiéru.",
+  "featured": false,
+  "images": [
+    "/images/references/byt-nadrazni-centrum/1.jpeg",
+    "/images/references/byt-nadrazni-centrum/2.jpeg",
+    "/images/references/byt-nadrazni-centrum/3.jpeg",
+    "/images/references/byt-nadrazni-centrum/4.jpeg"
+  ],
+  "sortOrder": 9
+}

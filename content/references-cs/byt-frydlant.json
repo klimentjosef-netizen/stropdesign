@@ -1,0 +1,20 @@
+{
+  "title": "Byt ve Frýdlantu nad Ostravicí",
+  "meta": "Byt · Frýdlant nad Ostravicí",
+  "tag": "Stropní povrchy",
+  "gradient": "from-[#1a1a2e] to-[#12121f]",
+  "image": "/images/references/byt-frydlant/1.jpeg",
+  "description": "Realizace stropních povrchů v bytě ve Frýdlantu nad Ostravicí. Elegantní řešení s hladkým povrchem a moderním vzhledem.",
+  "featured": false,
+  "images": [
+    "/images/references/byt-frydlant/1.jpeg",
+    "/images/references/byt-frydlant/2.jpeg",
+    "/images/references/byt-frydlant/3.jpeg",
+    "/images/references/byt-frydlant/4.jpeg",
+    "/images/references/byt-frydlant/5.jpeg",
+    "/images/references/byt-frydlant/6.jpeg",
+    "/images/references/byt-frydlant/7.jpeg",
+    "/images/references/byt-frydlant/8.jpeg"
+  ],
+  "sortOrder": 6
+}
