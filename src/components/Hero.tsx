@@ -5,7 +5,7 @@ import StarlightCanvas from "./StarlightCanvas";
 import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
 function formatValue(value: number, target: number, suffix: string, decimals: boolean) {
-  if (target === 150 && value >= 150) return "150+";
+  if (target === 200 && value >= 200) return "200+";
   if (decimals) return (value).toFixed(1).replace(".", ",");
   return Math.round(value) + suffix;
 }
@@ -58,7 +58,7 @@ export default function Hero() {
   const [loaded, setLoaded] = useState(false);
   const d = useDict();
 
-  const s1 = useCounter(150, "", false, 1500);
+  const s1 = useCounter(200, "", false, 1500);
   const s2 = useCounter(12, " let", false, 1600);
   const s3 = useCounter(5.0, "", true, 1700);
 

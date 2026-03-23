@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { number: "150+", label: "Completed projects" },
+  { number: "200+", label: "Completed projects" },
   { number: "5.0", label: "Google rating" },
   { number: "12 years", label: "Color warranty" },
   { number: "15–25 years", label: "Lifespan" },

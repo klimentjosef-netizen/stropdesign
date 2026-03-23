@@ -184,7 +184,7 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
               <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-border">
                 {[
                   { value: "5.0", label: d.testimonials.googleRating },
-                  { value: "150+", label: d.testimonials.projects },
+                  { value: "200+", label: d.testimonials.projects },
                   { value: "100%", label: d.testimonials.satisfaction },
                   { value: d.testimonials.warrantyValue, label: d.testimonials.warranty },
                 ].map((stat) => (

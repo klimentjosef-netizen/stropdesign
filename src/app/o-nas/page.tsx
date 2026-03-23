@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { number: "150+", label: "Dokončených realizací" },
+  { number: "200+", label: "Dokončených realizací" },
   { number: "5,0", label: "Hodnocení na Google" },
   { number: "12 let", label: "Záruka na barvu" },
   { number: "30+ let", label: "Životnost" },

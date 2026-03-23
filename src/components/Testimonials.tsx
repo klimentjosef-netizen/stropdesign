@@ -189,7 +189,7 @@ export default function Testimonials() {
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto text-center">
             {[
               { value: "5.0", label: "Google hodnocení" },
-              { value: "150+", label: "Realizací" },
+              { value: "200+", label: "Realizací" },
               { value: "100%", label: "Spokojených klientů" },
               { value: "12 let", label: "Záruka na barvu" },
             ].map((stat) => (
