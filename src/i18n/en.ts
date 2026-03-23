@@ -56,6 +56,7 @@ const en: Dictionary = {
     success: "Thank you for your enquiry!",
     successSub: "We will get back to you within 48 hours with a custom offer.",
     area: "Entire Czech Republic",
+    gdpr: "I agree to personal data processing",
   },
   testimonials: {
     eyebrow: "Reviews",
@@ -65,6 +66,18 @@ const en: Dictionary = {
     satisfaction: "Satisfied clients",
     warranty: "Color warranty",
     warrantyValue: "12 years",
+    viewAllReviews: "View all reviews on Google",
+    reviewAriaLabel: "Review",
+    texts: [
+      "A huge thank you to this company \u2014 in a single day they completely transformed our production facility and then our shop beyond recognition. When someone truly enjoys their craft, it shows immediately. The work was done with quality, precision and the utmost care.",
+      "I would like to highlight the very careful and reliable work. This innovative solution during an apartment renovation saves a lot of money and time.",
+      "My mom wanted a change in her apartment and the ceiling and lights bothered her the most. She was more than happy with the result. The company delivered fast yet precise work. I can only recommend!",
+      "Complete satisfaction. Communication, execution, top-notch, mounting on furniture, walls or tiles. And the maintenance? Washability 11/10!",
+      "Highly recommended. Professional approach from start to finish. A wide range of finishes to choose from. And the result? It completely exceeded my expectations.",
+      "The guys have it really well thought out, they advise on everything, and the work is done quickly, with quality and precision. The backlighting looks even better than I ever expected. I can only recommend.",
+      "I can only recommend \u2014 precision, speed and professional approach are a given. They handle unusual shapes and obstacles with ease.",
+    ],
+    subtitle: "Google review",
   },
   references: {
     eyebrow: "Portfolio",

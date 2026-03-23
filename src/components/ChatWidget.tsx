@@ -2,6 +2,88 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import MascotA from "./MascotA";
+import { useLocale } from "@/i18n/LocaleContext";
+
+const t = {
+  cs: {
+    configSummary: "Shrnutí konfigurace",
+    surface: "Povrch",
+    area: "Plocha",
+    spotLights: "Bodová světla",
+    addons: "Doplňky",
+    indicativePrice: "Orientační cena",
+    sendInquiry: "Odeslat poptávku",
+    inquiryPrefix: "Poptávka ze Strop kecky:",
+    errorSending: "Chyba při odesílání.",
+    failedToSend: "Nepodařilo se odeslat.",
+    fullName: "Jméno a příjmení",
+    phone: "Telefon (nepovinné)",
+    gdprConsent: "Souhlasím se zpracováním osobních údajů",
+    sending: "Odesílám...",
+    connectionError: "Chyba spojení.",
+    somethingWrong: "Něco se pokazilo.",
+    errorPrefix: "Omlouvám se, došlo k chybě:",
+    sent: "Odesláno!",
+    sentFollowUp: "Ozveme se do 48 hodin s nabídkou na míru.",
+    close: "Zavřít",
+    formPrompt: "Vyplň údaje a ozveme se ti do 48 hodin s nabídkou.",
+    email: "E-mail",
+    price: "Cena",
+    chatSubtitle: "AI poradce pro napínané stropy",
+    heroTitle: "Zjistěte cenu během minuty",
+    heroDescription:
+      "Popište svou místnost, doporučíme nejlepší řešení a rovnou spočítáme orientační cenu. Bez čekání, bez závazků.",
+    quickQ1: "Kolik stojí strop do obýváku 20 m²?",
+    quickQ2: "Jaký strop je nejlepší do koupelny?",
+    quickQ3: "Chci moderní strop s LED osvětlením",
+    inputPlaceholder: "Napiš svůj dotaz...",
+    openChat: "Otevřít chat",
+    tooltipCta:
+      "Popište co potřebujete a ihned dostanete orientační cenu",
+    pcs: "ks",
+    currency: "Kč",
+    surfaceLabel: "povrch",
+  },
+  en: {
+    configSummary: "Configuration summary",
+    surface: "Surface",
+    area: "Area",
+    spotLights: "Spot lights",
+    addons: "Add-ons",
+    indicativePrice: "Indicative price",
+    sendInquiry: "Send inquiry",
+    inquiryPrefix: "Inquiry from Strop chat:",
+    errorSending: "Error sending.",
+    failedToSend: "Failed to send.",
+    fullName: "Full name",
+    phone: "Phone (optional)",
+    gdprConsent: "I agree to personal data processing",
+    sending: "Sending...",
+    connectionError: "Connection error.",
+    somethingWrong: "Something went wrong.",
+    errorPrefix: "Sorry, an error occurred:",
+    sent: "Sent!",
+    sentFollowUp: "We will get back to you within 48 hours with a tailored offer.",
+    close: "Close",
+    formPrompt: "Fill in your details and we will get back to you within 48 hours.",
+    email: "E-mail",
+    price: "Price",
+    chatSubtitle: "AI advisor for stretch ceilings",
+    heroTitle: "Get a price in under a minute",
+    heroDescription:
+      "Describe your room, we will recommend the best solution and calculate an indicative price right away. No waiting, no obligations.",
+    quickQ1: "How much does a ceiling for a 20 m² living room cost?",
+    quickQ2: "What ceiling is best for a bathroom?",
+    quickQ3: "I want a modern ceiling with LED lighting",
+    inputPlaceholder: "Type your question...",
+    openChat: "Open chat",
+    tooltipCta:
+      "Describe what you need and get an indicative price right away",
+    pcs: "pcs",
+    currency: "CZK",
+    surfaceLabel: "surface",
+  },
+} as const;
 
 interface Message {
   role: "user" | "assistant";
@@ -39,42 +121,45 @@ function stripInquiryBlock(text: string): string {
 function InquiryCard({
   data,
   onSend,
+  locale,
 }: {
   data: InquiryData;
   onSend: () => void;
+  locale: "cs" | "en";
 }) {
+  const l = t[locale];
   return (
     <div className="mt-3 bg-accent-soft border border-accent/20 rounded-sm p-4">
       <div className="text-[11px] font-medium text-heading mb-2 tracking-[0.04em]">
-        Shrnutí konfigurace
+        {l.configSummary}
       </div>
       <div className="flex flex-col gap-1 text-[11px] text-body mb-3">
         <div className="flex justify-between">
-          <span className="text-muted">Povrch</span>
+          <span className="text-muted">{l.surface}</span>
           <span className="font-medium">{data.surface}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-muted">Plocha</span>
+          <span className="text-muted">{l.area}</span>
           <span>{data.area} m²</span>
         </div>
         {data.lights > 0 && (
           <div className="flex justify-between">
-            <span className="text-muted">Bodová světla</span>
-            <span>{data.lights} ks</span>
+            <span className="text-muted">{l.spotLights}</span>
+            <span>{data.lights} {l.pcs}</span>
           </div>
         )}
         {data.addons.length > 0 && (
           <div className="flex justify-between">
-            <span className="text-muted">Doplňky</span>
+            <span className="text-muted">{l.addons}</span>
             <span className="text-right max-w-[60%]">
               {data.addons.join(", ")}
             </span>
           </div>
         )}
         <div className="flex justify-between border-t border-accent/20 pt-1 mt-1">
-          <span className="font-medium text-heading">Orientační cena</span>
+          <span className="font-medium text-heading">{l.indicativePrice}</span>
           <span className="font-medium text-accent">
-            {data.totalPrice.toLocaleString("cs-CZ")} Kč
+            {data.totalPrice.toLocaleString("cs-CZ")} {l.currency}
           </span>
         </div>
       </div>
@@ -82,7 +167,7 @@ function InquiryCard({
         onClick={onSend}
         className="w-full bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase py-3 hover:bg-accent-hover transition-colors rounded-sm"
       >
-        Odeslat poptávku
+        {l.sendInquiry}
       </button>
     </div>
   );
@@ -91,10 +176,13 @@ function InquiryCard({
 function SendInquiryForm({
   data,
   onClose,
+  locale,
 }: {
   data: InquiryData;
   onClose: () => void;
+  locale: "cs" | "en";
 }) {
+  const l = t[locale];
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -116,20 +204,20 @@ function SendInquiryForm({
           name,
           email,
           phone,
-          room: `${data.surface} povrch, ${data.area} m²`,
-          message: `Poptávka ze Strop kecky:\n${data.summary}\n\nOrientační cena: ${data.totalPrice.toLocaleString("cs-CZ")} Kč`,
+          room: `${data.surface} ${l.surfaceLabel}, ${data.area} m²`,
+          message: `${l.inquiryPrefix}\n${data.summary}\n\n${l.indicativePrice}: ${data.totalPrice.toLocaleString("cs-CZ")} ${l.currency}`,
         }),
       });
 
       if (!res.ok) {
         const d = await res.json();
-        throw new Error(d.error || "Chyba při odesílání.");
+        throw new Error(d.error || l.errorSending);
       }
 
       setSent(true);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Nepodařilo se odeslat."
+        err instanceof Error ? err.message : l.failedToSend
       );
     } finally {
       setSending(false);
@@ -155,16 +243,16 @@ function SendInquiryForm({
           </svg>
         </div>
         <p className="font-display text-base font-semibold text-heading mb-1">
-          Odesláno!
+          {l.sent}
         </p>
         <p className="text-[12px] text-muted">
-          Ozveme se do 48 hodin s nabídkou na míru.
+          {l.sentFollowUp}
         </p>
         <button
           onClick={onClose}
           className="mt-3 text-[11px] text-accent hover:underline"
         >
-          Zavřít
+          {l.close}
         </button>
       </div>
     );
@@ -173,11 +261,11 @@ function SendInquiryForm({
   return (
     <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-2.5">
       <p className="text-[12px] text-body mb-1">
-        Vyplň údaje a ozveme se ti do 48 hodin s nabídkou.
+        {l.formPrompt}
       </p>
       <input
         type="text"
-        placeholder="Jméno a příjmení"
+        placeholder={l.fullName}
         required
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -185,7 +273,7 @@ function SendInquiryForm({
       />
       <input
         type="email"
-        placeholder="E-mail"
+        placeholder={l.email}
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -193,7 +281,7 @@ function SendInquiryForm({
       />
       <input
         type="tel"
-        placeholder="Telefon (nepovinné)"
+        placeholder={l.phone}
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
         className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
@@ -207,20 +295,22 @@ function SendInquiryForm({
           onChange={(e) => setGdprConsent(e.target.checked)}
           className="mt-0.5 w-3.5 h-3.5 accent-accent flex-shrink-0"
         />
-        <span>Souhlasím se zpracováním osobních údajů</span>
+        <span>{l.gdprConsent}</span>
       </label>
       <button
         type="submit"
         disabled={sending || !gdprConsent}
         className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase py-3 hover:bg-accent-hover transition-colors rounded-sm disabled:opacity-60"
       >
-        {sending ? "Odesílám..." : "Odeslat poptávku"}
+        {sending ? l.sending : l.sendInquiry}
       </button>
     </form>
   );
 }
 
 export default function ChatWidget() {
+  const locale = useLocale();
+  const l = t[locale];
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -286,7 +376,7 @@ export default function ChatWidget() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Chyba spojení.");
+        throw new Error(data.error || l.connectionError);
       }
 
       const reader = res.body?.getReader();
@@ -346,12 +436,12 @@ export default function ChatWidget() {
       }
     } catch (err) {
       const errorMsg =
-        err instanceof Error ? err.message : "Něco se pokazilo.";
+        err instanceof Error ? err.message : l.somethingWrong;
       setMessages((prev) => [
         ...prev.filter((m) => m.content !== ""),
         {
           role: "assistant",
-          content: `Omlouvám se, došlo k chybě: ${errorMsg}`,
+          content: `${l.errorPrefix} ${errorMsg}`,
         },
       ]);
     } finally {
@@ -365,7 +455,7 @@ export default function ChatWidget() {
       <button
         onClick={() => setIsOpen((o) => !o)}
         className="fixed bottom-6 right-6 z-[90] w-14 h-14 bg-accent text-white rounded-full shadow-lg hover:bg-accent-hover transition-all duration-300 hover:scale-105 flex items-center justify-center"
-        aria-label="Otevřít chat"
+        aria-label={l.openChat}
       >
         {isOpen ? (
           <svg
@@ -392,7 +482,7 @@ export default function ChatWidget() {
             className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[11px] font-medium px-3 py-2 rounded-sm shadow-lg pointer-events-none max-w-[220px] text-center leading-[1.5]"
             style={{ animation: "chatSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both" }}
           >
-            Popište co potřebujete a ihned dostanete orientační cenu
+            {l.tooltipCta}
             <div className="absolute -bottom-1 right-5 w-2 h-2 bg-dark rotate-45" />
           </div>
           <div className="fixed bottom-6 right-6 z-[89] w-14 h-14 rounded-full animate-ping bg-accent/20 pointer-events-none" />
@@ -418,7 +508,7 @@ export default function ChatWidget() {
                 Strop kecka
               </div>
               <div className="text-white/50 text-[10px]">
-                AI poradce pro napínané stropy
+                {l.chatSubtitle}
               </div>
             </div>
             <button
@@ -458,7 +548,7 @@ export default function ChatWidget() {
                   </svg>
                 </button>
                 <div className="text-white text-[13px] font-medium">
-                  Odeslat poptávku
+                  {l.sendInquiry}
                 </div>
               </div>
 
@@ -466,17 +556,17 @@ export default function ChatWidget() {
               <div className="p-4 border-b border-border bg-light-secondary">
                 <div className="flex flex-col gap-1 text-[11px]">
                   <div className="flex justify-between">
-                    <span className="text-muted">Povrch</span>
+                    <span className="text-muted">{l.surface}</span>
                     <span className="font-medium">{inquiryForm.surface}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted">Plocha</span>
+                    <span className="text-muted">{l.area}</span>
                     <span>{inquiryForm.area} m²</span>
                   </div>
                   <div className="flex justify-between border-t border-border pt-1 mt-1">
-                    <span className="font-medium">Cena</span>
+                    <span className="font-medium">{l.price}</span>
                     <span className="text-accent font-medium">
-                      {inquiryForm.totalPrice.toLocaleString("cs-CZ")} Kč
+                      {inquiryForm.totalPrice.toLocaleString("cs-CZ")} {l.currency}
                     </span>
                   </div>
                 </div>
@@ -486,6 +576,7 @@ export default function ChatWidget() {
                 <SendInquiryForm
                   data={inquiryForm}
                   onClose={() => setInquiryForm(null)}
+                  locale={locale}
                 />
               </div>
             </div>
@@ -502,17 +593,16 @@ export default function ChatWidget() {
                   <MascotA size={64} />
                 </div>
                 <p className="text-heading text-[14px] font-medium mb-1">
-                  Zjistěte cenu během minuty
+                  {l.heroTitle}
                 </p>
                 <p className="text-muted text-[12px] leading-[1.6] mb-4">
-                  Popište svou místnost, doporučíme nejlepší řešení
-                  a rovnou spočítáme orientační cenu. Bez čekání, bez závazků.
+                  {l.heroDescription}
                 </p>
                 <div className="flex flex-col gap-1.5 w-full">
                   {[
-                    "Kolik stojí strop do obýváku 20 m²?",
-                    "Jaký strop je nejlepší do koupelny?",
-                    "Chci moderní strop s LED osvětlením",
+                    l.quickQ1,
+                    l.quickQ2,
+                    l.quickQ3,
                   ].map((q) => (
                     <button
                       key={q}
@@ -551,6 +641,7 @@ export default function ChatWidget() {
                         <InquiryCard
                           data={lastInquiryData}
                           onSend={() => setInquiryForm(lastInquiryData)}
+                          locale={locale}
                         />
                       )}
                   </div>
@@ -590,7 +681,7 @@ export default function ChatWidget() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Napiš svůj dotaz..."
+                placeholder={l.inputPlaceholder}
                 rows={1}
                 className="flex-1 bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm resize-none max-h-[80px]"
                 style={{ minHeight: "38px" }}

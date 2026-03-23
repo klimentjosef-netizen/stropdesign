@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
+import { useDict } from "@/i18n/LocaleContext";
 
 interface Testimonial {
   name: string;
@@ -11,49 +12,14 @@ interface Testimonial {
   subtitle: string;
 }
 
-const testimonials: Testimonial[] = [
-  {
-    name: "Veronika Sváčková",
-    text: "Moc děkuji této firmě, během jediného dne proměnila naši výrobnu a pak prodejnu k nepoznání. Když někoho jeho řemeslo opravdu baví, je to hned vidět. Práce byla odvedena kvalitně, precizně a s maximální pečlivostí.",
-    rating: 5,
-    subtitle: "Google recenze",
-  },
-  {
-    name: "Petr Zajac",
-    text: "Rád bych vyzdvihnul velmi pečlivou a spolehlivou práci, toto inovativní řešení při rekonstrukci bytu ušetří spoustu peněz a času.",
-    rating: 5,
-    subtitle: "Google recenze",
-  },
-  {
-    name: "Michal Burek",
-    text: "Maminka chtěla do svého bytu změnu a nejvíc ji trápil strop a světla. S výsledkem byla víc než spokojená. Firma odvedla rychlou a zároveň precizní práci. Můžu jen doporučit!",
-    rating: 5,
-    subtitle: "Google recenze",
-  },
-  {
-    name: "Tomáš Kantor",
-    text: "Naprostá spokojenost. Domluva, realizace, top, připevnění ať už k nábytku, stěně nebo kachlím. A hlavně ta údržba? Omyvatelnost 11/10!",
-    rating: 5,
-    subtitle: "Google recenze",
-  },
-  {
-    name: "Tomas Bolcek",
-    text: "Velice doporučuji. Od začátku až do konce průběhu profesionální přístup. Výběr z velké škály provedení. A výsledek? Naprosto předčil má očekávání.",
-    rating: 5,
-    subtitle: "Google recenze",
-  },
-  {
-    name: "Ales Kotasek",
-    text: "Hodně dobře to mají kluci vymyšlené, poradí co jak, práci udělají rychle, kvalitně a přesně. Podsvícení vypadá ještě líp než jsem vůbec čekal. Můžu jen doporučit.",
-    rating: 5,
-    subtitle: "Google recenze",
-  },
-  {
-    name: "Fakerman",
-    text: "Můžu jen doporučit, preciznost, rychlost, profesionální přístup mají samozřejmostí. S neobvyklými tvary a překážkami si umí poradit.",
-    rating: 5,
-    subtitle: "Google recenze",
-  },
+const testimonialNames = [
+  "Veronika Sváčková",
+  "Petr Zajac",
+  "Michal Burek",
+  "Tomáš Kantor",
+  "Tomas Bolcek",
+  "Ales Kotasek",
+  "Fakerman",
 ];
 
 function Stars({ count }: { count: number }) {
@@ -88,11 +54,19 @@ const GOOGLE_REVIEW_URL =
   "https://www.google.com/search?sca_esv=c1aee945acc89b8a&q=strop+design&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOSoIVhG44J1F14tVdiuftmyvOEsuV2wCc4xWAeeTo_Nb0vDCgowLCFaWhJEMwmVZPLInovM%3D&uds=ALYpb_kPfttAwudk1x-HGnga9iDDgBWpVX4BktQyA-tg2NtL0hFccrlPGlFsJINLW4KPT6vtO-EGA5hYDSUQCu0TDWGjFZwpCib3RQgneU-Nl2wZQhn4BoM";
 
 export default function Testimonials() {
+  const d = useDict();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
+  const testimonials: Testimonial[] = testimonialNames.map((name, i) => ({
+    name,
+    text: d.testimonials.texts[i],
+    rating: 5,
+    subtitle: d.testimonials.subtitle,
+  }));
+
   const next = useCallback(() => {
-    setActive((prev) => (prev + 1) % testimonials.length);
+    setActive((prev) => (prev + 1) % testimonialNames.length);
   }, []);
 
   useEffect(() => {
@@ -108,9 +82,9 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto">
         <RevealOnScroll>
           <div className="text-center mb-12">
-            <SectionEyebrow text="Hodnocení" />
+            <SectionEyebrow text={d.testimonials.eyebrow} />
             <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] text-heading">
-              Co říkají naši zákazníci
+              {d.testimonials.title}
             </h2>
           </div>
         </RevealOnScroll>
@@ -154,7 +128,7 @@ export default function Testimonials() {
                       ? "bg-accent w-6"
                       : "bg-border hover:bg-muted"
                   }`}
-                  aria-label={`Hodnocení ${i + 1}`}
+                  aria-label={`${d.testimonials.reviewAriaLabel} ${i + 1}`}
                 />
               ))}
             </div>
@@ -169,7 +143,7 @@ export default function Testimonials() {
               >
                 <GoogleIcon />
                 <span className="text-body text-[13px] font-medium group-hover:text-heading transition-colors">
-                  Zobrazit všechny recenze na Google
+                  {d.testimonials.viewAllReviews}
                 </span>
                 <svg
                   className="w-3.5 h-3.5 text-muted group-hover:text-accent transition-colors"
@@ -188,10 +162,10 @@ export default function Testimonials() {
         <RevealOnScroll delay={200}>
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto text-center">
             {[
-              { value: "5.0", label: "Google hodnocení" },
-              { value: "200+", label: "Realizací" },
-              { value: "100%", label: "Spokojených klientů" },
-              { value: "12 let", label: "Záruka na barvu" },
+              { value: "5.0", label: d.testimonials.googleRating },
+              { value: "200+", label: d.testimonials.projects },
+              { value: "100%", label: d.testimonials.satisfaction },
+              { value: d.testimonials.warrantyValue, label: d.testimonials.warranty },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-display text-2xl font-bold text-accent">

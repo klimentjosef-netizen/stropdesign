@@ -89,7 +89,7 @@ function ContactForm() {
           onChange={(e) => setGdprConsent(e.target.checked)}
           className="mt-0.5 w-4 h-4 accent-accent flex-shrink-0"
         />
-        <span>Souhlasím se zpracováním osobních údajů</span>
+        <span>{d.contact.gdpr}</span>
       </label>
       <button type="submit" disabled={sending || !gdprConsent} className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-full disabled:opacity-60 disabled:cursor-not-allowed">
         {sending ? d.contact.sending : d.contact.submit}

@@ -880,7 +880,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     {totalArea > 0 ? Math.round(total / totalArea).toLocaleString("cs-CZ") : 0} {d.calculator.pricePerSqm}
                   </div>
                   <div className="text-[10px] text-muted mt-1">
-                    od {total.toLocaleString("cs-CZ")} {locale === "en" ? "to" : "až"} {totalHigh.toLocaleString("cs-CZ")} {d.calculator.currency}
+                    {locale === "en" ? "from" : "od"} {total.toLocaleString("cs-CZ")} {locale === "en" ? "to" : "až"} {totalHigh.toLocaleString("cs-CZ")} {d.calculator.currency}
                   </div>
                 </div>
 
@@ -993,7 +993,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
 
                     const lines = [
                       ...roomLines,
-                      `\n${d.calculator.orientPrice}: od ${total.toLocaleString("cs-CZ")} ${locale === "en" ? "to" : "až"} ${totalHigh.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
+                      `\n${d.calculator.orientPrice}: ${locale === "en" ? "from" : "od"} ${total.toLocaleString("cs-CZ")} ${locale === "en" ? "to" : "až"} ${totalHigh.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
                     ].join("\n");
 
                     const roomSummary = rooms

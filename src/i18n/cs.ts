@@ -54,6 +54,7 @@ const cs = {
     success: "Děkujeme za poptávku!",
     successSub: "Ozveme se vám do 48 hodin s nabídkou na míru.",
     area: "Celá Česká republika",
+    gdpr: "Souhlasím se zpracováním osobních údajů",
   },
   testimonials: {
     eyebrow: "Hodnocení",
@@ -63,6 +64,18 @@ const cs = {
     satisfaction: "Spokojených klientů",
     warranty: "Záruka na barvu",
     warrantyValue: "12 let",
+    viewAllReviews: "Zobrazit všechny recenze na Google",
+    reviewAriaLabel: "Hodnocení",
+    texts: [
+      "Moc děkuji této firmě, během jediného dne proměnila naši výrobnu a pak prodejnu k nepoznání. Když někoho jeho řemeslo opravdu baví, je to hned vidět. Práce byla odvedena kvalitně, precizně a s maximální pečlivostí.",
+      "Rád bych vyzdvihnul velmi pečlivou a spolehlivou práci, toto inovativní řešení při rekonstrukci bytu ušetří spoustu peněz a času.",
+      "Maminka chtěla do svého bytu změnu a nejvíc ji trápil strop a světla. S výsledkem byla víc než spokojená. Firma odvedla rychlou a zároveň precizní práci. Můžu jen doporučit!",
+      "Naprostá spokojenost. Domluva, realizace, top, připevnění ať už k nábytku, stěně nebo kachlím. A hlavně ta údržba? Omyvatelnost 11/10!",
+      "Velice doporučuji. Od začátku až do konce průběhu profesionální přístup. Výběr z velké škály provedení. A výsledek? Naprosto předčil má očekávání.",
+      "Hodně dobře to mají kluci vymyšlené, poradí co jak, práci udělají rychle, kvalitně a přesně. Podsvícení vypadá ještě líp než jsem vůbec čekal. Můžu jen doporučit.",
+      "Můžu jen doporučit, preciznost, rychlost, profesionální přístup mají samozřejmostí. S neobvyklými tvary a překážkami si umí poradit.",
+    ],
+    subtitle: "Google recenze",
   },
   references: {
     eyebrow: "Reference",
