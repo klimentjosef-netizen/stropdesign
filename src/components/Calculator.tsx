@@ -42,13 +42,8 @@ function roomPerimeter(r: Room) {
 }
 
 function roomAddonsCost(r: Room, addonsList: Addon[]) {
-  const perimeter = roomPerimeter(r);
   return Array.from(r.addonQuantities.entries()).reduce((cost, [index, qty]) => {
-    const addon = addonsList[index];
-    if (addon.unit === "bm") {
-      return cost + addon.price * perimeter;
-    }
-    return cost + addon.price * qty;
+    return cost + addonsList[index].price * qty;
   }, 0);
 }
 
@@ -161,12 +156,13 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
         if (next.has(addonIndex)) {
           next.delete(addonIndex);
         } else {
-          next.set(addonIndex, 1);
+          const addon = addonsList[addonIndex];
+          next.set(addonIndex, addon.unit === "bm" ? roomPerimeter(r) : 1);
         }
         return { ...r, addonQuantities: next };
       });
     },
-    [activeRoomIndex, updateRoom]
+    [activeRoomIndex, updateRoom, addonsList]
   );
 
   const setAddonQty = useCallback(
@@ -728,8 +724,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                     </div>
 
                                     <div className="flex items-center gap-2 flex-shrink-0">
-                                      {/* Quantity stepper for per-piece items */}
-                                      {isActive && addon.unit === "ks" && (
+                                      {/* Quantity/length stepper */}
+                                      {isActive && (
                                         <div className="flex items-center gap-1">
                                           <button
                                             onClick={() => setAddonQty(addon.originalIndex, qty - 1)}
@@ -737,8 +733,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                           >
                                             −
                                           </button>
-                                          <span className="text-[10px] font-medium text-accent min-w-[1.2rem] text-center tabular-nums">
-                                            {qty}
+                                          <span className="text-[10px] font-medium text-accent min-w-[1.8rem] text-center tabular-nums">
+                                            {qty} {unitLabel}
                                           </span>
                                           <button
                                             onClick={() => setAddonQty(addon.originalIndex, qty + 1)}
@@ -796,7 +792,6 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 <div className="flex flex-col gap-3 mb-5">
                   {rooms.map((r, ri) => {
                     const rArea = roomArea(r);
-                    const rPerimeter = roomPerimeter(r);
                     const rSurface = surfaces[r.surfaceIndex];
                     const rCornersCost = roomCornersCost(r);
                     const rTotal = roomTotal(r, surfaces, addonsList);
@@ -840,13 +835,10 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                           {/* Individual addon lines */}
                           {Array.from(r.addonQuantities.entries()).map(([addonIdx, qty]) => {
                             const addon = addonsList[addonIdx];
-                            const lineCost =
-                              addon.unit === "bm"
-                                ? addon.price * rPerimeter
-                                : addon.price * qty;
+                            const lineCost = addon.price * qty;
                             const detail =
                               addon.unit === "bm"
-                                ? `${rPerimeter} bm × ${addon.price}`
+                                ? `${qty} bm × ${addon.price}`
                                 : `${qty}× ${addon.price}`;
                             return (
                               <div key={addonIdx} className="flex justify-between text-[11px]">
@@ -885,10 +877,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                       const addonLines = Array.from(r.addonQuantities.entries()).map(
                         ([addonIdx, qty]) => {
                           const addon = addonsList[addonIdx];
-                          if (addon.unit === "bm") {
-                            return `  - ${getAddonName(addon)}: ${rPerimeter} bm × ${addon.price} = ${(addon.price * rPerimeter).toLocaleString("cs-CZ")} ${d.calculator.currency}`;
-                          }
-                          return `  - ${getAddonName(addon)}: ${qty}× ${addon.price} = ${(addon.price * qty).toLocaleString("cs-CZ")} ${d.calculator.currency}`;
+                          const unitLabel = addon.unit === "bm" ? `${qty} bm` : `${qty}×`;
+                          return `  - ${getAddonName(addon)}: ${unitLabel} × ${addon.price} = ${(addon.price * qty).toLocaleString("cs-CZ")} ${d.calculator.currency}`;
                         }
                       );
                       const header = rooms.length > 1 ? `\n${locale === "en" ? `Room ${ri + 1}` : `Místnost ${ri + 1}`}:\n` : "";
