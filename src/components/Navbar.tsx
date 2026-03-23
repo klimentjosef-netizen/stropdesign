@@ -26,7 +26,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-[68px]">
         {/* Logo */}
         <Link href={useLocalePath("/")}>
-          <Logo variant="dark" size={70} />
+          <Logo variant="dark" size={90} />
         </Link>
 
         {/* Desktop links */}
