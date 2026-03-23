@@ -52,17 +52,6 @@ function roomAddonsCost(r: Room, addonsList: Addon[]) {
   }, 0);
 }
 
-function roomAddonsCostHigh(r: Room, addonsList: Addon[]) {
-  const perimeter = roomPerimeter(r);
-  return Array.from(r.addonQuantities.entries()).reduce((cost, [index, qty]) => {
-    const addon = addonsList[index];
-    if (addon.unit === "bm") {
-      return cost + Math.round(addon.price * 1.3) * perimeter;
-    }
-    return cost + addon.price * qty;
-  }, 0);
-}
-
 function roomCornersCost(r: Room) {
   return Math.max(0, r.corners - 4) * 200;
 }
@@ -71,12 +60,6 @@ function roomTotal(r: Room, surfaces: Surface[], addonsList: Addon[]) {
   const area = roomArea(r);
   const pricePerSqm = surfaces[r.surfaceIndex]?.price ?? 0;
   return area * pricePerSqm + roomCornersCost(r) + roomAddonsCost(r, addonsList);
-}
-
-function roomTotalHigh(r: Room, surfaces: Surface[], addonsList: Addon[]) {
-  const area = roomArea(r);
-  const pricePerSqm = surfaces[r.surfaceIndex]?.price ?? 0;
-  return area * pricePerSqm + roomCornersCost(r) + roomAddonsCostHigh(r, addonsList);
 }
 
 function AnimatedPrice({ value }: { value: number }) {
@@ -137,8 +120,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
     [rooms, surfaces, addonsList]
   );
   const totalHigh = useMemo(
-    () => rooms.reduce((sum, r) => sum + roomTotalHigh(r, surfaces, addonsList), 0),
-    [rooms, surfaces, addonsList]
+    () => Math.round(total * 1.2),
+    [total]
   );
   const totalArea = useMemo(() => rooms.reduce((sum, r) => sum + roomArea(r), 0), [rooms]);
 
