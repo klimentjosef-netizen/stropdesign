@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
-import SectionEyebrow from "./SectionEyebrow";
 import { useDict, useLocale } from "@/i18n/LocaleContext";
 import type { Reference } from "@/lib/keystatic";
 
@@ -360,13 +359,9 @@ function ReferenceCard({
 /* ─── Main Grid ─── */
 
 export default function ReferenceGrid({ references, showSections = true }: ReferenceGridProps) {
-  const d = useDict();
   const locale = useLocale();
   const altTexts = locale === "en" ? altTextsEn : altTextsCs;
   const [activeRef, setActiveRef] = useState<Reference | null>(null);
-
-  const featuredRefs = references.filter((r) => r.featured);
-  const regularRefs = references.filter((r) => !r.featured);
 
   const hasGallery = (ref: Reference) =>
     ref.image || (ref.images && ref.images.length > 0);
@@ -396,41 +391,12 @@ export default function ReferenceGrid({ references, showSections = true }: Refer
 
   return (
     <>
-      {showSections ? (
-        <>
-          {/* Featured projects */}
-          {featuredRefs.length > 0 && (
-            <div className="max-w-7xl mx-auto mb-16">
-              <RevealOnScroll>
-                <SectionEyebrow text={d.references.featuredEyebrow} />
-                <h2 className="font-display text-[clamp(24px,2.5vw,34px)] font-semibold leading-[1.15] mb-8 text-heading">
-                  {d.references.featuredTitle}
-                </h2>
-              </RevealOnScroll>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {featuredRefs.map((ref, i) => renderCard(ref, i))}
-              </div>
-            </div>
-          )}
-
-          {/* All projects */}
-          <div className="max-w-7xl mx-auto">
-            <RevealOnScroll>
-              <h2 className="font-display text-[clamp(20px,2vw,28px)] font-semibold leading-[1.15] mb-8 text-heading">
-                {d.references.allTitle}
-              </h2>
-            </RevealOnScroll>
-          </div>
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {regularRefs.map((ref, i) => renderCard(ref, i))}
-          </div>
-        </>
-      ) : (
-        /* Simple grid without sections (used on homepage) */
+      {/* All projects in one grid, sorted by sortOrder (best first) */}
+      <div className={showSections ? "max-w-7xl mx-auto" : ""}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {references.map((ref, i) => renderCard(ref, i))}
         </div>
-      )}
+      </div>
 
       {/* Project detail modal */}
       {activeRef && (
