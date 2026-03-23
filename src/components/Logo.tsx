@@ -2,8 +2,6 @@ import Image from "next/image";
 
 interface LogoProps {
   variant?: "dark" | "light";
-  showText?: boolean;
-  showUrl?: boolean;
   className?: string;
   size?: number;
 }
@@ -13,7 +11,6 @@ export function LogoMark({
   size = 36,
 }: {
   variant?: "dark" | "light";
-  color?: string;
   size?: number;
 }) {
   return (
@@ -30,8 +27,6 @@ export function LogoMark({
 
 export default function Logo({
   variant = "dark",
-  showText = true,
-  showUrl = false,
   className = "",
   size = 36,
 }: LogoProps) {
