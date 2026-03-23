@@ -282,7 +282,7 @@ function ReferenceCard({
                 src={images[currentImg]}
                 alt={altText}
                 fill
-                className="object-cover transition-all duration-300"
+                className={`object-cover transition-all duration-300 ${ref.title.includes("HHSPA") ? "object-bottom" : ""}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
