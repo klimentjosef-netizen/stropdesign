@@ -100,6 +100,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   const locale = useLocale();
   const kontaktHref = useLocalePath("/kontakt") + "#kontakt-formular";
   const [isOpen, setIsOpen] = useState(false);
+  const [wizardStep, setWizardStep] = useState(0);
   const [rooms, setRooms] = useState<Room[]>(() => [createRoom()]);
   const [activeRoomIndex, setActiveRoomIndex] = useState(0);
 
@@ -236,6 +237,14 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   const lengthPct = ((room.length - 2) / (15 - 2)) * 100;
   const cornersPct = ((room.corners - 3) / (12 - 3)) * 100;
 
+  // Wizard step labels
+  const stepLabels = [
+    d.calculator.step1,
+    locale === "en" ? "Dimensions" : "Rozměry",
+    locale === "en" ? "Corners" : "Rohy",
+    d.calculator.step4,
+  ];
+
   return (
     <>
       {/* ═══ COMPACT TEASER on homepage ═══ */}
@@ -275,7 +284,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     </div>
                   </div>
                   <button
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => { setWizardStep(0); setIsOpen(true); }}
                     className="btn-shimmer glow-accent bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-full whitespace-nowrap"
                   >
                     {d.calculator.ctaTeaser}
@@ -326,10 +335,10 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
 
             {/* Body - two columns */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] flex-1 min-h-0 overflow-hidden">
-              {/* Left: Form */}
-              <div className="p-6 lg:p-8 lg:border-r lg:border-border overflow-y-auto">
+              {/* Left: Form — Wizard */}
+              <div className="p-6 lg:p-8 lg:border-r lg:border-border flex flex-col">
                 {/* ── Room tabs ── */}
-                <div className="flex items-center gap-1.5 mb-5 flex-wrap">
+                <div className="flex items-center gap-1.5 mb-4 flex-wrap">
                   {rooms.map((r, i) => (
                     <button
                       key={r.id}
@@ -369,420 +378,485 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   </button>
                 </div>
 
-                {/* Step 1: Surface */}
-                <div className="mb-5">
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
-                      1
-                    </span>
-                    <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      {d.calculator.step1}
-                    </label>
-                  </div>
-                  <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
-                    {surfaces.map((s, i) => (
-                      <button
-                        key={s.name}
-                        onClick={() =>
-                          updateRoom(activeRoomIndex, (r) => ({ ...r, surfaceIndex: i }))
-                        }
-                        className={`border text-left px-2 py-2 sm:px-3 sm:py-2.5 transition-all duration-200 rounded-xl relative overflow-hidden ${
-                          room.surfaceIndex === i
-                            ? "border-accent bg-accent-soft shadow-sm"
-                            : "border-border bg-light-secondary/50 hover:border-border-dark"
-                        }`}
-                      >
-                        <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
-                          <div
-                            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border flex-shrink-0"
-                            style={{
-                              background: s.color,
-                              borderColor: room.surfaceIndex === i ? s.accent : "#ddd",
-                            }}
-                          />
-                          <span
-                            className={`text-[9px] sm:text-[11px] ${
-                              room.surfaceIndex === i ? "text-heading font-medium" : "text-body"
+                {/* ── Wizard step indicator ── */}
+                <div className="flex items-center gap-1 mb-5">
+                  {[1, 2, 3, 4].map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setWizardStep(s - 1)}
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium transition-all duration-200 ${
+                        wizardStep === s - 1
+                          ? "bg-accent text-white"
+                          : wizardStep > s - 1
+                            ? "bg-accent/10 text-accent"
+                            : "bg-light-secondary/50 text-muted"
+                      }`}
+                    >
+                      <span className="w-4 h-4 rounded-full bg-current/10 flex items-center justify-center text-[9px]">
+                        {wizardStep > s - 1 ? "✓" : s}
+                      </span>
+                      <span className="hidden sm:inline">
+                        {stepLabels[s - 1]}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* ── Wizard step content ── */}
+                <div className={`flex-1${wizardStep === 3 ? " overflow-y-auto" : ""}`}>
+
+                  {/* Step 0: Surface */}
+                  {wizardStep === 0 && (
+                    <div>
+                      <div className="flex items-center gap-2.5 mb-3">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                          1
+                        </span>
+                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                          {d.calculator.step1}
+                        </label>
+                      </div>
+                      <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
+                        {surfaces.map((s, i) => (
+                          <button
+                            key={s.name}
+                            onClick={() =>
+                              updateRoom(activeRoomIndex, (r) => ({ ...r, surfaceIndex: i }))
+                            }
+                            className={`border text-left px-2 py-2 sm:px-3 sm:py-2.5 transition-all duration-200 rounded-xl relative overflow-hidden ${
+                              room.surfaceIndex === i
+                                ? "border-accent bg-accent-soft shadow-sm"
+                                : "border-border bg-light-secondary/50 hover:border-border-dark"
                             }`}
                           >
-                            {s.name}
-                          </span>
-                        </div>
-                        <span
-                          className={`text-[8px] sm:text-[9px] ${
-                            room.surfaceIndex === i ? "text-accent font-medium" : "text-muted"
-                          }`}
-                        >
-                          {s.priceLabel}
-                        </span>
-                        {room.surfaceIndex === i && (
-                          <div
-                            className="absolute bottom-0 left-0 right-0 h-[2px]"
-                            style={{ background: s.accent }}
-                          />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Step 2: Room dimensions (width × length) */}
-                <div className="mb-5">
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
-                      2
-                    </span>
-                    <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      {locale === "en" ? "Room dimensions" : "Rozměry místnosti"}
-                    </label>
-                  </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                    {/* Width */}
-                    <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
-                      <div className="flex justify-between items-baseline mb-3">
-                        <span className="text-[11px] text-body">
-                          {locale === "en" ? "Width" : "Šířka"}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() =>
-                              updateRoomDimensions(activeRoomIndex, (r) => ({
-                                ...r,
-                                width: Math.max(2, +(r.width - 0.5).toFixed(1)),
-                              }))
-                            }
-                            className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                          >
-                            −
-                          </button>
-                          <span className="font-display text-lg text-accent min-w-[3rem] text-center tabular-nums">
-                            {room.width} m
-                          </span>
-                          <button
-                            onClick={() =>
-                              updateRoomDimensions(activeRoomIndex, (r) => ({
-                                ...r,
-                                width: Math.min(15, +(r.width + 0.5).toFixed(1)),
-                              }))
-                            }
-                            className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <div className="relative">
-                        <input
-                          type="range"
-                          min={2}
-                          max={15}
-                          step={0.5}
-                          value={room.width}
-                          onChange={(e) =>
-                            updateRoomDimensions(activeRoomIndex, (r) => ({
-                              ...r,
-                              width: Number(e.target.value),
-                            }))
-                          }
-                          className="calc-range w-full"
-                        />
-                        <div className="absolute top-1/2 left-0 right-0 h-[3px] -translate-y-1/2 bg-border rounded-full pointer-events-none">
-                          <div
-                            className="h-full bg-accent rounded-full transition-all duration-100"
-                            style={{ width: `${widthPct}%` }}
-                          />
-                        </div>
-                      </div>
-                      <div className="flex justify-between mt-1.5">
-                        <span className="text-muted text-[10px]">2 m</span>
-                        <span className="text-muted text-[10px]">15 m</span>
-                      </div>
-                    </div>
-
-                    {/* Length */}
-                    <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
-                      <div className="flex justify-between items-baseline mb-3">
-                        <span className="text-[11px] text-body">
-                          {locale === "en" ? "Length" : "Délka"}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() =>
-                              updateRoomDimensions(activeRoomIndex, (r) => ({
-                                ...r,
-                                length: Math.max(2, +(r.length - 0.5).toFixed(1)),
-                              }))
-                            }
-                            className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                          >
-                            −
-                          </button>
-                          <span className="font-display text-lg text-accent min-w-[3rem] text-center tabular-nums">
-                            {room.length} m
-                          </span>
-                          <button
-                            onClick={() =>
-                              updateRoomDimensions(activeRoomIndex, (r) => ({
-                                ...r,
-                                length: Math.min(15, +(r.length + 0.5).toFixed(1)),
-                              }))
-                            }
-                            className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <div className="relative">
-                        <input
-                          type="range"
-                          min={2}
-                          max={15}
-                          step={0.5}
-                          value={room.length}
-                          onChange={(e) =>
-                            updateRoomDimensions(activeRoomIndex, (r) => ({
-                              ...r,
-                              length: Number(e.target.value),
-                            }))
-                          }
-                          className="calc-range w-full"
-                        />
-                        <div className="absolute top-1/2 left-0 right-0 h-[3px] -translate-y-1/2 bg-border rounded-full pointer-events-none">
-                          <div
-                            className="h-full bg-accent rounded-full transition-all duration-100"
-                            style={{ width: `${lengthPct}%` }}
-                          />
-                        </div>
-                      </div>
-                      <div className="flex justify-between mt-1.5">
-                        <span className="text-muted text-[10px]">2 m</span>
-                        <span className="text-muted text-[10px]">15 m</span>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Computed area & perimeter */}
-                  <div className="flex gap-4 mt-2 px-1">
-                    <span className="text-[10px] text-muted">
-                      {locale === "en" ? "Area" : "Plocha"}: <span className="text-body font-medium">{area} {d.calculator.sqm}</span>
-                    </span>
-                    <span className="text-[10px] text-muted">
-                      {locale === "en" ? "Perimeter" : "Obvod"}: <span className="text-body font-medium">{perimeter} bm</span>
-                    </span>
-                  </div>
-                </div>
-
-                {/* Step 3: Corners */}
-                <div className="mb-5">
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
-                      3
-                    </span>
-                    <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      {locale === "en" ? "Number of room corners" : "Počet rohů v místnosti"}
-                    </label>
-                  </div>
-                  <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
-                    <div className="flex justify-between items-baseline mb-3">
-                      <div className="flex flex-col">
-                        <span className="text-[11px] text-body">
-                          {locale === "en" ? "Corners" : "Počet rohů"}
-                        </span>
-                        <span className="text-[9px] text-muted">
-                          {locale === "en"
-                            ? "Over 4 corners: 200 CZK/pc for each extra"
-                            : "Nad 4 rohy: 200 Kč/ks za každý další"}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() =>
-                            updateRoom(activeRoomIndex, (r) => ({
-                              ...r,
-                              corners: Math.max(3, r.corners - 1),
-                            }))
-                          }
-                          className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                        >
-                          −
-                        </button>
-                        <span className="font-display text-lg text-accent min-w-[2.5rem] text-center tabular-nums">
-                          {room.corners}
-                        </span>
-                        <button
-                          onClick={() =>
-                            updateRoom(activeRoomIndex, (r) => ({
-                              ...r,
-                              corners: Math.min(12, r.corners + 1),
-                            }))
-                          }
-                          className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div className="relative">
-                      <input
-                        type="range"
-                        min={3}
-                        max={12}
-                        value={room.corners}
-                        onChange={(e) =>
-                          updateRoom(activeRoomIndex, (r) => ({
-                            ...r,
-                            corners: Number(e.target.value),
-                          }))
-                        }
-                        className="calc-range w-full"
-                      />
-                      <div className="absolute top-1/2 left-0 right-0 h-[3px] -translate-y-1/2 bg-border rounded-full pointer-events-none">
-                        <div
-                          className="h-full bg-accent rounded-full transition-all duration-100"
-                          style={{ width: `${cornersPct}%` }}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex justify-between mt-1.5">
-                      <span className="text-muted text-[10px]">3</span>
-                      <span className="text-muted text-[10px]">12</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 4: Addons */}
-                <div>
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
-                      4
-                    </span>
-                    <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
-                      {d.calculator.step4}
-                    </label>
-                  </div>
-                  <div className="lg:columns-2 gap-2 space-y-2">
-                    {CATEGORIES.map((cat, catIdx) => {
-                      const catAddons = addonsList
-                        .map((a, i) => ({ ...a, originalIndex: i }))
-                        .filter((a) => a.category === cat);
-                      const isExpanded = room.expandedCats.has(cat);
-                      const selectedCount = catAddons.filter((a) =>
-                        room.addonQuantities.has(a.originalIndex)
-                      ).length;
-
-                      return (
-                        <div
-                          key={cat}
-                          className="border border-border rounded-xl overflow-hidden break-inside-avoid"
-                        >
-                          <button
-                            onClick={() => toggleCategory(cat)}
-                            className="w-full flex items-center justify-between px-4 py-3 bg-light-secondary/30 hover:bg-light-secondary/60 transition-colors"
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="text-[11px] font-medium text-heading tracking-[0.04em]">
-                                {d.calculator.categoryLabels[catIdx]}
+                            <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
+                              <div
+                                className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border flex-shrink-0"
+                                style={{
+                                  background: s.color,
+                                  borderColor: room.surfaceIndex === i ? s.accent : "#ddd",
+                                }}
+                              />
+                              <span
+                                className={`text-[9px] sm:text-[11px] ${
+                                  room.surfaceIndex === i ? "text-heading font-medium" : "text-body"
+                                }`}
+                              >
+                                {s.name}
                               </span>
-                              {selectedCount > 0 && (
-                                <span className="bg-accent text-white text-[9px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">
-                                  {selectedCount}
-                                </span>
-                              )}
                             </div>
-                            <svg
-                              width="10"
-                              height="10"
-                              viewBox="0 0 10 10"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              className={`text-muted transition-transform duration-200 ${
-                                isExpanded ? "rotate-180" : ""
+                            <span
+                              className={`text-[8px] sm:text-[9px] ${
+                                room.surfaceIndex === i ? "text-accent font-medium" : "text-muted"
                               }`}
                             >
-                              <path d="M2 3.5l3 3 3-3" />
-                            </svg>
+                              {s.priceLabel}
+                            </span>
+                            {room.surfaceIndex === i && (
+                              <div
+                                className="absolute bottom-0 left-0 right-0 h-[2px]"
+                                style={{ background: s.accent }}
+                              />
+                            )}
                           </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-                          <div
-                            className="transition-all duration-250 ease-out"
-                            style={{
-                              maxHeight: isExpanded ? `${catAddons.length * 52 + 8}px` : "0",
-                              opacity: isExpanded ? 1 : 0,
-                              overflow: "hidden",
-                            }}
-                          >
-                            <div className="px-3 pb-3 flex flex-col gap-1">
-                              {catAddons.map((addon) => {
-                                const isActive = room.addonQuantities.has(addon.originalIndex);
-                                const qty = room.addonQuantities.get(addon.originalIndex) ?? 0;
-                                const unitLabel = addon.unit === "bm" ? "bm" : d.calculator.pcs;
-
-                                return (
-                                  <div
-                                    key={addon.nameCz}
-                                    className={`flex items-center justify-between px-3 py-2 rounded-lg text-[11px] transition-all duration-200 ${
-                                      isActive
-                                        ? "bg-accent-soft border border-accent/30 text-heading"
-                                        : "bg-light-secondary/50 border border-transparent text-body hover:bg-light-secondary"
-                                    }`}
-                                  >
-                                    <div
-                                      className="flex items-center gap-2.5 cursor-pointer flex-1 min-w-0"
-                                      onClick={() => toggleAddon(addon.originalIndex)}
-                                    >
-                                      <div
-                                        className={`w-3.5 h-3.5 rounded border flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
-                                          isActive ? "bg-accent border-accent" : "border-border bg-white"
-                                        }`}
-                                      >
-                                        {isActive && (
-                                          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="white" strokeWidth="1.5">
-                                            <path d="M1.5 4l2 2 3-3.5" />
-                                          </svg>
-                                        )}
-                                      </div>
-                                      <span className="truncate">{getAddonName(addon)}</span>
-                                    </div>
-
-                                    <div className="flex items-center gap-2 flex-shrink-0">
-                                      {/* Quantity/length stepper */}
-                                      {isActive && (
-                                        <div className="flex items-center gap-1">
-                                          <button
-                                            onClick={() => setAddonQty(addon.originalIndex, qty - 1)}
-                                            className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[10px] text-accent hover:bg-accent hover:text-white transition-colors"
-                                          >
-                                            −
-                                          </button>
-                                          <span className="text-[10px] font-medium text-accent min-w-[1.8rem] text-center tabular-nums">
-                                            {qty} {unitLabel}
-                                          </span>
-                                          <button
-                                            onClick={() => setAddonQty(addon.originalIndex, qty + 1)}
-                                            className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[10px] text-accent hover:bg-accent hover:text-white transition-colors"
-                                          >
-                                            +
-                                          </button>
-                                        </div>
-                                      )}
-                                      <span
-                                        className={`text-[10px] tabular-nums whitespace-nowrap ${
-                                          isActive ? "text-accent font-medium" : "text-muted"
-                                        }`}
-                                      >
-                                        {addon.price.toLocaleString("cs-CZ")} {d.calculator.currency}/{unitLabel}
-                                      </span>
-                                    </div>
-                                  </div>
-                                );
-                              })}
+                  {/* Step 1: Room dimensions (width × length) */}
+                  {wizardStep === 1 && (
+                    <div>
+                      <div className="flex items-center gap-2.5 mb-3">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                          2
+                        </span>
+                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                          {locale === "en" ? "Room dimensions" : "Rozměry místnosti"}
+                        </label>
+                      </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                        {/* Width */}
+                        <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
+                          <div className="flex justify-between items-baseline mb-3">
+                            <span className="text-[11px] text-body">
+                              {locale === "en" ? "Width" : "Šířka"}
+                            </span>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() =>
+                                  updateRoomDimensions(activeRoomIndex, (r) => ({
+                                    ...r,
+                                    width: Math.max(2, +(r.width - 0.5).toFixed(1)),
+                                  }))
+                                }
+                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                              >
+                                −
+                              </button>
+                              <span className="font-display text-lg text-accent min-w-[3rem] text-center tabular-nums">
+                                {room.width} m
+                              </span>
+                              <button
+                                onClick={() =>
+                                  updateRoomDimensions(activeRoomIndex, (r) => ({
+                                    ...r,
+                                    width: Math.min(15, +(r.width + 0.5).toFixed(1)),
+                                  }))
+                                }
+                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                              >
+                                +
+                              </button>
                             </div>
                           </div>
+                          <div className="relative">
+                            <input
+                              type="range"
+                              min={2}
+                              max={15}
+                              step={0.5}
+                              value={room.width}
+                              onChange={(e) =>
+                                updateRoomDimensions(activeRoomIndex, (r) => ({
+                                  ...r,
+                                  width: Number(e.target.value),
+                                }))
+                              }
+                              className="calc-range w-full"
+                            />
+                            <div className="absolute top-1/2 left-0 right-0 h-[3px] -translate-y-1/2 bg-border rounded-full pointer-events-none">
+                              <div
+                                className="h-full bg-accent rounded-full transition-all duration-100"
+                                style={{ width: `${widthPct}%` }}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex justify-between mt-1.5">
+                            <span className="text-muted text-[10px]">2 m</span>
+                            <span className="text-muted text-[10px]">15 m</span>
+                          </div>
                         </div>
-                      );
-                    })}
+
+                        {/* Length */}
+                        <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
+                          <div className="flex justify-between items-baseline mb-3">
+                            <span className="text-[11px] text-body">
+                              {locale === "en" ? "Length" : "Délka"}
+                            </span>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() =>
+                                  updateRoomDimensions(activeRoomIndex, (r) => ({
+                                    ...r,
+                                    length: Math.max(2, +(r.length - 0.5).toFixed(1)),
+                                  }))
+                                }
+                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                              >
+                                −
+                              </button>
+                              <span className="font-display text-lg text-accent min-w-[3rem] text-center tabular-nums">
+                                {room.length} m
+                              </span>
+                              <button
+                                onClick={() =>
+                                  updateRoomDimensions(activeRoomIndex, (r) => ({
+                                    ...r,
+                                    length: Math.min(15, +(r.length + 0.5).toFixed(1)),
+                                  }))
+                                }
+                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <div className="relative">
+                            <input
+                              type="range"
+                              min={2}
+                              max={15}
+                              step={0.5}
+                              value={room.length}
+                              onChange={(e) =>
+                                updateRoomDimensions(activeRoomIndex, (r) => ({
+                                  ...r,
+                                  length: Number(e.target.value),
+                                }))
+                              }
+                              className="calc-range w-full"
+                            />
+                            <div className="absolute top-1/2 left-0 right-0 h-[3px] -translate-y-1/2 bg-border rounded-full pointer-events-none">
+                              <div
+                                className="h-full bg-accent rounded-full transition-all duration-100"
+                                style={{ width: `${lengthPct}%` }}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex justify-between mt-1.5">
+                            <span className="text-muted text-[10px]">2 m</span>
+                            <span className="text-muted text-[10px]">15 m</span>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Computed area & perimeter */}
+                      <div className="flex gap-4 mt-2 px-1">
+                        <span className="text-[10px] text-muted">
+                          {locale === "en" ? "Area" : "Plocha"}: <span className="text-body font-medium">{area} {d.calculator.sqm}</span>
+                        </span>
+                        <span className="text-[10px] text-muted">
+                          {locale === "en" ? "Perimeter" : "Obvod"}: <span className="text-body font-medium">{perimeter} bm</span>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step 2: Corners */}
+                  {wizardStep === 2 && (
+                    <div>
+                      <div className="flex items-center gap-2.5 mb-3">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                          3
+                        </span>
+                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                          {locale === "en" ? "Number of room corners" : "Počet rohů v místnosti"}
+                        </label>
+                      </div>
+                      <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
+                        <div className="flex justify-between items-baseline mb-3">
+                          <div className="flex flex-col">
+                            <span className="text-[11px] text-body">
+                              {locale === "en" ? "Corners" : "Počet rohů"}
+                            </span>
+                            <span className="text-[9px] text-muted">
+                              {locale === "en"
+                                ? "Over 4 corners: 200 CZK/pc for each extra"
+                                : "Nad 4 rohy: 200 Kč/ks za každý další"}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() =>
+                                updateRoom(activeRoomIndex, (r) => ({
+                                  ...r,
+                                  corners: Math.max(3, r.corners - 1),
+                                }))
+                              }
+                              className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                            >
+                              −
+                            </button>
+                            <span className="font-display text-lg text-accent min-w-[2.5rem] text-center tabular-nums">
+                              {room.corners}
+                            </span>
+                            <button
+                              onClick={() =>
+                                updateRoom(activeRoomIndex, (r) => ({
+                                  ...r,
+                                  corners: Math.min(12, r.corners + 1),
+                                }))
+                              }
+                              className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                        <div className="relative">
+                          <input
+                            type="range"
+                            min={3}
+                            max={12}
+                            value={room.corners}
+                            onChange={(e) =>
+                              updateRoom(activeRoomIndex, (r) => ({
+                                ...r,
+                                corners: Number(e.target.value),
+                              }))
+                            }
+                            className="calc-range w-full"
+                          />
+                          <div className="absolute top-1/2 left-0 right-0 h-[3px] -translate-y-1/2 bg-border rounded-full pointer-events-none">
+                            <div
+                              className="h-full bg-accent rounded-full transition-all duration-100"
+                              style={{ width: `${cornersPct}%` }}
+                            />
+                          </div>
+                        </div>
+                        <div className="flex justify-between mt-1.5">
+                          <span className="text-muted text-[10px]">3</span>
+                          <span className="text-muted text-[10px]">12</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step 3: Addons */}
+                  {wizardStep === 3 && (
+                    <div>
+                      <div className="flex items-center gap-2.5 mb-3">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                          4
+                        </span>
+                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                          {d.calculator.step4}
+                        </label>
+                      </div>
+                      <div className="lg:columns-2 gap-2 space-y-2">
+                        {CATEGORIES.map((cat, catIdx) => {
+                          const catAddons = addonsList
+                            .map((a, i) => ({ ...a, originalIndex: i }))
+                            .filter((a) => a.category === cat);
+                          const isExpanded = room.expandedCats.has(cat);
+                          const selectedCount = catAddons.filter((a) =>
+                            room.addonQuantities.has(a.originalIndex)
+                          ).length;
+
+                          return (
+                            <div
+                              key={cat}
+                              className="border border-border rounded-xl overflow-hidden break-inside-avoid"
+                            >
+                              <button
+                                onClick={() => toggleCategory(cat)}
+                                className="w-full flex items-center justify-between px-4 py-3 bg-light-secondary/30 hover:bg-light-secondary/60 transition-colors"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[11px] font-medium text-heading tracking-[0.04em]">
+                                    {d.calculator.categoryLabels[catIdx]}
+                                  </span>
+                                  {selectedCount > 0 && (
+                                    <span className="bg-accent text-white text-[9px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">
+                                      {selectedCount}
+                                    </span>
+                                  )}
+                                </div>
+                                <svg
+                                  width="10"
+                                  height="10"
+                                  viewBox="0 0 10 10"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  className={`text-muted transition-transform duration-200 ${
+                                    isExpanded ? "rotate-180" : ""
+                                  }`}
+                                >
+                                  <path d="M2 3.5l3 3 3-3" />
+                                </svg>
+                              </button>
+
+                              <div
+                                className="transition-all duration-250 ease-out"
+                                style={{
+                                  maxHeight: isExpanded ? `${catAddons.length * 52 + 8}px` : "0",
+                                  opacity: isExpanded ? 1 : 0,
+                                  overflow: "hidden",
+                                }}
+                              >
+                                <div className="px-3 pb-3 flex flex-col gap-1">
+                                  {catAddons.map((addon) => {
+                                    const isActive = room.addonQuantities.has(addon.originalIndex);
+                                    const qty = room.addonQuantities.get(addon.originalIndex) ?? 0;
+                                    const unitLabel = addon.unit === "bm" ? "bm" : d.calculator.pcs;
+
+                                    return (
+                                      <div
+                                        key={addon.nameCz}
+                                        className={`flex items-center justify-between px-3 py-2 rounded-lg text-[11px] transition-all duration-200 ${
+                                          isActive
+                                            ? "bg-accent-soft border border-accent/30 text-heading"
+                                            : "bg-light-secondary/50 border border-transparent text-body hover:bg-light-secondary"
+                                        }`}
+                                      >
+                                        <div
+                                          className="flex items-center gap-2.5 cursor-pointer flex-1 min-w-0"
+                                          onClick={() => toggleAddon(addon.originalIndex)}
+                                        >
+                                          <div
+                                            className={`w-3.5 h-3.5 rounded border flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
+                                              isActive ? "bg-accent border-accent" : "border-border bg-white"
+                                            }`}
+                                          >
+                                            {isActive && (
+                                              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="white" strokeWidth="1.5">
+                                                <path d="M1.5 4l2 2 3-3.5" />
+                                              </svg>
+                                            )}
+                                          </div>
+                                          <span className="truncate">{getAddonName(addon)}</span>
+                                        </div>
+
+                                        <div className="flex items-center gap-2 flex-shrink-0">
+                                          {/* Quantity/length stepper */}
+                                          {isActive && (
+                                            <div className="flex items-center gap-1">
+                                              <button
+                                                onClick={() => setAddonQty(addon.originalIndex, qty - 1)}
+                                                className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[10px] text-accent hover:bg-accent hover:text-white transition-colors"
+                                              >
+                                                −
+                                              </button>
+                                              <span className="text-[10px] font-medium text-accent min-w-[1.8rem] text-center tabular-nums">
+                                                {qty} {unitLabel}
+                                              </span>
+                                              <button
+                                                onClick={() => setAddonQty(addon.originalIndex, qty + 1)}
+                                                className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[10px] text-accent hover:bg-accent hover:text-white transition-colors"
+                                              >
+                                                +
+                                              </button>
+                                            </div>
+                                          )}
+                                          <span
+                                            className={`text-[10px] tabular-nums whitespace-nowrap ${
+                                              isActive ? "text-accent font-medium" : "text-muted"
+                                            }`}
+                                          >
+                                            {addon.price.toLocaleString("cs-CZ")} {d.calculator.currency}/{unitLabel}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+
+                {/* ── Wizard navigation (pinned at bottom) ── */}
+                <div className="flex items-center justify-between mt-5 pt-4 border-t border-border flex-shrink-0">
+                  <button
+                    onClick={() => setWizardStep((s) => Math.max(0, s - 1))}
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[11px] font-medium transition-colors ${
+                      wizardStep === 0
+                        ? "text-muted cursor-default opacity-40"
+                        : "text-body border border-border hover:border-accent hover:text-accent"
+                    }`}
+                    disabled={wizardStep === 0}
+                  >
+                    ← {locale === "en" ? "Back" : "Zpět"}
+                  </button>
+                  <div className="text-[10px] text-muted">
+                    {wizardStep + 1} / 4
                   </div>
+                  {wizardStep < 3 ? (
+                    <button
+                      onClick={() => setWizardStep((s) => Math.min(3, s + 1))}
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-[11px] font-medium bg-accent text-white hover:bg-accent-hover transition-colors"
+                    >
+                      {locale === "en" ? "Next" : "Další"} →
+                    </button>
+                  ) : (
+                    <div className="w-[72px]" />
+                  )}
                 </div>
               </div>
 
