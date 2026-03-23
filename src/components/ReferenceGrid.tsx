@@ -239,39 +239,83 @@ function ProjectModal({
   );
 }
 
-/* ─── Main Grid ─── */
+/* ─── Card with mini gallery ─── */
 
-export default function ReferenceGrid({ references, showSections = true }: ReferenceGridProps) {
+function ReferenceCard({
+  reference: ref,
+  images,
+  altText,
+  delay,
+  hasGallery: hasGal,
+  onExpand,
+}: {
+  reference: Reference;
+  images: string[];
+  altText: string;
+  delay: number;
+  hasGallery: boolean;
+  onExpand: () => void;
+}) {
+  const [currentImg, setCurrentImg] = useState(0);
   const d = useDict();
-  const locale = useLocale();
-  const altTexts = locale === "en" ? altTextsEn : altTextsCs;
-  const [activeRef, setActiveRef] = useState<Reference | null>(null);
 
-  const featuredRefs = references.filter((r) => r.featured);
-  const regularRefs = references.filter((r) => !r.featured);
+  const prevImg = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImg((p) => (p - 1 + images.length) % images.length);
+  };
+  const nextImg = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImg((p) => (p + 1) % images.length);
+  };
 
-  const hasGallery = (ref: Reference) =>
-    ref.image || (ref.images && ref.images.length > 0);
-
-  const renderCard = (ref: Reference, i: number) => (
-    <RevealOnScroll key={ref.title} delay={i * 80}>
+  return (
+    <RevealOnScroll key={ref.title} delay={delay}>
       <div
-        className={`bg-white border border-border overflow-hidden group hover:border-accent/30 transition-colors duration-300 rounded-2xl ${hasGallery(ref) ? "cursor-pointer" : ""}`}
-        onClick={() => hasGallery(ref) && setActiveRef(ref)}
+        className={`bg-white border border-border overflow-hidden group hover:border-accent/30 transition-colors duration-300 rounded-2xl ${hasGal ? "cursor-pointer" : ""}`}
+        onClick={() => hasGal && onExpand()}
       >
         <div
-          className={`h-48 relative overflow-hidden flex items-end p-4 ${ref.image ? "" : "bg-[#1a1a1a]"}`}
+          className={`h-48 relative overflow-hidden flex items-end p-4 ${images.length > 0 ? "" : "bg-[#1a1a1a]"}`}
         >
-          {ref.image ? (
+          {images.length > 0 ? (
             <>
               <Image
-                src={ref.image}
-                alt={altTexts[ref.title] || ref.title}
+                src={images[currentImg]}
+                alt={altText}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-all duration-300"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+
+              {/* Mini arrows */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImg}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
+                  >
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#0A0A0A" strokeWidth="1.5"><path d="M6 2L3 5l3 3" /></svg>
+                  </button>
+                  <button
+                    onClick={nextImg}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
+                  >
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#0A0A0A" strokeWidth="1.5"><path d="M4 2l3 3-3 3" /></svg>
+                  </button>
+                  {/* Dot indicators */}
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {images.slice(0, 7).map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={(e) => { e.stopPropagation(); setCurrentImg(idx); }}
+                        className={`w-1.5 h-1.5 rounded-full transition-all ${currentImg === idx ? "bg-white scale-125" : "bg-white/50"}`}
+                      />
+                    ))}
+                    {images.length > 7 && <span className="text-white/60 text-[8px] ml-0.5">+{images.length - 7}</span>}
+                  </div>
+                </>
+              )}
             </>
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
@@ -282,15 +326,12 @@ export default function ReferenceGrid({ references, showSections = true }: Refer
               <span className="text-white/60 text-[11px] font-medium tracking-[0.06em] uppercase">
                 {d.surfaces.photoPlaceholder}
               </span>
-              <span className="text-white/30 text-[10px] mt-1">
-                {ref.title}
-              </span>
             </div>
           )}
           <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
             {ref.tag}
           </div>
-          {hasGallery(ref) && (
+          {hasGal && (
             <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="bg-white/90 backdrop-blur-sm rounded-full p-1.5">
                 <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -313,6 +354,44 @@ export default function ReferenceGrid({ references, showSections = true }: Refer
         </div>
       </div>
     </RevealOnScroll>
+  );
+}
+
+/* ─── Main Grid ─── */
+
+export default function ReferenceGrid({ references, showSections = true }: ReferenceGridProps) {
+  const d = useDict();
+  const locale = useLocale();
+  const altTexts = locale === "en" ? altTextsEn : altTextsCs;
+  const [activeRef, setActiveRef] = useState<Reference | null>(null);
+
+  const featuredRefs = references.filter((r) => r.featured);
+  const regularRefs = references.filter((r) => !r.featured);
+
+  const hasGallery = (ref: Reference) =>
+    ref.image || (ref.images && ref.images.length > 0);
+
+  const getImages = (ref: Reference): string[] => {
+    const imgs: string[] = [];
+    if (ref.image) imgs.push(ref.image);
+    if (ref.images) {
+      for (const img of ref.images) {
+        if (!imgs.includes(img)) imgs.push(img);
+      }
+    }
+    return imgs;
+  };
+
+  const renderCard = (ref: Reference, i: number) => (
+    <ReferenceCard
+      key={ref.title}
+      reference={ref}
+      images={getImages(ref)}
+      altText={altTexts[ref.title] || ref.title}
+      delay={i * 80}
+      hasGallery={!!hasGallery(ref)}
+      onExpand={() => setActiveRef(ref)}
+    />
   );
 
   return (
