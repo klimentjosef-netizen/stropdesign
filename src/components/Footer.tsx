@@ -28,7 +28,7 @@ export default function Footer() {
             {/* Brand */}
             <div>
               <Link href={useLocalePath("/")}>
-                <Logo variant="light" size={34} showUrl />
+                <Logo variant="light" size={50} />
               </Link>
               <p className="mt-4 text-sm text-white/50 leading-relaxed">
                 {d.footer.description}

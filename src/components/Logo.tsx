@@ -36,20 +36,8 @@ export default function Logo({
   size = 36,
 }: LogoProps) {
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex items-center ${className}`}>
       <LogoMark variant={variant} size={size} />
-      {showText && (
-        <div className="flex flex-col leading-none">
-          <span className="text-accent text-[11px] font-semibold tracking-[0.22em] uppercase">
-            Strop Design
-          </span>
-          {showUrl && (
-            <span className="text-muted text-[8px] tracking-[0.08em] mt-1">
-              www.stropdesign.cz
-            </span>
-          )}
-        </div>
-      )}
     </div>
   );
 }
