@@ -20,7 +20,7 @@ const en: Dictionary = {
     cta: "Calculate price",
     ctaSecondary: "View portfolio",
     scroll: "Explore",
-    stat1: "150+",
+    stat1: "200+",
     stat1Label: "projects",
     stat2: "5.0",
     stat2Label: "Google rating",

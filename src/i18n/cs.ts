@@ -18,7 +18,7 @@ const cs = {
     cta: "Spočítat cenu",
     ctaSecondary: "Prohlédnout reference",
     scroll: "Prohlédnout",
-    stat1: "150+",
+    stat1: "200+",
     stat1Label: "realizací",
     stat2: "5.0",
     stat2Label: "Google hodnocení",
