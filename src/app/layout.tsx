@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import AutoLocaleProvider from "@/components/AutoLocaleProvider";
 import ChatWidget from "@/components/ChatWidget";
+import CookieBanner from "@/components/CookieBanner";
 
 const ibmPlex = IBM_Plex_Sans({
   subsets: ["latin", "latin-ext"],
@@ -55,6 +56,7 @@ export default function RootLayout({
           <Footer />
         </AutoLocaleProvider>
         <ChatWidget />
+        <CookieBanner />
       </body>
     </html>
   );
