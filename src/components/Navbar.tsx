@@ -19,7 +19,7 @@ export default function Navbar() {
     { label: d.nav.contact, href: useLocalePath("/kontakt") },
   ];
 
-  const contactHref = useLocalePath("/kontakt");
+  const contactHref = useLocalePath("/kontakt") + "#kontakt-formular";
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">

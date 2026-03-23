@@ -15,7 +15,7 @@ export default function Footer() {
     { label: d.nav.blog, href: useLocalePath("/blog") },
   ];
 
-  const contactHref = useLocalePath("/kontakt");
+  const contactHref = useLocalePath("/kontakt") + "#kontakt-formular";
 
   return (
     <>

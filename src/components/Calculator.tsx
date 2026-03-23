@@ -50,7 +50,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   const router = useRouter();
   const d = useDict();
   const locale = useLocale();
-  const kontaktHref = useLocalePath("/kontakt");
+  const kontaktHref = useLocalePath("/kontakt") + "#kontakt-formular";
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSurface, setSelectedSurface] = useState(0);
   const [area, setArea] = useState(24);
