@@ -1,0 +1,20 @@
+{
+  "title": "Apartment in Frýdlant nad Ostravicí",
+  "meta": "Apartment · Frýdlant nad Ostravicí",
+  "tag": "Ceiling surfaces",
+  "gradient": "from-[#1a1a2e] to-[#12121f]",
+  "image": "/images/references/byt-frydlant/1.jpeg",
+  "description": "Ceiling surface installation in an apartment in Frýdlant nad Ostravicí. Elegant solution with a smooth finish and modern appearance.",
+  "featured": false,
+  "images": [
+    "/images/references/byt-frydlant/1.jpeg",
+    "/images/references/byt-frydlant/2.jpeg",
+    "/images/references/byt-frydlant/3.jpeg",
+    "/images/references/byt-frydlant/4.jpeg",
+    "/images/references/byt-frydlant/5.jpeg",
+    "/images/references/byt-frydlant/6.jpeg",
+    "/images/references/byt-frydlant/7.jpeg",
+    "/images/references/byt-frydlant/8.jpeg"
+  ],
+  "sortOrder": 6
+}

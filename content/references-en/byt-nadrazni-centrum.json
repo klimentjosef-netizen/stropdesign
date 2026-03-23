@@ -1,0 +1,16 @@
+{
+  "title": "Apartment in Ostrava City Centre",
+  "meta": "Apartment · Ostrava Centre",
+  "tag": "Ceiling surfaces",
+  "gradient": "from-[#1a1a2e] to-[#12121f]",
+  "image": "/images/references/byt-nadrazni-centrum/1.jpeg",
+  "description": "Ceiling surfaces in an apartment in the centre of Ostrava. Minimalist design that complements the urban character of the interior.",
+  "featured": false,
+  "images": [
+    "/images/references/byt-nadrazni-centrum/1.jpeg",
+    "/images/references/byt-nadrazni-centrum/2.jpeg",
+    "/images/references/byt-nadrazni-centrum/3.jpeg",
+    "/images/references/byt-nadrazni-centrum/4.jpeg"
+  ],
+  "sortOrder": 9
+}

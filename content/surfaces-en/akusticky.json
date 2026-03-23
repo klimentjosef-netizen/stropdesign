@@ -2,9 +2,9 @@
   "name": "Acoustic",
   "color": "#E0E8E8",
   "accent": "#3498DB",
-  "price": 1100,
-  "priceLabel": "from 1,100 CZK/m²",
-  "description": "Film with microscopic openings (0.1–0.5 mm) that effectively absorb sound. Visually indistinguishable from a matte surface but significantly improves room acoustics. Reduces echo and reverberation.",
+  "price": 1200,
+  "priceLabel": "from 1,200 CZK/m²",
+  "description": "Film with microscopic openings (0.3 mm) that effectively absorb sound. Visually indistinguishable from a matte surface but significantly improves room acoustics. Reduces echo and reverberation.",
   "features": [
     "Sound absorption without visible panels",
     "Clean look like matte surface",

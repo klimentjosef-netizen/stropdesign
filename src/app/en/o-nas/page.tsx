@@ -18,7 +18,7 @@ const stats = [
   { number: "200+", label: "Completed projects" },
   { number: "5.0", label: "Google rating" },
   { number: "12 years", label: "Color warranty" },
-  { number: "15–25 years", label: "Lifespan" },
+  { number: "30+ years", label: "Lifespan" },
 ];
 
 export default function AboutPageEN() {
@@ -67,8 +67,8 @@ export default function AboutPageEN() {
                 </p>
 
                 <p className="text-body text-sm leading-[1.7] font-light mt-4 max-w-xs">
-                  I have been working with stretch ceilings for over X years.
-                  I personally handle every project — from measurement to handover.
+                  Over 3 years of experience. Every project done personally.
+                  From measurement to handover.
                 </p>
               </div>
             </div>

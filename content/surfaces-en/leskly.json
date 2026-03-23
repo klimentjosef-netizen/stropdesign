@@ -2,11 +2,11 @@
   "name": "Glossy",
   "color": "#EDE8D8",
   "accent": "#C9A84C",
-  "price": 750,
-  "priceLabel": "from 750 CZK/m²",
-  "description": "Mirror effect for visually enlarging the space. Highly glossy surface reflects light and interior, optically doubling the room height. Dark shades reflect up to 90% of light.",
+  "price": 900,
+  "priceLabel": "from 900 CZK/m²",
+  "description": "Glossy surface reflects light and interior, optically enlarging the room height. Elegant choice for modern spaces.",
   "features": [
-    "Up to 90% mirror reflection",
+    "Light and space reflection",
     "Visual space enlargement",
     "Modern luxury look"
   ],

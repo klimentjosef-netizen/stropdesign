@@ -1,0 +1,14 @@
+{
+  "name": "Mirror",
+  "color": "#D0D0E0",
+  "accent": "#8888CC",
+  "price": 2300,
+  "priceLabel": "from 2,300 CZK/m²",
+  "description": "Highly glossy surface with a mirror effect that optically enlarges the space and gives the interior a striking, modern look. Reflects light and surrounding elements, creating a feeling of airiness and luxury.",
+  "features": [
+    "Perfect mirror effect",
+    "Visual space enlargement",
+    "Ideal for modern and designer interiors"
+  ],
+  "sortOrder": 8
+}

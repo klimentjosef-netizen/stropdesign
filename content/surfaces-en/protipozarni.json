@@ -1,0 +1,14 @@
+{
+  "name": "Fire-resistant",
+  "color": "#F0E0E0",
+  "accent": "#CC4444",
+  "price": 1000,
+  "priceLabel": "from 1,000 CZK/m²",
+  "description": "Fire-resistant stretch ceiling with certification. Available in matte, glossy, satin and translucent variants. Meets fire regulations for commercial and public spaces.",
+  "features": [
+    "Certified fire resistance",
+    "Available in 4 surface variants",
+    "Suitable for commercial and public spaces"
+  ],
+  "sortOrder": 9
+}

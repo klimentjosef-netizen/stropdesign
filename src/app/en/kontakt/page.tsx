@@ -42,6 +42,10 @@ export default async function ContactPageEN() {
 
       {/* Contact cards */}
       <section className="py-12 lg:py-16 px-6 lg:px-10 bg-light-secondary border-b border-border">
+        <div className="max-w-7xl mx-auto mb-8 text-center">
+          <h2 className="font-display text-lg font-semibold text-heading">STROPDESIGN / DERBAU S.R.O.</h2>
+          <p className="text-muted text-[12px] mt-1">IČO: 24197564</p>
+        </div>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
           <RevealOnScroll>
             <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
