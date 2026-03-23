@@ -8,7 +8,7 @@ export default function CookieBanner() {
   useEffect(() => {
     const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
-      const timer = setTimeout(() => setVisible(true), 1500);
+      const timer = setTimeout(() => setVisible(true), 2000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -27,32 +27,32 @@ export default function CookieBanner() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-[80] px-4 pb-4 pointer-events-none"
+      className="fixed bottom-4 left-4 z-[80]"
       style={{ animation: "cookieSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
     >
-      <div className="max-w-lg mx-auto bg-dark/95 backdrop-blur-md text-white rounded-2xl shadow-2xl p-5 pointer-events-auto border border-white/10">
-        <p className="text-[12px] leading-[1.7] text-white/80 mb-4">
-          Tento web používá cookies pro správné fungování a zlepšování služeb.
+      <div className="bg-white/70 backdrop-blur-md rounded-xl shadow-lg p-3.5 border border-border/50 max-w-[280px]">
+        <p className="text-[10px] leading-[1.6] text-body mb-3">
+          Tento web používá cookies pro správné fungování.
         </p>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <button
             onClick={accept}
-            className="flex-1 bg-accent text-white text-[11px] font-medium tracking-[0.08em] uppercase py-2.5 rounded-full hover:bg-accent-hover transition-colors"
+            className="bg-accent text-white text-[9px] font-medium tracking-[0.08em] uppercase px-3.5 py-1.5 rounded-full hover:bg-accent-hover transition-colors"
           >
-            Přijmout vše
+            Přijmout
           </button>
           <button
             onClick={decline}
-            className="px-4 py-2.5 text-white/50 text-[11px] font-medium tracking-[0.06em] uppercase hover:text-white/80 transition-colors"
+            className="text-muted text-[9px] tracking-[0.04em] hover:text-body transition-colors"
           >
-            Pouze nezbytné
+            Odmítnout
           </button>
         </div>
       </div>
 
       <style jsx>{`
         @keyframes cookieSlideUp {
-          from { opacity: 0; transform: translateY(20px); }
+          from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
