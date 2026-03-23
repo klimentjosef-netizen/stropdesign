@@ -18,7 +18,7 @@ export function LogoMark({
 }) {
   return (
     <Image
-      src={variant === "dark" ? "/images/logo-mark-dark.jpg" : "/images/logo-mark-light.jpg"}
+      src={variant === "dark" ? "/images/logo-mark-dark.png" : "/images/logo-mark-light.png"}
       alt="StropDesign"
       width={size}
       height={size}
