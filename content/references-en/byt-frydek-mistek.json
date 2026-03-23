@@ -5,7 +5,7 @@
   "gradient": "from-[#1a1a2e] to-[#12121f]",
   "image": "/images/references/byt-frydek-mistek/1.jpeg",
   "description": "Complete ceiling and wall surface installation in an apartment in Frýdek-Místek. Modern design with emphasis on detail and quality of workmanship.",
-  "featured": true,
+  "featured": false,
   "images": [
     "/images/references/byt-frydek-mistek/1.jpeg",
     "/images/references/byt-frydek-mistek/2.jpeg",
@@ -25,5 +25,5 @@
     "/images/references/byt-frydek-mistek/16.jpeg",
     "/images/references/byt-frydek-mistek/17.jpeg"
   ],
-  "sortOrder": 3
+  "sortOrder": 7
 }

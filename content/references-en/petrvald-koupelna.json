@@ -5,12 +5,12 @@
   "gradient": "from-[#0d0d0d] to-[#1a1a1a]",
   "image": "/images/references/petrvald-koupelna/1.jpeg",
   "description": "Elegant black bathroom with designer wall surfaces in Petřvald u Karviné. Luxurious dark interior with contrasting elements.",
-  "featured": true,
+  "featured": false,
   "images": [
     "/images/references/petrvald-koupelna/1.jpeg",
     "/images/references/petrvald-koupelna/2.jpeg",
     "/images/references/petrvald-koupelna/3.jpeg",
     "/images/references/petrvald-koupelna/4.jpeg"
   ],
-  "sortOrder": 4
+  "sortOrder": 8
 }

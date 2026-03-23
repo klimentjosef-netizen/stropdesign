@@ -5,7 +5,7 @@
   "gradient": "from-[#1a1a2e] to-[#12121f]",
   "image": "/images/references/rd-stara-bela/1.jpeg",
   "description": "Extensive ceiling and wall surface installation in a family house in Stará Bělá. Comprehensive interior solution with a modern and airy design.",
-  "featured": true,
+  "featured": false,
   "images": [
     "/images/references/rd-stara-bela/1.jpeg",
     "/images/references/rd-stara-bela/2.jpeg",
@@ -25,5 +25,5 @@
     "/images/references/rd-stara-bela/16.jpeg",
     "/images/references/rd-stara-bela/17.jpeg"
   ],
-  "sortOrder": 5
+  "sortOrder": 9
 }

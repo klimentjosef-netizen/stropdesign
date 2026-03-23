@@ -5,7 +5,7 @@
   "gradient": "from-[#1a2e1a] to-[#121f12]",
   "image": "/images/references/byt-kubanska-poruba/1.jpeg",
   "description": "Ceiling surface installation in an apartment on Kubánská Street in Ostrava-Poruba. Clean lines and quality workmanship in a modern interior.",
-  "featured": false,
+  "featured": true,
   "images": [
     "/images/references/byt-kubanska-poruba/1.jpeg",
     "/images/references/byt-kubanska-poruba/2.jpeg",
@@ -13,5 +13,5 @@
     "/images/references/byt-kubanska-poruba/4.jpeg",
     "/images/references/byt-kubanska-poruba/5.jpeg"
   ],
-  "sortOrder": 8
+  "sortOrder": 4
 }

@@ -5,7 +5,7 @@
   "gradient": "from-[#2e1a1a] to-[#1f1212]",
   "image": "/images/references/byt-hrabuvka-potisk/1.jpeg",
   "description": "Unique apartment installation with printed ceiling surfaces in Ostrava-Hrabůvka. Original design with custom-made individual printing.",
-  "featured": false,
+  "featured": true,
   "images": [
     "/images/references/byt-hrabuvka-potisk/1.jpeg",
     "/images/references/byt-hrabuvka-potisk/2.jpeg",
@@ -15,5 +15,5 @@
     "/images/references/byt-hrabuvka-potisk/6.jpeg",
     "/images/references/byt-hrabuvka-potisk/7.jpeg"
   ],
-  "sortOrder": 7
+  "sortOrder": 3
 }
