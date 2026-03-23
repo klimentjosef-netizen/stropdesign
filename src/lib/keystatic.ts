@@ -33,6 +33,7 @@ export interface Addon {
   nameCz: string;
   nameEn: string;
   price: number;
+  unit: "bm" | "ks";
   icon: string;
   category: string;
   sortOrder: number;
@@ -96,6 +97,7 @@ export async function getAddons(): Promise<Addon[]> {
       nameCz: typeof e.entry.nameCz === "string" ? e.entry.nameCz : e.slug,
       nameEn: e.entry.nameEn,
       price: e.entry.price ?? 0,
+      unit: (e.entry.unit as "bm" | "ks") ?? "ks",
       icon: e.entry.icon,
       category: e.entry.category,
       sortOrder: e.entry.sortOrder ?? 0,

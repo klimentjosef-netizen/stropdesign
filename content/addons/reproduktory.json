@@ -2,6 +2,7 @@
   "nameCz": "Reproduktory (montáž)",
   "nameEn": "Speakers (installation)",
   "price": 500,
+  "unit": "ks",
   "icon": "🔊",
   "category": "tech",
   "sortOrder": 7

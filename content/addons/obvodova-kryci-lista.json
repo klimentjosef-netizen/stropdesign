@@ -2,6 +2,7 @@
   "nameCz": "Obvodová krycí lišta",
   "nameEn": "Perimeter cover strip",
   "price": 28,
+  "unit": "bm",
   "icon": "📏",
   "category": "other",
   "sortOrder": 5

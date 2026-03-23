@@ -2,6 +2,7 @@
   "nameCz": "Magnetické světelné profily",
   "nameEn": "Magnetic light profiles",
   "price": 1150,
+  "unit": "bm",
   "icon": "🧲",
   "category": "lighting",
   "sortOrder": 2

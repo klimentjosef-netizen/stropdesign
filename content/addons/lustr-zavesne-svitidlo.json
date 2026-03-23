@@ -2,6 +2,7 @@
   "nameCz": "Lustr / závěsné svítidlo (montáž)",
   "nameEn": "Chandelier / pendant light (installation)",
   "price": 200,
+  "unit": "ks",
   "icon": "🔮",
   "category": "lighting",
   "sortOrder": 3

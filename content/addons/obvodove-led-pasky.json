@@ -2,6 +2,7 @@
   "nameCz": "Obvodové podsvícení LED pásky",
   "nameEn": "Perimeter LED strip lighting",
   "price": 980,
+  "unit": "bm",
   "icon": "✨",
   "category": "lighting",
   "sortOrder": 0

@@ -146,13 +146,19 @@ export default config({
         nameCz: fields.slug({ name: { label: "Name (CZ)" } }),
         nameEn: fields.text({ label: "Name (EN)" }),
         price: fields.integer({ label: "Price (CZK)" }),
+        unit: fields.select({
+          label: "Unit",
+          options: [
+            { label: "Per piece (ks)", value: "ks" },
+            { label: "Per running meter (bm)", value: "bm" },
+          ],
+          defaultValue: "ks",
+        }),
         icon: fields.text({ label: "Icon (emoji)", defaultValue: "💡" }),
         category: fields.select({
           label: "Category",
           options: [
             { label: "Lighting", value: "lighting" },
-            { label: "Climate & ventilation", value: "climate" },
-            { label: "Safety", value: "safety" },
             { label: "Technology", value: "tech" },
             { label: "Other", value: "other" },
           ],
