@@ -131,6 +131,28 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
     setRooms((prev) => prev.map((r, i) => (i === index ? updater(r) : r)));
   }, []);
 
+  const updateRoomDimensions = useCallback(
+    (index: number, updater: (r: Room) => Room) => {
+      setRooms((prev) =>
+        prev.map((r, i) => {
+          if (i !== index) return r;
+          const oldPerimeter = roomPerimeter(r);
+          const updated = updater(r);
+          const newPerimeter = roomPerimeter(updated);
+          if (oldPerimeter === newPerimeter) return updated;
+          const nextAddons = new Map(updated.addonQuantities);
+          for (const [addonIdx, qty] of Array.from(nextAddons.entries())) {
+            if (addonsList[addonIdx].unit === "bm" && qty === oldPerimeter) {
+              nextAddons.set(addonIdx, newPerimeter);
+            }
+          }
+          return { ...updated, addonQuantities: nextAddons };
+        })
+      );
+    },
+    [addonsList]
+  );
+
   const addRoom = useCallback(() => {
     setRooms((prev) => [...prev, createRoom()]);
     setActiveRoomIndex((prev) => prev + 1);
@@ -424,7 +446,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() =>
-                              updateRoom(activeRoomIndex, (r) => ({
+                              updateRoomDimensions(activeRoomIndex, (r) => ({
                                 ...r,
                                 width: Math.max(2, +(r.width - 0.5).toFixed(1)),
                               }))
@@ -438,7 +460,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                           </span>
                           <button
                             onClick={() =>
-                              updateRoom(activeRoomIndex, (r) => ({
+                              updateRoomDimensions(activeRoomIndex, (r) => ({
                                 ...r,
                                 width: Math.min(15, +(r.width + 0.5).toFixed(1)),
                               }))
@@ -457,7 +479,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                           step={0.5}
                           value={room.width}
                           onChange={(e) =>
-                            updateRoom(activeRoomIndex, (r) => ({
+                            updateRoomDimensions(activeRoomIndex, (r) => ({
                               ...r,
                               width: Number(e.target.value),
                             }))
@@ -486,7 +508,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() =>
-                              updateRoom(activeRoomIndex, (r) => ({
+                              updateRoomDimensions(activeRoomIndex, (r) => ({
                                 ...r,
                                 length: Math.max(2, +(r.length - 0.5).toFixed(1)),
                               }))
@@ -500,7 +522,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                           </span>
                           <button
                             onClick={() =>
-                              updateRoom(activeRoomIndex, (r) => ({
+                              updateRoomDimensions(activeRoomIndex, (r) => ({
                                 ...r,
                                 length: Math.min(15, +(r.length + 0.5).toFixed(1)),
                               }))
@@ -519,7 +541,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                           step={0.5}
                           value={room.length}
                           onChange={(e) =>
-                            updateRoom(activeRoomIndex, (r) => ({
+                            updateRoomDimensions(activeRoomIndex, (r) => ({
                               ...r,
                               length: Number(e.target.value),
                             }))
