@@ -163,7 +163,7 @@ export default async function ProcessPageEN() {
               Just get in touch. We respond within 48 hours and prepare a tailor-made offer.
             </p>
             <Link
-              href="/en/kontakt"
+              href="/en/kontakt#kontakt-formular"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Free enquiry

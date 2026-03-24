@@ -41,7 +41,7 @@ export default function ONasPage() {
               proměnit obyčejný interiér v něco výjimečného.
             </p>
             <Link
-              href="/kontakt"
+              href="/kontakt#kontakt-formular"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Ozvěte se nám
@@ -139,7 +139,7 @@ export default function ONasPage() {
               Rádi vám poradíme s výběrem a připravíme nabídku na míru. Stačí se ozvat.
             </p>
             <Link
-              href="/kontakt"
+              href="/kontakt#kontakt-formular"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Nezávazná poptávka

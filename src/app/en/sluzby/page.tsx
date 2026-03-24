@@ -77,7 +77,7 @@ export default async function ServicesPageEN() {
                 </ul>
 
                 <Link
-                  href="/en/kontakt"
+                  href="/en/kontakt#kontakt-formular"
                   className="text-center border border-accent/30 text-accent text-[10px] font-medium tracking-[0.1em] uppercase px-4 py-2.5 hover:bg-accent hover:text-white transition-all duration-200 rounded-full"
                 >
                   Request this surface
@@ -100,7 +100,7 @@ export default async function ServicesPageEN() {
               Just send us a message or give us a call.
             </p>
             <Link
-              href="/en/kontakt"
+              href="/en/kontakt#kontakt-formular"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Free enquiry

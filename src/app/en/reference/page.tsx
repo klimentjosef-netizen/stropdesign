@@ -53,7 +53,7 @@ export default async function PortfolioPageEN() {
               Every ceiling is custom-made. Get in touch and we&apos;ll find the right solution for your space.
             </p>
             <Link
-              href="/en/kontakt"
+              href="/en/kontakt#kontakt-formular"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Free enquiry

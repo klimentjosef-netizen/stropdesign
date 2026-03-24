@@ -77,7 +77,7 @@ export default async function SluzbyPage() {
                 </ul>
 
                 <Link
-                  href="/kontakt"
+                  href="/kontakt#kontakt-formular"
                   className="text-center border border-accent/30 text-accent text-[10px] font-medium tracking-[0.1em] uppercase px-4 py-2.5 hover:bg-accent hover:text-white transition-all duration-200 rounded-full"
                 >
                   Poptat tento povrch
@@ -100,7 +100,7 @@ export default async function SluzbyPage() {
               Stačí nám napsat nebo zavolat.
             </p>
             <Link
-              href="/kontakt"
+              href="/kontakt#kontakt-formular"
               className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Nezávazná poptávka
