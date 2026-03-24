@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
-import { useRouter } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
-import { useDict, useLocalePath, useLocale } from "@/i18n/LocaleContext";
+import MascotA from "./MascotA";
+import { useDict, useLocale } from "@/i18n/LocaleContext";
 import type { Surface, Addon } from "@/lib/keystatic";
 
 const CATEGORIES: string[] = ["lighting", "tech", "other"];
@@ -95,14 +95,24 @@ interface CalculatorProps {
 }
 
 export default function Calculator({ surfaces, addons: addonsList }: CalculatorProps) {
-  const router = useRouter();
   const d = useDict();
   const locale = useLocale();
-  const kontaktHref = useLocalePath("/kontakt") + "#kontakt-formular";
   const [isOpen, setIsOpen] = useState(false);
   const [wizardStep, setWizardStep] = useState(0);
   const [rooms, setRooms] = useState<Room[]>(() => [createRoom()]);
   const [activeRoomIndex, setActiveRoomIndex] = useState(0);
+
+  // Inline inquiry form state
+  const [showInquiry, setShowInquiry] = useState(false);
+  const [inquiryName, setInquiryName] = useState("");
+  const [inquiryEmail, setInquiryEmail] = useState("");
+  const [inquiryPhone, setInquiryPhone] = useState("");
+  const [inquirySending, setInquirySending] = useState(false);
+  const [inquirySent, setInquirySent] = useState(false);
+  const [inquiryError, setInquiryError] = useState("");
+
+  // Mascot tooltip
+  const [showMascot, setShowMascot] = useState(false);
 
   const room = rooms[activeRoomIndex];
 
@@ -215,10 +225,14 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
     [activeRoomIndex, updateRoom]
   );
 
-  // Lock body scroll when modal is open
+  // Lock body scroll when modal is open + show mascot
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      setShowInquiry(false);
+      setInquirySent(false);
+      setInquiryError("");
+      const mascotTimer = setTimeout(() => setShowMascot(true), 600);
       const handleKey = (e: KeyboardEvent) => {
         if (e.key === "Escape") setIsOpen(false);
       };
@@ -226,6 +240,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
       return () => {
         document.body.style.overflow = "";
         window.removeEventListener("keydown", handleKey);
+        clearTimeout(mascotTimer);
+        setShowMascot(false);
       };
     }
   }, [isOpen]);
@@ -236,6 +252,70 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   const widthPct = room.width;
   const lengthPct = room.length;
   const cornersPct = ((room.corners - 3) / (12 - 3)) * 100;
+
+  // Build inquiry message from calculator state
+  const buildInquiryMessage = useCallback(() => {
+    const roomLines = rooms.map((r, ri) => {
+      const rArea = roomArea(r);
+      const rPerimeter = roomPerimeter(r);
+      const rSurface = surfaces[r.surfaceIndex];
+      const rCornersCost = roomCornersCost(r);
+      const addonLines = Array.from(r.addonQuantities.entries()).map(
+        ([addonIdx, qty]) => {
+          const addon = addonsList[addonIdx];
+          const unitLabel = addon.unit === "bm" ? `${qty} bm` : `${qty}×`;
+          return `  - ${getAddonName(addon)}: ${unitLabel} × ${addon.price} = ${(addon.price * qty).toLocaleString("cs-CZ")} ${d.calculator.currency}`;
+        }
+      );
+      const header = rooms.length > 1 ? `\n${locale === "en" ? `Room ${ri + 1}` : `Místnost ${ri + 1}`}:\n` : "";
+      return [
+        header,
+        `${d.calculator.surface}: ${rSurface?.name} (${rSurface?.price} ${d.calculator.currency}/${d.calculator.sqm})`,
+        `${locale === "en" ? "Dimensions" : "Rozměry"}: ${r.width} × ${r.length} m (${rArea} ${d.calculator.sqm}, ${locale === "en" ? "perimeter" : "obvod"} ${rPerimeter} bm)`,
+        rCornersCost > 0
+          ? `${locale === "en" ? "Corners" : "Rohy"}: ${r.corners} (${r.corners - 4} ${locale === "en" ? "extra" : "navíc"}, ${rCornersCost} ${d.calculator.currency})`
+          : "",
+        ...addonLines,
+      ]
+        .filter(Boolean)
+        .join("\n");
+    });
+    return [
+      ...roomLines,
+      `\n${d.calculator.orientPrice}: ${locale === "en" ? "from" : "od"} ${total.toLocaleString("cs-CZ")} ${locale === "en" ? "to" : "až"} ${totalHigh.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
+    ].join("\n");
+  }, [rooms, surfaces, addonsList, getAddonName, d, locale, total, totalHigh]);
+
+  const buildRoomSummary = useCallback(() => {
+    return rooms
+      .map((r) => `${surfaces[r.surfaceIndex]?.name}, ${roomArea(r)} ${d.calculator.sqm}`)
+      .join(" + ");
+  }, [rooms, surfaces, d]);
+
+  const handleSubmitInquiry = useCallback(async () => {
+    if (!inquiryName.trim() || !inquiryEmail.trim()) return;
+    setInquirySending(true);
+    setInquiryError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: inquiryName.trim(),
+          email: inquiryEmail.trim(),
+          phone: inquiryPhone.trim() || undefined,
+          room: buildRoomSummary(),
+          message: `${d.calculator.enquiryPrefix}\n${buildInquiryMessage()}`,
+        }),
+      });
+      if (!res.ok) throw new Error();
+      setInquirySent(true);
+    } catch {
+      setInquiryError(locale === "en" ? "Failed to send. Please try again." : "Nepodařilo se odeslat. Zkuste to znovu.");
+    } finally {
+      setInquirySending(false);
+    }
+  }, [inquiryName, inquiryEmail, inquiryPhone, buildRoomSummary, buildInquiryMessage, d, locale]);
 
   // Wizard step labels
   const stepLabels = [
@@ -948,78 +1028,120 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   })}
                 </div>
 
-                <button
-                  onClick={() => {
-                    const roomLines = rooms.map((r, ri) => {
-                      const rArea = roomArea(r);
-                      const rPerimeter = roomPerimeter(r);
-                      const rSurface = surfaces[r.surfaceIndex];
-                      const rCornersCost = roomCornersCost(r);
-                      const addonLines = Array.from(r.addonQuantities.entries()).map(
-                        ([addonIdx, qty]) => {
-                          const addon = addonsList[addonIdx];
-                          const unitLabel = addon.unit === "bm" ? `${qty} bm` : `${qty}×`;
-                          return `  - ${getAddonName(addon)}: ${unitLabel} × ${addon.price} = ${(addon.price * qty).toLocaleString("cs-CZ")} ${d.calculator.currency}`;
-                        }
-                      );
-                      const header = rooms.length > 1 ? `\n${locale === "en" ? `Room ${ri + 1}` : `Místnost ${ri + 1}`}:\n` : "";
-                      return [
-                        header,
-                        `${d.calculator.surface}: ${rSurface?.name} (${rSurface?.price} ${d.calculator.currency}/${d.calculator.sqm})`,
-                        `${locale === "en" ? "Dimensions" : "Rozměry"}: ${r.width} × ${r.length} m (${rArea} ${d.calculator.sqm}, ${locale === "en" ? "perimeter" : "obvod"} ${rPerimeter} bm)`,
-                        rCornersCost > 0
-                          ? `${locale === "en" ? "Corners" : "Rohy"}: ${r.corners} (${r.corners - 4} ${locale === "en" ? "extra" : "navíc"}, ${rCornersCost} ${d.calculator.currency})`
-                          : "",
-                        ...addonLines,
-                      ]
-                        .filter(Boolean)
-                        .join("\n");
-                    });
-
-                    const lines = [
-                      ...roomLines,
-                      `\n${d.calculator.orientPrice}: ${locale === "en" ? "from" : "od"} ${total.toLocaleString("cs-CZ")} ${locale === "en" ? "to" : "až"} ${totalHigh.toLocaleString("cs-CZ")} ${d.calculator.currency}`,
-                    ].join("\n");
-
-                    const roomSummary = rooms
-                      .map((r) => `${surfaces[r.surfaceIndex]?.name}, ${roomArea(r)} ${d.calculator.sqm}`)
-                      .join(" + ");
-
-                    const params = new URLSearchParams({
-                      room: roomSummary,
-                      message: `${d.calculator.enquiryPrefix}\n${lines}`,
-                    });
-                    setIsOpen(false);
-                    router.push(`${kontaktHref}?${params.toString()}`);
-                  }}
-                  className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
-                >
-                  {d.calculator.ctaSubmit}
-                </button>
-                <p className="text-muted text-[9px] text-center mt-2.5 leading-[1.5]">
-                  {d.calculator.ctaNote}
-                </p>
-                <p className="text-muted text-[8px] text-center mt-1.5 leading-[1.5]">
-                  {locale === "en"
-                    ? "Special requirements need an individual quote."
-                    : "Speciální požadavky vyžadují individuální cenovou nabídku."}
-                </p>
-                <button
-                  onClick={() => {
-                    setIsOpen(false);
-                    window.dispatchEvent(new CustomEvent("openStropKecka"));
-                  }}
-                  className="block w-full text-center text-[11px] text-accent hover:underline mt-3 transition-colors"
-                >
-                  {locale === "en" ? "Not sure what to choose? We'll help!" : "Nevíte co vybrat? Poradíme!"}
-                </button>
+                {/* Inline inquiry form */}
+                {showInquiry ? (
+                  inquirySent ? (
+                    <div className="text-center py-4">
+                      <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#847631" strokeWidth="2">
+                          <path d="M4 10l4 4 8-8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      <p className="text-heading text-[13px] font-medium mb-1">
+                        {locale === "en" ? "Sent!" : "Odesláno!"}
+                      </p>
+                      <p className="text-muted text-[11px]">
+                        {d.calculator.ctaNote}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-2.5">
+                      <input
+                        type="text"
+                        placeholder={locale === "en" ? "Full name" : "Jméno a příjmení"}
+                        value={inquiryName}
+                        onChange={(e) => setInquiryName(e.target.value)}
+                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[12px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
+                      />
+                      <input
+                        type="email"
+                        placeholder={locale === "en" ? "E-mail *" : "E-mail *"}
+                        value={inquiryEmail}
+                        onChange={(e) => setInquiryEmail(e.target.value)}
+                        required
+                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[12px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
+                      />
+                      <input
+                        type="tel"
+                        placeholder={locale === "en" ? "Phone (optional)" : "Telefon (nepovinné)"}
+                        value={inquiryPhone}
+                        onChange={(e) => setInquiryPhone(e.target.value)}
+                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[12px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
+                      />
+                      {inquiryError && (
+                        <p className="text-red-500 text-[10px]">{inquiryError}</p>
+                      )}
+                      <button
+                        onClick={handleSubmitInquiry}
+                        disabled={inquirySending || !inquiryName.trim() || !inquiryEmail.trim()}
+                        className="btn-shimmer glow-accent w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-3.5 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full disabled:opacity-40"
+                      >
+                        {inquirySending
+                          ? (locale === "en" ? "Sending..." : "Odesílám...")
+                          : (locale === "en" ? "Send inquiry" : "Odeslat poptávku")}
+                      </button>
+                      <button
+                        onClick={() => setShowInquiry(false)}
+                        className="text-muted text-[10px] hover:text-heading transition-colors"
+                      >
+                        ← {locale === "en" ? "Back to summary" : "Zpět na souhrn"}
+                      </button>
+                    </div>
+                  )
+                ) : (
+                  <>
+                    <button
+                      onClick={() => setShowInquiry(true)}
+                      className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
+                    >
+                      {d.calculator.ctaSubmit}
+                    </button>
+                    <p className="text-muted text-[9px] text-center mt-2.5 leading-[1.5]">
+                      {d.calculator.ctaNote}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
+
+          {/* Mascot tooltip */}
+          {showMascot && (
+            <div
+              className="fixed bottom-6 right-6 z-[102] flex items-end gap-2 cursor-pointer"
+              onClick={() => {
+                setShowMascot(false);
+                setIsOpen(false);
+                window.dispatchEvent(new CustomEvent("openStropKecka"));
+              }}
+              style={{ animation: "mascotSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards" }}
+            >
+              <div className="bg-white border border-border rounded-xl px-4 py-3 shadow-lg max-w-[220px]">
+                <p className="text-[11px] text-body leading-[1.6]">
+                  {locale === "en"
+                    ? "Not sure what to enter? Ask me :) I'll advise, choose, calculate & fill it in!"
+                    : "Nevíš co zadat? Zeptej se mě :) Poradím, vyberu, spočítám, vyplním!"}
+                </p>
+              </div>
+              <div className="flex-shrink-0 hover:scale-110 transition-transform">
+                <MascotA size={48} />
+              </div>
+            </div>
+          )}
         </div>
       )}
 
       <style jsx>{`
+        @keyframes mascotSlideIn {
+          from {
+            opacity: 0;
+            transform: translateX(80px) translateY(20px) scale(0.5);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0) translateY(0) scale(1);
+          }
+        }
         @keyframes calcFadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
