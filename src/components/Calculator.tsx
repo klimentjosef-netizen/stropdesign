@@ -1105,20 +1105,20 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
             </div>
           </div>
 
-          {/* Mascot tooltip — bounces from top-right corner to above the modal */}
+          {/* Mascot — runs across the screen from the right edge */}
           {showMascot && (
             <div
-              className="fixed z-[102] flex flex-col items-center right-4 sm:right-auto"
-              style={{
-                top: "clamp(80px, 12vh, 160px)",
-                left: "clamp(50%, 50%, calc(50% + 350px))",
-                animation: "mascotBounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
-              }}
+              className="fixed z-[102] bottom-8 left-6 sm:left-10 flex items-end gap-3"
+              style={{ animation: "mascotRunIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards" }}
             >
+              {/* Mascot character */}
+              <div style={{ animation: "mascotHop 0.5s ease 1.2s both" }}>
+                <MascotA size={56} />
+              </div>
               {/* Speech bubble */}
               <div
-                className="bg-white border-2 border-accent/30 rounded-2xl px-5 py-3.5 shadow-xl max-w-[240px] relative mb-2"
-                style={{ animation: "mascotBubblePop 0.4s ease 0.7s both" }}
+                className="bg-white border-2 border-accent/30 rounded-2xl px-5 py-3.5 shadow-xl max-w-[260px] relative"
+                style={{ animation: "mascotBubblePop 0.4s ease 1.3s both" }}
               >
                 <p className="text-[12px] text-heading leading-[1.6] font-medium">
                   {locale === "en"
@@ -1143,12 +1143,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     {locale === "en" ? "I'm fine" : "Zvládnu sám"}
                   </button>
                 </div>
-                {/* Bubble arrow */}
-                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-r-2 border-b-2 border-accent/30 rotate-45" />
-              </div>
-              {/* Mascot character — bouncing */}
-              <div style={{ animation: "mascotHop 0.6s ease 0.3s both" }}>
-                <MascotA size={56} />
+                {/* Bubble arrow pointing left to mascot */}
+                <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-4 h-4 bg-white border-l-2 border-b-2 border-accent/30 rotate-45" />
               </div>
             </div>
           )}
@@ -1156,43 +1152,6 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
       )}
 
       <style jsx>{`
-        @keyframes mascotBounceIn {
-          0% {
-            opacity: 0;
-            transform: translate(400px, -300px) scale(0.3) rotate(15deg);
-          }
-          50% {
-            opacity: 1;
-            transform: translate(-10px, 10px) scale(1.1) rotate(-5deg);
-          }
-          70% {
-            transform: translate(5px, -5px) scale(0.95) rotate(2deg);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(0, 0) scale(1) rotate(0deg);
-          }
-        }
-        @keyframes mascotHop {
-          0% { transform: translateY(0); }
-          40% { transform: translateY(-12px); }
-          60% { transform: translateY(-12px); }
-          100% { transform: translateY(0); }
-        }
-        @keyframes mascotBubblePop {
-          0% {
-            opacity: 0;
-            transform: scale(0.5);
-          }
-          60% {
-            opacity: 1;
-            transform: scale(1.05);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
         @keyframes calcFadeIn {
           from { opacity: 0; }
           to { opacity: 1; }

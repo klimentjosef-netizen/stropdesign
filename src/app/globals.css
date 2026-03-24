@@ -130,6 +130,43 @@ body {
   50% { transform: scale(1.06); }
 }
 
+/* Mascot calculator run-in animation */
+@keyframes mascotRunIn {
+  0% {
+    transform: translateX(calc(100vw)) translateY(-20px);
+    opacity: 1;
+  }
+  25% {
+    transform: translateX(calc(70vw)) translateY(-30px);
+  }
+  50% {
+    transform: translateX(calc(35vw)) translateY(-15px);
+  }
+  75% {
+    transform: translateX(10px) translateY(-25px);
+  }
+  85% {
+    transform: translateX(-5px) translateY(0px);
+  }
+  92% {
+    transform: translateX(3px) translateY(-3px);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes mascotBubblePop {
+  0% { opacity: 0; transform: scale(0.3); }
+  60% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes mascotHop {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  60% { transform: translateY(-8px); }
+}
+
 /* Pulsating glow for CTA buttons */
 @keyframes glowPulse {
   0%, 100% { box-shadow: 0 0 15px rgba(132,118,49,0.2), 0 0 30px rgba(132,118,49,0.1); }
