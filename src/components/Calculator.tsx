@@ -1105,26 +1105,50 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
             </div>
           </div>
 
-          {/* Mascot tooltip */}
+          {/* Mascot tooltip — bounces from top-right corner to above the modal */}
           {showMascot && (
             <div
-              className="fixed bottom-6 right-6 z-[102] flex items-end gap-2 cursor-pointer"
-              onClick={() => {
-                setShowMascot(false);
-                setIsOpen(false);
-                window.dispatchEvent(new CustomEvent("openStropKecka"));
+              className="fixed z-[102] flex flex-col items-center right-4 sm:right-auto"
+              style={{
+                top: "clamp(80px, 12vh, 160px)",
+                left: "clamp(50%, 50%, calc(50% + 350px))",
+                animation: "mascotBounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
               }}
-              style={{ animation: "mascotSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards" }}
             >
-              <div className="bg-white border border-border rounded-xl px-4 py-3 shadow-lg max-w-[220px]">
-                <p className="text-[11px] text-body leading-[1.6]">
+              {/* Speech bubble */}
+              <div
+                className="bg-white border-2 border-accent/30 rounded-2xl px-5 py-3.5 shadow-xl max-w-[240px] relative mb-2"
+                style={{ animation: "mascotBubblePop 0.4s ease 0.7s both" }}
+              >
+                <p className="text-[12px] text-heading leading-[1.6] font-medium">
                   {locale === "en"
-                    ? "Not sure what to enter? Ask me :) I'll advise, choose, calculate & fill it in!"
-                    : "Nevíš co zadat? Zeptej se mě :) Poradím, vyberu, spočítám, vyplním!"}
+                    ? "Not sure what to enter? Ask me 😊 I'll advise, choose, calculate & fill it in!"
+                    : "Nevíš co zadat? Zeptej se mě 😊 Poradím, vyberu, spočítám, vyplním!"}
                 </p>
+                <div className="flex gap-2 mt-3">
+                  <button
+                    onClick={() => {
+                      setShowMascot(false);
+                      setIsOpen(false);
+                      window.dispatchEvent(new CustomEvent("openStropKecka"));
+                    }}
+                    className="flex-1 bg-accent text-white text-[10px] font-medium tracking-[0.08em] uppercase px-3 py-2 rounded-full hover:bg-accent-hover transition-colors"
+                  >
+                    {locale === "en" ? "Yes, help me!" : "Jo, poraď mi!"}
+                  </button>
+                  <button
+                    onClick={() => setShowMascot(false)}
+                    className="flex-1 border border-border text-muted text-[10px] font-medium tracking-[0.08em] uppercase px-3 py-2 rounded-full hover:border-accent hover:text-accent transition-colors"
+                  >
+                    {locale === "en" ? "I'm fine" : "Zvládnu sám"}
+                  </button>
+                </div>
+                {/* Bubble arrow */}
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-r-2 border-b-2 border-accent/30 rotate-45" />
               </div>
-              <div className="flex-shrink-0 hover:scale-110 transition-transform">
-                <MascotA size={48} />
+              {/* Mascot character — bouncing */}
+              <div style={{ animation: "mascotHop 0.6s ease 0.3s both" }}>
+                <MascotA size={56} />
               </div>
             </div>
           )}
@@ -1132,14 +1156,41 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
       )}
 
       <style jsx>{`
-        @keyframes mascotSlideIn {
-          from {
+        @keyframes mascotBounceIn {
+          0% {
             opacity: 0;
-            transform: translateX(80px) translateY(20px) scale(0.5);
+            transform: translate(400px, -300px) scale(0.3) rotate(15deg);
           }
-          to {
+          50% {
             opacity: 1;
-            transform: translateX(0) translateY(0) scale(1);
+            transform: translate(-10px, 10px) scale(1.1) rotate(-5deg);
+          }
+          70% {
+            transform: translate(5px, -5px) scale(0.95) rotate(2deg);
+          }
+          100% {
+            opacity: 1;
+            transform: translate(0, 0) scale(1) rotate(0deg);
+          }
+        }
+        @keyframes mascotHop {
+          0% { transform: translateY(0); }
+          40% { transform: translateY(-12px); }
+          60% { transform: translateY(-12px); }
+          100% { transform: translateY(0); }
+        }
+        @keyframes mascotBubblePop {
+          0% {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          60% {
+            opacity: 1;
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
           }
         }
         @keyframes calcFadeIn {
