@@ -142,7 +142,7 @@ const cs = {
   calculator: {
     teaserEyebrow: "Cenový odhad",
     teaserTitle: "Kolik stojí napínaný strop?",
-    teaserText: "Ceny jsou orientační a fixní. Žádné překvapení. Přesnou nabídku připravíme do 48 hodin.",
+    teaserText: "Ceny jsou orientační. Přesnou nabídku s fixní cenou dostanete do 48 hodin.",
     priceFrom: "Cena od",
     priceUpTo: "až {max} Kč/m² dle povrchu",
     ctaTeaser: "Spočítat přesnou cenu →",

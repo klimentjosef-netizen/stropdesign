@@ -144,7 +144,7 @@ const en: Dictionary = {
   calculator: {
     teaserEyebrow: "Price estimate",
     teaserTitle: "How much does a stretch ceiling cost?",
-    teaserText: "Prices are indicative and fixed. No surprises. We prepare a precise offer within 48 hours.",
+    teaserText: "Prices are indicative. You will receive a precise offer with a fixed price within 48 hours.",
     priceFrom: "Price from",
     priceUpTo: "up to {max} CZK/m² by surface type",
     ctaTeaser: "Calculate exact price →",

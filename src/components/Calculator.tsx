@@ -24,7 +24,7 @@ let nextRoomId = 1;
 function createRoom(surfaceDefault = 0): Room {
   return {
     id: nextRoomId++,
-    width: 6,
+    width: 5,
     length: 4,
     surfaceIndex: surfaceDefault,
     corners: 4,
@@ -179,8 +179,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
         if (next.has(addonIndex)) {
           next.delete(addonIndex);
         } else {
-          const addon = addonsList[addonIndex];
-          next.set(addonIndex, addon.unit === "bm" ? roomPerimeter(r) : 1);
+          next.set(addonIndex, 1);
         }
         return { ...r, addonQuantities: next };
       });
@@ -233,8 +232,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
   // Derived values for current room
   const area = roomArea(room);
   const perimeter = roomPerimeter(room);
-  const widthPct = ((room.width - 2) / (15 - 2)) * 100;
-  const lengthPct = ((room.length - 2) / (15 - 2)) * 100;
+  const widthPct = room.width;
+  const lengthPct = room.length;
   const cornersPct = ((room.corners - 3) / (12 - 3)) * 100;
 
   // Wizard step labels
@@ -334,7 +333,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
             </div>
 
             {/* Body - two columns */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] flex-1 min-h-0 overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] flex-1 min-h-0 overflow-y-auto lg:overflow-hidden">
               {/* Left: Form — Wizard */}
               <div className="p-6 lg:p-8 lg:border-r lg:border-border flex flex-col">
                 {/* ── Room tabs ── */}
@@ -478,44 +477,35 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                         {/* Width */}
                         <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
-                          <div className="flex justify-between items-baseline mb-3">
+                          <div className="flex justify-between items-center mb-3">
                             <span className="text-[11px] text-body">
                               {locale === "en" ? "Width" : "Šířka"}
                             </span>
-                            <div className="flex items-center gap-2">
-                              <button
-                                onClick={() =>
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="number"
+                                min={0}
+                                max={100}
+                                step={0.1}
+                                value={room.width}
+                                onChange={(e) => {
+                                  const v = Math.min(100, Math.max(0, Number(e.target.value)));
                                   updateRoomDimensions(activeRoomIndex, (r) => ({
                                     ...r,
-                                    width: Math.max(2, +(r.width - 0.5).toFixed(1)),
-                                  }))
-                                }
-                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                              >
-                                −
-                              </button>
-                              <span className="font-display text-lg text-accent min-w-[3rem] text-center tabular-nums">
-                                {room.width} m
-                              </span>
-                              <button
-                                onClick={() =>
-                                  updateRoomDimensions(activeRoomIndex, (r) => ({
-                                    ...r,
-                                    width: Math.min(15, +(r.width + 0.5).toFixed(1)),
-                                  }))
-                                }
-                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                              >
-                                +
-                              </button>
+                                    width: +v.toFixed(1),
+                                  }));
+                                }}
+                                className="w-16 text-right font-display text-sm text-accent border border-border rounded-lg px-2 py-1 bg-white focus:outline-none focus:border-accent tabular-nums"
+                              />
+                              <span className="text-[11px] text-muted">m</span>
                             </div>
                           </div>
                           <div className="relative">
                             <input
                               type="range"
-                              min={2}
-                              max={15}
-                              step={0.5}
+                              min={0}
+                              max={100}
+                              step={0.1}
                               value={room.width}
                               onChange={(e) =>
                                 updateRoomDimensions(activeRoomIndex, (r) => ({
@@ -533,51 +523,42 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                             </div>
                           </div>
                           <div className="flex justify-between mt-1.5">
-                            <span className="text-muted text-[10px]">2 m</span>
-                            <span className="text-muted text-[10px]">15 m</span>
+                            <span className="text-muted text-[10px]">0 m</span>
+                            <span className="text-muted text-[10px]">100 m</span>
                           </div>
                         </div>
 
                         {/* Length */}
                         <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
-                          <div className="flex justify-between items-baseline mb-3">
+                          <div className="flex justify-between items-center mb-3">
                             <span className="text-[11px] text-body">
                               {locale === "en" ? "Length" : "Délka"}
                             </span>
-                            <div className="flex items-center gap-2">
-                              <button
-                                onClick={() =>
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="number"
+                                min={0}
+                                max={100}
+                                step={0.1}
+                                value={room.length}
+                                onChange={(e) => {
+                                  const v = Math.min(100, Math.max(0, Number(e.target.value)));
                                   updateRoomDimensions(activeRoomIndex, (r) => ({
                                     ...r,
-                                    length: Math.max(2, +(r.length - 0.5).toFixed(1)),
-                                  }))
-                                }
-                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                              >
-                                −
-                              </button>
-                              <span className="font-display text-lg text-accent min-w-[3rem] text-center tabular-nums">
-                                {room.length} m
-                              </span>
-                              <button
-                                onClick={() =>
-                                  updateRoomDimensions(activeRoomIndex, (r) => ({
-                                    ...r,
-                                    length: Math.min(15, +(r.length + 0.5).toFixed(1)),
-                                  }))
-                                }
-                                className="w-6 h-6 flex items-center justify-center border border-border rounded-lg text-muted hover:border-accent hover:text-accent transition-colors text-sm"
-                              >
-                                +
-                              </button>
+                                    length: +v.toFixed(1),
+                                  }));
+                                }}
+                                className="w-16 text-right font-display text-sm text-accent border border-border rounded-lg px-2 py-1 bg-white focus:outline-none focus:border-accent tabular-nums"
+                              />
+                              <span className="text-[11px] text-muted">m</span>
                             </div>
                           </div>
                           <div className="relative">
                             <input
                               type="range"
-                              min={2}
-                              max={15}
-                              step={0.5}
+                              min={0}
+                              max={100}
+                              step={0.1}
                               value={room.length}
                               onChange={(e) =>
                                 updateRoomDimensions(activeRoomIndex, (r) => ({
@@ -595,17 +576,17 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                             </div>
                           </div>
                           <div className="flex justify-between mt-1.5">
-                            <span className="text-muted text-[10px]">2 m</span>
-                            <span className="text-muted text-[10px]">15 m</span>
+                            <span className="text-muted text-[10px]">0 m</span>
+                            <span className="text-muted text-[10px]">100 m</span>
                           </div>
                         </div>
                       </div>
                       {/* Computed area & perimeter */}
-                      <div className="flex gap-4 mt-2 px-1">
-                        <span className="text-[10px] text-muted">
-                          {locale === "en" ? "Area" : "Plocha"}: <span className="text-body font-medium">{area} {d.calculator.sqm}</span>
+                      <div className="flex gap-4 mt-3 px-1">
+                        <span className="text-[12px] text-heading font-medium">
+                          {locale === "en" ? "Area" : "Plocha"}: <span className="text-accent font-semibold">{area} {d.calculator.sqm}</span>
                         </span>
-                        <span className="text-[10px] text-muted">
+                        <span className="text-[10px] text-muted self-center">
                           {locale === "en" ? "Perimeter" : "Obvod"}: <span className="text-body font-medium">{perimeter} bm</span>
                         </span>
                       </div>
@@ -882,6 +863,9 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   <div className="text-[10px] text-muted mt-1">
                     {locale === "en" ? "from" : "od"} {total.toLocaleString("cs-CZ")} {locale === "en" ? "to" : "až"} {totalHigh.toLocaleString("cs-CZ")} {d.calculator.currency}
                   </div>
+                  <div className="text-[13px] font-semibold text-accent mt-2.5">
+                    {locale === "en" ? "Prices are listed without VAT." : "Ceny jsou uvedeny bez DPH."}
+                  </div>
                 </div>
 
                 {/* Breakdown per room */}
@@ -1016,8 +1000,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 </p>
                 <p className="text-muted text-[8px] text-center mt-1.5 leading-[1.5]">
                   {locale === "en"
-                    ? "Prices are indicative excl. VAT. Special requirements need an individual quote."
-                    : "Ceny jsou orientační bez DPH. Speciální požadavky vyžadují individuální cenovou nabídku."}
+                    ? "Special requirements need an individual quote."
+                    : "Speciální požadavky vyžadují individuální cenovou nabídku."}
                 </p>
                 <button
                   onClick={() => {
@@ -1062,6 +1046,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
           -webkit-appearance: none;
           width: 18px;
           height: 18px;
+          margin-top: -7.5px;
           background: white;
           border: 2px solid #847631;
           border-radius: 50%;

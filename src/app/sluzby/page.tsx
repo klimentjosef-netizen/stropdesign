@@ -38,7 +38,7 @@ export default async function SluzbyPage() {
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border">
               <Image
                 src="/images/hero-kitchen.jpg"
-                alt="Moderní kuchyně s napínaným stropem a LED osvětlením"
+                alt="Wellness s napínaným stropem s efektem hvězdné oblohy a LED podsvícením"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

@@ -19,7 +19,7 @@ export function LogoMark({
       alt="StropDesign"
       width={size}
       height={size}
-      className="object-contain"
+      className={`object-contain${variant === "light" ? " brightness-0 invert" : ""}`}
       priority
     />
   );

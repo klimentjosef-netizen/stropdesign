@@ -454,7 +454,7 @@ export default function ChatWidget() {
       {/* Floating bubble */}
       <button
         onClick={() => setIsOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-[90] w-14 h-14 bg-accent text-white rounded-full shadow-lg hover:bg-accent-hover transition-all duration-300 hover:scale-105 flex items-center justify-center"
+        className={`fixed bottom-6 right-6 z-[90] w-14 h-14 bg-accent text-white rounded-full shadow-lg hover:bg-accent-hover transition-all duration-300 hover:scale-105 flex items-center justify-center${isOpen ? " hidden sm:flex" : ""}`}
         aria-label={l.openChat}
       >
         {isOpen ? (
@@ -492,10 +492,16 @@ export default function ChatWidget() {
       {/* Chat window */}
       {isOpen && (
         <div
-          className="fixed bottom-24 right-6 z-[91] w-[360px] max-w-[calc(100vw-2rem)] bg-white border border-border rounded-sm shadow-2xl flex flex-col overflow-hidden"
+          className="fixed inset-0 z-[91] sm:inset-auto sm:bottom-24 sm:right-6 w-full h-[100dvh] sm:w-[360px] sm:h-auto sm:max-w-[calc(100vw-2rem)] bg-white border-0 sm:border sm:border-border sm:rounded-sm shadow-2xl flex flex-col overflow-hidden"
           style={{
-            height: "min(520px, calc(100dvh - 8rem))",
+            maxHeight: undefined,
             animation: "chatSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+          }}
+          // sm+ uses inline style for height constraint
+          ref={(el) => {
+            if (el && window.innerWidth >= 640) {
+              el.style.height = "min(520px, calc(100dvh - 8rem))";
+            }
           }}
         >
           {/* Header */}

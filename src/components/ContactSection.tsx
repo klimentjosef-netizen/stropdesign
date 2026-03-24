@@ -118,7 +118,7 @@ export default function ContactSection() {
           <div className="flex flex-col gap-3">
             {[
               { text: "+420 739 457 794", href: "tel:+420739457794" },
-              { text: "stropdesign.cz", href: undefined },
+              { text: "info@stropdesign.cz", href: "mailto:info@stropdesign.cz" },
               { text: d.contact.area, href: undefined },
             ].map((item) => (
               <div key={item.text} className="flex items-center gap-3 text-[13px] text-body group">
