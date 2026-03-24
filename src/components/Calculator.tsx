@@ -179,7 +179,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
         if (next.has(addonIndex)) {
           next.delete(addonIndex);
         } else {
-          next.set(addonIndex, 1);
+          const addon = addonsList[addonIndex];
+          next.set(addonIndex, addon.unit === "bm" ? roomPerimeter(r) : 1);
         }
         return { ...r, addonQuantities: next };
       });
