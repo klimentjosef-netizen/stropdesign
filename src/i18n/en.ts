@@ -147,7 +147,7 @@ const en: Dictionary = {
     teaserText: "Prices are indicative. You will receive a precise offer with a fixed price within 48 hours.",
     priceFrom: "Price from",
     priceUpTo: "up to {max} CZK/m² by surface type",
-    ctaTeaser: "Calculate exact price →",
+    ctaTeaser: "Calculate price →",
     modalTitle: "Ceiling price calculator",
     modalSubtitle: "Select parameters and see an indicative price instantly",
     step1: "Surface type",

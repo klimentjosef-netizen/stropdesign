@@ -145,7 +145,7 @@ const cs = {
     teaserText: "Ceny jsou orientační. Přesnou nabídku s fixní cenou dostanete do 48 hodin.",
     priceFrom: "Cena od",
     priceUpTo: "až {max} Kč/m² dle povrchu",
-    ctaTeaser: "Spočítat přesnou cenu →",
+    ctaTeaser: "Spočítat cenu →",
     modalTitle: "Kalkulačka ceny stropu",
     modalSubtitle: "Vyberte parametry a ihned uvidíte orientační cenu",
     step1: "Typ povrchu",
