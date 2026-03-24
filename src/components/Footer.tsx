@@ -82,12 +82,12 @@ export default function Footer() {
               <p className="text-sm text-white/50 mb-4">
                 {d.footer.startTodaySub}
               </p>
-              <Link
+              <a
                 href={contactHref}
                 className="inline-block bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200 rounded-full"
               >
                 {d.footer.ctaButton}
-              </Link>
+              </a>
             </div>
           </div>
 

@@ -40,7 +40,7 @@ export default async function SluzbyPage() {
                 src="/images/hero-kitchen.jpg"
                 alt="Wellness s napínaným stropem s efektem hvězdné oblohy a LED podsvícením"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />

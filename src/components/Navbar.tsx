@@ -69,12 +69,12 @@ export default function Navbar() {
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
             </svg>
           </a>
-          <Link
+          <a
             href={contactHref}
             className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
             {d.nav.cta}
-          </Link>
+          </a>
           <LanguageSwitcher />
         </div>
 
@@ -122,13 +122,13 @@ export default function Navbar() {
           <div className="mt-2 flex items-center gap-3">
             <LanguageSwitcher />
           </div>
-          <Link
+          <a
             href={contactHref}
             onClick={() => setIsOpen(false)}
             className="text-center bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
             {d.nav.cta}
-          </Link>
+          </a>
         </div>
       </div>
     </nav>
