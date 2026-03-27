@@ -51,11 +51,11 @@ export default function BlogPageEN() {
                     <article className="bg-white border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-colors duration-300 h-full flex flex-col">
                       <div className="h-2 bg-gradient-to-r from-accent to-accent-hover" />
                       <div className="p-6 flex flex-col flex-1">
-                        <div className="flex flex-wrap gap-2 mb-3">
+                        <div className="flex flex-nowrap gap-2 mb-3 overflow-hidden">
                           {post.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-[10px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2 py-0.5 font-medium"
+                              className="text-[10px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2 py-0.5 font-medium whitespace-nowrap shrink-0"
                             >
                               {tag}
                             </span>
