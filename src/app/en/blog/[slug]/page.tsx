@@ -71,7 +71,7 @@ export default function BlogPostPageEN({ params }: Props) {
         </div>
       </section>
 
-      <section className="py-16 lg:py-20 px-6 lg:px-10">
+      <section className="pt-10 lg:pt-14 pb-16 lg:pb-20 px-6 lg:px-10">
         <div className="max-w-3xl mx-auto">
           <BlogContent content={post.content} />
         </div>
