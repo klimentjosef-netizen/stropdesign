@@ -46,8 +46,8 @@ export default function BlogPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post, i) => (
-                <RevealOnScroll key={post.slug} delay={i * 80}>
-                  <Link href={`/blog/${post.slug}`} className="block group">
+                <RevealOnScroll key={post.slug} delay={i * 80} className="h-full">
+                  <Link href={`/blog/${post.slug}`} className="block group h-full">
                     <article className="bg-white border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-colors duration-300 h-full flex flex-col">
                       {/* Color header bar */}
                       <div className="h-2 bg-gradient-to-r from-accent to-accent-hover" />
