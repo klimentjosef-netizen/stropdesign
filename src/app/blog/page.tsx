@@ -65,11 +65,11 @@ export default function BlogPage() {
                           ))}
                         </div>
 
-                        <h2 className="font-display text-lg font-semibold text-heading mb-2 group-hover:text-accent transition-colors duration-300 leading-snug">
+                        <h2 className="font-display text-lg font-semibold text-heading mb-2 group-hover:text-accent transition-colors duration-300 leading-snug line-clamp-2">
                           {post.title}
                         </h2>
 
-                        <p className="text-body text-sm leading-[1.6] font-light mb-4 flex-1">
+                        <p className="text-body text-sm leading-[1.6] font-light mb-4 flex-1 line-clamp-3">
                           {post.description}
                         </p>
 

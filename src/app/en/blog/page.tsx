@@ -61,10 +61,10 @@ export default function BlogPageEN() {
                             </span>
                           ))}
                         </div>
-                        <h2 className="font-display text-lg font-semibold text-heading mb-2 group-hover:text-accent transition-colors duration-300 leading-snug">
+                        <h2 className="font-display text-lg font-semibold text-heading mb-2 group-hover:text-accent transition-colors duration-300 leading-snug line-clamp-2">
                           {post.title}
                         </h2>
-                        <p className="text-body text-sm leading-[1.6] font-light mb-4 flex-1">
+                        <p className="text-body text-sm leading-[1.6] font-light mb-4 flex-1 line-clamp-3">
                           {post.description}
                         </p>
                         <div className="flex items-center justify-between text-[11px] text-muted mt-auto pt-4 border-t border-border">
