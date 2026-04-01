@@ -31,14 +31,20 @@ export async function POST(req: NextRequest) {
     const toEmail = process.env.CONTACT_EMAIL || "info@stropdesign.cz";
 
     const htmlBody = `
-      <h2>Nová poptávka z webu StropDesign</h2>
-      <table style="border-collapse:collapse;font-family:sans-serif;">
+      <!DOCTYPE html>
+      <html lang="cs">
+      <head><meta charset="utf-8"></head>
+      <body>
+      <h2 style="font-family:Arial,sans-serif;">Nová poptávka z webu StropDesign</h2>
+      <table style="border-collapse:collapse;font-family:Arial,sans-serif;">
         <tr><td style="padding:6px 12px;font-weight:bold;">Jméno:</td><td style="padding:6px 12px;">${escapeHtml(body.name)}</td></tr>
         ${body.email ? `<tr><td style="padding:6px 12px;font-weight:bold;">E-mail:</td><td style="padding:6px 12px;">${escapeHtml(body.email)}</td></tr>` : ""}
         ${body.phone ? `<tr><td style="padding:6px 12px;font-weight:bold;">Telefon:</td><td style="padding:6px 12px;">${escapeHtml(body.phone)}</td></tr>` : ""}
         ${body.room ? `<tr><td style="padding:6px 12px;font-weight:bold;">Místnost:</td><td style="padding:6px 12px;">${escapeHtml(body.room)}</td></tr>` : ""}
         ${body.message ? `<tr><td style="padding:6px 12px;font-weight:bold;">Zpráva:</td><td style="padding:6px 12px;">${escapeHtml(body.message)}</td></tr>` : ""}
       </table>
+      </body>
+      </html>
     `;
 
     if (apiKey) {

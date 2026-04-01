@@ -89,6 +89,7 @@ function surfacesCollection(locale: "cs" | "en") {
         itemLabel: (props) => props.value,
       }),
       sortOrder: fields.integer({ label: "Sort order", defaultValue: 0 }),
+      image: fields.text({ label: "Texture preview image path (e.g. /images/surfaces/matny.svg)" }),
     },
   });
 }

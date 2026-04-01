@@ -102,11 +102,18 @@ export default function Surfaces({ surfaces }: SurfacesProps) {
                         boxShadow: "0 20px 60px -12px rgba(132,118,49,0.25), 0 8px 20px -8px rgba(0,0,0,0.12)",
                       } : undefined}
                     >
-                      {/* Color preview bar */}
+                      {/* Texture preview */}
                       <div
-                        className="h-8 md:h-14 relative overflow-hidden"
+                        className="h-16 md:h-24 relative overflow-hidden"
                         style={{ background: surface.color }}
                       >
+                        {surface.image && (
+                          <img
+                            src={surface.image}
+                            alt={surface.name}
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                        )}
                         <div
                           className="absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300 origin-left"
                           style={{

@@ -15,6 +15,7 @@ export interface Surface {
   description: string;
   features: string[];
   sortOrder: number;
+  image: string | null;
 }
 
 export interface Reference {
@@ -68,6 +69,7 @@ export async function getSurfaces(locale: string = "cs"): Promise<Surface[]> {
       description: e.entry.description,
       features: e.entry.features as string[],
       sortOrder: e.entry.sortOrder ?? 0,
+      image: e.entry.image ?? null,
     }))
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
