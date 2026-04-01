@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="metalBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E0E0E0"/>
+      <stop offset="25%" stop-color="#D8D8D8"/>
+      <stop offset="50%" stop-color="#D4D4D4"/>
+      <stop offset="75%" stop-color="#D8D8D8"/>
+      <stop offset="100%" stop-color="#DCDCDC"/>
+    </linearGradient>
+    <filter id="brushedMetal" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.002 0.8" numOctaves="5" seed="7" result="streaks"/>
+      <feColorMatrix type="saturate" values="0" in="streaks" result="grayStreaks"/>
+      <feComponentTransfer in="grayStreaks" result="subtleStreaks">
+        <feFuncR type="linear" slope="0.2" intercept="0.78"/>
+        <feFuncG type="linear" slope="0.2" intercept="0.78"/>
+        <feFuncB type="linear" slope="0.2" intercept="0.78"/>
+        <feFuncA type="constant" value="1"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="metalSheen" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.003 0.5" numOctaves="3" seed="10" result="sheenNoise"/>
+      <feSpecularLighting in="sheenNoise" specularExponent="25" lighting-color="#FFFFFF" surfaceScale="2" result="specular">
+        <feDistantLight azimuth="90" elevation="50"/>
+      </feSpecularLighting>
+      <feComposite in="specular" in2="SourceGraphic" operator="arithmetic" k1="0" k2="0.25" k3="0.75" k4="0"/>
+    </filter>
+    <linearGradient id="metalHighlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+      <stop offset="20%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="80%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.05"/>
+    </linearGradient>
+    <filter id="metalFine">
+      <feTurbulence type="fractalNoise" baseFrequency="0.005 1.5" numOctaves="3" seed="20" result="fine"/>
+      <feColorMatrix type="saturate" values="0" in="fine"/>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.06" intercept="0"/>
+        <feFuncG type="linear" slope="0.06" intercept="0"/>
+        <feFuncB type="linear" slope="0.06" intercept="0"/>
+        <feFuncA type="constant" value="1"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+  </defs>
+  <rect width="800" height="400" fill="url(#metalBase)"/>
+  <rect width="800" height="400" filter="url(#brushedMetal)"/>
+  <rect width="800" height="400" fill="url(#metalBase)" filter="url(#metalSheen)"/>
+  <rect width="800" height="400" fill="url(#metalHighlight)"/>
+  <rect width="800" height="400" fill="#D8D8D8" opacity="0.3" filter="url(#metalFine)"/>
+</svg>

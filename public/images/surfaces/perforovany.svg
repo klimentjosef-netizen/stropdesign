@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="perfBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4F4F4"/>
+      <stop offset="50%" stop-color="#F0F0F0"/>
+      <stop offset="100%" stop-color="#EBEBEB"/>
+    </linearGradient>
+    <radialGradient id="hole" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#A0A0A0"/>
+      <stop offset="70%" stop-color="#B8B8B8"/>
+      <stop offset="85%" stop-color="#D0D0D0"/>
+      <stop offset="100%" stop-color="#E8E8E8"/>
+    </radialGradient>
+    <pattern id="perfPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="3.5" fill="url(#hole)"/>
+    </pattern>
+    <filter id="perfShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" seed="9" result="grain"/>
+      <feColorMatrix type="saturate" values="0" in="grain" result="gGrain"/>
+      <feComponentTransfer in="gGrain" result="fineGrain">
+        <feFuncR type="linear" slope="0.03" intercept="0"/>
+        <feFuncG type="linear" slope="0.03" intercept="0"/>
+        <feFuncB type="linear" slope="0.03" intercept="0"/>
+        <feFuncA type="constant" value="1"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="fineGrain" mode="multiply"/>
+    </filter>
+    <filter id="perfLight">
+      <feDiffuseLighting in="SourceGraphic" lighting-color="#FFFFFF" surfaceScale="1" diffuseConstant="0.8" result="light">
+        <feDistantLight azimuth="225" elevation="45"/>
+      </feDiffuseLighting>
+      <feComposite in="light" in2="SourceGraphic" operator="arithmetic" k1="0" k2="0.15" k3="0.85" k4="0"/>
+    </filter>
+    <radialGradient id="perfSoftLight" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.03"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#perfBase)"/>
+  <rect width="800" height="400" fill="url(#perfBase)" filter="url(#perfShadow)"/>
+  <rect width="800" height="400" fill="url(#perfPattern)"/>
+  <rect width="800" height="400" fill="url(#perfSoftLight)"/>
+</svg>
