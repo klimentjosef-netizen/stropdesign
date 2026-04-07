@@ -54,11 +54,11 @@ export default function AboutPageEN() {
               <SectionEyebrow text="The team behind StropDesign" />
 
               <div className="flex flex-col items-center text-center mt-6">
-                <div className="w-[120px] h-[120px] rounded-full overflow-hidden mb-5 border-2 border-accent/20">
+                <div className="w-[180px] h-[180px] rounded-full overflow-hidden mb-5 border-2 border-accent/20">
                   <img
                     src="/images/founder.jpg"
                     alt="Founder of StropDesign"
-                    className="w-full h-full object-cover scale-[1.8] object-top"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
 
