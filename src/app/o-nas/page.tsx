@@ -49,15 +49,17 @@ export default function ONasPage() {
           </RevealOnScroll>
 
           <RevealOnScroll delay={200}>
-            <div className="bg-light-secondary border border-border rounded-2xl overflow-hidden">
-              <div className="aspect-[3/4] max-h-[320px] overflow-hidden">
-                <img
-                  src="/images/founder.jpg"
-                  alt="Pavel Karlík - zakladatel StropDesign"
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
-              <div className="p-8 text-center">
+            <div className="bg-light-secondary border border-border p-8 rounded-2xl">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 ring-4 ring-[#1a1a1a] ring-offset-2 ring-offset-light-secondary">
+                  <img
+                    src="/images/founder.jpg"
+                    alt="Pavel Karlík - zakladatel StropDesign"
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: "center 15%" }}
+                  />
+                </div>
+
                 <h3 className="font-display text-lg font-semibold text-heading">
                   Pavel Karlík
                 </h3>
@@ -68,7 +70,7 @@ export default function ONasPage() {
                   StropDesign / Derbau s.r.o.
                 </p>
 
-                <p className="text-body text-sm leading-[1.7] font-light mt-4">
+                <p className="text-body text-sm leading-[1.7] font-light mt-4 max-w-xs">
                   Napínaným stropům se věnuji přes 3 roky a za tu dobu jsem
                   měl možnost vést desítky realizací po celé ČR. Záleží mi
                   na kvalitě každého detailu a osobně dohlížím na průběh
