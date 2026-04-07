@@ -58,8 +58,8 @@ export default function AboutPageEN() {
                   <Image
                     src="/images/founder.jpg"
                     alt="Founder of StropDesign"
-                    width={120}
-                    height={120}
+                    width={400}
+                    height={400}
                     className="object-cover w-full h-full scale-[1.8] object-top"
                   />
                 </div>
