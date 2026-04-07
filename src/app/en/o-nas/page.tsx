@@ -65,8 +65,11 @@ export default function AboutPageEN() {
                 </div>
 
                 <h3 className="font-display text-lg font-semibold text-heading">
-                  Founder &amp; Lead Installer
+                  Pavel Karlík
                 </h3>
+                <p className="text-muted text-xs font-light mt-0.5">
+                  Founder &amp; Lead Installer
+                </p>
                 <p className="text-accent text-[11px] tracking-[0.1em] uppercase font-medium mt-1">
                   StropDesign / Derbau s.r.o.
                 </p>
