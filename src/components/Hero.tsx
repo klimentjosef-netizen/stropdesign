@@ -155,7 +155,7 @@ export default function Hero() {
           style={{ transitionDelay: "1.1s" }}
         >
           <a
-            href="#kalkulacka"
+            href="#povrchy"
             className="btn-shimmer btn-glow-pulse bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full hover:brightness-110 transition-all duration-200"
           >
             {d.hero.cta}

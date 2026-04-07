@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
@@ -53,10 +54,14 @@ export default function AboutPageEN() {
               <SectionEyebrow text="The team behind StropDesign" />
 
               <div className="flex flex-col items-center text-center mt-6">
-                <div className="w-[120px] h-[120px] rounded-full bg-[#1a1a1a] flex items-center justify-center mb-5">
-                  <svg className="w-12 h-12 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                  </svg>
+                <div className="w-[120px] h-[120px] rounded-full overflow-hidden mb-5 border-2 border-accent/20">
+                  <Image
+                    src="/images/founder.jpg"
+                    alt="Founder of StropDesign"
+                    width={120}
+                    height={120}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
 
                 <h3 className="font-display text-lg font-semibold text-heading">
@@ -67,8 +72,9 @@ export default function AboutPageEN() {
                 </p>
 
                 <p className="text-body text-sm leading-[1.7] font-light mt-4 max-w-xs">
-                  Over 3 years of experience. Every project done personally.
-                  From measurement to handover.
+                  Over 3 years of experience in stretch ceilings, overseeing
+                  dozens of projects across the Czech Republic. I personally
+                  ensure quality in every detail of each installation.
                 </p>
               </div>
             </div>

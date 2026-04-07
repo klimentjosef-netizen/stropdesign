@@ -42,7 +42,7 @@ export default function Surfaces({ surfaces }: SurfacesProps) {
   };
 
   return (
-    <section className="bg-light-secondary border-y border-border py-8 px-6 lg:px-10">
+    <section id="povrchy" className="bg-light-secondary border-y border-border py-8 px-6 lg:px-10">
       <RevealOnScroll>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-5">
