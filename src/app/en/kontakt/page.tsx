@@ -100,11 +100,13 @@ export default async function ContactPageEN() {
         </div>
       </section>
 
-      {/* Calculator */}
-      <Calculator surfaces={surfaces} addons={addons} />
+      {/* Calculator + Contact form anchor */}
+      <div id="kontakt-formular">
+        <Calculator surfaces={surfaces} addons={addons} />
 
-      {/* Contact form */}
-      <ContactSection />
+        {/* Contact form */}
+        <ContactSection />
+      </div>
     </>
   );
 }
