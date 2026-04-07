@@ -56,7 +56,7 @@ export default async function SluzbyPage() {
             <RevealOnScroll key={product.name} delay={i * 80}>
               <div className="bg-white border border-border flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl overflow-hidden">
                 {product.image && (
-                  <div className="h-32 relative overflow-hidden" style={{ background: product.color }}>
+                  <div className="h-48 relative overflow-hidden" style={{ background: product.color }}>
                     <img
                       src={product.image}
                       alt={product.name}

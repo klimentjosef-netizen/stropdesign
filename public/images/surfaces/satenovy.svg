@@ -1,46 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
   <defs>
-    <linearGradient id="satinBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#F0EBD8"/>
-      <stop offset="50%" stop-color="#EDE8D8"/>
-      <stop offset="100%" stop-color="#E8E3D2"/>
+    <linearGradient id="satinBase" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#E8E6F0"/>
+      <stop offset="30%" stop-color="#E4E2EC"/>
+      <stop offset="70%" stop-color="#E0DEE8"/>
+      <stop offset="100%" stop-color="#DDD8E8"/>
     </linearGradient>
-    <filter id="satinWaves" x="0" y="0" width="100%" height="100%">
-      <feTurbulence type="turbulence" baseFrequency="0.008 0.04" numOctaves="3" seed="8" result="waves"/>
-      <feDisplacementMap in="SourceGraphic" in2="waves" scale="8" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
-      <feGaussianBlur in="displaced" stdDeviation="0.5" result="smooth"/>
-    </filter>
-    <filter id="satinSheen" x="0" y="0" width="100%" height="100%">
-      <feTurbulence type="turbulence" baseFrequency="0.005 0.03" numOctaves="2" seed="12" result="sheenWave"/>
-      <feDiffuseLighting in="sheenWave" lighting-color="#FFFFFF" surfaceScale="3" diffuseConstant="0.7" result="light">
-        <feDistantLight azimuth="225" elevation="35"/>
-      </feDiffuseLighting>
-      <feComposite in="light" in2="SourceGraphic" operator="arithmetic" k1="0" k2="0.2" k3="0.8" k4="0"/>
-    </filter>
-    <filter id="satinSoft">
-      <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" seed="3" result="grain"/>
-      <feColorMatrix type="saturate" values="0" in="grain" result="gGrain"/>
-      <feComponentTransfer in="gGrain" result="faintGrain">
-        <feFuncR type="linear" slope="0.04" intercept="0"/>
-        <feFuncG type="linear" slope="0.04" intercept="0"/>
-        <feFuncB type="linear" slope="0.04" intercept="0"/>
-        <feFuncA type="constant" value="1"/>
-      </feComponentTransfer>
-      <feBlend in="SourceGraphic" in2="faintGrain" mode="multiply"/>
-    </filter>
-    <linearGradient id="satinHighlight1" x1="0" y1="0.2" x2="1" y2="0.6">
+    <linearGradient id="satinSheen" x1="0" y1="0" x2="0.7" y2="0.5">
       <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
       <stop offset="25%" stop-color="#FFFFFF" stop-opacity="0.12"/>
-      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.2"/>
-      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.08"/>
-      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.15"/>
-      <stop offset="70%" stop-color="#FFFFFF" stop-opacity="0.22"/>
-      <stop offset="80%" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="75%" stop-color="#FFFFFF" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
+    <linearGradient id="satinPearl" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#B8C4FF" stop-opacity="0.06"/>
+      <stop offset="30%" stop-color="#D4B8FF" stop-opacity="0.08"/>
+      <stop offset="60%" stop-color="#FFB8D4" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#B8E4FF" stop-opacity="0.07"/>
+    </linearGradient>
+    <filter id="satinSilk" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.003 0.3" numOctaves="4" seed="12" result="silk"/>
+      <feColorMatrix type="saturate" values="0" in="silk" result="graySilk"/>
+      <feComponentTransfer in="graySilk">
+        <feFuncR type="linear" slope="0.06" intercept="0.88"/>
+        <feFuncG type="linear" slope="0.06" intercept="0.87"/>
+        <feFuncB type="linear" slope="0.06" intercept="0.90"/>
+        <feFuncA type="constant" value="1"/>
+      </feComponentTransfer>
+    </filter>
+    <radialGradient id="satinHighlight" cx="0.35" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="800" height="400" fill="url(#satinBase)"/>
-  <rect width="800" height="400" fill="url(#satinBase)" filter="url(#satinSheen)"/>
-  <rect width="800" height="400" fill="url(#satinHighlight1)" filter="url(#satinWaves)"/>
-  <rect width="800" height="400" fill="#EDE8D8" opacity="0.4" filter="url(#satinSoft)"/>
+  <rect width="800" height="400" filter="url(#satinSilk)"/>
+  <rect width="800" height="400" fill="url(#satinSheen)"/>
+  <rect width="800" height="400" fill="url(#satinPearl)"/>
+  <rect width="800" height="400" fill="url(#satinHighlight)"/>
+  <ellipse cx="300" cy="170" rx="280" ry="120" fill="#FFFFFF" opacity="0.06"/>
 </svg>

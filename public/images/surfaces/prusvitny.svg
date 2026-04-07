@@ -1,49 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
   <defs>
-    <radialGradient id="translucentGlow1" cx="0.5" cy="0.5" r="0.6">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
-      <stop offset="50%" stop-color="#F5F2EA" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#F0EDE5" stop-opacity="0.1"/>
+    <radialGradient id="transGlow" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#F0EEFF" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#E0DDFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#D0CDF0" stop-opacity="0.1"/>
     </radialGradient>
-    <radialGradient id="translucentGlow2" cx="0.3" cy="0.4" r="0.5">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#F0EDE5" stop-opacity="0"/>
+    <radialGradient id="transGlow2" cx="0.3" cy="0.4" r="0.4">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#E8E5FF" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="translucentGlow3" cx="0.7" cy="0.6" r="0.4">
-      <stop offset="0%" stop-color="#FFFEF8" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#F0EDE5" stop-opacity="0"/>
+    <radialGradient id="transGlow3" cx="0.7" cy="0.6" r="0.35">
+      <stop offset="0%" stop-color="#F0EEFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#E0DDFF" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="translucentBase" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0%" stop-color="#F5F2EC"/>
-      <stop offset="50%" stop-color="#F0EDE5"/>
-      <stop offset="100%" stop-color="#ECE9E0"/>
+    <linearGradient id="transBase" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#EAE8F5"/>
+      <stop offset="50%" stop-color="#E5E3F0"/>
+      <stop offset="100%" stop-color="#E0DEF0"/>
     </linearGradient>
-    <filter id="translucentDiffuse" x="0" y="0" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" seed="15" result="diffusion"/>
-      <feDiffuseLighting in="diffusion" lighting-color="#FFF8E8" surfaceScale="2" diffuseConstant="0.9" result="light">
-        <fePointLight x="400" y="200" z="300"/>
+    <linearGradient id="transEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7B68EE" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#7B68EE" stop-opacity="0.02"/>
+      <stop offset="100%" stop-color="#7B68EE" stop-opacity="0.08"/>
+    </linearGradient>
+    <filter id="transDiffuse" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="15" result="diff"/>
+      <feDiffuseLighting in="diff" lighting-color="#FFFFFF" surfaceScale="1.5" diffuseConstant="0.9" result="light">
+        <fePointLight x="400" y="200" z="400"/>
       </feDiffuseLighting>
-      <feComposite in="light" in2="SourceGraphic" operator="arithmetic" k1="0" k2="0.3" k3="0.7" k4="0"/>
-    </filter>
-    <filter id="translucentSoft" x="0" y="0" width="100%" height="100%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blurred"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="4" result="softNoise"/>
-      <feDisplacementMap in="blurred" in2="softNoise" scale="5" result="displaced"/>
-    </filter>
-    <filter id="innerGlow">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="15"/>
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="0.5"/>
-      </feComponentTransfer>
-      <feBlend in="SourceGraphic" mode="screen"/>
+      <feComposite in="light" in2="SourceGraphic" operator="arithmetic" k1="0" k2="0.25" k3="0.75" k4="0"/>
     </filter>
   </defs>
-  <rect width="800" height="400" fill="url(#translucentBase)"/>
-  <rect width="800" height="400" fill="url(#translucentBase)" filter="url(#translucentDiffuse)"/>
-  <rect width="800" height="400" fill="url(#translucentGlow1)"/>
-  <rect width="800" height="400" fill="url(#translucentGlow2)"/>
-  <rect width="800" height="400" fill="url(#translucentGlow3)"/>
-  <ellipse cx="400" cy="200" rx="300" ry="150" fill="#FFFFFF" opacity="0.08" filter="url(#innerGlow)"/>
-  <ellipse cx="250" cy="180" rx="150" ry="80" fill="#FFFFFF" opacity="0.05"/>
-  <ellipse cx="550" cy="250" rx="120" ry="60" fill="#FFFFFF" opacity="0.04"/>
+  <rect width="800" height="400" fill="url(#transBase)"/>
+  <rect width="800" height="400" fill="url(#transBase)" filter="url(#transDiffuse)"/>
+  <rect width="800" height="400" fill="url(#transGlow)"/>
+  <rect width="800" height="400" fill="url(#transGlow2)"/>
+  <rect width="800" height="400" fill="url(#transGlow3)"/>
+  <rect width="800" height="400" fill="url(#transEdge)"/>
+  <ellipse cx="400" cy="200" rx="250" ry="130" fill="#FFFFFF" opacity="0.12"/>
 </svg>

@@ -1,43 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
   <defs>
-    <linearGradient id="perfBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#F4F4F4"/>
-      <stop offset="50%" stop-color="#F0F0F0"/>
-      <stop offset="100%" stop-color="#EBEBEB"/>
+    <linearGradient id="perfBase" x1="0" y1="0" x2="0.1" y2="1">
+      <stop offset="0%" stop-color="#F2F0EC"/>
+      <stop offset="50%" stop-color="#EDEAE6"/>
+      <stop offset="100%" stop-color="#E8E5E0"/>
     </linearGradient>
-    <radialGradient id="hole" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="#A0A0A0"/>
-      <stop offset="70%" stop-color="#B8B8B8"/>
-      <stop offset="85%" stop-color="#D0D0D0"/>
-      <stop offset="100%" stop-color="#E8E8E8"/>
+    <linearGradient id="perfBack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A1A2E"/>
+      <stop offset="100%" stop-color="#12121F"/>
+    </linearGradient>
+    <radialGradient id="starGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFE4B0" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#FFD080" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FFD080" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="perfPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-      <circle cx="10" cy="10" r="3.5" fill="url(#hole)"/>
+    <pattern id="perfGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="4" fill="#2A2A40" opacity="0.15"/>
+      <circle cx="12" cy="12" r="3" fill="#1A1A2E" opacity="0.08"/>
     </pattern>
-    <filter id="perfShadow" x="-5%" y="-5%" width="110%" height="110%">
+    <filter id="perfGrain" x="0" y="0" width="100%" height="100%">
       <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" seed="9" result="grain"/>
-      <feColorMatrix type="saturate" values="0" in="grain" result="gGrain"/>
-      <feComponentTransfer in="gGrain" result="fineGrain">
+      <feColorMatrix type="saturate" values="0" in="grain"/>
+      <feComponentTransfer>
         <feFuncR type="linear" slope="0.03" intercept="0"/>
         <feFuncG type="linear" slope="0.03" intercept="0"/>
         <feFuncB type="linear" slope="0.03" intercept="0"/>
         <feFuncA type="constant" value="1"/>
       </feComponentTransfer>
-      <feBlend in="SourceGraphic" in2="fineGrain" mode="multiply"/>
+      <feBlend in="SourceGraphic" mode="multiply"/>
     </filter>
-    <filter id="perfLight">
-      <feDiffuseLighting in="SourceGraphic" lighting-color="#FFFFFF" surfaceScale="1" diffuseConstant="0.8" result="light">
-        <feDistantLight azimuth="225" elevation="45"/>
-      </feDiffuseLighting>
-      <feComposite in="light" in2="SourceGraphic" operator="arithmetic" k1="0" k2="0.15" k3="0.85" k4="0"/>
-    </filter>
-    <radialGradient id="perfSoftLight" cx="0.4" cy="0.35" r="0.6">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity="0.03"/>
+    <radialGradient id="perfSoft" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#E67E22" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#E67E22" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="800" height="400" fill="url(#perfBase)"/>
-  <rect width="800" height="400" fill="url(#perfBase)" filter="url(#perfShadow)"/>
-  <rect width="800" height="400" fill="url(#perfPattern)"/>
-  <rect width="800" height="400" fill="url(#perfSoftLight)"/>
+  <rect width="800" height="400" filter="url(#perfGrain)" fill="url(#perfBase)"/>
+  <rect width="800" height="400" fill="url(#perfGrid)"/>
+  <rect width="800" height="400" fill="url(#perfSoft)"/>
+  <!-- Subtle backlight glow through some holes -->
+  <circle cx="200" cy="150" r="3" fill="#FFE4B0" opacity="0.15"/>
+  <circle cx="360" cy="200" r="2.5" fill="#FFE4B0" opacity="0.12"/>
+  <circle cx="500" cy="120" r="2" fill="#FFE4B0" opacity="0.1"/>
+  <circle cx="640" cy="250" r="3" fill="#FFE4B0" opacity="0.13"/>
+  <circle cx="300" cy="300" r="2" fill="#FFE4B0" opacity="0.08"/>
+  <circle cx="550" cy="320" r="2.5" fill="#FFE4B0" opacity="0.1"/>
 </svg>

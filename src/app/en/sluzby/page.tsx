@@ -54,7 +54,17 @@ export default async function ServicesPageEN() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {surfaces.map((product, i) => (
             <RevealOnScroll key={product.name} delay={i * 80}>
-              <div className="bg-white border border-border p-8 flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl">
+              <div className="bg-white border border-border flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl overflow-hidden">
+                {product.image && (
+                  <div className="h-48 relative overflow-hidden" style={{ background: product.color }}>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-8 flex flex-col flex-grow">
                 <div className="text-accent text-[10px] tracking-[0.12em] uppercase font-medium mb-4">
                   {product.priceLabel}
                 </div>
@@ -82,6 +92,7 @@ export default async function ServicesPageEN() {
                 >
                   Request this surface
                 </Link>
+                </div>
               </div>
             </RevealOnScroll>
           ))}
