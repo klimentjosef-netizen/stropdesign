@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import ReferenceGrid from "@/components/ReferenceGrid";
@@ -42,25 +41,6 @@ export default async function PortfolioPageEN() {
         <ReferenceGrid references={references} />
       </section>
 
-      {/* CTA */}
-      <section className="py-16 lg:py-20 px-6 lg:px-10 border-t border-border">
-        <div className="max-w-3xl mx-auto text-center">
-          <RevealOnScroll>
-            <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-4 text-heading">
-              Want a similar result?
-            </h2>
-            <p className="text-body text-sm leading-[1.7] font-light mb-8">
-              Every ceiling is custom-made. Get in touch and we&apos;ll find the right solution for your space.
-            </p>
-            <Link
-              href="/en/kontakt#kontakt-formular"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
-            >
-              Free enquiry
-            </Link>
-          </RevealOnScroll>
-        </div>
-      </section>
     </>
   );
 }
