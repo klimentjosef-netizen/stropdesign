@@ -51,7 +51,7 @@ export default function ONasPage() {
           <RevealOnScroll delay={200}>
             <div className="bg-light-secondary border border-border p-8 rounded-2xl">
               <div className="flex flex-col items-center text-center">
-                <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 ring-4 ring-[#1a1a1a] ring-offset-2 ring-offset-light-secondary">
+                <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 border-2 border-accent/20">
                   <img
                     src="/images/founder.jpg"
                     alt="Pavel Karlík - zakladatel StropDesign"
