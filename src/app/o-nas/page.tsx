@@ -60,7 +60,7 @@ export default function ONasPage() {
                     alt="Zakladatel StropDesign"
                     width={120}
                     height={120}
-                    className="object-cover w-full h-full scale-150"
+                    className="object-cover w-full h-full scale-[1.8] object-top"
                   />
                 </div>
 
