@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "StropDesign Web <web@stropdesign.cz>",
+          from: "StropDesign <onboarding@resend.dev>",
           to: [toEmail],
           subject: `Poptávka od ${body.name}`,
           html: htmlBody,
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "StropDesign <web@stropdesign.cz>",
+            from: "StropDesign <onboarding@resend.dev>",
             to: [body.email],
             subject: "Děkujeme za vaši poptávku – StropDesign",
             html: customerHtml,
