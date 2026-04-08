@@ -99,8 +99,8 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Potvrzovací email zákazníkovi
-      if (body.email && customerHtml) {
+      // Potvrzovací email zákazníkovi (zapnout po ověření domény v Resendu)
+      if (false && body.email && customerHtml) {
         const customerRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
