@@ -46,6 +46,7 @@ const cs = {
     subtitle:
       "Zavolejte nám nebo vyplňte formulář. Odpovídáme do 48 hodin a nabídku připravíme přesně na míru vašeho projektu.",
     name: "Jméno a příjmení",
+    email: "E-mail",
     phone: "Telefon",
     room: "Typ místnosti a přibližná plocha",
     message: "Zpráva (nepovinné)",

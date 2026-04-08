@@ -48,6 +48,7 @@ const en: Dictionary = {
     subtitle:
       "Call us or fill out the form. We respond within 48 hours and prepare a tailor-made offer for your project.",
     name: "Full name",
+    email: "Email",
     phone: "Phone",
     room: "Room type and approximate area",
     message: "Message (optional)",

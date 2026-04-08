@@ -47,6 +47,28 @@ export async function POST(req: NextRequest) {
       </html>
     `;
 
+    const customerHtml = body.email
+      ? `
+      <!DOCTYPE html>
+      <html lang="cs">
+      <head><meta charset="utf-8"></head>
+      <body style="font-family:Arial,sans-serif;color:#333;">
+      <h2 style="color:#847631;">Děkujeme za vaši poptávku!</h2>
+      <p>Dobrý den, ${escapeHtml(body.name)},</p>
+      <p>vaši poptávku jsme přijali a budeme se vám věnovat co nejdříve. Obvykle odpovídáme do 48 hodin.</p>
+      <h3 style="margin-top:24px;color:#847631;">Shrnutí vaší poptávky:</h3>
+      <table style="border-collapse:collapse;">
+        ${body.phone ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Telefon:</td><td style="padding:4px 0;">${escapeHtml(body.phone)}</td></tr>` : ""}
+        ${body.room ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Místnost:</td><td style="padding:4px 0;">${escapeHtml(body.room)}</td></tr>` : ""}
+        ${body.message ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Zpráva:</td><td style="padding:4px 0;">${escapeHtml(body.message)}</td></tr>` : ""}
+      </table>
+      <p style="margin-top:24px;">S pozdravem,<br/><strong>Tým StropDesign</strong></p>
+      <p style="font-size:12px;color:#999;margin-top:16px;">StropDesign / Derbau s.r.o. · +420 739 457 794 · info@stropdesign.cz</p>
+      </body>
+      </html>
+    `
+      : null;
+
     if (apiKey) {
       // Produkční režim — odesílání přes Resend
       const res = await fetch("https://api.resend.com/emails", {
@@ -72,6 +94,28 @@ export async function POST(req: NextRequest) {
           { status: 500 }
         );
       }
+
+      // Potvrzovací email zákazníkovi
+      if (body.email && customerHtml) {
+        const customerRes = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "StropDesign <web@stropdesign.cz>",
+            to: [body.email],
+            subject: "Děkujeme za vaši poptávku – StropDesign",
+            html: customerHtml,
+            reply_to: toEmail,
+          }),
+        });
+
+        if (!customerRes.ok) {
+          console.error("Resend customer email error:", await customerRes.text());
+        }
+      }
     } else {
       // Dev režim — logujeme do konzole
       console.log("═══ NOVÁ POPTÁVKA (dev mode) ═══");
@@ -81,6 +125,9 @@ export async function POST(req: NextRequest) {
       console.log("Místnost:", body.room || "–");
       console.log("Zpráva:", body.message || "–");
       console.log("════════════════════════════════");
+      if (body.email) {
+        console.log("→ Potvrzovací email by byl odeslán na:", body.email);
+      }
     }
 
     return NextResponse.json({ success: true });

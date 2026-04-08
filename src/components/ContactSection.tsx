@@ -14,6 +14,7 @@ function ContactForm() {
   const d = useDict();
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     phone: "",
     room: "",
     message: "",
@@ -77,6 +78,7 @@ function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <input type="text" placeholder={d.contact.name} required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputClass} />
+      <input type="email" placeholder={d.contact.email} required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={inputClass} />
       <input type="tel" placeholder={d.contact.phone} required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={inputClass} />
       <input type="text" placeholder={d.contact.room} value={formData.room} onChange={(e) => setFormData({ ...formData, room: e.target.value })} className={inputClass} />
       <textarea placeholder={d.contact.message} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className={`${inputClass} resize-y min-h-[90px]`} />
