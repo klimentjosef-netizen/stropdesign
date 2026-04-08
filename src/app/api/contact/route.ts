@@ -69,6 +69,8 @@ export async function POST(req: NextRequest) {
     `
       : null;
 
+    let resendData: unknown;
+
     if (apiKey) {
       // Produkční režim — odesílání přes Resend
       const res = await fetch("https://api.resend.com/emails", {
@@ -86,11 +88,13 @@ export async function POST(req: NextRequest) {
         }),
       });
 
+      resendData = await res.json();
+      console.log("Resend response:", res.status, JSON.stringify(resendData));
+
       if (!res.ok) {
-        const err = await res.text();
-        console.error("Resend error:", err);
+        console.error("Resend error:", JSON.stringify(resendData));
         return NextResponse.json(
-          { error: "Nepodařilo se odeslat email." },
+          { error: "Nepodařilo se odeslat email.", debug: resendData },
           { status: 500 }
         );
       }
@@ -130,7 +134,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, resend: typeof resendData !== "undefined" ? resendData : "dev-mode" });
   } catch {
     return NextResponse.json(
       { error: "Neplatný požadavek." },
