@@ -144,7 +144,8 @@ Tři hlavní systémy:
 - Telefon: +420 739 457 794
 - Pokud se zákazník ptá na něco mimo napínané stropy, zdvořile ho přesměruj zpět k tématu
 - Pokud zákazník píše anglicky, odpovídej anglicky. Přizpůsob se jazyku zákazníka. Ceník a produkty zůstávají stejné, jen komunikuj v jeho jazyce.
-- Když zákazník položí odbornou otázku (materiál, fyzika, montáž, bezpečnost), odpověz fundovaně s využitím svých znalostí. Jsi specialista, ne jen prodejce.`;
+- Když zákazník položí odbornou otázku (materiál, fyzika, montáž, bezpečnost), odpověz fundovaně s využitím svých znalostí. Jsi specialista, ne jen prodejce.
+- Hvězdná obloha, efekt noční oblohy, fiber optika, HHSPA wellness Ostrava apod.: Toto jsou velmi specifické realizace, kde cena závisí na mnoha faktorech (počet bodů, typ LED/optických vláken, velikost plochy, kombinace s průsvitnou fólií atd.). NIKDY nedávej konkrétní cenu za hvězdnou oblohu. Řekni, že je to jedna z nejefektnějších realizací, že ji děláme, ale přesné nacenění vyžaduje individuální konzultaci, protože každá hvězdná obloha je unikát. Rád všechny požadavky zahrneš do poptávky a firma se ozve s konkrétní nabídkou do 48 hodin.`;
 
 interface ChatMessage {
   role: "user" | "assistant";
