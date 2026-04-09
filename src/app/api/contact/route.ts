@@ -15,6 +15,18 @@ interface ContactBody {
   message?: string;
 }
 
+// Dočasný debug endpoint — smazat po ověření
+export async function GET() {
+  const apiKey = process.env.RESEND_API_KEY;
+  const contactEmail = process.env.CONTACT_EMAIL;
+  return NextResponse.json({
+    hasApiKey: !!apiKey,
+    apiKeyLength: apiKey ? apiKey.length : 0,
+    apiKeyPrefix: apiKey ? apiKey.substring(0, 6) + "..." : null,
+    contactEmail: contactEmail || "(not set, default: info@stropdesign.cz)",
+  });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body: ContactBody = await req.json();
