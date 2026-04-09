@@ -28,8 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
-    // DOČASNÉ: dokud není ověřená doména v Resendu, posíláme na registrovaný email
-    const toEmail = "kliment.josef@email.cz";
+    const toEmail = process.env.CONTACT_EMAIL || "info@stropdesign.cz";
 
     const htmlBody = `
       <!DOCTYPE html>
@@ -81,7 +80,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "StropDesign <onboarding@resend.dev>",
+          from: "StropDesign <noreply@stropdesign.cz>",
           to: [toEmail],
           subject: `Poptávka od ${body.name}`,
           html: htmlBody,
@@ -109,7 +108,7 @@ export async function POST(req: NextRequest) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "StropDesign <onboarding@resend.dev>",
+            from: "StropDesign <noreply@stropdesign.cz>",
             to: [body.email],
             subject: "Děkujeme za vaši poptávku – StropDesign",
             html: customerHtml,
