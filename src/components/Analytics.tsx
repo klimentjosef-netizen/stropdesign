@@ -2,7 +2,13 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
-import { GA_ID, GOOGLE_ADS_ID, grantConsent } from "@/lib/gtag";
+import {
+  GA_ID,
+  GOOGLE_ADS_ID,
+  SKLIK_RETARGETING_ID,
+  grantConsent,
+  trackSklikRetargeting,
+} from "@/lib/gtag";
 
 export default function Analytics() {
   useEffect(() => {
@@ -10,7 +16,7 @@ export default function Analytics() {
     if (localStorage.getItem("cookie-consent") === "all") grantConsent();
   }, []);
 
-  if (!GA_ID && !GOOGLE_ADS_ID) return null;
+  if (!GA_ID && !GOOGLE_ADS_ID && !SKLIK_RETARGETING_ID) return null;
 
   const firstId = GA_ID || GOOGLE_ADS_ID;
 
@@ -44,6 +50,14 @@ export default function Analytics() {
           ${GOOGLE_ADS_ID ? `gtag('config', '${GOOGLE_ADS_ID}');` : ""}
         `}
       </Script>
+
+      {SKLIK_RETARGETING_ID && (
+        <Script
+          src="https://c.seznam.cz/js/rc.js"
+          strategy="afterInteractive"
+          onLoad={() => trackSklikRetargeting()}
+        />
+      )}
     </>
   );
 }
