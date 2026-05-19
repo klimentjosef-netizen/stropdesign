@@ -147,9 +147,25 @@ Tři hlavní systémy:
 - Když zákazník položí odbornou otázku (materiál, fyzika, montáž, bezpečnost), odpověz fundovaně s využitím svých znalostí. Jsi specialista, ne jen prodejce.
 - Hvězdná obloha, efekt noční oblohy, fiber optika, HHSPA wellness Ostrava apod.: Toto jsou velmi specifické realizace, kde cena závisí na mnoha faktorech (počet bodů, typ LED/optických vláken, velikost plochy, kombinace s průsvitnou fólií atd.). NIKDY nedávej konkrétní cenu za hvězdnou oblohu. Řekni, že je to jedna z nejefektnějších realizací, že ji děláme, ale přesné nacenění vyžaduje individuální konzultaci, protože každá hvězdná obloha je unikát. Rád všechny požadavky zahrneš do poptávky a firma se ozve s konkrétní nabídkou do 48 hodin.`;
 
+type ImageMediaType = "image/jpeg" | "image/png" | "image/webp" | "image/gif";
+
+interface ChatImage {
+  base64: string;
+  mediaType: string;
+}
+
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
+  image?: ChatImage;
+}
+
+function normaliseMediaType(t: string): ImageMediaType {
+  if (t === "image/heic" || t === "image/heif") return "image/jpeg";
+  if (t === "image/jpeg" || t === "image/png" || t === "image/webp" || t === "image/gif") {
+    return t;
+  }
+  return "image/jpeg";
 }
 
 export async function POST(req: NextRequest) {
@@ -174,10 +190,25 @@ export async function POST(req: NextRequest) {
       model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
       system: SYSTEM_PROMPT,
-      messages: messages.map((m) => ({
-        role: m.role,
-        content: m.content,
-      })),
+      messages: messages.map((m) => {
+        if (m.role === "user" && m.image?.base64) {
+          return {
+            role: "user" as const,
+            content: [
+              {
+                type: "image" as const,
+                source: {
+                  type: "base64" as const,
+                  media_type: normaliseMediaType(m.image.mediaType),
+                  data: m.image.base64,
+                },
+              },
+              { type: "text" as const, text: m.content || "(Obrázek od uživatele)" },
+            ],
+          };
+        }
+        return { role: m.role, content: m.content };
+      }),
     });
 
     const encoder = new TextEncoder();

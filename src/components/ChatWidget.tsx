@@ -43,6 +43,11 @@ const t = {
     pcs: "ks",
     currency: "Kč",
     surfaceLabel: "povrch",
+    attachPhoto: "Připojit fotku",
+    photoTooBig: "Fotka je větší než 4 MB.",
+    photoBadType: "Povolené jsou jen obrázky (JPG, PNG, WebP, HEIC).",
+    photoRemove: "Odebrat fotku",
+    photoSent: "📷 Fotka",
   },
   en: {
     configSummary: "Configuration summary",
@@ -82,12 +87,27 @@ const t = {
     pcs: "pcs",
     currency: "CZK",
     surfaceLabel: "surface",
+    attachPhoto: "Attach photo",
+    photoTooBig: "Photo exceeds 4 MB.",
+    photoBadType: "Only images allowed (JPG, PNG, WebP, HEIC).",
+    photoRemove: "Remove photo",
+    photoSent: "📷 Photo",
   },
 } as const;
+
+const MAX_PHOTO_BYTES = 4 * 1024 * 1024;
+const ALLOWED_PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
+
+interface ChatImage {
+  base64: string;
+  mediaType: string;
+  previewUrl: string;
+}
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+  image?: { base64: string; mediaType: string; previewUrl?: string };
 }
 
 interface InquiryData {
@@ -116,6 +136,19 @@ function stripInquiryBlock(text: string): string {
   return text
     .replace(/---INQUIRY_DATA---[\s\S]*?---END_INQUIRY_DATA---/, "")
     .trim();
+}
+
+function fileToBase64(file: File): Promise<{ base64: string; mediaType: string; previewUrl: string }> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      const base64 = result.split(",")[1] || "";
+      resolve({ base64, mediaType: file.type, previewUrl: result });
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 function InquiryCard({
@@ -314,11 +347,14 @@ export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [pendingImage, setPendingImage] = useState<ChatImage | null>(null);
+  const [photoError, setPhotoError] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [inquiryForm, setInquiryForm] = useState<InquiryData | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const streamingRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -334,7 +370,6 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
 
-  // Allow other components (e.g. Calculator) to open the chat
   useEffect(() => {
     const handler = () => setIsOpen(true);
     window.addEventListener("openStropKecka", handler);
@@ -348,21 +383,55 @@ export default function ChatWidget() {
     }
   };
 
+  const handlePhotoSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (photoInputRef.current) photoInputRef.current.value = "";
+    if (!file) return;
+    setPhotoError("");
+
+    if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
+      setPhotoError(l.photoBadType);
+      return;
+    }
+    if (file.size > MAX_PHOTO_BYTES) {
+      setPhotoError(l.photoTooBig);
+      return;
+    }
+    try {
+      const data = await fileToBase64(file);
+      setPendingImage(data);
+    } catch {
+      setPhotoError(l.somethingWrong);
+    }
+  };
+
   const [lastInquiryData, setLastInquiryData] = useState<InquiryData | null>(
     null
   );
 
-  // We need to detect inquiry data during streaming. Let's use a ref to track full text
   const fullTextRef = useRef("");
 
   const sendMessageWithTracking = async (directText?: string) => {
     const text = (directText || input).trim();
-    if (!text || isStreaming) return;
+    if ((!text && !pendingImage) || isStreaming) return;
 
-    const userMessage: Message = { role: "user", content: text };
+    const userMessage: Message = {
+      role: "user",
+      content: text || (pendingImage ? l.photoSent : ""),
+      ...(pendingImage
+        ? {
+            image: {
+              base64: pendingImage.base64,
+              mediaType: pendingImage.mediaType,
+              previewUrl: pendingImage.previewUrl,
+            },
+          }
+        : {}),
+    };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput("");
+    setPendingImage(null);
     setIsStreaming(true);
     setLastInquiryData(null);
     fullTextRef.current = "";
@@ -371,7 +440,13 @@ export default function ChatWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({
+          messages: newMessages.map((m) => ({
+            role: m.role,
+            content: m.content,
+            ...(m.image ? { image: { base64: m.image.base64, mediaType: m.image.mediaType } } : {}),
+          })),
+        }),
       });
 
       if (!res.ok) {
@@ -384,8 +459,7 @@ export default function ChatWidget() {
 
       const decoder = new TextDecoder();
 
-      // Don't add to React state during streaming — update DOM directly
-      setMessages((prev) => [...prev, { role: "assistant", content: "\u200B" }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "​" }]);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -402,7 +476,6 @@ export default function ChatWidget() {
               const parsed = JSON.parse(data);
               if (parsed.text) {
                 fullTextRef.current += parsed.text;
-                // Direct DOM update — no React re-render
                 if (streamingRef.current) {
                   streamingRef.current.textContent = stripInquiryBlock(fullTextRef.current);
                 }
@@ -414,12 +487,10 @@ export default function ChatWidget() {
         }
       }
 
-      // Clear DOM text before React takes over — prevents double text
       if (streamingRef.current) {
         streamingRef.current.textContent = "";
       }
 
-      // Streaming done — commit final text to React state
       const finalText = stripInquiryBlock(fullTextRef.current);
       setMessages((prev) => {
         const updated = [...prev];
@@ -451,7 +522,6 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Floating bubble */}
       <button
         onClick={() => setIsOpen((o) => !o)}
         className={`fixed bottom-6 right-6 z-[90] w-14 h-14 bg-accent text-white rounded-full shadow-lg hover:bg-accent-hover transition-all duration-300 hover:scale-105 flex items-center justify-center${isOpen ? " hidden sm:flex" : ""}`}
@@ -475,7 +545,6 @@ export default function ChatWidget() {
         )}
       </button>
 
-      {/* Tooltip + pulse ring when closed */}
       {!isOpen && messages.length === 0 && (
         <>
           <div
@@ -489,7 +558,6 @@ export default function ChatWidget() {
         </>
       )}
 
-      {/* Chat window */}
       {isOpen && (
         <div
           className="fixed inset-0 z-[91] sm:inset-auto sm:bottom-24 sm:right-6 w-full h-[100dvh] sm:w-[360px] sm:h-auto sm:max-w-[calc(100vw-2rem)] bg-white border-0 sm:border sm:border-border sm:rounded-sm shadow-2xl flex flex-col overflow-hidden"
@@ -497,14 +565,12 @@ export default function ChatWidget() {
             maxHeight: undefined,
             animation: "chatSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards",
           }}
-          // sm+ uses inline style for height constraint
           ref={(el) => {
             if (el && window.innerWidth >= 640) {
               el.style.height = "min(520px, calc(100dvh - 8rem))";
             }
           }}
         >
-          {/* Header */}
           <div className="bg-dark px-4 py-3 flex items-center gap-3 flex-shrink-0">
             <div className="flex-shrink-0">
               <MascotA size={32} />
@@ -534,7 +600,6 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          {/* Inquiry form overlay */}
           {inquiryForm && (
             <div className="absolute inset-0 z-10 bg-white flex flex-col">
               <div className="bg-dark px-4 py-3 flex items-center gap-3 flex-shrink-0">
@@ -558,7 +623,6 @@ export default function ChatWidget() {
                 </div>
               </div>
 
-              {/* Inquiry summary */}
               <div className="p-4 border-b border-border bg-light-secondary">
                 <div className="flex flex-col gap-1 text-[11px]">
                   <div className="flex justify-between">
@@ -588,7 +652,6 @@ export default function ChatWidget() {
             </div>
           )}
 
-          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
             {messages.length === 0 && (
               <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
@@ -640,6 +703,14 @@ export default function ChatWidget() {
                         : "bg-light-secondary text-body border border-border"
                     }`}
                   >
+                    {msg.image?.previewUrl && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={msg.image.previewUrl}
+                        alt=""
+                        className="max-w-[200px] max-h-[180px] rounded-sm mb-2 border border-white/20"
+                      />
+                    )}
                     {isStreamingThis ? null : msg.content}
                     {isLastAssistant &&
                       lastInquiryData &&
@@ -657,7 +728,7 @@ export default function ChatWidget() {
 
             {isStreaming &&
               messages.length > 0 &&
-              messages[messages.length - 1].content === "\u200B" && (
+              messages[messages.length - 1].content === "​" && (
                 <div className="flex justify-start">
                   <div className="bg-light-secondary border border-border rounded-sm px-4 py-3 flex gap-1">
                     <span
@@ -679,9 +750,57 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
           <div className="border-t border-border p-3 flex-shrink-0">
+            {pendingImage && (
+              <div className="mb-2 flex items-center gap-2 bg-light-secondary border border-border rounded-sm p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={pendingImage.previewUrl}
+                  alt=""
+                  className="w-12 h-12 object-cover rounded-sm flex-shrink-0"
+                />
+                <span className="text-[11px] text-body flex-1 truncate">
+                  {l.attachPhoto}
+                </span>
+                <button
+                  onClick={() => setPendingImage(null)}
+                  aria-label={l.photoRemove}
+                  className="text-muted hover:text-red-600 transition-colors text-[16px] leading-none px-1"
+                >
+                  ×
+                </button>
+              </div>
+            )}
+            {photoError && (
+              <p className="text-red-600 text-[11px] mb-2">{photoError}</p>
+            )}
             <div className="flex gap-2 items-end">
+              <input
+                ref={photoInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoSelected}
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={() => photoInputRef.current?.click()}
+                disabled={isStreaming || !!pendingImage}
+                aria-label={l.attachPhoto}
+                title={l.attachPhoto}
+                className="bg-light-secondary border border-border text-muted w-9 h-[38px] flex items-center justify-center rounded-sm hover:text-accent hover:border-accent transition-colors disabled:opacity-40 flex-shrink-0"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                >
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
+                </svg>
+              </button>
               <textarea
                 ref={inputRef}
                 value={input}
@@ -694,7 +813,7 @@ export default function ChatWidget() {
               />
               <button
                 onClick={() => sendMessageWithTracking()}
-                disabled={!input.trim() || isStreaming}
+                disabled={(!input.trim() && !pendingImage) || isStreaming}
                 className="bg-accent text-white w-9 h-[38px] flex items-center justify-center rounded-sm hover:bg-accent-hover transition-colors disabled:opacity-40 flex-shrink-0"
               >
                 <svg
