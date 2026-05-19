@@ -7,6 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import AutoLocaleProvider from "@/components/AutoLocaleProvider";
 import ChatWidget from "@/components/ChatWidget";
 import CookieBanner from "@/components/CookieBanner";
+import Analytics from "@/components/Analytics";
 
 const ibmPlex = IBM_Plex_Sans({
   subsets: ["latin", "latin-ext"],
@@ -49,6 +50,7 @@ export default function RootLayout({
   return (
     <html lang="cs" className={ibmPlex.variable}>
       <body className="font-body bg-light text-heading">
+        <Analytics />
         <AutoLocaleProvider>
           <JsonLd />
           <Navbar />

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 import { useDict } from "@/i18n/LocaleContext";
+import { trackAdsConversion, trackEvent } from "@/lib/gtag";
 
 const inputClass =
   "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.1)] hover:border-border-dark rounded-xl";
@@ -53,6 +54,8 @@ function ContactForm() {
         throw new Error(data.error || "Error");
       }
 
+      trackEvent("generate_lead", { form: "contact" });
+      trackAdsConversion();
       setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error");

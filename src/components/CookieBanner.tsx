@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { grantConsent, denyConsent } from "@/lib/gtag";
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
@@ -15,11 +16,13 @@ export default function CookieBanner() {
 
   const accept = () => {
     localStorage.setItem("cookie-consent", "all");
+    grantConsent();
     setVisible(false);
   };
 
   const decline = () => {
     localStorage.setItem("cookie-consent", "necessary");
+    denyConsent();
     setVisible(false);
   };
 
