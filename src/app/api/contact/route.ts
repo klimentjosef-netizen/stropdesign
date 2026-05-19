@@ -28,9 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
-    // DOČASNÉ: sandbox režim, dokud Resend neověří doménu stropdesign.cz
-    // Pak změnit na: process.env.CONTACT_EMAIL || "info@stropdesign.cz"
-    const toEmail = "kliment.josef@email.cz";
+    const toEmail = process.env.CONTACT_EMAIL || "info@stropdesign.cz";
 
     const htmlBody = `
       <!DOCTYPE html>
