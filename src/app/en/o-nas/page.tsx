@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
@@ -7,7 +8,7 @@ import { reasonsEn } from "@/data/reasons-en";
 export const metadata: Metadata = {
   title: "About Us | Stretch Ceiling Specialists | StropDesign",
   description:
-    "StropDesign – a division of Derbau s.r.o. Over 150 completed projects, 12-year color warranty. We operate across the Czech Republic.",
+    "StropDesign – a division of Derbau s.r.o. 200+ completed projects, 12-year colour warranty. Stretch ceiling installations across the Czech Republic.",
   alternates: {
     canonical: "/en/o-nas",
     languages: { cs: "/o-nas", en: "/en/o-nas" },
@@ -51,18 +52,20 @@ export default function AboutPageEN() {
           <RevealOnScroll delay={200}>
             <div className="bg-light-secondary border border-border p-8 rounded-2xl">
               <div className="flex flex-col items-center text-center">
-                <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 border-2 border-accent/20">
-                  <img
+                <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 border-2 border-accent/20 relative">
+                  <Image
                     src="/images/founder.jpg"
-                    alt="Pavel Karlík - founder of StropDesign"
-                    className="w-full h-full object-cover"
+                    alt="Pavel Karlík – founder of StropDesign"
+                    fill
+                    sizes="140px"
+                    className="object-cover"
                     style={{ objectPosition: "center 15%" }}
                   />
                 </div>
 
-                <h3 className="font-display text-lg font-semibold text-heading">
+                <h2 className="font-display text-lg font-semibold text-heading">
                   Pavel Karlík
-                </h3>
+                </h2>
                 <p className="text-muted text-xs font-light mt-0.5">
                   Founder &amp; Lead Installer
                 </p>

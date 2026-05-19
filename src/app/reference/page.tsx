@@ -38,7 +38,14 @@ export default async function ReferencePage() {
 
       {/* Grid with Lightbox */}
       <section className="py-16 lg:py-24 px-6 lg:px-10 bg-light-secondary">
-        <ReferenceGrid references={references} />
+        <div className="max-w-7xl mx-auto">
+          <RevealOnScroll>
+            <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold leading-[1.15] mb-10 text-heading">
+              Dokončené projekty
+            </h2>
+          </RevealOnScroll>
+          <ReferenceGrid references={references} />
+        </div>
       </section>
 
     </>

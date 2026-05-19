@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
 import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 import type { Surface } from "@/lib/keystatic";
@@ -108,10 +109,12 @@ export default function Surfaces({ surfaces }: SurfacesProps) {
                         style={{ background: surface.color }}
                       >
                         {surface.image && (
-                          <img
+                          <Image
                             src={surface.image}
-                            alt={surface.name}
-                            className="absolute inset-0 w-full h-full object-cover"
+                            alt={`Napínaný strop – povrch ${surface.name}`}
+                            fill
+                            sizes="(max-width: 768px) 25vw, 12vw"
+                            className="object-cover"
                           />
                         )}
                         <div

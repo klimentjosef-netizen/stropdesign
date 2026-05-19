@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionEyebrow from "@/components/SectionEyebrow";
@@ -7,7 +8,7 @@ import { reasons } from "@/data/reasons";
 export const metadata: Metadata = {
   title: "O nás | Specialisté na napínané stropy | StropDesign",
   description:
-    "StropDesign – divize Derbau s.r.o. Přes 150 realizací, záruka 12 let na barvu. Realizujeme po celé České republice.",
+    "StropDesign – divize Derbau s.r.o. 200+ realizací, záruka 12 let na barvu. Realizujeme napínané stropy po celé České republice.",
   alternates: {
     canonical: "/o-nas",
     languages: { cs: "/o-nas", en: "/en/o-nas" },
@@ -51,18 +52,20 @@ export default function ONasPage() {
           <RevealOnScroll delay={200}>
             <div className="bg-light-secondary border border-border p-8 rounded-2xl">
               <div className="flex flex-col items-center text-center">
-                <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 border-2 border-accent/20">
-                  <img
+                <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 border-2 border-accent/20 relative">
+                  <Image
                     src="/images/founder.jpg"
-                    alt="Pavel Karlík - zakladatel StropDesign"
-                    className="w-full h-full object-cover"
+                    alt="Pavel Karlík – zakladatel StropDesign"
+                    fill
+                    sizes="140px"
+                    className="object-cover"
                     style={{ objectPosition: "center 15%" }}
                   />
                 </div>
 
-                <h3 className="font-display text-lg font-semibold text-heading">
+                <h2 className="font-display text-lg font-semibold text-heading">
                   Pavel Karlík
-                </h3>
+                </h2>
                 <p className="text-muted text-xs font-light mt-0.5">
                   Zakladatel &amp; hlavní montér
                 </p>

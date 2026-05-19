@@ -51,16 +51,24 @@ export default async function ServicesPageEN() {
 
       {/* Products grid */}
       <section className="py-16 lg:py-24 px-6 lg:px-10 bg-light-secondary">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="max-w-7xl mx-auto">
+          <RevealOnScroll>
+            <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold leading-[1.15] mb-10 text-heading">
+              Our stretch ceiling types
+            </h2>
+          </RevealOnScroll>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {surfaces.map((product, i) => (
             <RevealOnScroll key={product.name} delay={i * 80}>
               <div className="bg-white border border-border flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl overflow-hidden">
                 {product.image && (
                   <div className="h-48 relative overflow-hidden" style={{ background: product.color }}>
-                    <img
+                    <Image
                       src={product.image}
-                      alt={product.name}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      alt={`Stretch ceiling – ${product.name} finish`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -96,6 +104,7 @@ export default async function ServicesPageEN() {
               </div>
             </RevealOnScroll>
           ))}
+        </div>
         </div>
       </section>
 
