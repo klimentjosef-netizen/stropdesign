@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
@@ -10,9 +10,31 @@ import { trackAdsConversion, trackEvent, trackSklikConversion } from "@/lib/gtag
 const inputClass =
   "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.1)] hover:border-border-dark rounded-xl";
 
+const MAX_FILES = 5;
+const MAX_FILE_BYTES = 4 * 1024 * 1024;
+const MAX_TOTAL_BYTES = 4 * 1024 * 1024;
+const ALLOWED_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+const ALLOWED_ACCEPT = "image/*,.pdf,.doc,.docx";
+
+function formatSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} kB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 function ContactForm() {
   const searchParams = useSearchParams();
   const d = useDict();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,6 +42,7 @@ function ContactForm() {
     room: "",
     message: "",
   });
+  const [files, setFiles] = useState<File[]>([]);
   const [gdprConsent, setGdprConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -37,24 +60,62 @@ function ContactForm() {
     }
   }, [searchParams]);
 
+  const handleFilesSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = Array.from(e.target.files || []);
+    if (!selected.length) return;
+    setError("");
+
+    const merged = [...files];
+    for (const f of selected) {
+      if (merged.length >= MAX_FILES) {
+        setError(d.contact.attachmentsTooMany);
+        break;
+      }
+      if (!ALLOWED_TYPES.includes(f.type)) {
+        setError(d.contact.attachmentsBadType);
+        continue;
+      }
+      if (f.size > MAX_FILE_BYTES) {
+        setError(d.contact.attachmentsTooBig);
+        continue;
+      }
+      if (merged.some((m) => m.name === f.name && m.size === f.size)) continue;
+      merged.push(f);
+    }
+
+    const total = merged.reduce((sum, f) => sum + f.size, 0);
+    if (total > MAX_TOTAL_BYTES) {
+      setError(d.contact.attachmentsTotalTooBig);
+    } else {
+      setFiles(merged);
+    }
+
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const removeFile = (idx: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== idx));
+    setError("");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
     setError("");
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const body = new FormData();
+      Object.entries(formData).forEach(([k, v]) => body.append(k, v));
+      files.forEach((f) => body.append("files", f, f.name));
+
+      const res = await fetch("/api/contact", { method: "POST", body });
 
       if (!res.ok) {
-        const data = await res.json();
+        const data = await res.json().catch(() => ({ error: "Error" }));
         throw new Error(data.error || "Error");
       }
 
-      trackEvent("generate_lead", { form: "contact" });
+      trackEvent("generate_lead", { form: "contact", attachments: files.length });
       trackAdsConversion();
       trackSklikConversion(1);
       setSubmitted(true);
@@ -79,6 +140,8 @@ function ContactForm() {
     );
   }
 
+  const totalBytes = files.reduce((sum, f) => sum + f.size, 0);
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <input type="text" placeholder={d.contact.name} required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputClass} />
@@ -86,6 +149,56 @@ function ContactForm() {
       <input type="tel" placeholder={d.contact.phone} required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={inputClass} />
       <input type="text" placeholder={d.contact.room} value={formData.room} onChange={(e) => setFormData({ ...formData, room: e.target.value })} className={inputClass} />
       <textarea placeholder={d.contact.message} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className={`${inputClass} resize-y min-h-[90px]`} />
+
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex flex-col">
+            <span className="text-[12px] text-body font-medium">{d.contact.attachmentsLabel}</span>
+            <span className="text-[10px] text-muted">{d.contact.attachmentsHint}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={files.length >= MAX_FILES}
+            className="border border-accent/40 text-accent text-[10px] font-medium tracking-[0.08em] uppercase px-4 py-2 rounded-full hover:bg-accent hover:text-white transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {d.contact.attachmentsAdd}
+          </button>
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          accept={ALLOWED_ACCEPT}
+          onChange={handleFilesSelected}
+          className="hidden"
+        />
+        {files.length > 0 && (
+          <ul className="flex flex-col gap-1.5 mt-1">
+            {files.map((f, i) => (
+              <li
+                key={`${f.name}-${i}`}
+                className="flex items-center justify-between gap-3 bg-light-secondary border border-border rounded-lg px-3 py-2"
+              >
+                <span className="text-[12px] text-body truncate flex-1" title={f.name}>
+                  {f.name} <span className="text-muted">({formatSize(f.size)})</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeFile(i)}
+                  className="text-[10px] tracking-[0.06em] uppercase text-muted hover:text-red-600 transition-colors flex-shrink-0"
+                >
+                  {d.contact.attachmentsRemove}
+                </button>
+              </li>
+            ))}
+            <li className="text-[10px] text-muted text-right">
+              {files.length}/{MAX_FILES} · {formatSize(totalBytes)} / 4 MB
+            </li>
+          </ul>
+        )}
+      </div>
+
       {error && <p className="text-red-600 text-sm font-light">{error}</p>}
       <label className="flex items-start gap-3 cursor-pointer text-[12px] text-body leading-[1.6]">
         <input

@@ -1,26 +1,89 @@
 import { NextRequest, NextResponse } from "next/server";
 
-/* ────────────────────────────────────────────
-   POST /api/contact
-   Přijme formulářová data a odešle email přes Resend.
-   Pokud RESEND_API_KEY není nastavený, spadne do
-   fallback režimu (loguje do konzole — vhodné pro dev).
-   ──────────────────────────────────────────── */
+const MAX_FILES = 5;
+const MAX_FILE_BYTES = 4 * 1024 * 1024;
+const MAX_TOTAL_BYTES = 4 * 1024 * 1024;
+const ALLOWED_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+]);
 
-interface ContactBody {
-  name: string;
-  email?: string;
-  phone?: string;
-  room?: string;
-  message?: string;
+interface Attachment {
+  filename: string;
+  content: string;
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const body: ContactBody = await req.json();
+    const ctype = req.headers.get("content-type") || "";
+    let name = "";
+    let email = "";
+    let phone = "";
+    let room = "";
+    let message = "";
+    const attachments: Attachment[] = [];
+    let totalBytes = 0;
 
-    // Validace povinných polí
-    if (!body.name?.trim() || (!body.email?.trim() && !body.phone?.trim())) {
+    if (ctype.includes("multipart/form-data")) {
+      const form = await req.formData();
+      name = String(form.get("name") || "").trim();
+      email = String(form.get("email") || "").trim();
+      phone = String(form.get("phone") || "").trim();
+      room = String(form.get("room") || "").trim();
+      message = String(form.get("message") || "").trim();
+
+      const fileEntries = form.getAll("files").filter((v): v is File => v instanceof File);
+      if (fileEntries.length > MAX_FILES) {
+        return NextResponse.json(
+          { error: `Maximálně ${MAX_FILES} souborů.` },
+          { status: 400 }
+        );
+      }
+      for (const file of fileEntries) {
+        if (!ALLOWED_TYPES.has(file.type)) {
+          return NextResponse.json(
+            { error: `Nepovolený typ souboru: ${file.name}` },
+            { status: 400 }
+          );
+        }
+        if (file.size > MAX_FILE_BYTES) {
+          return NextResponse.json(
+            { error: `Soubor ${file.name} je větší než 4 MB.` },
+            { status: 400 }
+          );
+        }
+        totalBytes += file.size;
+        if (totalBytes > MAX_TOTAL_BYTES) {
+          return NextResponse.json(
+            { error: "Celková velikost příloh přesahuje 4 MB." },
+            { status: 400 }
+          );
+        }
+        const buf = Buffer.from(await file.arrayBuffer());
+        attachments.push({ filename: file.name, content: buf.toString("base64") });
+      }
+    } else {
+      const body = (await req.json()) as Partial<{
+        name: string;
+        email: string;
+        phone: string;
+        room: string;
+        message: string;
+      }>;
+      name = (body.name || "").trim();
+      email = (body.email || "").trim();
+      phone = (body.phone || "").trim();
+      room = (body.room || "").trim();
+      message = (body.message || "").trim();
+    }
+
+    if (!name || (!email && !phone)) {
       return NextResponse.json(
         { error: "Jméno a e-mail nebo telefon jsou povinné." },
         { status: 400 }
@@ -37,42 +100,20 @@ export async function POST(req: NextRequest) {
       <body>
       <h2 style="font-family:Arial,sans-serif;">Nová poptávka z webu StropDesign</h2>
       <table style="border-collapse:collapse;font-family:Arial,sans-serif;">
-        <tr><td style="padding:6px 12px;font-weight:bold;">Jméno:</td><td style="padding:6px 12px;">${escapeHtml(body.name)}</td></tr>
-        ${body.email ? `<tr><td style="padding:6px 12px;font-weight:bold;">E-mail:</td><td style="padding:6px 12px;">${escapeHtml(body.email)}</td></tr>` : ""}
-        ${body.phone ? `<tr><td style="padding:6px 12px;font-weight:bold;">Telefon:</td><td style="padding:6px 12px;">${escapeHtml(body.phone)}</td></tr>` : ""}
-        ${body.room ? `<tr><td style="padding:6px 12px;font-weight:bold;">Místnost:</td><td style="padding:6px 12px;">${escapeHtml(body.room)}</td></tr>` : ""}
-        ${body.message ? `<tr><td style="padding:6px 12px;font-weight:bold;">Zpráva:</td><td style="padding:6px 12px;">${escapeHtml(body.message)}</td></tr>` : ""}
+        <tr><td style="padding:6px 12px;font-weight:bold;">Jméno:</td><td style="padding:6px 12px;">${escapeHtml(name)}</td></tr>
+        ${email ? `<tr><td style="padding:6px 12px;font-weight:bold;">E-mail:</td><td style="padding:6px 12px;">${escapeHtml(email)}</td></tr>` : ""}
+        ${phone ? `<tr><td style="padding:6px 12px;font-weight:bold;">Telefon:</td><td style="padding:6px 12px;">${escapeHtml(phone)}</td></tr>` : ""}
+        ${room ? `<tr><td style="padding:6px 12px;font-weight:bold;">Místnost:</td><td style="padding:6px 12px;">${escapeHtml(room)}</td></tr>` : ""}
+        ${message ? `<tr><td style="padding:6px 12px;font-weight:bold;">Zpráva:</td><td style="padding:6px 12px;">${escapeHtml(message)}</td></tr>` : ""}
+        ${attachments.length ? `<tr><td style="padding:6px 12px;font-weight:bold;">Přílohy:</td><td style="padding:6px 12px;">${attachments.length} (viz přílohy mailu)</td></tr>` : ""}
       </table>
       </body>
       </html>
     `;
 
-    const customerHtml = body.email
-      ? `
-      <!DOCTYPE html>
-      <html lang="cs">
-      <head><meta charset="utf-8"></head>
-      <body style="font-family:Arial,sans-serif;color:#333;">
-      <h2 style="color:#847631;">Děkujeme za vaši poptávku!</h2>
-      <p>Dobrý den, ${escapeHtml(body.name)},</p>
-      <p>vaši poptávku jsme přijali a budeme se vám věnovat co nejdříve. Obvykle odpovídáme do 48 hodin.</p>
-      <h3 style="margin-top:24px;color:#847631;">Shrnutí vaší poptávky:</h3>
-      <table style="border-collapse:collapse;">
-        ${body.phone ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Telefon:</td><td style="padding:4px 0;">${escapeHtml(body.phone)}</td></tr>` : ""}
-        ${body.room ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Místnost:</td><td style="padding:4px 0;">${escapeHtml(body.room)}</td></tr>` : ""}
-        ${body.message ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Zpráva:</td><td style="padding:4px 0;">${escapeHtml(body.message)}</td></tr>` : ""}
-      </table>
-      <p style="margin-top:24px;">S pozdravem,<br/><strong>Tým StropDesign</strong></p>
-      <p style="font-size:12px;color:#999;margin-top:16px;">StropDesign / Derbau s.r.o. · +420 739 457 794 · info@stropdesign.cz</p>
-      </body>
-      </html>
-    `
-      : null;
-
-    let resendData: unknown;
+    let resendData: unknown = "dev-mode";
 
     if (apiKey) {
-      // Produkční režim — odesílání přes Resend
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -82,14 +123,14 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           from: "StropDesign <onboarding@resend.dev>",
           to: [toEmail],
-          subject: `Poptávka od ${body.name}`,
+          subject: `Poptávka od ${name}`,
           html: htmlBody,
-          reply_to: body.email || undefined,
+          reply_to: email || undefined,
+          attachments: attachments.length ? attachments : undefined,
         }),
       });
 
       resendData = await res.json();
-      console.log("Resend response:", res.status, JSON.stringify(resendData));
 
       if (!res.ok) {
         console.error("Resend error:", JSON.stringify(resendData));
@@ -98,48 +139,15 @@ export async function POST(req: NextRequest) {
           { status: 500 }
         );
       }
-
-      // Potvrzovací email zákazníkovi (zapnout po ověření domény v Resendu)
-      if (false && body.email && customerHtml) {
-        const customerRes = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: "StropDesign <onboarding@resend.dev>",
-            to: [body.email],
-            subject: "Děkujeme za vaši poptávku – StropDesign",
-            html: customerHtml,
-            reply_to: toEmail,
-          }),
-        });
-
-        if (!customerRes.ok) {
-          console.error("Resend customer email error:", await customerRes.text());
-        }
-      }
     } else {
-      // Dev režim — logujeme do konzole
       console.log("═══ NOVÁ POPTÁVKA (dev mode) ═══");
-      console.log("Jméno:", body.name);
-      console.log("E-mail:", body.email || "–");
-      console.log("Telefon:", body.phone || "–");
-      console.log("Místnost:", body.room || "–");
-      console.log("Zpráva:", body.message || "–");
-      console.log("════════════════════════════════");
-      if (body.email) {
-        console.log("→ Potvrzovací email by byl odeslán na:", body.email);
-      }
+      console.log({ name, email, phone, room, message, attachments: attachments.length });
     }
 
-    return NextResponse.json({ success: true, resend: typeof resendData !== "undefined" ? resendData : "dev-mode" });
-  } catch {
-    return NextResponse.json(
-      { error: "Neplatný požadavek." },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: true, resend: resendData });
+  } catch (err) {
+    console.error("Contact route error:", err);
+    return NextResponse.json({ error: "Neplatný požadavek." }, { status: 400 });
   }
 }
 
