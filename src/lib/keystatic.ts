@@ -111,6 +111,7 @@ export async function getTestimonials(locale: string = "cs"): Promise<Testimonia
   const col = locale === "en" ? "testimonialsEn" : "testimonialsCs";
   const entries = await reader.collections[col].all();
   return entries
+    .filter((e) => e && e.entry)
     .map((e) => ({
       name: typeof e.entry.name === "string" ? e.entry.name : e.slug,
       text: e.entry.text,
