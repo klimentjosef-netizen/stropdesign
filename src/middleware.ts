@@ -17,13 +17,30 @@ function checkBasicAuth(request: NextRequest): NextResponse | null {
   });
 }
 
+function localeFromPathname(pathname: string): string {
+  for (const locale of locales) {
+    if (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)) {
+      return locale;
+    }
+  }
+  return defaultLocale;
+}
+
+function withLocaleHeader(response: NextResponse, locale: string): NextResponse {
+  response.headers.set("x-locale", locale);
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Basic auth pro Keystatic CMS
   if (pathname.startsWith("/keystatic") || pathname.startsWith("/api/keystatic")) {
     const authResponse = checkBasicAuth(request);
-    if (authResponse) return authResponse;
+    if (authResponse) {
+      authResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
+      return authResponse;
+    }
     return NextResponse.next();
   }
 
@@ -37,35 +54,46 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const locale = localeFromPathname(pathname);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-locale", locale);
+
   // Check if the pathname already has a locale prefix
   const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    (l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
   );
 
   if (pathnameHasLocale) {
-    return NextResponse.next();
+    return withLocaleHeader(
+      NextResponse.next({ request: { headers: requestHeaders } }),
+      locale
+    );
   }
 
-  // For the default locale (cs), don't redirect — serve directly
-  // For non-default locale detection, check Accept-Language header
-  const acceptLang = request.headers.get("accept-language") || "";
-  const preferredLocale = acceptLang.includes("en") ? "en" : defaultLocale;
+  // Honour Accept-Language only for real users, never for bots.
+  const ua = request.headers.get("user-agent") || "";
+  const isBot = /bot|crawl|slurp|spider|facebookexternalhit|embedly/i.test(ua);
 
-  // Only redirect if the preferred locale is NOT the default
+  const acceptLang = request.headers.get("accept-language") || "";
+  const preferredLocale =
+    !isBot && acceptLang.toLowerCase().startsWith("en") ? "en" : defaultLocale;
+
   if (preferredLocale !== defaultLocale) {
-    // Set a cookie so we know the user's preference
     const url = request.nextUrl.clone();
     url.pathname = `/${preferredLocale}${pathname}`;
     return NextResponse.redirect(url);
   }
 
-  return NextResponse.next();
+  return withLocaleHeader(
+    NextResponse.next({ request: { headers: requestHeaders } }),
+    defaultLocale
+  );
 }
 
 export const config = {
   matcher: [
     "/keystatic/:path*",
     "/api/keystatic/:path*",
-    "/((?!api|_next/static|_next/image|favicon.ico|images).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|images).*)",
   ],
 };

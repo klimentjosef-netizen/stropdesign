@@ -60,7 +60,13 @@ export function denyConsent() {
 }
 
 export function pageview(url: string) {
-  if (GA_ID) gtag("config", GA_ID, { page_path: url });
+  if (typeof window === "undefined") return;
+  if (!GA_ID && !GOOGLE_ADS_ID) return;
+  gtag("event", "page_view", {
+    page_path: url,
+    page_location: window.location.origin + url,
+    page_title: document.title,
+  });
 }
 
 export function trackEvent(name: string, params: Record<string, unknown> = {}) {

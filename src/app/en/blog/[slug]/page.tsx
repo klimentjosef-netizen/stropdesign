@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getAllSlugs, getPostBySlug } from "@/lib/blog";
 import SectionEyebrow from "@/components/SectionEyebrow";
 import BlogContent from "@/components/BlogContent";
+import BlogJsonLd from "@/components/BlogJsonLd";
 
 interface Props {
   params: { slug: string };
@@ -17,12 +18,38 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(params.slug, "en");
   if (!post) return { title: "Article not found" };
 
+  const csExists = getAllSlugs("cs").includes(params.slug);
+  const ogImage = post.image || "/images/hero-kitchen.jpg";
+
   return {
     title: `${post.title} | StropDesign Blog`,
     description: post.description,
+    keywords: post.tags,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
+      url: `https://www.stropdesign.cz/en/blog/${params.slug}`,
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [ogImage],
+    },
     alternates: {
       canonical: `/en/blog/${params.slug}`,
-      languages: { cs: `/blog/${params.slug}`, en: `/en/blog/${params.slug}` },
+      languages: {
+        ...(csExists ? { cs: `/blog/${params.slug}` } : {}),
+        en: `/en/blog/${params.slug}`,
+        "x-default": csExists
+          ? `/blog/${params.slug}`
+          : `/en/blog/${params.slug}`,
+      },
     },
   };
 }
@@ -33,6 +60,16 @@ export default function BlogPostPageEN({ params }: Props) {
 
   return (
     <>
+      <BlogJsonLd
+        slug={params.slug}
+        title={post.title}
+        description={post.description}
+        date={post.date}
+        author={post.author}
+        image={post.image}
+        tags={post.tags}
+        locale="en"
+      />
       <section className="py-20 lg:py-28 px-6 lg:px-10 border-b border-border">
         <div className="max-w-3xl mx-auto">
           <Link

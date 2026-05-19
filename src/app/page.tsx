@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import References from "@/components/References";
 import Calculator from "@/components/Calculator";
@@ -6,28 +7,22 @@ import FaqAndTestimonials from "@/components/FaqAndTestimonials";
 import ContactSection from "@/components/ContactSection";
 import { getSurfaces, getReferences, getAddons, getTestimonials, getFaqs } from "@/lib/keystatic";
 
-const localBusinessJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "StropDesign",
-  "description": "Montáž napínaných stropů po celé České republice",
-  "url": "https://stropdesign.vercel.app",
-  "telephone": "+420739457794",
-  "email": "info@stropdesign.cz",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Ostrava",
-    "addressCountry": "CZ",
+export const metadata: Metadata = {
+  title: "Napínané stropy — designové stropní podhledy po celé ČR",
+  description:
+    "Napínané stropy po celé ČR. Bezprašná montáž za 1 den, 12 let záruka, 200+ realizací. Nezávazná poptávka s ocenou na míru.",
+  alternates: {
+    canonical: "/",
+    languages: { cs: "/", en: "/en", "x-default": "/" },
   },
-  "areaServed": { "@type": "Country", "name": "Czech Republic" },
-  "priceRange": "600–1200 Kč/m²",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "bestRating": "5",
-    "worstRating": "1",
-    // TODO: doplnit skutečný počet recenzí z Google
-    "reviewCount": "6",
+  openGraph: {
+    title: "Napínané stropy — designové stropní podhledy po celé ČR",
+    description:
+      "Napínané stropy po celé ČR. Bezprašná montáž za 1 den, 12 let záruka, 200+ realizací.",
+    url: "https://www.stropdesign.cz",
+    locale: "cs_CZ",
+    type: "website",
+    images: ["/images/hero-kitchen.jpg"],
   },
 };
 
@@ -42,10 +37,6 @@ export default async function Home() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-      />
       <Hero />
       <Surfaces surfaces={surfaces} />
       <Calculator surfaces={surfaces} addons={addons} />

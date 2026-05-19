@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { IBM_Plex_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -18,7 +20,11 @@ const ibmPlex = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "StropDesign | Napínané stropy",
+  metadataBase: new URL("https://www.stropdesign.cz"),
+  title: {
+    default: "StropDesign | Napínané stropy po celé ČR",
+    template: "%s | StropDesign",
+  },
   description:
     "Designové stropní podhledy formou napínaných stropů po celé České republice. Precizní montáž, široký výběr povrchů a dlouhá životnost.",
   keywords: [
@@ -30,15 +36,32 @@ export const metadata: Metadata = {
     "Derbau",
   ],
   openGraph: {
-    title: "StropDesign | Napínané stropy",
+    title: "StropDesign | Napínané stropy po celé ČR",
     description:
       "Designové stropní podhledy formou napínaných stropů po celé České republice.",
     locale: "cs_CZ",
     type: "website",
+    url: "https://www.stropdesign.cz",
+    siteName: "StropDesign",
+    images: [
+      {
+        url: "/images/hero-kitchen.jpg",
+        width: 1200,
+        height: 630,
+        alt: "StropDesign – napínané stropy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "StropDesign | Napínané stropy po celé ČR",
+    description:
+      "Designové stropní podhledy formou napínaných stropů po celé České republice.",
+    images: ["/images/hero-kitchen.jpg"],
   },
   alternates: {
     canonical: "/",
-    languages: { cs: "/", en: "/en" },
+    languages: { cs: "/", en: "/en", "x-default": "/" },
   },
 };
 
@@ -47,8 +70,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const lang = headers().get("x-locale") || "cs";
   return (
-    <html lang="cs" className={ibmPlex.variable}>
+    <html lang={lang} className={ibmPlex.variable}>
+      <head>
+        {/* Google Consent Mode v2 — must execute BEFORE gtag.js. */}
+        <Script id="gtag-consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied',
+              wait_for_update: 500
+            });
+            gtag('set', 'url_passthrough', true);
+            gtag('set', 'ads_data_redaction', true);
+          `}
+        </Script>
+      </head>
       <body className="font-body bg-light text-heading">
         <Analytics />
         <AutoLocaleProvider>
