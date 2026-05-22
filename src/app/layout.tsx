@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { IBM_Plex_Sans } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -76,26 +75,23 @@ export default function RootLayout({
   return (
     <html lang={lang} className={ibmPlex.variable}>
       <head>
-        {/* Google Consent Mode v2 + gtag init — must run BEFORE gtag.js loads. */}
-        <Script id="gtag-consent-default" strategy="beforeInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            window.gtag = gtag;
-            gtag('consent', 'default', {
-              ad_storage: 'denied',
-              ad_user_data: 'denied',
-              ad_personalization: 'denied',
-              analytics_storage: 'denied',
-              wait_for_update: 500
-            });
-            gtag('set', 'url_passthrough', true);
-            gtag('set', 'ads_data_redaction', true);
-            gtag('js', new Date());
-            ${gaId ? `gtag('config', '${gaId}');` : ""}
-            ${adsId ? `gtag('config', '${adsId}');` : ""}
-          `}
-        </Script>
+        {/* Google Consent Mode v2 + gtag init — native inline script so it
+            runs verbatim before gtag.js, without next/script transforms. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: [
+              "window.dataLayer = window.dataLayer || [];",
+              "function gtag(){dataLayer.push(arguments);}",
+              "window.gtag = gtag;",
+              "gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});",
+              "gtag('set','url_passthrough',true);",
+              "gtag('set','ads_data_redaction',true);",
+              "gtag('js',new Date());",
+              gaId ? `gtag('config','${gaId}');` : "",
+              adsId ? `gtag('config','${adsId}');` : "",
+            ].join(""),
+          }}
+        />
       </head>
       <body className="font-body bg-light text-heading">
         <Analytics />
