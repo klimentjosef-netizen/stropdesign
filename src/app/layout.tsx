@@ -70,8 +70,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const lang = headers().get("x-locale") || "cs";
-  const gaId = process.env.NEXT_PUBLIC_GA_ID || "";
-  const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
+  const gaId = (process.env.NEXT_PUBLIC_GA_ID || "").trim();
+  const adsId = (process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "").trim();
   return (
     <html lang={lang} className={ibmPlex.variable}>
       <head>

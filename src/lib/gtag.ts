@@ -1,11 +1,16 @@
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
-export const GOOGLE_ADS_CONVERSION_LABEL =
-  process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL || "";
-export const SKLIK_RETARGETING_ID =
-  process.env.NEXT_PUBLIC_SKLIK_RETARGETING_ID || "";
-export const SKLIK_CONVERSION_ID =
-  process.env.NEXT_PUBLIC_SKLIK_CONVERSION_ID || "";
+const env = (v: string | undefined) => (v || "").trim();
+
+export const GA_ID = env(process.env.NEXT_PUBLIC_GA_ID);
+export const GOOGLE_ADS_ID = env(process.env.NEXT_PUBLIC_GOOGLE_ADS_ID);
+export const GOOGLE_ADS_CONVERSION_LABEL = env(
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL
+);
+export const SKLIK_RETARGETING_ID = env(
+  process.env.NEXT_PUBLIC_SKLIK_RETARGETING_ID
+);
+export const SKLIK_CONVERSION_ID = env(
+  process.env.NEXT_PUBLIC_SKLIK_CONVERSION_ID
+);
 
 type GtagFn = (...args: unknown[]) => void;
 

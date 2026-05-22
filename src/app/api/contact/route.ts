@@ -90,8 +90,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_EMAIL || "info@stropdesign.cz";
+    const apiKey = (process.env.RESEND_API_KEY || "").trim();
+    const toEmail = (process.env.CONTACT_EMAIL || "info@stropdesign.cz").trim();
 
     const htmlBody = `
       <!DOCTYPE html>
