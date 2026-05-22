@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import {
   GA_ID,
@@ -15,15 +15,21 @@ import {
 export default function Analytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const isInitialLoad = useRef(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (localStorage.getItem("cookie-consent") === "all") grantConsent();
   }, []);
 
-  // Track page views & Sklik retargeting on every client-side navigation.
+  // gtag config (in <head>) already sends the initial page_view.
+  // Here we only track SUBSEQUENT client-side navigations to avoid double counts.
   useEffect(() => {
     if (typeof window === "undefined" || !pathname) return;
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
     const url = pathname + (searchParams?.toString() ? `?${searchParams}` : "");
     pageview(url);
     trackSklikRetargeting();
@@ -35,18 +41,12 @@ export default function Analytics() {
 
   return (
     <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${firstId}`}
-        strategy="afterInteractive"
-      />
-      <Script id="gtag-init" strategy="afterInteractive">
-        {`
-          gtag('js', new Date());
-          ${GA_ID ? `gtag('config', '${GA_ID}', { send_page_view: false });` : ""}
-          ${GOOGLE_ADS_ID ? `gtag('config', '${GOOGLE_ADS_ID}', { send_page_view: false });` : ""}
-        `}
-      </Script>
-
+      {(GA_ID || GOOGLE_ADS_ID) && (
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${firstId}`}
+          strategy="afterInteractive"
+        />
+      )}
       {SKLIK_RETARGETING_ID && (
         <Script src="https://c.seznam.cz/js/rc.js" strategy="afterInteractive" />
       )}

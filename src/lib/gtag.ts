@@ -37,6 +37,12 @@ function getSklikConsent(): number | null {
 
 function gtag(...args: unknown[]) {
   if (typeof window === "undefined") return;
+  // Use the real gtag (defined in <head>) so commands are queued the way
+  // gtag.js expects (arguments object), not as a plain array.
+  if (typeof window.gtag === "function") {
+    window.gtag(...args);
+    return;
+  }
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(args);
 }

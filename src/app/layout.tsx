@@ -71,10 +71,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const lang = headers().get("x-locale") || "cs";
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || "";
+  const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
   return (
     <html lang={lang} className={ibmPlex.variable}>
       <head>
-        {/* Google Consent Mode v2 — must execute BEFORE gtag.js. */}
+        {/* Google Consent Mode v2 + gtag init — must run BEFORE gtag.js loads. */}
         <Script id="gtag-consent-default" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -89,6 +91,9 @@ export default function RootLayout({
             });
             gtag('set', 'url_passthrough', true);
             gtag('set', 'ads_data_redaction', true);
+            gtag('js', new Date());
+            ${gaId ? `gtag('config', '${gaId}');` : ""}
+            ${adsId ? `gtag('config', '${adsId}');` : ""}
           `}
         </Script>
       </head>
