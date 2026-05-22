@@ -48,7 +48,11 @@ export default function Analytics() {
         />
       )}
       {SKLIK_RETARGETING_ID && (
-        <Script src="https://c.seznam.cz/js/rc.js" strategy="afterInteractive" />
+        <Script
+          src="https://c.seznam.cz/js/rc.js"
+          strategy="afterInteractive"
+          onLoad={() => trackSklikRetargeting()}
+        />
       )}
     </>
   );
