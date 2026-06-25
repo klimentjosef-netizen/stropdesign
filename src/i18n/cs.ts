@@ -205,6 +205,7 @@ const cs = {
     ctaButton: "Nezávazná poptávka",
     copyright: "StropDesign / Derbau s.r.o. Ostrava",
     madeBy: "Web vytvořil",
+    cookieSettings: "Nastavení cookies",
   },
 };
 

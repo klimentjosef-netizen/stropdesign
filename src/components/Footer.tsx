@@ -93,9 +93,20 @@ export default function Footer() {
 
           {/* Bottom bar */}
           <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-white/30">
-              &copy; {new Date().getFullYear()} {d.footer.copyright}
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+              <p className="text-xs text-white/30">
+                &copy; {new Date().getFullYear()} {d.footer.copyright}
+              </p>
+              <button
+                type="button"
+                onClick={() =>
+                  window.dispatchEvent(new Event("open-cookie-settings"))
+                }
+                className="text-xs text-white/30 hover:text-white/60 transition-colors underline-offset-2 hover:underline"
+              >
+                {d.footer.cookieSettings}
+              </button>
+            </div>
             <p className="text-xs text-white/30">
               {d.footer.madeBy}{" "}
               <a

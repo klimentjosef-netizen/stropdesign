@@ -32,12 +32,47 @@ declare global {
   }
 }
 
-function getSklikConsent(): number | null {
+export const CONSENT_KEY = "cookie-consent";
+
+export type ConsentState = { analytics: boolean; marketing: boolean };
+
+// Reads the visitor's stored choice. Understands both the new granular JSON
+// format and the legacy "all" / "necessary" strings from the previous banner.
+export function readConsent(): ConsentState | null {
   if (typeof window === "undefined") return null;
-  const c = localStorage.getItem("cookie-consent");
-  if (c === "all") return 1;
-  if (c === "necessary") return 0;
-  return null;
+  const raw = localStorage.getItem(CONSENT_KEY);
+  if (!raw) return null;
+  if (raw === "all") return { analytics: true, marketing: true };
+  if (raw === "necessary") return { analytics: false, marketing: false };
+  try {
+    const p = JSON.parse(raw);
+    return { analytics: !!p.analytics, marketing: !!p.marketing };
+  } catch {
+    return null;
+  }
+}
+
+// Pushes a Consent Mode v2 update reflecting the chosen categories.
+export function applyConsent(c: ConsentState) {
+  gtag("consent", "update", {
+    ad_storage: c.marketing ? "granted" : "denied",
+    ad_user_data: c.marketing ? "granted" : "denied",
+    ad_personalization: c.marketing ? "granted" : "denied",
+    analytics_storage: c.analytics ? "granted" : "denied",
+  });
+}
+
+// Persists the choice and applies it immediately.
+export function saveConsent(c: ConsentState) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(CONSENT_KEY, JSON.stringify({ ...c, ts: Date.now() }));
+  applyConsent(c);
+}
+
+function getSklikConsent(): number | null {
+  const c = readConsent();
+  if (!c) return null;
+  return c.marketing ? 1 : 0;
 }
 
 function gtag(...args: unknown[]) {

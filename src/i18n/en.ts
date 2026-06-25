@@ -207,6 +207,7 @@ const en: Dictionary = {
     ctaButton: "Free enquiry",
     copyright: "StropDesign / Derbau s.r.o. Ostrava",
     madeBy: "Website by",
+    cookieSettings: "Cookie settings",
   },
 };
 

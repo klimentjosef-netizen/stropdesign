@@ -7,7 +7,8 @@ import {
   GA_ID,
   GOOGLE_ADS_ID,
   SKLIK_RETARGETING_ID,
-  grantConsent,
+  applyConsent,
+  readConsent,
   pageview,
   trackSklikRetargeting,
 } from "@/lib/gtag";
@@ -19,7 +20,11 @@ export default function Analytics() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (localStorage.getItem("cookie-consent") === "all") grantConsent();
+    // Re-apply the visitor's stored consent on every load (Consent Mode
+    // defaults to denied in <head>, so a returning visitor's choice must be
+    // restored here).
+    const stored = readConsent();
+    if (stored) applyConsent(stored);
   }, []);
 
   // gtag config (in <head>) already sends the initial page_view.
