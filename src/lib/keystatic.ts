@@ -74,19 +74,32 @@ export async function getSurfaces(locale: string = "cs"): Promise<Surface[]> {
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
+// Photos are managed once, in the Czech entry. The English entry with the same
+// slug takes them over (Keystatic moves image files on save, so two entries
+// must never point at the same files).
 export async function getReferences(locale: string = "cs"): Promise<Reference[]> {
-  const col = locale === "en" ? "referencesEn" : "referencesCs";
-  const entries = await reader.collections[col].all();
+  const cs = await reader.collections.referencesCs.all();
+  const photos = new Map(
+    cs.map((e) => [
+      e.slug,
+      {
+        image: e.entry.image ?? null,
+        images: (e.entry.images ?? []).filter((i): i is string => !!i),
+      },
+    ])
+  );
+  const entries =
+    locale === "en" ? await reader.collections.referencesEn.all() : cs;
   return entries
     .map((e) => ({
       title: typeof e.entry.title === "string" ? e.entry.title : e.slug,
       meta: e.entry.meta,
       tag: e.entry.tag,
       gradient: e.entry.gradient,
-      image: e.entry.image ?? null,
+      image: photos.get(e.slug)?.image ?? null,
       description: e.entry.description ?? "",
       featured: e.entry.featured ?? false,
-      images: (e.entry.images as string[]) ?? [],
+      images: photos.get(e.slug)?.images ?? [],
       sortOrder: e.entry.sortOrder ?? 0,
     }))
     .sort((a, b) => a.sortOrder - b.sortOrder);

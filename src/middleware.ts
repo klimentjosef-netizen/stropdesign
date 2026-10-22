@@ -41,7 +41,10 @@ export function middleware(request: NextRequest) {
       authResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
       return authResponse;
     }
-    return NextResponse.next();
+    // Tell the root layout to render the CMS bare (no site chrome/tracking).
+    const cmsHeaders = new Headers(request.headers);
+    cmsHeaders.set("x-cms", "1");
+    return NextResponse.next({ request: { headers: cmsHeaders } });
   }
 
   // Skip API routes, static files, and _next

@@ -69,6 +69,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Keystatic CMS (/keystatic) gets a bare document: no navbar, footer,
+  // chat, cookie banner or tracking over the editor.
+  if (headers().get("x-cms") === "1") {
+    return (
+      <html lang="cs" className={ibmPlex.variable}>
+        <body>{children}</body>
+      </html>
+    );
+  }
   const lang = headers().get("x-locale") || "cs";
   const gaId = (process.env.NEXT_PUBLIC_GA_ID || "").trim();
   const adsId = (process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "").trim();
