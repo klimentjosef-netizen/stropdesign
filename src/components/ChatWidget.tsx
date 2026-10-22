@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import MascotA from "./MascotA";
 import { useLocale } from "@/i18n/LocaleContext";
-import { trackEvent, trackAdsConversion, trackSklikConversion } from "@/lib/gtag";
+import { trackLead } from "@/lib/gtag";
 
 const t = {
   cs: {
@@ -248,9 +248,7 @@ function SendInquiryForm({
         throw new Error(d.error || l.errorSending);
       }
 
-      trackEvent("generate_lead", { form: "chat" });
-      trackAdsConversion();
-      trackSklikConversion(1);
+      trackLead("chat", { email, phone });
       setSent(true);
     } catch (err) {
       setError(

@@ -11,6 +11,7 @@ import {
   readConsent,
   pageview,
   trackSklikRetargeting,
+  trackContactClick,
 } from "@/lib/gtag";
 
 export default function Analytics() {
@@ -25,6 +26,17 @@ export default function Analytics() {
     // restored here).
     const stored = readConsent();
     if (stored) applyConsent(stored);
+  }, []);
+
+  // Phone / e-mail link clicks anywhere on the site (one delegated listener).
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      const href = a?.getAttribute("href");
+      if (href) trackContactClick(href, window.location.pathname);
+    };
+    document.addEventListener("click", onClick, { capture: true });
+    return () => document.removeEventListener("click", onClick, { capture: true });
   }, []);
 
   // gtag config (in <head>) already sends the initial page_view.

@@ -1,8 +1,11 @@
 import { config, fields, collection } from "@keystatic/core";
 
-const isGithubMode =
-  process.env.NODE_ENV !== "development" &&
-  !!process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID;
+// Production edits go through GitHub (commit → Vercel redeploy). Enabled by
+// NEXT_PUBLIC_KEYSTATIC_STORAGE=github together with the GitHub App vars
+// KEYSTATIC_GITHUB_CLIENT_ID, KEYSTATIC_GITHUB_CLIENT_SECRET, KEYSTATIC_SECRET
+// and NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG. Without it: local file storage
+// (dev only, Vercel's filesystem is read-only).
+const isGithubMode = process.env.NEXT_PUBLIC_KEYSTATIC_STORAGE === "github";
 
 const storage = isGithubMode
   ? ({

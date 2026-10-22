@@ -157,11 +157,76 @@ export function trackSklikRetargeting() {
   }
 }
 
-export function trackSklikConversion(value: number = 1) {
+export type LeadContact = { email?: string; phone?: string };
+
+// E.164 for Google Enhanced Conversions; Czech 9-digit numbers get +420.
+function normalizePhone(raw?: string): string | undefined {
+  if (!raw) return undefined;
+  let p = raw.replace(/[^\d+]/g, "");
+  if (p.startsWith("00")) p = "+" + p.slice(2);
+  if (/^\d{9}$/.test(p)) p = "+420" + p;
+  return /^\+\d{8,15}$/.test(p) ? p : undefined;
+}
+
+async function sha256(value: string): Promise<string | null> {
+  try {
+    const buf = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(value)
+    );
+    return Array.from(new Uint8Array(buf))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  } catch {
+    return null;
+  }
+}
+
+// Enhanced Conversions (Google Ads) – gtag hashes the values itself before
+// sending. Only with marketing consent.
+function setGoogleUserData(contact: LeadContact) {
+  if (!readConsent()?.marketing) return;
+  const email = contact.email?.trim().toLowerCase();
+  const phone_number = normalizePhone(contact.phone);
+  if (!email && !phone_number) return;
+  gtag("set", "user_data", {
+    ...(email ? { email } : {}),
+    ...(phone_number ? { phone_number } : {}),
+  });
+}
+
+// Single entry point for every lead form (contact, calculator, chat):
+// GA4 generate_lead + Google Ads conversion (with Enhanced Conversions)
+// + Sklik conversion (with hashed e-mail as eid for cross-device match).
+export async function trackLead(
+  form: string,
+  contact: LeadContact = {},
+  params: Record<string, unknown> = {}
+) {
+  setGoogleUserData(contact);
+  trackEvent("generate_lead", { form, ...params });
+  trackAdsConversion();
+  const email = contact.email?.trim().toLowerCase();
+  const eid =
+    email && readConsent()?.marketing ? await sha256(email) : null;
+  trackSklikConversion(1, eid);
+}
+
+// Clicks on tel: / mailto: links anywhere on the site (GA4 events, can be
+// imported to Google Ads as secondary conversions).
+export function trackContactClick(href: string, location: string) {
+  if (href.startsWith("tel:")) {
+    trackEvent("click_phone", { link_url: href, page_path: location });
+  } else if (href.startsWith("mailto:")) {
+    trackEvent("click_email", { link_url: href, page_path: location });
+  }
+}
+
+export function trackSklikConversion(value: number = 1, eid: string | null = null) {
   if (typeof window === "undefined" || !SKLIK_CONVERSION_ID) return;
   const fire = () => {
     try {
-      window.sznIVA?.IS.updateIdentities({ eid: null });
+      window.sznIVA?.IS.updateIdentities({ eid });
       window.rc?.conversionHit?.({
         id: Number(SKLIK_CONVERSION_ID),
         value,

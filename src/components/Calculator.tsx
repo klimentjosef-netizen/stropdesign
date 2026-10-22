@@ -5,7 +5,7 @@ import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 import MascotA from "./MascotA";
 import { useDict, useLocale } from "@/i18n/LocaleContext";
-import { trackEvent, trackAdsConversion, trackSklikConversion } from "@/lib/gtag";
+import { trackLead } from "@/lib/gtag";
 import type { Surface, Addon } from "@/lib/keystatic";
 
 const CATEGORIES: string[] = ["lighting", "tech", "other"];
@@ -310,9 +310,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
         }),
       });
       if (!res.ok) throw new Error();
-      trackEvent("generate_lead", { form: "calculator" });
-      trackAdsConversion();
-      trackSklikConversion(1);
+      trackLead("calculator", { email: inquiryEmail, phone: inquiryPhone });
       setInquirySent(true);
     } catch {
       setInquiryError(locale === "en" ? "Failed to send. Please try again." : "Nepodařilo se odeslat. Zkuste to znovu.");
