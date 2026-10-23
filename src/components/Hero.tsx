@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
+import StarlightCanvas from "./StarlightCanvas";
 import { useDict, useLocalePath } from "@/i18n/LocaleContext";
 
 function formatValue(value: number, target: number, suffix: string, decimals: boolean) {
@@ -70,117 +70,147 @@ export default function Hero() {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ background: "#F7F4EE" }}
+      className="relative w-full overflow-hidden flex items-center justify-center"
+      style={{ minHeight: "100dvh", background: "#F7F4EE" }}
     >
-      <div className="max-w-7xl mx-auto px-5 lg:px-10 pt-[92px] pb-12 lg:pt-28 lg:pb-16 min-h-[100dvh] grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-14 items-center">
-        {/* Photo: real realization (HHSPA wellness, starry sky ceiling).
-            On mobile it sits on top as a wide banner. */}
+      {/* Dot grid — hidden on mobile */}
+      <div
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-[2s] hidden lg:block ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(0,0,0,0.048) 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+          zIndex: 0,
+        }}
+      />
+
+      {/* Canvas lines */}
+      <StarlightCanvas />
+
+      {/* Center content */}
+      <div
+        className="relative flex flex-col items-center text-center px-5 lg:px-8"
+        style={{ zIndex: 10, maxWidth: 720 }}
+      >
+        {/* Eyebrow */}
         <div
-          className={`relative order-1 lg:order-2 w-full overflow-hidden rounded-2xl aspect-[4/3] lg:aspect-auto lg:h-[min(76dvh,720px)] transition-all duration-1000 ${
+          className={`flex items-center gap-3.5 mb-7 transition-all duration-800 ${
             loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
-          style={{ transitionDelay: "0.2s", boxShadow: "0 30px 60px -30px rgba(60,50,20,0.35)" }}
+          style={{ transitionDelay: "0.5s" }}
         >
-          <Image
-            src="/images/hero-kitchen.jpg"
-            alt={d.hero.imageAlt}
-            fill
-            priority
-            sizes="(min-width: 1024px) 45vw, 100vw"
-            className="object-cover object-[50%_30%]"
-          />
+          <div className="w-10 h-px bg-accent" />
+          <span
+            className="text-[12px] font-semibold tracking-[0.18em] uppercase"
+            style={{ color: "var(--gold, #A8935A)" }}
+          >
+            {d.hero.eyebrow}
+          </span>
+          <div className="w-10 h-px bg-accent" />
         </div>
 
-        {/* Copy */}
-        <div className="order-2 lg:order-1 flex flex-col items-start text-left">
-          <div
-            className={`flex items-center gap-3 mb-5 lg:mb-6 transition-all duration-700 ${
-              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: "0.4s" }}
-          >
-            <div className="w-8 h-px bg-accent" />
-            <span className="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent">
-              {d.hero.eyebrow}
-            </span>
-          </div>
+        {/* Heading */}
+        <h1
+          className={`font-display font-bold leading-[1.06] tracking-tight mb-5 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{
+            transitionDelay: "0.7s",
+            fontSize: "clamp(48px, 5.5vw, 82px)",
+            color: "#111",
+          }}
+        >
+          {d.hero.title1}
+          <br />
+          {d.hero.title2.split(" ").slice(0, -1).join(" ")}{" "}
+          <em className="italic text-accent">
+            {d.hero.title2.split(" ").pop()}
+          </em>
+          <br />
+          {d.hero.title3}.
+        </h1>
 
-          <h1
-            className={`font-display font-bold leading-[1.08] tracking-tight mb-5 transition-all duration-700 ${
-              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{
-              transitionDelay: "0.55s",
-              fontSize: "clamp(36px, 3.9vw, 54px)",
-              color: "#161512",
-            }}
-          >
-            {d.hero.title1}{" "}
-            {d.hero.title2.split(" ").slice(0, -1).join(" ")}{" "}
-            <em className="italic text-accent pb-1">
-              {d.hero.title2.split(" ").pop()}
-            </em>{" "}
-            {d.hero.title3}.
-          </h1>
+        {/* Subtitle */}
+        <p
+          className={`leading-[1.7] mb-10 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{
+            transitionDelay: "0.9s",
+            fontSize: 17,
+            color: "#4a4740",
+            maxWidth: 520,
+          }}
+        >
+          {d.hero.subtitle}
+        </p>
 
-          <p
-            className={`leading-[1.7] mb-8 lg:mb-10 transition-all duration-700 text-[16px] lg:text-[17px] ${
-              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: "0.7s", color: "#4a4740", maxWidth: 500 }}
+        {/* CTAs */}
+        <div
+          className={`flex items-center gap-5 mb-16 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "1.1s" }}
+        >
+          <a
+            href="#povrchy"
+            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full hover:brightness-110 transition-all duration-200"
           >
-            {d.hero.subtitle}
-          </p>
-
-          <div
-            className={`flex flex-wrap items-center gap-x-6 gap-y-4 mb-10 lg:mb-14 transition-all duration-700 ${
-              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: "0.85s" }}
+            {d.hero.cta}
+          </a>
+          <a
+            href={refHref}
+            className="flex items-center gap-2.5 text-[14px] font-medium group transition-colors duration-200"
+            style={{ color: "#2b2a27" }}
           >
-            <a
-              href="#povrchy"
-              className="bg-accent text-white text-[13px] font-semibold tracking-[0.06em] uppercase px-7 py-4 rounded-full hover:bg-accent-hover active:scale-[0.98] transition-all duration-200 whitespace-nowrap"
-            >
-              {d.hero.cta}
-            </a>
-            <a
-              href={refHref}
-              className="flex items-center gap-2.5 text-[14px] font-medium group transition-colors duration-200 text-heading hover:text-accent whitespace-nowrap"
-            >
-              <span className="block w-6 h-px bg-current group-hover:w-10 transition-all duration-300" />
+            <span className="block w-6 h-px bg-current group-hover:w-10 transition-all duration-300" />
+            <span className="group-hover:text-accent transition-colors duration-200">
               {d.hero.ctaSecondary}
-            </a>
-          </div>
+            </span>
+          </a>
+        </div>
 
-          {/* Stats */}
-          <div
-            className={`grid grid-cols-3 w-full max-w-[520px] pt-6 transition-all duration-700 ${
-              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{
-              transitionDelay: "1s",
-              borderTop: "1px solid rgba(132,118,49,0.22)",
-            }}
-          >
-            {[
-              { ref: s1, label: d.hero.stat1Label },
-              { ref: s2, label: d.hero.stat3Label },
-              { ref: s3, label: d.hero.stat2Label },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="font-display text-[26px] lg:text-[34px] font-semibold leading-none mb-1.5 text-heading">
-                  <span ref={stat.ref}>0</span>
-                </div>
-                <div className="text-[12px] lg:text-[13px] leading-snug" style={{ color: "#6b675e" }}>
-                  {stat.label}
-                </div>
+        {/* Stats */}
+        <div
+          className={`flex gap-0 w-full justify-center pt-7 transition-all duration-900 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{
+            transitionDelay: "1.3s",
+            borderTop: "1px solid rgba(168,147,90,0.18)",
+          }}
+        >
+          {[
+            { ref: s1, label: d.hero.stat1Label },
+            { ref: s2, label: d.hero.stat3Label },
+            { ref: s3, label: d.hero.stat2Label },
+          ].map((stat, i, arr) => (
+            <div
+              key={stat.label}
+              className="px-4 lg:px-10"
+              style={{
+                borderRight: i < arr.length - 1 ? "1px solid rgba(168,147,90,0.15)" : "none",
+              }}
+            >
+              <div
+                className="font-display text-[24px] lg:text-[34px] font-semibold leading-none mb-1"
+                style={{ color: "#111" }}
+              >
+                <span ref={stat.ref}>0</span>
               </div>
-            ))}
-          </div>
+              <div
+                className="text-[12px] font-medium tracking-[0.04em]"
+                style={{ color: "#6b675e" }}
+              >
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+
     </section>
   );
 }
