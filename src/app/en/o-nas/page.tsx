@@ -45,7 +45,7 @@ export default function AboutPageEN() {
               href="/en/kontakt#kontakt-formular"
               className="inline-block bg-accent text-white text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
-              Get in touch
+              Free enquiry
             </Link>
           </RevealOnScroll>
 
@@ -112,14 +112,11 @@ export default function AboutPageEN() {
             </h2>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16">
             {reasonsEn.map((reason, i) => (
               <RevealOnScroll key={reason.title} delay={i * 80}>
-                <div className="bg-light-secondary border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
-                  <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
-                    <div className="w-2 h-2 bg-accent rounded-full" />
-                  </div>
-                  <h3 className="font-display text-base font-medium mb-2 text-heading">
+                <div className="border-t border-border pt-6 pb-8">
+                  <h3 className="font-display text-[19px] font-semibold mb-2 text-heading">
                     {reason.title}
                   </h3>
                   <p className="text-body text-sm leading-[1.7] font-normal">

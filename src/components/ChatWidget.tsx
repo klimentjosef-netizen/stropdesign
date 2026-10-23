@@ -300,29 +300,35 @@ function SendInquiryForm({
       <p className="text-[13px] text-body mb-1">
         {l.formPrompt}
       </p>
-      <input
-        type="text"
-        placeholder={l.fullName}
-        required
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="bg-light-secondary border border-border text-heading text-[13px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
-      />
-      <input
-        type="email"
-        placeholder={l.email}
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="bg-light-secondary border border-border text-heading text-[13px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
-      />
-      <input
-        type="tel"
-        placeholder={l.phone}
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        className="bg-light-secondary border border-border text-heading text-[13px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
-      />
+      <label className="flex flex-col gap-1">
+        <span className="text-[12.5px] font-medium text-heading">{l.fullName}</span>
+        <input
+          type="text"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full bg-white border border-border-dark/60 text-heading text-[14px] px-3 py-2.5 outline-none focus:border-accent rounded-lg"
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-[12.5px] font-medium text-heading">{l.email}</span>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full bg-white border border-border-dark/60 text-heading text-[14px] px-3 py-2.5 outline-none focus:border-accent rounded-lg"
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-[12.5px] font-medium text-heading">{l.phone}</span>
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full bg-white border border-border-dark/60 text-heading text-[14px] px-3 py-2.5 outline-none focus:border-accent rounded-lg"
+        />
+      </label>
       {error && <p className="text-red-600 text-[12.5px]">{error}</p>}
       <label className="flex items-start gap-2 cursor-pointer text-[12.5px] text-body leading-[1.5]">
         <input

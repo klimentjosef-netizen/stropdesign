@@ -44,38 +44,32 @@ export default async function ContactPageEN() {
       <section className="py-12 lg:py-16 px-6 lg:px-10 bg-light-secondary border-b border-border">
         <div className="max-w-7xl mx-auto mb-8 text-center">
           <p className="font-display text-lg font-semibold text-heading">STROPDESIGN / DERBAU S.R.O.</p>
-          <p className="text-muted text-[13px] mt-1">IČO: 1432445</p>
+          <p className="text-muted text-[13px] mt-1">IČO: 14324458</p>
         </div>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-6">
           <RevealOnScroll>
-            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
-              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
-                <div className="w-2 h-2 bg-accent rounded-full" />
-              </div>
+            <div className="border-t border-border-dark/60 pt-5">
               <h2 className="font-display text-base font-medium mb-2 text-heading">
                 Phone
               </h2>
               <a
                 href="tel:+420739457794"
-                className="text-body text-sm hover:text-accent transition-colors"
+                className="text-heading text-[17px] font-medium hover:text-accent transition-colors"
               >
                 +420 739 457 794
               </a>
-              <p className="text-muted text-[12.5px] mt-1">Mon–Fri 8:00 AM – 6:00 PM</p>
+              <p className="text-muted text-[12.5px] mt-1">Mon to Fri, 8:00 AM to 6:00 PM</p>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll delay={100}>
-            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
-              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
-                <div className="w-2 h-2 bg-accent rounded-full" />
-              </div>
+            <div className="border-t border-border-dark/60 pt-5">
               <h2 className="font-display text-base font-medium mb-2 text-heading">
                 Email
               </h2>
               <a
                 href="mailto:info@stropdesign.cz"
-                className="text-body text-sm hover:text-accent transition-colors"
+                className="text-heading text-[17px] font-medium hover:text-accent transition-colors"
               >
                 info@stropdesign.cz
               </a>
@@ -84,10 +78,7 @@ export default async function ContactPageEN() {
           </RevealOnScroll>
 
           <RevealOnScroll delay={200}>
-            <div className="bg-white border border-border p-7 hover:border-accent/30 transition-colors duration-300 rounded-2xl">
-              <div className="w-8 h-8 border border-accent/25 flex items-center justify-center mb-4 rounded-lg">
-                <div className="w-2 h-2 bg-accent rounded-full" />
-              </div>
+            <div className="border-t border-border-dark/60 pt-5">
               <h2 className="font-display text-base font-medium mb-2 text-heading">
                 Location
               </h2>

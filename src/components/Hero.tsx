@@ -104,7 +104,7 @@ export default function Hero() {
           <div className="w-10 h-px bg-accent" />
           <span
             className="text-[13px] font-semibold tracking-[0.18em] uppercase"
-            style={{ color: "var(--gold, #A8935A)" }}
+            style={{ color: "#7A6D2D" }}
           >
             {d.hero.eyebrow}
           </span>
@@ -156,7 +156,7 @@ export default function Hero() {
         >
           <a
             href="#povrchy"
-            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[14px] font-semibold tracking-[0.08em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full whitespace-nowrap hover:brightness-110 transition-all duration-200"
+            className="bg-accent text-white text-[14px] font-semibold tracking-[0.08em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full whitespace-nowrap hover:bg-accent-hover active:scale-[0.98] transition-all duration-200"
           >
             {d.hero.cta}
           </a>

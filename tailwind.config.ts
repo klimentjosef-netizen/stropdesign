@@ -17,9 +17,9 @@ const config: Config = {
         light: "#FFFFFF",
         "light-secondary": "#F7F7F7",
         "light-tertiary": "#EFEFEF",
-        // Accent (gold matching logo — #847631)
-        accent: "#847631",
-        "accent-hover": "#6E6329",
+        // Accent (logo gold #847631 darkened to pass WCAG AA for text)
+        accent: "#7A6D2D",
+        "accent-hover": "#655A24",
         "accent-soft": "#F5F2E8",
         // Neutral
         silver: "#C0C0C0",

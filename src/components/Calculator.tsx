@@ -365,7 +365,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   </div>
                   <button
                     onClick={() => { setWizardStep(0); setIsOpen(true); }}
-                    className="btn-shimmer glow-accent bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-full whitespace-nowrap"
+                    className="btn-shimmer bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-full whitespace-nowrap"
                   >
                     {d.calculator.ctaTeaser}
                   </button>
@@ -1046,35 +1046,41 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     </div>
                   ) : (
                     <div className="flex flex-col gap-2.5">
-                      <input
-                        type="text"
-                        placeholder={locale === "en" ? "Full name" : "Jméno a příjmení"}
-                        value={inquiryName}
-                        onChange={(e) => setInquiryName(e.target.value)}
-                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
-                      />
-                      <input
-                        type="email"
-                        placeholder={locale === "en" ? "E-mail *" : "E-mail *"}
-                        value={inquiryEmail}
-                        onChange={(e) => setInquiryEmail(e.target.value)}
-                        required
-                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
-                      />
-                      <input
-                        type="tel"
-                        placeholder={locale === "en" ? "Phone (optional)" : "Telefon (nepovinné)"}
-                        value={inquiryPhone}
-                        onChange={(e) => setInquiryPhone(e.target.value)}
-                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
-                      />
+                      <label className="flex flex-col gap-1">
+                        <span className="text-[12.5px] font-medium text-heading">{locale === "en" ? "Full name" : "Jméno a příjmení"}</span>
+                        <input
+                          type="text"
+                          value={inquiryName}
+                          onChange={(e) => setInquiryName(e.target.value)}
+                          className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-white focus:outline-none focus:border-accent"
+                        />
+                      </label>
+                      <label className="flex flex-col gap-1">
+                        <span className="text-[12.5px] font-medium text-heading">{locale === "en" ? "E-mail *" : "E-mail *"}</span>
+                        <input
+                          type="email"
+                          value={inquiryEmail}
+                          onChange={(e) => setInquiryEmail(e.target.value)}
+                          required
+                          className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-white focus:outline-none focus:border-accent"
+                        />
+                      </label>
+                      <label className="flex flex-col gap-1">
+                        <span className="text-[12.5px] font-medium text-heading">{locale === "en" ? "Phone (optional)" : "Telefon (nepovinné)"}</span>
+                        <input
+                          type="tel"
+                          value={inquiryPhone}
+                          onChange={(e) => setInquiryPhone(e.target.value)}
+                          className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-white focus:outline-none focus:border-accent"
+                        />
+                      </label>
                       {inquiryError && (
                         <p className="text-red-500 text-[12px]">{inquiryError}</p>
                       )}
                       <button
                         onClick={handleSubmitInquiry}
                         disabled={inquirySending || !inquiryName.trim() || !inquiryEmail.trim()}
-                        className="btn-shimmer glow-accent w-full bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase py-3.5 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full disabled:opacity-40"
+                        className="btn-shimmer w-full bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase py-3.5 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full disabled:opacity-40"
                       >
                         {inquirySending
                           ? (locale === "en" ? "Sending..." : "Odesílám...")
@@ -1092,7 +1098,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   <>
                     <button
                       onClick={() => setShowInquiry(true)}
-                      className="btn-shimmer glow-accent block w-full bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
+                      className="btn-shimmer block w-full bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
                     >
                       {d.calculator.ctaSubmit}
                     </button>

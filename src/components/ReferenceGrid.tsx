@@ -313,7 +313,7 @@ function ReferenceCard({
                         className={`w-1.5 h-1.5 rounded-full transition-all ${currentImg === idx ? "bg-white scale-125" : "bg-white/50"}`}
                       />
                     ))}
-                    {images.length > 7 && <span className="text-white/60 text-[8px] ml-0.5">+{images.length - 7}</span>}
+                    {images.length > 7 && <span className="text-white/90 text-[11px] ml-0.5">+{images.length - 7}</span>}
                   </div>
                 </>
               )}

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
-import SectionEyebrow from "./SectionEyebrow";
 import { faqsEn } from "@/data/faq-en";
 
 function FaqItem({
@@ -65,7 +64,6 @@ export default function FaqEn() {
     <section className="py-16 lg:py-24 px-6 lg:px-10 border-t border-border">
       <div className="max-w-3xl mx-auto">
         <RevealOnScroll>
-          <SectionEyebrow text="FAQ" />
           <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] mb-10 text-heading">
             Frequently asked questions
           </h2>
