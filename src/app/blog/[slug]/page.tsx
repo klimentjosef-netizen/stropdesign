@@ -72,7 +72,7 @@ export default function BlogPostPage({ params }: Props) {
         <div className="max-w-3xl mx-auto">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-[12px] text-muted hover:text-accent tracking-[0.06em] uppercase mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-[13px] text-muted hover:text-accent tracking-[0.06em] uppercase mb-8 transition-colors"
           >
             <svg
               className="w-4 h-4"
@@ -96,7 +96,7 @@ export default function BlogPostPage({ params }: Props) {
             {post.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-[12px] text-muted">
+          <div className="flex flex-wrap items-center gap-4 text-[13px] text-muted">
             <span>
               {new Date(post.date).toLocaleDateString("cs-CZ", {
                 day: "numeric",
@@ -115,7 +115,7 @@ export default function BlogPostPage({ params }: Props) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2.5 py-1 font-medium rounded-full"
+                className="text-[12px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2.5 py-1 font-medium rounded-full"
               >
                 {tag}
               </span>
@@ -137,12 +137,12 @@ export default function BlogPostPage({ params }: Props) {
           <h2 className="font-display text-[clamp(22px,3vw,32px)] font-semibold mb-4 text-heading">
             Zaujal vás napínaný strop?
           </h2>
-          <p className="text-body text-sm leading-[1.7] font-light mb-8">
+          <p className="text-body text-sm leading-[1.7] font-normal mb-8">
             Ozvěte se nám pro nezávaznou konzultaci a cenovou nabídku na míru.
           </p>
           <Link
             href="/kontakt#kontakt-formular"
-            className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+            className="inline-block bg-accent text-white text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
           >
             Nezávazná poptávka
           </Link>

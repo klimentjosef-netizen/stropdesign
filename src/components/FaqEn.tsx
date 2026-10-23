@@ -51,7 +51,7 @@ function FaqItem({
             open ? "max-h-40 mt-3 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <p className="text-body text-sm leading-[1.7] font-light pr-10">
+          <p className="text-body text-sm leading-[1.7] font-normal pr-10">
             {answer}
           </p>
         </div>

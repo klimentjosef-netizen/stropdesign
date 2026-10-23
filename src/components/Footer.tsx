@@ -37,7 +37,7 @@ export default function Footer() {
 
             {/* Navigation */}
             <div>
-              <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
+              <h4 className="text-[12px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
                 {d.footer.navigation}
               </h4>
               <ul className="space-y-2.5">
@@ -56,7 +56,7 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
+              <h4 className="text-[12px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
                 {d.footer.contact}
               </h4>
               <ul className="space-y-2.5 text-sm text-white/50">
@@ -76,7 +76,7 @@ export default function Footer() {
 
             {/* CTA */}
             <div>
-              <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
+              <h4 className="text-[12px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
                 {d.footer.startToday}
               </h4>
               <p className="text-sm text-white/50 mb-4">
@@ -84,7 +84,7 @@ export default function Footer() {
               </p>
               <a
                 href={contactHref}
-                className="inline-block bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+                className="inline-block bg-accent text-white text-[12.5px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200 rounded-full"
               >
                 {d.footer.ctaButton}
               </a>

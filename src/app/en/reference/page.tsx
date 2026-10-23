@@ -28,7 +28,7 @@ export default async function PortfolioPageEN() {
               <br />
               <em className="italic text-accent">proud of</em>.
             </h1>
-            <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
+            <p className="text-body text-[15px] leading-[1.75] font-normal max-w-xl">
               Every project is unique. Browse our completed installations
               across the Czech Republic. Click a photo to enlarge.
             </p>

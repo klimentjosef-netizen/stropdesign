@@ -31,13 +31,13 @@ export default function Comparison() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/10">
-                  <th className="py-4 pr-6 text-[10px] tracking-[0.14em] uppercase text-faint font-medium w-1/4">
+                  <th className="py-4 pr-6 text-[12px] tracking-[0.14em] uppercase text-faint font-medium w-1/4">
                     Vlastnost
                   </th>
-                  <th className="py-4 px-6 text-[10px] tracking-[0.14em] uppercase text-accent font-medium w-[37.5%]">
+                  <th className="py-4 px-6 text-[12px] tracking-[0.14em] uppercase text-accent font-medium w-[37.5%]">
                     Napínaný strop
                   </th>
-                  <th className="py-4 pl-6 text-[10px] tracking-[0.14em] uppercase text-faint font-medium w-[37.5%]">
+                  <th className="py-4 pl-6 text-[12px] tracking-[0.14em] uppercase text-faint font-medium w-[37.5%]">
                     Sádrokarton
                   </th>
                 </tr>
@@ -51,7 +51,7 @@ export default function Comparison() {
                     <td className="py-4 pr-6 text-sm text-white/80 font-medium">
                       {row.feature}
                     </td>
-                    <td className="py-4 px-6 text-sm font-light">
+                    <td className="py-4 px-6 text-sm font-normal">
                       <span className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0 group-hover:scale-125 transition-transform duration-300" />
                         <span className="text-accent/80 group-hover:text-accent transition-colors duration-300">
@@ -59,7 +59,7 @@ export default function Comparison() {
                         </span>
                       </span>
                     </td>
-                    <td className="py-4 pl-6 text-sm font-light">
+                    <td className="py-4 pl-6 text-sm font-normal">
                       <span className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-red-500/40 rounded-full flex-shrink-0" />
                         <span className="text-muted">{row.sdk}</span>

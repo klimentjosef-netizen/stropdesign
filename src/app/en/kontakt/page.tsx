@@ -32,7 +32,7 @@ export default async function ContactPageEN() {
               <br />
               <em className="italic text-accent">we&apos;re happy to help</em>.
             </h1>
-            <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
+            <p className="text-body text-[15px] leading-[1.75] font-normal max-w-xl">
               Call us, send an email or fill out the form. We respond within
               48 hours and prepare a tailor-made offer for your project.
             </p>
@@ -44,7 +44,7 @@ export default async function ContactPageEN() {
       <section className="py-12 lg:py-16 px-6 lg:px-10 bg-light-secondary border-b border-border">
         <div className="max-w-7xl mx-auto mb-8 text-center">
           <p className="font-display text-lg font-semibold text-heading">STROPDESIGN / DERBAU S.R.O.</p>
-          <p className="text-muted text-[12px] mt-1">IČO: 1432445</p>
+          <p className="text-muted text-[13px] mt-1">IČO: 1432445</p>
         </div>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
           <RevealOnScroll>
@@ -61,7 +61,7 @@ export default async function ContactPageEN() {
               >
                 +420 739 457 794
               </a>
-              <p className="text-muted text-[11px] mt-1">Mon–Fri 8:00 AM – 6:00 PM</p>
+              <p className="text-muted text-[12.5px] mt-1">Mon–Fri 8:00 AM – 6:00 PM</p>
             </div>
           </RevealOnScroll>
 
@@ -79,7 +79,7 @@ export default async function ContactPageEN() {
               >
                 info@stropdesign.cz
               </a>
-              <p className="text-muted text-[11px] mt-1">We respond within 48 hours</p>
+              <p className="text-muted text-[12.5px] mt-1">We respond within 48 hours</p>
             </div>
           </RevealOnScroll>
 
@@ -92,7 +92,7 @@ export default async function ContactPageEN() {
                 Location
               </h2>
               <p className="text-body text-sm">Ostrava and surroundings</p>
-              <p className="text-muted text-[11px] mt-1">
+              <p className="text-muted text-[12.5px] mt-1">
                 Frýdek-Místek, Opava, Havířov, Karviná
               </p>
             </div>

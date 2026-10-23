@@ -139,19 +139,19 @@ export default function CookieBanner() {
               <h2 className="font-display text-lg font-semibold text-heading mb-2">
                 {t.title}
               </h2>
-              <p className="text-sm leading-[1.7] font-light text-body mb-5">
+              <p className="text-sm leading-[1.7] font-normal text-body mb-5">
                 {t.body}
               </p>
               <div className="flex flex-col sm:flex-row gap-2.5">
                 <button
                   onClick={acceptAll}
-                  className="bg-accent text-white text-[12px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-accent-hover transition-colors"
+                  className="bg-accent text-white text-[13px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-accent-hover transition-colors"
                 >
                   {t.acceptAll}
                 </button>
                 <button
                   onClick={rejectAll}
-                  className="border border-border text-heading text-[12px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-light-secondary transition-colors"
+                  className="border border-border text-heading text-[13px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-light-secondary transition-colors"
                 >
                   {t.rejectAll}
                 </button>
@@ -162,7 +162,7 @@ export default function CookieBanner() {
                     setMarketing(c ? c.marketing : true);
                     setShowSettings(true);
                   }}
-                  className="text-muted text-[12px] tracking-[0.04em] px-4 py-3 hover:text-body transition-colors sm:ml-auto"
+                  className="text-muted text-[13px] tracking-[0.04em] px-4 py-3 hover:text-body transition-colors sm:ml-auto"
                 >
                   {t.manage}
                 </button>
@@ -179,11 +179,11 @@ export default function CookieBanner() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-sm font-medium text-heading">{t.necessaryTitle}</p>
-                    <p className="text-xs leading-[1.6] font-light text-muted mt-0.5">
+                    <p className="text-xs leading-[1.6] font-normal text-muted mt-0.5">
                       {t.necessaryDesc}
                     </p>
                   </div>
-                  <span className="text-[10px] tracking-[0.08em] uppercase text-accent font-medium whitespace-nowrap pt-1">
+                  <span className="text-[12px] tracking-[0.08em] uppercase text-accent font-medium whitespace-nowrap pt-1">
                     {t.necessaryState}
                   </span>
                 </div>
@@ -192,7 +192,7 @@ export default function CookieBanner() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-sm font-medium text-heading">{t.analyticsTitle}</p>
-                    <p className="text-xs leading-[1.6] font-light text-muted mt-0.5">
+                    <p className="text-xs leading-[1.6] font-normal text-muted mt-0.5">
                       {t.analyticsDesc}
                     </p>
                   </div>
@@ -205,7 +205,7 @@ export default function CookieBanner() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-sm font-medium text-heading">{t.marketingTitle}</p>
-                    <p className="text-xs leading-[1.6] font-light text-muted mt-0.5">
+                    <p className="text-xs leading-[1.6] font-normal text-muted mt-0.5">
                       {t.marketingDesc}
                     </p>
                   </div>
@@ -218,19 +218,19 @@ export default function CookieBanner() {
               <div className="flex flex-col sm:flex-row gap-2.5">
                 <button
                   onClick={saveChoice}
-                  className="bg-accent text-white text-[12px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-accent-hover transition-colors"
+                  className="bg-accent text-white text-[13px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-accent-hover transition-colors"
                 >
                   {t.save}
                 </button>
                 <button
                   onClick={acceptAll}
-                  className="border border-border text-heading text-[12px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-light-secondary transition-colors"
+                  className="border border-border text-heading text-[13px] font-medium tracking-[0.08em] uppercase px-6 py-3 rounded-full hover:bg-light-secondary transition-colors"
                 >
                   {t.acceptAll}
                 </button>
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="text-muted text-[12px] tracking-[0.04em] px-4 py-3 hover:text-body transition-colors sm:ml-auto"
+                  className="text-muted text-[13px] tracking-[0.04em] px-4 py-3 hover:text-body transition-colors sm:ml-auto"
                 >
                   {t.back}
                 </button>

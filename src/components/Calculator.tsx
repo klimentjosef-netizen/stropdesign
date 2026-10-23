@@ -344,7 +344,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   <h2 className="font-display text-[clamp(22px,2.5vw,30px)] font-semibold leading-[1.2] text-heading mb-2">
                     {d.calculator.teaserTitle}
                   </h2>
-                  <p className="text-body text-[13px] font-light leading-[1.7]">
+                  <p className="text-body text-[14px] font-normal leading-[1.7]">
                     {d.calculator.teaserText}
                   </p>
                 </div>
@@ -352,7 +352,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 {/* Right - price indicator + CTA */}
                 <div className="flex flex-col items-center lg:items-end gap-3 flex-shrink-0">
                   <div className="text-center lg:text-right">
-                    <div className="text-muted text-[9px] tracking-[0.12em] uppercase mb-1">
+                    <div className="text-muted text-[11px] tracking-[0.12em] uppercase mb-1">
                       {d.calculator.priceFrom}
                     </div>
                     <div className="font-display text-[32px] font-semibold text-accent leading-none tabular-nums">
@@ -361,13 +361,13 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                         {d.calculator.currency}/{d.calculator.sqm}
                       </span>
                     </div>
-                    <div className="text-muted text-[10px] mt-1">
+                    <div className="text-muted text-[12px] mt-1">
                       {d.calculator.priceUpTo.replace("{max}", String(maxPrice))}
                     </div>
                   </div>
                   <button
                     onClick={() => { setWizardStep(0); setIsOpen(true); }}
-                    className="btn-shimmer glow-accent bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-full whitespace-nowrap"
+                    className="btn-shimmer glow-accent bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase px-7 py-3.5 hover:bg-accent-hover transition-colors duration-200 rounded-full whitespace-nowrap"
                   >
                     {d.calculator.ctaTeaser}
                   </button>
@@ -403,7 +403,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 <h2 className="font-display text-lg font-semibold text-heading">
                   {d.calculator.modalTitle}
                 </h2>
-                <p className="text-muted text-[11px]">{d.calculator.modalSubtitle}</p>
+                <p className="text-muted text-[12.5px]">{d.calculator.modalSubtitle}</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -425,14 +425,14 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     <button
                       key={r.id}
                       onClick={() => setActiveRoomIndex(i)}
-                      className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium transition-all duration-200 ${
+                      className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12.5px] font-medium transition-all duration-200 ${
                         i === activeRoomIndex
                           ? "bg-accent text-white shadow-sm"
                           : "bg-light-secondary/50 border border-border text-body hover:border-border-dark"
                       }`}
                     >
                       {locale === "en" ? `Room ${i + 1}` : `Místnost ${i + 1}`}
-                      <span className={`text-[9px] ${i === activeRoomIndex ? "text-white/70" : "text-muted"}`}>
+                      <span className={`text-[11px] ${i === activeRoomIndex ? "text-white/70" : "text-muted"}`}>
                         {roomArea(r)} {d.calculator.sqm}
                       </span>
                       {rooms.length > 1 && (
@@ -454,7 +454,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   ))}
                   <button
                     onClick={addRoom}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-medium border border-dashed border-border text-muted hover:border-accent hover:text-accent transition-colors"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12.5px] font-medium border border-dashed border-border text-muted hover:border-accent hover:text-accent transition-colors"
                   >
                     + {locale === "en" ? "Add room" : "Přidat místnost"}
                   </button>
@@ -466,7 +466,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     <button
                       key={s}
                       onClick={() => setWizardStep(s - 1)}
-                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium transition-all duration-200 ${
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium transition-all duration-200 ${
                         wizardStep === s - 1
                           ? "bg-accent text-white"
                           : wizardStep > s - 1
@@ -474,7 +474,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                             : "bg-light-secondary/50 text-muted"
                       }`}
                     >
-                      <span className="w-4 h-4 rounded-full bg-current/10 flex items-center justify-center text-[9px]">
+                      <span className="w-4 h-4 rounded-full bg-current/10 flex items-center justify-center text-[11px]">
                         {wizardStep > s - 1 ? "✓" : s}
                       </span>
                       <span className="hidden sm:inline">
@@ -491,10 +491,10 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   {wizardStep === 0 && (
                     <div>
                       <div className="flex items-center gap-2.5 mb-3">
-                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[12.5px] font-semibold flex items-center justify-center flex-shrink-0">
                           1
                         </span>
-                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                        <label className="text-[12.5px] font-medium tracking-[0.1em] uppercase text-heading">
                           {d.calculator.step1}
                         </label>
                       </div>
@@ -520,7 +520,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                 }}
                               />
                               <span
-                                className={`text-[9px] sm:text-[11px] ${
+                                className={`text-[11px] sm:text-[12.5px] ${
                                   room.surfaceIndex === i ? "text-heading font-medium" : "text-body"
                                 }`}
                               >
@@ -528,7 +528,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                               </span>
                             </div>
                             <span
-                              className={`text-[8px] sm:text-[9px] ${
+                              className={`text-[8px] sm:text-[11px] ${
                                 room.surfaceIndex === i ? "text-accent font-medium" : "text-muted"
                               }`}
                             >
@@ -550,10 +550,10 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   {wizardStep === 1 && (
                     <div>
                       <div className="flex items-center gap-2.5 mb-3">
-                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[12.5px] font-semibold flex items-center justify-center flex-shrink-0">
                           2
                         </span>
-                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                        <label className="text-[12.5px] font-medium tracking-[0.1em] uppercase text-heading">
                           {locale === "en" ? "Room dimensions" : "Rozměry místnosti"}
                         </label>
                       </div>
@@ -561,7 +561,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                         {/* Width */}
                         <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                           <div className="flex justify-between items-center mb-3">
-                            <span className="text-[11px] text-body">
+                            <span className="text-[12.5px] text-body">
                               {locale === "en" ? "Width" : "Šířka"}
                             </span>
                             <div className="flex items-center gap-1.5">
@@ -580,7 +580,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                 }}
                                 className="w-16 text-right font-display text-sm text-accent border border-border rounded-lg px-2 py-1 bg-white focus:outline-none focus:border-accent tabular-nums"
                               />
-                              <span className="text-[11px] text-muted">m</span>
+                              <span className="text-[12.5px] text-muted">m</span>
                             </div>
                           </div>
                           <div className="relative">
@@ -606,15 +606,15 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                             </div>
                           </div>
                           <div className="flex justify-between mt-1.5">
-                            <span className="text-muted text-[10px]">0 m</span>
-                            <span className="text-muted text-[10px]">100 m</span>
+                            <span className="text-muted text-[12px]">0 m</span>
+                            <span className="text-muted text-[12px]">100 m</span>
                           </div>
                         </div>
 
                         {/* Length */}
                         <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                           <div className="flex justify-between items-center mb-3">
-                            <span className="text-[11px] text-body">
+                            <span className="text-[12.5px] text-body">
                               {locale === "en" ? "Length" : "Délka"}
                             </span>
                             <div className="flex items-center gap-1.5">
@@ -633,7 +633,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                 }}
                                 className="w-16 text-right font-display text-sm text-accent border border-border rounded-lg px-2 py-1 bg-white focus:outline-none focus:border-accent tabular-nums"
                               />
-                              <span className="text-[11px] text-muted">m</span>
+                              <span className="text-[12.5px] text-muted">m</span>
                             </div>
                           </div>
                           <div className="relative">
@@ -659,17 +659,17 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                             </div>
                           </div>
                           <div className="flex justify-between mt-1.5">
-                            <span className="text-muted text-[10px]">0 m</span>
-                            <span className="text-muted text-[10px]">100 m</span>
+                            <span className="text-muted text-[12px]">0 m</span>
+                            <span className="text-muted text-[12px]">100 m</span>
                           </div>
                         </div>
                       </div>
                       {/* Computed area & perimeter */}
                       <div className="flex gap-4 mt-3 px-1">
-                        <span className="text-[12px] text-heading font-medium">
+                        <span className="text-[13px] text-heading font-medium">
                           {locale === "en" ? "Area" : "Plocha"}: <span className="text-accent font-semibold">{area} {d.calculator.sqm}</span>
                         </span>
-                        <span className="text-[10px] text-muted self-center">
+                        <span className="text-[12px] text-muted self-center">
                           {locale === "en" ? "Perimeter" : "Obvod"}: <span className="text-body font-medium">{perimeter} bm</span>
                         </span>
                       </div>
@@ -680,20 +680,20 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   {wizardStep === 2 && (
                     <div>
                       <div className="flex items-center gap-2.5 mb-3">
-                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[12.5px] font-semibold flex items-center justify-center flex-shrink-0">
                           3
                         </span>
-                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                        <label className="text-[12.5px] font-medium tracking-[0.1em] uppercase text-heading">
                           {locale === "en" ? "Number of room corners" : "Počet rohů v místnosti"}
                         </label>
                       </div>
                       <div className="bg-light-secondary/50 border border-border rounded-xl p-4">
                         <div className="flex justify-between items-baseline mb-3">
                           <div className="flex flex-col">
-                            <span className="text-[11px] text-body">
+                            <span className="text-[12.5px] text-body">
                               {locale === "en" ? "Corners" : "Počet rohů"}
                             </span>
-                            <span className="text-[9px] text-muted">
+                            <span className="text-[11px] text-muted">
                               {locale === "en"
                                 ? "Over 4 corners: 200 CZK/pc for each extra"
                                 : "Nad 4 rohy: 200 Kč/ks za každý další"}
@@ -749,8 +749,8 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                           </div>
                         </div>
                         <div className="flex justify-between mt-1.5">
-                          <span className="text-muted text-[10px]">3</span>
-                          <span className="text-muted text-[10px]">12</span>
+                          <span className="text-muted text-[12px]">3</span>
+                          <span className="text-muted text-[12px]">12</span>
                         </div>
                       </div>
                     </div>
@@ -760,10 +760,10 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   {wizardStep === 3 && (
                     <div>
                       <div className="flex items-center gap-2.5 mb-3">
-                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[11px] font-semibold flex items-center justify-center flex-shrink-0">
+                        <span className="w-6 h-6 rounded-full bg-accent text-white text-[12.5px] font-semibold flex items-center justify-center flex-shrink-0">
                           4
                         </span>
-                        <label className="text-[11px] font-medium tracking-[0.1em] uppercase text-heading">
+                        <label className="text-[12.5px] font-medium tracking-[0.1em] uppercase text-heading">
                           {d.calculator.step4}
                         </label>
                       </div>
@@ -787,11 +787,11 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                 className="w-full flex items-center justify-between px-4 py-3 bg-light-secondary/30 hover:bg-light-secondary/60 transition-colors"
                               >
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[11px] font-medium text-heading tracking-[0.04em]">
+                                  <span className="text-[12.5px] font-medium text-heading tracking-[0.04em]">
                                     {d.calculator.categoryLabels[catIdx]}
                                   </span>
                                   {selectedCount > 0 && (
-                                    <span className="bg-accent text-white text-[9px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">
+                                    <span className="bg-accent text-white text-[11px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">
                                       {selectedCount}
                                     </span>
                                   )}
@@ -828,7 +828,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                     return (
                                       <div
                                         key={addon.nameCz}
-                                        className={`flex items-center justify-between px-3 py-2 rounded-lg text-[11px] transition-all duration-200 ${
+                                        className={`flex items-center justify-between px-3 py-2 rounded-lg text-[12.5px] transition-all duration-200 ${
                                           isActive
                                             ? "bg-accent-soft border border-accent/30 text-heading"
                                             : "bg-light-secondary/50 border border-transparent text-body hover:bg-light-secondary"
@@ -858,23 +858,23 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                             <div className="flex items-center gap-1">
                                               <button
                                                 onClick={() => setAddonQty(addon.originalIndex, qty - 1)}
-                                                className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[10px] text-accent hover:bg-accent hover:text-white transition-colors"
+                                                className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[12px] text-accent hover:bg-accent hover:text-white transition-colors"
                                               >
                                                 −
                                               </button>
-                                              <span className="text-[10px] font-medium text-accent min-w-[1.8rem] text-center tabular-nums">
+                                              <span className="text-[12px] font-medium text-accent min-w-[1.8rem] text-center tabular-nums">
                                                 {qty} {unitLabel}
                                               </span>
                                               <button
                                                 onClick={() => setAddonQty(addon.originalIndex, qty + 1)}
-                                                className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[10px] text-accent hover:bg-accent hover:text-white transition-colors"
+                                                className="w-5 h-5 flex items-center justify-center border border-accent/30 rounded text-[12px] text-accent hover:bg-accent hover:text-white transition-colors"
                                               >
                                                 +
                                               </button>
                                             </div>
                                           )}
                                           <span
-                                            className={`text-[10px] tabular-nums whitespace-nowrap ${
+                                            className={`text-[12px] tabular-nums whitespace-nowrap ${
                                               isActive ? "text-accent font-medium" : "text-muted"
                                             }`}
                                           >
@@ -899,7 +899,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 <div className="flex items-center justify-between mt-5 pt-4 border-t border-border flex-shrink-0">
                   <button
                     onClick={() => setWizardStep((s) => Math.max(0, s - 1))}
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[11px] font-medium transition-colors ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[12.5px] font-medium transition-colors ${
                       wizardStep === 0
                         ? "text-muted cursor-default opacity-40"
                         : "text-body border border-border hover:border-accent hover:text-accent"
@@ -908,13 +908,13 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   >
                     ← {locale === "en" ? "Back" : "Zpět"}
                   </button>
-                  <div className="text-[10px] text-muted">
+                  <div className="text-[12px] text-muted">
                     {wizardStep + 1} / 4
                   </div>
                   {wizardStep < 3 ? (
                     <button
                       onClick={() => setWizardStep((s) => Math.min(3, s + 1))}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-[11px] font-medium bg-accent text-white hover:bg-accent-hover transition-colors"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-[12.5px] font-medium bg-accent text-white hover:bg-accent-hover transition-colors"
                     >
                       {locale === "en" ? "Next" : "Další"} →
                     </button>
@@ -932,7 +932,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 />
 
                 <div className="border-b border-border pb-5 mb-5">
-                  <div className="text-muted text-[10px] tracking-[0.14em] uppercase mb-2">
+                  <div className="text-muted text-[12px] tracking-[0.14em] uppercase mb-2">
                     {d.calculator.orientPrice}
                     {rooms.length > 1 && ` (${rooms.length} ${locale === "en" ? "rooms" : "místnosti"})`}
                   </div>
@@ -940,13 +940,13 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     <AnimatedPrice value={total} />{" "}
                     <span className="text-[15px] text-muted">{d.calculator.currency}</span>
                   </div>
-                  <div className="text-[10px] text-muted mt-1.5">
+                  <div className="text-[12px] text-muted mt-1.5">
                     {totalArea > 0 ? Math.round(total / totalArea).toLocaleString("cs-CZ") : 0} {d.calculator.pricePerSqm}
                   </div>
-                  <div className="text-[10px] text-muted mt-1">
+                  <div className="text-[12px] text-muted mt-1">
                     {locale === "en" ? "from" : "od"} {total.toLocaleString("cs-CZ")} {locale === "en" ? "to" : "až"} {totalHigh.toLocaleString("cs-CZ")} {d.calculator.currency}
                   </div>
-                  <div className="text-[13px] font-semibold text-accent mt-2.5">
+                  <div className="text-[14px] font-semibold text-accent mt-2.5">
                     {locale === "en" ? "Prices are listed without VAT." : "Ceny jsou uvedeny bez DPH."}
                   </div>
                 </div>
@@ -962,29 +962,29 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                     return (
                       <div key={r.id} className={rooms.length > 1 ? "border-b border-border pb-3 last:border-0" : ""}>
                         {rooms.length > 1 && (
-                          <div className="text-[10px] font-medium text-heading mb-1.5">
+                          <div className="text-[12px] font-medium text-heading mb-1.5">
                             {locale === "en" ? `Room ${ri + 1}` : `Místnost ${ri + 1}`}
                           </div>
                         )}
                         <div className="flex flex-col gap-1.5">
-                          <div className="flex justify-between text-[11px]">
+                          <div className="flex justify-between text-[12.5px]">
                             <span className="text-muted">{d.calculator.surface}</span>
                             <span className="text-body font-medium">{rSurface?.name}</span>
                           </div>
-                          <div className="flex justify-between text-[11px]">
+                          <div className="flex justify-between text-[12.5px]">
                             <span className="text-muted">{d.calculator.area}</span>
                             <span className="text-body">
                               {r.width} × {r.length} m = {rArea} {d.calculator.sqm}
                             </span>
                           </div>
-                          <div className="flex justify-between text-[11px]">
+                          <div className="flex justify-between text-[12.5px]">
                             <span className="text-muted">{d.calculator.materialInstall}</span>
                             <span className="text-body">
                               {(rArea * (rSurface?.price ?? 0)).toLocaleString("cs-CZ")} {d.calculator.currency}
                             </span>
                           </div>
                           {r.corners > 4 && (
-                            <div className="flex justify-between text-[11px]">
+                            <div className="flex justify-between text-[12.5px]">
                               <span className="text-muted">
                                 {locale === "en"
                                   ? `Corners (${r.corners}×, ${r.corners - 4} extra)`
@@ -1004,7 +1004,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                                 ? `${qty} bm × ${addon.price}`
                                 : `${qty}× ${addon.price}`;
                             return (
-                              <div key={addonIdx} className="flex justify-between text-[11px]">
+                              <div key={addonIdx} className="flex justify-between text-[12.5px]">
                                 <span className="text-muted truncate mr-2">
                                   {getAddonName(addon)} ({detail})
                                 </span>
@@ -1015,7 +1015,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                             );
                           })}
                           {rooms.length > 1 && (
-                            <div className="flex justify-between text-[11px] pt-1 border-t border-border/50">
+                            <div className="flex justify-between text-[12.5px] pt-1 border-t border-border/50">
                               <span className="text-muted font-medium">
                                 {locale === "en" ? "Subtotal" : "Mezisoučet"}
                               </span>
@@ -1039,10 +1039,10 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                           <path d="M4 10l4 4 8-8" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
-                      <p className="text-heading text-[13px] font-medium mb-1">
+                      <p className="text-heading text-[14px] font-medium mb-1">
                         {locale === "en" ? "Sent!" : "Odesláno!"}
                       </p>
-                      <p className="text-muted text-[11px]">
+                      <p className="text-muted text-[12.5px]">
                         {d.calculator.ctaNote}
                       </p>
                     </div>
@@ -1053,7 +1053,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                         placeholder={locale === "en" ? "Full name" : "Jméno a příjmení"}
                         value={inquiryName}
                         onChange={(e) => setInquiryName(e.target.value)}
-                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[12px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
+                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
                       />
                       <input
                         type="email"
@@ -1061,22 +1061,22 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                         value={inquiryEmail}
                         onChange={(e) => setInquiryEmail(e.target.value)}
                         required
-                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[12px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
+                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
                       />
                       <input
                         type="tel"
                         placeholder={locale === "en" ? "Phone (optional)" : "Telefon (nepovinné)"}
                         value={inquiryPhone}
                         onChange={(e) => setInquiryPhone(e.target.value)}
-                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[12px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
+                        className="w-full border border-border rounded-lg px-3 py-2.5 text-[13px] text-heading bg-light-secondary/50 focus:outline-none focus:border-accent"
                       />
                       {inquiryError && (
-                        <p className="text-red-500 text-[10px]">{inquiryError}</p>
+                        <p className="text-red-500 text-[12px]">{inquiryError}</p>
                       )}
                       <button
                         onClick={handleSubmitInquiry}
                         disabled={inquirySending || !inquiryName.trim() || !inquiryEmail.trim()}
-                        className="btn-shimmer glow-accent w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-3.5 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full disabled:opacity-40"
+                        className="btn-shimmer glow-accent w-full bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase py-3.5 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full disabled:opacity-40"
                       >
                         {inquirySending
                           ? (locale === "en" ? "Sending..." : "Odesílám...")
@@ -1084,7 +1084,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                       </button>
                       <button
                         onClick={() => setShowInquiry(false)}
-                        className="text-muted text-[10px] hover:text-heading transition-colors"
+                        className="text-muted text-[12px] hover:text-heading transition-colors"
                       >
                         ← {locale === "en" ? "Back to summary" : "Zpět na souhrn"}
                       </button>
@@ -1094,11 +1094,11 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                   <>
                     <button
                       onClick={() => setShowInquiry(true)}
-                      className="btn-shimmer glow-accent block w-full bg-accent text-white text-[11px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
+                      className="btn-shimmer glow-accent block w-full bg-accent text-white text-[12.5px] font-medium tracking-[0.12em] uppercase py-4 text-center hover:bg-accent-hover transition-colors duration-200 rounded-full"
                     >
                       {d.calculator.ctaSubmit}
                     </button>
-                    <p className="text-muted text-[9px] text-center mt-2.5 leading-[1.5]">
+                    <p className="text-muted text-[11px] text-center mt-2.5 leading-[1.5]">
                       {d.calculator.ctaNote}
                     </p>
                   </>
@@ -1122,7 +1122,7 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                 className="bg-white border-2 border-accent/30 rounded-2xl px-5 py-3.5 shadow-xl max-w-[260px] relative"
                 style={{ animation: "mascotBubblePop 0.4s ease 1.3s both" }}
               >
-                <p className="text-[12px] text-heading leading-[1.6] font-medium">
+                <p className="text-[13px] text-heading leading-[1.6] font-medium">
                   {locale === "en"
                     ? "Not sure what to enter? Ask me 😊 I'll advise, choose, calculate & fill it in!"
                     : "Nevíš co zadat? Zeptej se mě 😊 Poradím, vyberu, spočítám, vyplním!"}
@@ -1134,13 +1134,13 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
                       setIsOpen(false);
                       window.dispatchEvent(new CustomEvent("openStropKecka"));
                     }}
-                    className="flex-1 bg-accent text-white text-[10px] font-medium tracking-[0.08em] uppercase px-3 py-2 rounded-full hover:bg-accent-hover transition-colors"
+                    className="flex-1 bg-accent text-white text-[12px] font-medium tracking-[0.08em] uppercase px-3 py-2 rounded-full hover:bg-accent-hover transition-colors"
                   >
                     {locale === "en" ? "Yes, help me!" : "Jo, poraď mi!"}
                   </button>
                   <button
                     onClick={() => setShowMascot(false)}
-                    className="flex-1 border border-border text-muted text-[10px] font-medium tracking-[0.08em] uppercase px-3 py-2 rounded-full hover:border-accent hover:text-accent transition-colors"
+                    className="flex-1 border border-border text-muted text-[12px] font-medium tracking-[0.08em] uppercase px-3 py-2 rounded-full hover:border-accent hover:text-accent transition-colors"
                   >
                     {locale === "en" ? "I'm fine" : "Zvládnu sám"}
                   </button>

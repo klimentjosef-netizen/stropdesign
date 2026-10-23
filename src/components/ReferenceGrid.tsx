@@ -127,14 +127,14 @@ function ProjectModal({
               <h2 className="font-display text-[clamp(20px,2.5vw,28px)] font-semibold text-heading leading-tight">
                 {reference.title}
               </h2>
-              <span className="shrink-0 bg-accent/10 text-accent text-[10px] tracking-[0.1em] uppercase px-2.5 py-1 font-medium rounded-full mt-1">
+              <span className="shrink-0 bg-accent/10 text-accent text-[12px] tracking-[0.1em] uppercase px-2.5 py-1 font-medium rounded-full mt-1">
                 {reference.tag}
               </span>
             </div>
-            <p className="text-muted text-[12px] tracking-[0.04em] mb-3">
+            <p className="text-muted text-[13px] tracking-[0.04em] mb-3">
               {reference.meta}
             </p>
-            <p className="text-body text-sm leading-[1.7] font-light">
+            <p className="text-body text-sm leading-[1.7] font-normal">
               {reference.description}
             </p>
           </div>
@@ -322,12 +322,12 @@ function ReferenceCard({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
               </svg>
-              <span className="text-white/60 text-[11px] font-medium tracking-[0.06em] uppercase">
+              <span className="text-white/60 text-[12.5px] font-medium tracking-[0.06em] uppercase">
                 {d.surfaces.photoPlaceholder}
               </span>
             </div>
           )}
-          <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
+          <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[11px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
             {ref.tag}
           </div>
           {hasGal && (
@@ -344,10 +344,10 @@ function ReferenceCard({
           <h3 className="font-display text-lg font-medium text-heading mb-1 group-hover:text-accent transition-colors">
             {ref.title}
           </h3>
-          <p className="text-muted text-[11px] tracking-[0.04em] mb-3">
+          <p className="text-muted text-[12.5px] tracking-[0.04em] mb-3">
             {ref.meta}
           </p>
-          <p className="text-body text-sm leading-[1.6] font-light">
+          <p className="text-body text-sm leading-[1.6] font-normal">
             {ref.description}
           </p>
         </div>

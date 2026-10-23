@@ -31,7 +31,7 @@ function FaqItemComponent({ question, answer }: { question: string; answer: stri
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: open ? "200px" : "0", opacity: open ? 1 : 0 }}
       >
-        <p className="text-body text-[13px] leading-[1.7] font-light pt-3 pr-8">
+        <p className="text-body text-[14px] leading-[1.7] font-normal pt-3 pr-8">
           {answer}
         </p>
       </div>

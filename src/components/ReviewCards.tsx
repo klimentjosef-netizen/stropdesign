@@ -45,7 +45,7 @@ export default function ReviewCards() {
                 <Stars />
 
                 {/* TODO: doplnit recenzi */}
-                <p className="mt-5 mb-6 text-body text-sm leading-[1.8] font-light italic flex-grow">
+                <p className="mt-5 mb-6 text-body text-sm leading-[1.8] font-normal italic flex-grow">
                   &ldquo;Recenze připravujeme...&rdquo;
                 </p>
 
@@ -54,7 +54,7 @@ export default function ReviewCards() {
                 <p className="font-display text-sm font-semibold text-heading">
                   {review.name}
                 </p>
-                <p className="text-muted text-[11px] tracking-[0.04em] mt-0.5">
+                <p className="text-muted text-[12.5px] tracking-[0.04em] mt-0.5">
                   {review.location}
                 </p>
               </div>
@@ -69,7 +69,7 @@ export default function ReviewCards() {
               href="https://www.google.com/search?sca_esv=c1aee945acc89b8a&q=strop+design&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOSoIVhG44J1F14tVdiuftmyvOEsuV2wCc4xWAeeTo_Nb0vDCgowLCFaWhJEMwmVZPLInovM%3D&uds=ALYpb_kPfttAwudk1x-HGnga9iDDgBWpVX4BktQyA-tg2NtL0hFccrlPGlFsJINLW4KPT6vtO-EGA5hYDSUQCu0TDWGjFZwpCib3RQgneU-Nl2wZQhn4BoM"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-accent text-[12px] font-medium tracking-[0.06em] hover:text-accent-hover transition-colors duration-200 group"
+              className="inline-flex items-center gap-2 text-accent text-[13px] font-medium tracking-[0.06em] hover:text-accent-hover transition-colors duration-200 group"
             >
               Přečíst všechny recenze na Google
               <svg

@@ -28,8 +28,8 @@ const config: Config = {
         "navy-light": "#25253d",
         // Text
         heading: "#0A0A0A",
-        body: "#444444",
-        muted: "#888888",
+        body: "#3A3A3A",
+        muted: "#6B6B6B",
         faint: "#CCCCCC",
         // Borders
         border: "#E8E8E8",

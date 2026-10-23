@@ -34,7 +34,7 @@ export default function References({ references }: ReferencesProps) {
           <div className="flex justify-center mt-10">
             <Link
               href={refHref}
-              className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-8 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
+              className="bg-accent text-white text-[12.5px] font-medium tracking-[0.1em] uppercase px-8 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
             >
               {d.references.showAll}
             </Link>

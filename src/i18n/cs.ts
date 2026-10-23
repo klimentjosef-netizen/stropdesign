@@ -6,7 +6,7 @@ const cs = {
     references: "Reference",
     blog: "Blog",
     contact: "Kontakt",
-    cta: "Poptávka zdarma",
+    cta: "Nezávazná poptávka",
   },
   hero: {
     title1: "Napínané stropy,",

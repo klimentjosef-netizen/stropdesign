@@ -103,7 +103,7 @@ export default function Hero() {
         >
           <div className="w-10 h-px bg-accent" />
           <span
-            className="text-[12px] font-semibold tracking-[0.18em] uppercase"
+            className="text-[13px] font-semibold tracking-[0.18em] uppercase"
             style={{ color: "var(--gold, #A8935A)" }}
           >
             {d.hero.eyebrow}
@@ -149,14 +149,14 @@ export default function Hero() {
 
         {/* CTAs */}
         <div
-          className={`flex items-center gap-5 mb-16 transition-all duration-900 ${
+          className={`flex flex-wrap items-center justify-center gap-x-5 gap-y-4 mb-16 transition-all duration-900 ${
             loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
           style={{ transitionDelay: "1.1s" }}
         >
           <a
             href="#povrchy"
-            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full hover:brightness-110 transition-all duration-200"
+            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[14px] font-semibold tracking-[0.08em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full whitespace-nowrap hover:brightness-110 transition-all duration-200"
           >
             {d.hero.cta}
           </a>
@@ -201,7 +201,7 @@ export default function Hero() {
                 <span ref={stat.ref}>0</span>
               </div>
               <div
-                className="text-[12px] font-medium tracking-[0.04em]"
+                className="text-[13px] font-medium tracking-[0.04em]"
                 style={{ color: "#6b675e" }}
               >
                 {stat.label}

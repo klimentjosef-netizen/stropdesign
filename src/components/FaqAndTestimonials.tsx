@@ -61,7 +61,7 @@ function FaqItemComponent({ question, answer }: { question: string; answer: stri
           open ? "max-h-40 mt-2.5 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <p className="text-body text-[13px] leading-[1.7] font-light pr-8">
+        <p className="text-body text-[14px] leading-[1.7] font-normal pr-8">
           {answer}
         </p>
       </div>
@@ -131,7 +131,7 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
 
                 <Stars count={t.rating} />
 
-                <p className="mt-5 mb-5 text-body text-[14px] leading-[1.8] font-light italic relative z-10">
+                <p className="mt-5 mb-5 text-body text-[14px] leading-[1.8] font-normal italic relative z-10">
                   &ldquo;{t.text}&rdquo;
                 </p>
 
@@ -140,7 +140,7 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
                 <p className="font-display text-sm font-semibold text-heading">
                   {t.name}
                 </p>
-                <p className="text-muted text-[11px] tracking-[0.04em] mt-0.5">
+                <p className="text-muted text-[12.5px] tracking-[0.04em] mt-0.5">
                   {d.faq.googleReview}
                 </p>
               </div>
@@ -167,7 +167,7 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
                 className="inline-flex items-center gap-2.5 bg-white border border-border rounded-full px-5 py-2.5 mt-5 hover:border-accent/30 transition-colors duration-300 group"
               >
                 <GoogleIcon />
-                <span className="text-body text-[12px] font-medium group-hover:text-heading transition-colors">
+                <span className="text-body text-[13px] font-medium group-hover:text-heading transition-colors">
                   {d.faq.googleReview}
                 </span>
                 <svg
@@ -192,7 +192,7 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
                     <p className="font-display text-xl font-bold text-accent">
                       {stat.value}
                     </p>
-                    <p className="text-muted text-[10px] tracking-[0.04em] mt-0.5">
+                    <p className="text-muted text-[12px] tracking-[0.04em] mt-0.5">
                       {stat.label}
                     </p>
                   </div>

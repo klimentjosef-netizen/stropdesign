@@ -35,7 +35,7 @@ export default function ONasPage() {
               <br />
               <em className="italic text-accent">po celé ČR</em>.
             </h1>
-            <p className="text-body text-[15px] leading-[1.75] font-light mb-8">
+            <p className="text-body text-[15px] leading-[1.75] font-normal mb-8">
               Jsme StropDesign, divize společnosti Derbau s.r.o. Zabýváme se
               návrhem a montáží napínaných stropů pro rodinné domy, byty,
               kanceláře i komerční prostory. Každý projekt bereme jako příležitost
@@ -43,7 +43,7 @@ export default function ONasPage() {
             </p>
             <Link
               href="/kontakt#kontakt-formular"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+              className="inline-block bg-accent text-white text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Ozvěte se nám
             </Link>
@@ -66,14 +66,14 @@ export default function ONasPage() {
                 <h2 className="font-display text-lg font-semibold text-heading">
                   Pavel Karlík
                 </h2>
-                <p className="text-muted text-xs font-light mt-0.5">
+                <p className="text-muted text-xs font-normal mt-0.5">
                   Zakladatel &amp; hlavní montér
                 </p>
-                <p className="text-accent text-[11px] tracking-[0.1em] uppercase font-medium mt-1">
+                <p className="text-accent text-[12.5px] tracking-[0.1em] uppercase font-medium mt-1">
                   StropDesign / Derbau s.r.o.
                 </p>
 
-                <p className="text-body text-sm leading-[1.7] font-light mt-4 max-w-xs">
+                <p className="text-body text-sm leading-[1.7] font-normal mt-4 max-w-xs">
                   Napínaným stropům se věnuji přes 3 roky a za tu dobu jsem
                   měl možnost vést desítky realizací po celé ČR. Záleží mi
                   na kvalitě každého detailu a osobně dohlížím na průběh
@@ -94,7 +94,7 @@ export default function ONasPage() {
                 <div className="font-display text-4xl lg:text-5xl font-bold text-accent mb-2">
                   {stat.number}
                 </div>
-                <div className="text-muted text-[11px] tracking-[0.1em] uppercase">
+                <div className="text-muted text-[12.5px] tracking-[0.1em] uppercase">
                   {stat.label}
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default function ONasPage() {
                   <h3 className="font-display text-base font-medium mb-2 text-heading">
                     {reason.title}
                   </h3>
-                  <p className="text-body text-sm leading-[1.7] font-light">
+                  <p className="text-body text-sm leading-[1.7] font-normal">
                     {reason.text}
                   </p>
                 </div>
@@ -140,12 +140,12 @@ export default function ONasPage() {
             <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-4 text-heading">
               Pojďme spolupracovat
             </h2>
-            <p className="text-body text-sm leading-[1.7] font-light mb-8">
+            <p className="text-body text-sm leading-[1.7] font-normal mb-8">
               Rádi vám poradíme s výběrem a připravíme nabídku na míru. Stačí se ozvat.
             </p>
             <Link
               href="/kontakt#kontakt-formular"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+              className="inline-block bg-accent text-white text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Nezávazná poptávka
             </Link>

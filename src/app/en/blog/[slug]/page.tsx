@@ -74,7 +74,7 @@ export default function BlogPostPageEN({ params }: Props) {
         <div className="max-w-3xl mx-auto">
           <Link
             href="/en/blog"
-            className="inline-flex items-center gap-2 text-[12px] text-muted hover:text-accent tracking-[0.06em] uppercase mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-[13px] text-muted hover:text-accent tracking-[0.06em] uppercase mb-8 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
@@ -85,7 +85,7 @@ export default function BlogPostPageEN({ params }: Props) {
           <h1 className="font-display text-[clamp(28px,4vw,44px)] font-bold leading-[1.15] mb-6 text-heading">
             {post.title}
           </h1>
-          <div className="flex flex-wrap items-center gap-4 text-[12px] text-muted">
+          <div className="flex flex-wrap items-center gap-4 text-[13px] text-muted">
             <span>
               {new Date(post.date).toLocaleDateString("en-US", {
                 day: "numeric",
@@ -100,7 +100,7 @@ export default function BlogPostPageEN({ params }: Props) {
           </div>
           <div className="flex flex-wrap gap-2 mt-4">
             {post.tags.map((tag) => (
-              <span key={tag} className="text-[10px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2.5 py-1 font-medium">
+              <span key={tag} className="text-[12px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2.5 py-1 font-medium">
                 {tag}
               </span>
             ))}
@@ -119,12 +119,12 @@ export default function BlogPostPageEN({ params }: Props) {
           <h2 className="font-display text-[clamp(22px,3vw,32px)] font-semibold mb-4 text-heading">
             Interested in stretch ceilings?
           </h2>
-          <p className="text-body text-sm leading-[1.7] font-light mb-8">
+          <p className="text-body text-sm leading-[1.7] font-normal mb-8">
             Contact us for a free consultation and a tailor-made quote.
           </p>
           <Link
             href="/en/kontakt#kontakt-formular"
-            className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+            className="inline-block bg-accent text-white text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
           >
             Free enquiry
           </Link>

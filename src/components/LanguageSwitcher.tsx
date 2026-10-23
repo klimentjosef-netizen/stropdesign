@@ -23,7 +23,7 @@ export default function LanguageSwitcher() {
   return (
     <Link
       href={targetPath}
-      className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide px-3 py-1.5 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 transition-all duration-200"
+      className="flex items-center gap-1.5 text-[12.5px] font-semibold tracking-wide px-3 py-1.5 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 transition-all duration-200"
     >
       <span className="text-accent">{currentLabel}</span>
       <span className="text-muted/40">/</span>

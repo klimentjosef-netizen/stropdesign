@@ -8,7 +8,7 @@ const en: Dictionary = {
     references: "Portfolio",
     blog: "Blog",
     contact: "Contact",
-    cta: "Free quote",
+    cta: "Free enquiry",
   },
   hero: {
     title1: "Stretch ceilings",

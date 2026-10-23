@@ -10,7 +10,7 @@ import { trackLead } from "@/lib/gtag";
 const inputClass =
   "w-full bg-white border border-border-dark/60 text-heading font-body text-[15px] px-4 py-3 outline-none transition-all duration-200 placeholder:text-[#8a867c] focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.15)] hover:border-border-dark rounded-xl";
 
-const labelClass = "text-[13px] font-medium text-heading";
+const labelClass = "text-[14px] font-medium text-heading";
 
 const MAX_FILES = 5;
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
@@ -139,7 +139,7 @@ function ContactForm() {
           </svg>
         </div>
         <h3 className="font-display text-xl font-semibold mb-2 text-heading">{d.contact.success}</h3>
-        <p className="text-body text-sm font-light">{d.contact.successSub}</p>
+        <p className="text-body text-sm font-normal">{d.contact.successSub}</p>
       </div>
     );
   }
@@ -179,13 +179,13 @@ function ContactForm() {
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div className="flex flex-col">
             <span className={labelClass}>{d.contact.attachmentsLabel}</span>
-            <span className="text-[12px] text-body">{d.contact.attachmentsHint}</span>
+            <span className="text-[13px] text-body">{d.contact.attachmentsHint}</span>
           </div>
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={files.length >= MAX_FILES}
-            className="border border-accent text-accent text-[12px] font-medium tracking-[0.04em] px-4 py-2 rounded-full hover:bg-accent hover:text-white transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="border border-accent text-accent text-[13px] font-medium tracking-[0.04em] px-4 py-2 rounded-full hover:bg-accent hover:text-white transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {d.contact.attachmentsAdd}
           </button>
@@ -205,27 +205,27 @@ function ContactForm() {
                 key={`${f.name}-${i}`}
                 className="flex items-center justify-between gap-3 bg-light-secondary border border-border rounded-lg px-3 py-2"
               >
-                <span className="text-[12px] text-body truncate flex-1" title={f.name}>
+                <span className="text-[13px] text-body truncate flex-1" title={f.name}>
                   {f.name} <span className="text-muted">({formatSize(f.size)})</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => removeFile(i)}
-                  className="text-[10px] tracking-[0.06em] uppercase text-muted hover:text-red-600 transition-colors flex-shrink-0"
+                  className="text-[12px] tracking-[0.06em] uppercase text-muted hover:text-red-600 transition-colors flex-shrink-0"
                 >
                   {d.contact.attachmentsRemove}
                 </button>
               </li>
             ))}
-            <li className="text-[10px] text-muted text-right">
+            <li className="text-[12px] text-muted text-right">
               {files.length}/{MAX_FILES} · {formatSize(totalBytes)} / 4 MB
             </li>
           </ul>
         )}
       </div>
 
-      {error && <p className="text-red-600 text-sm font-light">{error}</p>}
-      <label className="flex items-start gap-3 cursor-pointer text-[13px] text-heading leading-[1.6]">
+      {error && <p className="text-red-600 text-sm font-normal">{error}</p>}
+      <label className="flex items-start gap-3 cursor-pointer text-[14px] text-heading leading-[1.6]">
         <input
           type="checkbox"
           required
@@ -255,7 +255,7 @@ export default function ContactSection() {
             <br />
             {d.contact.title2}
           </h2>
-          <p className="text-body text-[13px] leading-[1.7] mb-6">
+          <p className="text-body text-[14px] leading-[1.7] mb-6">
             {d.contact.subtitle}
           </p>
 
@@ -265,7 +265,7 @@ export default function ContactSection() {
               { text: "info@stropdesign.cz", href: "mailto:info@stropdesign.cz" },
               { text: d.contact.area, href: undefined },
             ].map((item) => (
-              <div key={item.text} className="flex items-center gap-3 text-[13px] text-body group">
+              <div key={item.text} className="flex items-center gap-3 text-[14px] text-body group">
                 <div className="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0 group-hover:scale-150 transition-transform duration-300" />
                 {item.href ? (
                   <a href={item.href} className="hover:text-accent transition-colors duration-300">{item.text}</a>
