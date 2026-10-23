@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import RevealOnScroll from "./RevealOnScroll";
-import SectionEyebrow from "./SectionEyebrow";
 import MascotA from "./MascotA";
 import { useDict, useLocale } from "@/i18n/LocaleContext";
 import { trackLead } from "@/lib/gtag";

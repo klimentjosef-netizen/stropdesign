@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
-import SectionEyebrow from "./SectionEyebrow";
 import { useDict } from "@/i18n/LocaleContext";
 import { trackLead } from "@/lib/gtag";
 

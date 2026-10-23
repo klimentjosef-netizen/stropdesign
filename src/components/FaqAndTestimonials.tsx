@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import RevealOnScroll from "./RevealOnScroll";
-import SectionEyebrow from "./SectionEyebrow";
 import { useDict } from "@/i18n/LocaleContext";
 import type { Testimonial, FaqItem } from "@/lib/keystatic";
 
