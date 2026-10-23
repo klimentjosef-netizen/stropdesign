@@ -8,7 +8,9 @@ import { useDict } from "@/i18n/LocaleContext";
 import { trackLead } from "@/lib/gtag";
 
 const inputClass =
-  "bg-light-secondary border border-border text-heading font-body text-[13px] font-light px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.1)] hover:border-border-dark rounded-xl";
+  "w-full bg-white border border-border-dark/60 text-heading font-body text-[15px] px-4 py-3 outline-none transition-all duration-200 placeholder:text-[#8a867c] focus:border-accent focus:shadow-[0_0_0_3px_rgba(132,118,49,0.15)] hover:border-border-dark rounded-xl";
+
+const labelClass = "text-[13px] font-medium text-heading";
 
 const MAX_FILES = 5;
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
@@ -145,24 +147,45 @@ function ContactForm() {
   const totalBytes = files.reduce((sum, f) => sum + f.size, 0);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <input type="text" placeholder={d.contact.name} required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputClass} />
-      <input type="email" placeholder={d.contact.email} required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={inputClass} />
-      <input type="tel" placeholder={d.contact.phone} required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={inputClass} />
-      <input type="text" placeholder={d.contact.room} value={formData.room} onChange={(e) => setFormData({ ...formData, room: e.target.value })} className={inputClass} />
-      <textarea placeholder={d.contact.message} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className={`${inputClass} resize-y min-h-[90px]`} />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {(
+        [
+          { key: "name", type: "text", label: d.contact.name, required: true, auto: "name" },
+          { key: "email", type: "email", label: d.contact.email, required: true, auto: "email" },
+          { key: "phone", type: "tel", label: d.contact.phone, required: true, auto: "tel" },
+          { key: "room", type: "text", label: d.contact.room, required: false, placeholder: d.contact.roomPlaceholder },
+        ] as const
+      ).map((f) => (
+        <label key={f.key} className="flex flex-col gap-1.5">
+          <span className={labelClass}>{f.label}</span>
+          <input
+            type={f.type}
+            name={f.key}
+            required={f.required}
+            autoComplete={"auto" in f ? f.auto : undefined}
+            placeholder={"placeholder" in f ? f.placeholder : undefined}
+            value={formData[f.key]}
+            onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+            className={inputClass}
+          />
+        </label>
+      ))}
+      <label className="flex flex-col gap-1.5">
+        <span className={labelClass}>{d.contact.message}</span>
+        <textarea name="message" rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className={`${inputClass} resize-y min-h-[100px]`} />
+      </label>
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div className="flex flex-col">
-            <span className="text-[12px] text-body font-medium">{d.contact.attachmentsLabel}</span>
-            <span className="text-[10px] text-muted">{d.contact.attachmentsHint}</span>
+            <span className={labelClass}>{d.contact.attachmentsLabel}</span>
+            <span className="text-[12px] text-body">{d.contact.attachmentsHint}</span>
           </div>
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={files.length >= MAX_FILES}
-            className="border border-accent/40 text-accent text-[10px] font-medium tracking-[0.08em] uppercase px-4 py-2 rounded-full hover:bg-accent hover:text-white transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="border border-accent text-accent text-[12px] font-medium tracking-[0.04em] px-4 py-2 rounded-full hover:bg-accent hover:text-white transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {d.contact.attachmentsAdd}
           </button>
@@ -202,7 +225,7 @@ function ContactForm() {
       </div>
 
       {error && <p className="text-red-600 text-sm font-light">{error}</p>}
-      <label className="flex items-start gap-3 cursor-pointer text-[12px] text-body leading-[1.6]">
+      <label className="flex items-start gap-3 cursor-pointer text-[13px] text-heading leading-[1.6]">
         <input
           type="checkbox"
           required
@@ -212,7 +235,7 @@ function ContactForm() {
         />
         <span>{d.contact.gdpr}</span>
       </label>
-      <button type="submit" disabled={sending || !gdprConsent} className="btn-shimmer glow-accent bg-accent text-white font-body text-[11px] font-medium tracking-[0.12em] uppercase py-4 hover:bg-accent-hover transition-all duration-300 rounded-full disabled:opacity-60 disabled:cursor-not-allowed">
+      <button type="submit" disabled={sending} className="bg-accent text-white font-body text-[14px] font-semibold tracking-[0.04em] py-4 hover:bg-accent-hover active:scale-[0.99] transition-all duration-200 rounded-full disabled:opacity-60 disabled:cursor-wait">
         {sending ? d.contact.sending : d.contact.submit}
       </button>
     </form>

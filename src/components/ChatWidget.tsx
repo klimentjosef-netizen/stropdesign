@@ -41,6 +41,7 @@ const t = {
     openChat: "Otevřít chat",
     tooltipCta:
       "Popište co potřebujete a ihned dostanete orientační cenu",
+    closeHint: "Zavřít",
     pcs: "ks",
     currency: "Kč",
     surfaceLabel: "povrch",
@@ -85,6 +86,7 @@ const t = {
     openChat: "Open chat",
     tooltipCta:
       "Describe what you need and get an indicative price right away",
+    closeHint: "Close",
     pcs: "pcs",
     currency: "CZK",
     surfaceLabel: "surface",
@@ -347,6 +349,28 @@ export default function ChatWidget() {
   const locale = useLocale();
   const l = t[locale];
   const [isOpen, setIsOpen] = useState(false);
+  // Hint bubble: shown once per visit after a short delay, hides itself so it
+  // never permanently covers page content (forms, FAQ, stats on mobile).
+  const [showHint, setShowHint] = useState(false);
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("chat-hint-seen") === "1";
+    } catch {}
+    if (seen) return;
+    const show = setTimeout(() => setShowHint(true), 8000);
+    const hide = setTimeout(() => dismissHint(), 8000 + 9000);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
+    };
+  }, []);
+  const dismissHint = () => {
+    setShowHint(false);
+    try {
+      sessionStorage.setItem("chat-hint-seen", "1");
+    } catch {}
+  };
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [pendingImage, setPendingImage] = useState<ChatImage | null>(null);
@@ -525,7 +549,10 @@ export default function ChatWidget() {
   return (
     <>
       <button
-        onClick={() => setIsOpen((o) => !o)}
+        onClick={() => {
+          dismissHint();
+          setIsOpen((o) => !o);
+        }}
         className={`fixed bottom-6 right-6 z-[90] w-14 h-14 bg-accent text-white rounded-full shadow-lg hover:bg-accent-hover transition-all duration-300 hover:scale-105 flex items-center justify-center${isOpen ? " hidden sm:flex" : ""}`}
         aria-label={l.openChat}
       >
@@ -547,13 +574,32 @@ export default function ChatWidget() {
         )}
       </button>
 
-      {!isOpen && messages.length === 0 && (
+      {showHint && !isOpen && messages.length === 0 && (
         <>
           <div
-            className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[11px] font-medium px-3 py-2 rounded-sm shadow-lg pointer-events-none max-w-[220px] text-center leading-[1.5]"
-            style={{ animation: "chatSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both" }}
+            className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[13px] font-medium pl-4 pr-9 py-3 rounded-xl shadow-lg max-w-[250px] leading-[1.45]"
+            style={{ animation: "chatSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both" }}
           >
-            {l.tooltipCta}
+            <button
+              type="button"
+              onClick={() => {
+                dismissHint();
+                setIsOpen(true);
+              }}
+              className="text-left"
+            >
+              {l.tooltipCta}
+            </button>
+            <button
+              type="button"
+              onClick={dismissHint}
+              aria-label={l.closeHint}
+              className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-white/50 hover:text-white"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M1 1l8 8M9 1l-8 8" />
+              </svg>
+            </button>
             <div className="absolute -bottom-1 right-5 w-2 h-2 bg-dark rotate-45" />
           </div>
           <div className="fixed bottom-6 right-6 z-[89] w-14 h-14 rounded-full animate-ping bg-accent/20 pointer-events-none" />
