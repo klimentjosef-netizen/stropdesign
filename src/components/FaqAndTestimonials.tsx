@@ -99,7 +99,6 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
         {/* LEFT — FAQ */}
         <RevealOnScroll>
           <div>
-            <SectionEyebrow text={d.faq.eyebrow} />
             <h2 className="font-display text-[clamp(24px,2.5vw,34px)] font-semibold leading-[1.15] mb-8 text-heading">
               {d.faq.title}
             </h2>
@@ -114,7 +113,6 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
         {/* RIGHT — Testimonials */}
         <RevealOnScroll delay={150}>
           <div>
-            <SectionEyebrow text={d.testimonials.eyebrow} />
             <h2 className="font-display text-[clamp(24px,2.5vw,34px)] font-semibold leading-[1.15] mb-8 text-heading">
               {d.testimonials.title}
             </h2>
@@ -181,11 +179,10 @@ export default function FaqAndTestimonials({ testimonials, faqs }: FaqAndTestimo
               </a>
 
               {/* Stats row */}
-              <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-border">
+              <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-border">
                 {[
                   { value: "5.0", label: d.testimonials.googleRating },
                   { value: "200+", label: d.testimonials.projects },
-                  { value: "100%", label: d.testimonials.satisfaction },
                   { value: d.testimonials.warrantyValue, label: d.testimonials.warranty },
                 ].map((stat) => (
                   <div key={stat.label}>

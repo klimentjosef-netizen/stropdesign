@@ -25,6 +25,8 @@ const altTextsEn: Record<string, string> = {
 interface ReferenceGridProps {
   references: Reference[];
   showSections?: boolean;
+  /** "mosaic": homepage showcase, first item large, photo-led tiles. */
+  variant?: "cards" | "mosaic";
 }
 
 /* ─── Project Detail Modal ─── */
@@ -356,9 +358,56 @@ function ReferenceCard({
   );
 }
 
+/* ─── Mosaic tile (homepage) ─── */
+
+function MosaicTile({
+  reference: ref,
+  image,
+  altText,
+  large,
+  className,
+  delay,
+  onExpand,
+}: {
+  reference: Reference;
+  image: string | undefined;
+  altText: string;
+  large: boolean;
+  className: string;
+  delay: number;
+  onExpand: () => void;
+}) {
+  return (
+    <RevealOnScroll delay={delay} className={className}>
+      <button
+        type="button"
+        onClick={onExpand}
+        className="group relative block w-full h-full min-h-[260px] overflow-hidden rounded-2xl bg-[#1a1a1a] text-left"
+      >
+        {image && (
+          <Image
+            src={image}
+            alt={altText}
+            fill
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            sizes={large ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+          />
+        )}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+        <div className={`absolute inset-x-0 bottom-0 ${large ? "p-6 lg:p-8" : "p-5"}`}>
+          <h3 className={`font-display font-semibold text-white leading-tight ${large ? "text-[22px] lg:text-[28px]" : "text-[17px]"}`}>
+            {ref.title}
+          </h3>
+          <p className="text-white/80 text-[13px] mt-1">{ref.meta}</p>
+        </div>
+      </button>
+    </RevealOnScroll>
+  );
+}
+
 /* ─── Main Grid ─── */
 
-export default function ReferenceGrid({ references, showSections = true }: ReferenceGridProps) {
+export default function ReferenceGrid({ references, showSections = true, variant = "cards" }: ReferenceGridProps) {
   const locale = useLocale();
   const altTexts = locale === "en" ? altTextsEn : altTextsCs;
   const [activeRef, setActiveRef] = useState<Reference | null>(null);
@@ -388,6 +437,40 @@ export default function ReferenceGrid({ references, showSections = true }: Refer
       onExpand={() => setActiveRef(ref)}
     />
   );
+
+  // Mosaic: 6 items fill a 3x3 grid exactly (1 large 2x2 + 2 beside + 3 below).
+  const mosaicSpan = (i: number) =>
+    i === 0
+      ? "md:col-span-2 lg:row-span-2 aspect-[4/3] md:aspect-[16/10] lg:aspect-auto"
+      : "aspect-[4/3] lg:aspect-auto";
+
+  if (variant === "mosaic") {
+    return (
+      <>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[260px] gap-4 lg:gap-5">
+          {references.map((ref, i) => (
+            <MosaicTile
+              key={ref.title}
+              reference={ref}
+              image={getImages(ref)[0]}
+              altText={altTexts[ref.title] || ref.title}
+              large={i === 0}
+              className={mosaicSpan(i)}
+              delay={i * 70}
+              onExpand={() => setActiveRef(ref)}
+            />
+          ))}
+        </div>
+        {activeRef && (
+          <ProjectModal
+            reference={activeRef}
+            altText={altTexts[activeRef.title] || activeRef.title}
+            onClose={() => setActiveRef(null)}
+          />
+        )}
+      </>
+    );
+  }
 
   return (
     <>

@@ -15,6 +15,15 @@ export const metadata: Metadata = {
   },
 };
 
+// Spread the last row(s) evenly so no card is left alone in a row
+// (3 per row on desktop; a remainder of 1 becomes 2 + 2, of 2 becomes 2).
+function gridSpan(i: number, n: number) {
+  const r = n % 3;
+  const wide = (r === 1 && i >= n - 4) || (r === 2 && i >= n - 2);
+  const mdFull = n % 2 === 1 && i === n - 1 ? " md:col-span-2" : "";
+  return (wide ? "lg:col-span-3" : "lg:col-span-2") + mdFull;
+}
+
 export default async function ServicesPageEN() {
   const surfaces = await getSurfaces("en");
   return (
@@ -57,15 +66,15 @@ export default async function ServicesPageEN() {
               Our stretch ceiling types
             </h2>
           </RevealOnScroll>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
           {surfaces.map((product, i) => (
-            <RevealOnScroll key={product.name} delay={i * 80}>
+            <RevealOnScroll key={product.name} delay={i * 80} className={gridSpan(i, surfaces.length)}>
               <div className="bg-white border border-border flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl overflow-hidden">
                 {product.image && (
                   <div className="h-48 relative overflow-hidden" style={{ background: product.color }}>
                     <Image
                       src={product.image}
-                      alt={`Stretch ceiling – ${product.name} finish`}
+                      alt={`Stretch ceiling, ${product.name} finish`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover"

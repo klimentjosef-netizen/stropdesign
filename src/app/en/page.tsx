@@ -8,7 +8,7 @@ import ContactSection from "@/components/ContactSection";
 import { getSurfaces, getReferences, getAddons, getTestimonials, getFaqs } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
-  title: "Stretch ceilings — designer ceiling solutions across Czechia",
+  title: "Stretch ceilings: designer ceiling solutions across Czechia",
   description:
     "Premium stretch ceilings nationwide. Dust-free 1-day installation, 12-year colour warranty, 200+ projects delivered. Free consultation and tailored quote.",
   alternates: {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     languages: { cs: "/", en: "/en", "x-default": "/" },
   },
   openGraph: {
-    title: "Stretch ceilings — designer ceiling solutions across Czechia",
+    title: "Stretch ceilings: designer ceiling solutions across Czechia",
     description:
       "Premium stretch ceilings nationwide. Dust-free 1-day installation, 12-year colour warranty.",
     url: "https://www.stropdesign.cz/en",

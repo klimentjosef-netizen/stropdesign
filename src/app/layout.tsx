@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: "/images/hero-kitchen.jpg",
         width: 1200,
         height: 630,
-        alt: "StropDesign – napínané stropy",
+        alt: "StropDesign, napínané stropy",
       },
     ],
   },

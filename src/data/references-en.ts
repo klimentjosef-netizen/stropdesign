@@ -2,7 +2,7 @@ import type { Reference } from "./references";
 
 export const referencesEn: Reference[] = [
   {
-    title: "HHSpa — Starry Sky",
+    title: "HHSpa, Starry Sky",
     meta: "Wellness · complete ceilings",
     tag: "Starry sky + LED",
     gradient: "from-[#0a0a1a] to-[#050510]",

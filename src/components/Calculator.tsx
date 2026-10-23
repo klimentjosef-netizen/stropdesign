@@ -340,7 +340,6 @@ export default function Calculator({ surfaces, addons: addonsList }: CalculatorP
               <div className="p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10">
                 {/* Left - text */}
                 <div className="flex-1">
-                  <SectionEyebrow text={d.calculator.teaserEyebrow} />
                   <h2 className="font-display text-[clamp(22px,2.5vw,30px)] font-semibold leading-[1.2] text-heading mb-2">
                     {d.calculator.teaserTitle}
                   </h2>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         url: "/images/hero-kitchen.jpg",
         width: 1200,
         height: 630,
-        alt: "StropDesign – stretch ceilings",
+        alt: "StropDesign, stretch ceilings",
       },
     ],
   },

@@ -55,7 +55,7 @@ export default function ONasPage() {
                 <div className="w-[140px] h-[140px] rounded-full overflow-hidden mb-5 border-2 border-accent/20 relative">
                   <Image
                     src="/images/founder.jpg"
-                    alt="Pavel Karlík – zakladatel StropDesign"
+                    alt="Pavel Karlík, zakladatel StropDesign"
                     fill
                     sizes="140px"
                     className="object-cover"

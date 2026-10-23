@@ -28,7 +28,7 @@ export default function References({ references }: ReferencesProps) {
           </div>
         </RevealOnScroll>
 
-        <ReferenceGrid references={shown} showSections={false} />
+        <ReferenceGrid references={shown} showSections={false} variant="mosaic" />
 
         <RevealOnScroll delay={300}>
           <div className="flex justify-center mt-10">

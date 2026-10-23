@@ -249,7 +249,6 @@ export default function ContactSection() {
     <section id="kontakt-formular" className="bg-light-secondary border-t border-border py-14 lg:py-20 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <RevealOnScroll>
-          <SectionEyebrow text={d.contact.eyebrow} />
           <h2 className="font-display text-[28px] font-semibold mb-3 text-heading">
             {d.contact.title1}
             <br />
