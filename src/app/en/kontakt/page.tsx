@@ -74,6 +74,13 @@ export default async function ContactPageEN() {
                 info@stropdesign.cz
               </a>
               <p className="text-muted text-[12.5px] mt-1">We respond within 48 hours</p>
+              <p className="text-muted text-[12.5px] mt-3">Pavel Karlík</p>
+              <a
+                href="mailto:p.karlik@stropdesign.cz"
+                className="text-heading text-[17px] font-medium hover:text-accent transition-colors"
+              >
+                p.karlik@stropdesign.cz
+              </a>
             </div>
           </RevealOnScroll>
 
