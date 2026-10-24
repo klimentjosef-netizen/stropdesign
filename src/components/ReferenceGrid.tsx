@@ -294,12 +294,14 @@ function ReferenceCard({
                 <>
                   <button
                     onClick={prevImg}
+                    aria-label={d.references.prevPhoto}
                     className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
                   >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#0A0A0A" strokeWidth="1.5"><path d="M6 2L3 5l3 3" /></svg>
                   </button>
                   <button
                     onClick={nextImg}
+                    aria-label={d.references.nextPhoto}
                     className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
                   >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#0A0A0A" strokeWidth="1.5"><path d="M4 2l3 3-3 3" /></svg>
@@ -310,6 +312,7 @@ function ReferenceCard({
                       <button
                         key={idx}
                         onClick={(e) => { e.stopPropagation(); setCurrentImg(idx); }}
+                        aria-label={`${idx + 1}`}
                         className={`w-1.5 h-1.5 rounded-full transition-all ${currentImg === idx ? "bg-white scale-125" : "bg-white/50"}`}
                       />
                     ))}

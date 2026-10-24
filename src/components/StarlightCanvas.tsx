@@ -142,7 +142,7 @@ export default function StarlightCanvas() {
 
     function draw(now: number) {
       ctx!.clearRect(0, 0, W, H);
-      if (!started) { animFrame = requestAnimationFrame(draw); return; }
+      if (!started || document.hidden) { animFrame = 0; return; }
       const t = now / 1000;
 
       // Drift anchors slowly
@@ -256,8 +256,21 @@ export default function StarlightCanvas() {
         } catch {}
       }
 
-      animFrame = requestAnimationFrame(draw);
+      animFrame = visible ? requestAnimationFrame(draw) : 0;
     }
+
+    // Run the loop only while the hero is on screen and the tab is visible,
+    // and start it once the browser is idle (keeps the first render fast).
+    let visible = false;
+    const resume = () => {
+      if (visible && !document.hidden && !animFrame) animFrame = requestAnimationFrame(draw);
+    };
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      resume();
+    });
+    const onVisibility = () => resume();
+    document.addEventListener("visibilitychange", onVisibility);
 
     const onMouseMove = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY; };
     const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999; };
@@ -267,12 +280,16 @@ export default function StarlightCanvas() {
     window.addEventListener("mouseleave", onMouseLeave);
 
     resize();
-    const startTimer = setTimeout(() => { started = true; }, 400);
-    animFrame = requestAnimationFrame(draw);
+    const startTimer = setTimeout(() => {
+      started = true;
+      io.observe(canvas);
+    }, 1200);
 
     return () => {
       cancelAnimationFrame(animFrame);
       clearTimeout(startTimer);
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);

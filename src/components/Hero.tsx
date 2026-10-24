@@ -113,11 +113,8 @@ export default function Hero() {
 
         {/* Heading */}
         <h1
-          className={`font-display font-bold leading-[1.06] tracking-tight mb-5 transition-all duration-900 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className="font-display font-bold leading-[1.06] tracking-tight mb-5"
           style={{
-            transitionDelay: "0.7s",
             fontSize: "clamp(48px, 5.5vw, 82px)",
             color: "#111",
           }}
@@ -134,11 +131,8 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p
-          className={`leading-[1.7] mb-10 transition-all duration-900 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className="leading-[1.7] mb-10"
           style={{
-            transitionDelay: "0.9s",
             fontSize: 17,
             color: "#4a4740",
             maxWidth: 520,

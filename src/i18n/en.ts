@@ -91,6 +91,8 @@ const en: Dictionary = {
     subtitle: "Google review",
   },
   references: {
+    prevPhoto: "Previous photo",
+    nextPhoto: "Next photo",
     eyebrow: "Portfolio",
     title: "Projects we are proud of",
     showAll: "View all",

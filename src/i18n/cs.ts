@@ -89,6 +89,8 @@ const cs = {
     subtitle: "Google recenze",
   },
   references: {
+    prevPhoto: "Předchozí fotka",
+    nextPhoto: "Další fotka",
     eyebrow: "Reference",
     title: "Realizace, na které jsme hrdí",
     showAll: "Zobrazit vše",
