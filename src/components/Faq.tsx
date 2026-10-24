@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
-import SectionEyebrow from "./SectionEyebrow";
 import { useDict } from "@/i18n/LocaleContext";
 
 function FaqItemComponent({ question, answer }: { question: string; answer: string }) {
@@ -31,7 +30,7 @@ function FaqItemComponent({ question, answer }: { question: string; answer: stri
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: open ? "200px" : "0", opacity: open ? 1 : 0 }}
       >
-        <p className="text-body text-[13px] leading-[1.7] font-light pt-3 pr-8">
+        <p className="text-body text-[14px] leading-[1.7] font-normal pt-3 pr-8">
           {answer}
         </p>
       </div>
@@ -46,7 +45,6 @@ export default function Faq() {
     <section className="py-16 lg:py-20 px-6 lg:px-10 border-b border-border">
       <div className="max-w-3xl mx-auto">
         <RevealOnScroll>
-          <SectionEyebrow text={d.faq.eyebrow} />
           <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-8 text-heading">
             {d.faq.title}
           </h2>

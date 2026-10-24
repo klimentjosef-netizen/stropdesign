@@ -25,6 +25,8 @@ const altTextsEn: Record<string, string> = {
 interface ReferenceGridProps {
   references: Reference[];
   showSections?: boolean;
+  /** "mosaic": homepage showcase, first item large, photo-led tiles. */
+  variant?: "cards" | "mosaic";
 }
 
 /* ─── Project Detail Modal ─── */
@@ -127,14 +129,14 @@ function ProjectModal({
               <h2 className="font-display text-[clamp(20px,2.5vw,28px)] font-semibold text-heading leading-tight">
                 {reference.title}
               </h2>
-              <span className="shrink-0 bg-accent/10 text-accent text-[10px] tracking-[0.1em] uppercase px-2.5 py-1 font-medium rounded-full mt-1">
+              <span className="shrink-0 bg-accent/10 text-accent text-[12px] tracking-[0.1em] uppercase px-2.5 py-1 font-medium rounded-full mt-1">
                 {reference.tag}
               </span>
             </div>
-            <p className="text-muted text-[12px] tracking-[0.04em] mb-3">
+            <p className="text-muted text-[13px] tracking-[0.04em] mb-3">
               {reference.meta}
             </p>
-            <p className="text-body text-sm leading-[1.7] font-light">
+            <p className="text-body text-sm leading-[1.7] font-normal">
               {reference.description}
             </p>
           </div>
@@ -292,12 +294,14 @@ function ReferenceCard({
                 <>
                   <button
                     onClick={prevImg}
+                    aria-label={d.references.prevPhoto}
                     className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
                   >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#0A0A0A" strokeWidth="1.5"><path d="M6 2L3 5l3 3" /></svg>
                   </button>
                   <button
                     onClick={nextImg}
+                    aria-label={d.references.nextPhoto}
                     className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
                   >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#0A0A0A" strokeWidth="1.5"><path d="M4 2l3 3-3 3" /></svg>
@@ -308,10 +312,11 @@ function ReferenceCard({
                       <button
                         key={idx}
                         onClick={(e) => { e.stopPropagation(); setCurrentImg(idx); }}
+                        aria-label={`${idx + 1}`}
                         className={`w-1.5 h-1.5 rounded-full transition-all ${currentImg === idx ? "bg-white scale-125" : "bg-white/50"}`}
                       />
                     ))}
-                    {images.length > 7 && <span className="text-white/60 text-[8px] ml-0.5">+{images.length - 7}</span>}
+                    {images.length > 7 && <span className="text-white/90 text-[11px] ml-0.5">+{images.length - 7}</span>}
                   </div>
                 </>
               )}
@@ -322,12 +327,12 @@ function ReferenceCard({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
               </svg>
-              <span className="text-white/60 text-[11px] font-medium tracking-[0.06em] uppercase">
+              <span className="text-white/60 text-[12.5px] font-medium tracking-[0.06em] uppercase">
                 {d.surfaces.photoPlaceholder}
               </span>
             </div>
           )}
-          <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
+          <div className="relative bg-white/90 backdrop-blur-sm border border-white/20 text-accent text-[11px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium rounded-full">
             {ref.tag}
           </div>
           {hasGal && (
@@ -344,10 +349,10 @@ function ReferenceCard({
           <h3 className="font-display text-lg font-medium text-heading mb-1 group-hover:text-accent transition-colors">
             {ref.title}
           </h3>
-          <p className="text-muted text-[11px] tracking-[0.04em] mb-3">
+          <p className="text-muted text-[12.5px] tracking-[0.04em] mb-3">
             {ref.meta}
           </p>
-          <p className="text-body text-sm leading-[1.6] font-light">
+          <p className="text-body text-sm leading-[1.6] font-normal">
             {ref.description}
           </p>
         </div>
@@ -356,9 +361,56 @@ function ReferenceCard({
   );
 }
 
+/* ─── Mosaic tile (homepage) ─── */
+
+function MosaicTile({
+  reference: ref,
+  image,
+  altText,
+  large,
+  className,
+  delay,
+  onExpand,
+}: {
+  reference: Reference;
+  image: string | undefined;
+  altText: string;
+  large: boolean;
+  className: string;
+  delay: number;
+  onExpand: () => void;
+}) {
+  return (
+    <RevealOnScroll delay={delay} className={className}>
+      <button
+        type="button"
+        onClick={onExpand}
+        className="group relative block w-full h-full min-h-[260px] overflow-hidden rounded-2xl bg-[#1a1a1a] text-left"
+      >
+        {image && (
+          <Image
+            src={image}
+            alt={altText}
+            fill
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            sizes={large ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+          />
+        )}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+        <div className={`absolute inset-x-0 bottom-0 ${large ? "p-6 lg:p-8" : "p-5"}`}>
+          <h3 className={`font-display font-semibold text-white leading-tight ${large ? "text-[22px] lg:text-[28px]" : "text-[17px]"}`}>
+            {ref.title}
+          </h3>
+          <p className="text-white/80 text-[13px] mt-1">{ref.meta}</p>
+        </div>
+      </button>
+    </RevealOnScroll>
+  );
+}
+
 /* ─── Main Grid ─── */
 
-export default function ReferenceGrid({ references, showSections = true }: ReferenceGridProps) {
+export default function ReferenceGrid({ references, showSections = true, variant = "cards" }: ReferenceGridProps) {
   const locale = useLocale();
   const altTexts = locale === "en" ? altTextsEn : altTextsCs;
   const [activeRef, setActiveRef] = useState<Reference | null>(null);
@@ -388,6 +440,40 @@ export default function ReferenceGrid({ references, showSections = true }: Refer
       onExpand={() => setActiveRef(ref)}
     />
   );
+
+  // Mosaic: 6 items fill a 3x3 grid exactly (1 large 2x2 + 2 beside + 3 below).
+  const mosaicSpan = (i: number) =>
+    i === 0
+      ? "md:col-span-2 lg:row-span-2 aspect-[4/3] md:aspect-[16/10] lg:aspect-auto"
+      : "aspect-[4/3] lg:aspect-auto";
+
+  if (variant === "mosaic") {
+    return (
+      <>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[260px] gap-4 lg:gap-5">
+          {references.map((ref, i) => (
+            <MosaicTile
+              key={ref.title}
+              reference={ref}
+              image={getImages(ref)[0]}
+              altText={altTexts[ref.title] || ref.title}
+              large={i === 0}
+              className={mosaicSpan(i)}
+              delay={i * 70}
+              onExpand={() => setActiveRef(ref)}
+            />
+          ))}
+        </div>
+        {activeRef && (
+          <ProjectModal
+            reference={activeRef}
+            altText={altTexts[activeRef.title] || activeRef.title}
+            onClose={() => setActiveRef(null)}
+          />
+        )}
+      </>
+    );
+  }
 
   return (
     <>

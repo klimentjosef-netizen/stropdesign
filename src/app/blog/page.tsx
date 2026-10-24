@@ -28,7 +28,7 @@ export default function BlogPage() {
               Novinky a{" "}
               <em className="italic text-accent">inspirace</em>
             </h1>
-            <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
+            <p className="text-body text-[15px] leading-[1.75] font-normal max-w-xl">
               Praktické rady, trendy v interiérovém designu a vše, co potřebujete
               vědět o napínaných stropech.
             </p>
@@ -58,7 +58,7 @@ export default function BlogPage() {
                           {post.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-[10px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2 py-0.5 font-medium whitespace-nowrap shrink-0"
+                              className="text-[12px] tracking-[0.08em] uppercase text-accent bg-accent-soft px-2 py-0.5 font-medium whitespace-nowrap shrink-0"
                             >
                               {tag}
                             </span>
@@ -69,11 +69,11 @@ export default function BlogPage() {
                           {post.title}
                         </h2>
 
-                        <p className="text-body text-sm leading-[1.6] font-light mb-4 flex-1 line-clamp-3">
+                        <p className="text-body text-sm leading-[1.6] font-normal mb-4 flex-1 line-clamp-3">
                           {post.description}
                         </p>
 
-                        <div className="flex items-center justify-between text-[11px] text-muted mt-auto pt-4 border-t border-border">
+                        <div className="flex items-center justify-between text-[12.5px] text-muted mt-auto pt-4 border-t border-border">
                           <span>
                             {new Date(post.date).toLocaleDateString("cs-CZ", {
                               day: "numeric",

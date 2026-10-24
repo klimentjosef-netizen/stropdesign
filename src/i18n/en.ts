@@ -8,7 +8,7 @@ const en: Dictionary = {
     references: "Portfolio",
     blog: "Blog",
     contact: "Contact",
-    cta: "Free quote",
+    cta: "Free enquiry",
   },
   hero: {
     title1: "Stretch ceilings",
@@ -20,6 +20,7 @@ const en: Dictionary = {
     cta: "Calculate price",
     ctaSecondary: "View portfolio",
     scroll: "Explore",
+    imageAlt: "Stretch ceiling with a starry sky and LED lighting, HHSPA wellness Ostrava",
     stat1: "200+",
     stat1Label: "projects",
     stat2: "5.0",
@@ -51,6 +52,7 @@ const en: Dictionary = {
     email: "Email",
     phone: "Phone",
     room: "Room type and approximate area",
+    roomPlaceholder: "E.g. living room, 25 m²",
     message: "Message (optional)",
     submit: "Send enquiry",
     sending: "Sending…",
@@ -89,6 +91,8 @@ const en: Dictionary = {
     subtitle: "Google review",
   },
   references: {
+    prevPhoto: "Previous photo",
+    nextPhoto: "Next photo",
     eyebrow: "Portfolio",
     title: "Projects we are proud of",
     showAll: "View all",

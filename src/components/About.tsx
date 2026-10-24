@@ -16,7 +16,7 @@ export default function About() {
           <h2 className="font-display text-[clamp(26px,3vw,38px)] font-semibold leading-[1.15] mb-5 text-heading">
             {d.about.title}
           </h2>
-          <p className="text-body text-sm leading-[1.8] font-light mb-6">
+          <p className="text-body text-sm leading-[1.8] font-normal mb-6">
             {d.about.subtitle}
           </p>
           <div className="flex flex-col gap-3.5">
@@ -25,7 +25,7 @@ export default function About() {
                 <div className="w-7 h-7 border border-accent/30 bg-accent-soft flex-shrink-0 flex items-center justify-center rounded-lg">
                   <div className="w-1.5 h-1.5 bg-accent rounded-full" />
                 </div>
-                <p className="text-[13px] text-body leading-[1.5] font-light">
+                <p className="text-[14px] text-body leading-[1.5] font-normal">
                   {text}
                 </p>
               </div>

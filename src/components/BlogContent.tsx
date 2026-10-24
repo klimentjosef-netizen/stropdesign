@@ -16,15 +16,15 @@ const components = {
   ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className="text-body text-[15px] leading-[1.85] font-light mb-5"
+      className="text-body text-[15px] leading-[1.85] font-normal mb-5"
       {...props}
     />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className="list-disc list-inside text-body text-[15px] leading-[1.85] font-light mb-5 space-y-1.5 pl-2" {...props} />
+    <ul className="list-disc list-inside text-body text-[15px] leading-[1.85] font-normal mb-5 space-y-1.5 pl-2" {...props} />
   ),
   ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className="list-decimal list-inside text-body text-[15px] leading-[1.85] font-light mb-5 space-y-1.5 pl-2" {...props} />
+    <ol className="list-decimal list-inside text-body text-[15px] leading-[1.85] font-normal mb-5 space-y-1.5 pl-2" {...props} />
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
     <li className="text-body" {...props} />
@@ -45,13 +45,13 @@ const components = {
   ),
   th: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
-      className="text-left font-semibold text-heading bg-light-secondary px-4 py-2.5 border border-border text-[13px]"
+      className="text-left font-semibold text-heading bg-light-secondary px-4 py-2.5 border border-border text-[14px]"
       {...props}
     />
   ),
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
-      className="px-4 py-2.5 border border-border text-body text-[13px]"
+      className="px-4 py-2.5 border border-border text-body text-[14px]"
       {...props}
     />
   ),

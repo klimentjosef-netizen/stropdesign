@@ -37,9 +37,9 @@ export default function Footer() {
 
             {/* Navigation */}
             <div>
-              <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
+              <h3 className="text-[12px] font-medium tracking-[0.16em] uppercase text-white/60 mb-4">
                 {d.footer.navigation}
-              </h4>
+              </h3>
               <ul className="space-y-2.5">
                 {navLinks.map((link) => (
                   <li key={link.href}>
@@ -56,9 +56,9 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
+              <h3 className="text-[12px] font-medium tracking-[0.16em] uppercase text-white/60 mb-4">
                 {d.footer.contact}
-              </h4>
+              </h3>
               <ul className="space-y-2.5 text-sm text-white/50">
                 <li>
                   <a href="tel:+420739457794" className="hover:text-white transition-colors">
@@ -76,15 +76,15 @@ export default function Footer() {
 
             {/* CTA */}
             <div>
-              <h4 className="text-[10px] font-medium tracking-[0.16em] uppercase text-white/30 mb-4">
+              <h3 className="text-[12px] font-medium tracking-[0.16em] uppercase text-white/60 mb-4">
                 {d.footer.startToday}
-              </h4>
+              </h3>
               <p className="text-sm text-white/50 mb-4">
                 {d.footer.startTodaySub}
               </p>
               <a
                 href={contactHref}
-                className="inline-block bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+                className="inline-block bg-accent text-white text-[12.5px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-colors duration-200 rounded-full"
               >
                 {d.footer.ctaButton}
               </a>
@@ -94,7 +94,7 @@ export default function Footer() {
           {/* Bottom bar */}
           <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-              <p className="text-xs text-white/30">
+              <p className="text-xs text-white/65">
                 &copy; {new Date().getFullYear()} {d.footer.copyright}
               </p>
               <button
@@ -102,12 +102,12 @@ export default function Footer() {
                 onClick={() =>
                   window.dispatchEvent(new Event("open-cookie-settings"))
                 }
-                className="text-xs text-white/30 hover:text-white/60 transition-colors underline-offset-2 hover:underline"
+                className="text-xs text-white/65 hover:text-white transition-colors underline-offset-2 hover:underline"
               >
                 {d.footer.cookieSettings}
               </button>
             </div>
-            <p className="text-xs text-white/30">
+            <p className="text-xs text-white/65">
               {d.footer.madeBy}{" "}
               <a
                 href="https://webbykliment.com"

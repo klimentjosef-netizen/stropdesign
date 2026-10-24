@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import AutoLocaleProvider from "@/components/AutoLocaleProvider";
-import ChatWidget from "@/components/ChatWidget";
+import LazyChatWidget from "@/components/LazyChatWidget";
 import CookieBanner from "@/components/CookieBanner";
 import Analytics from "@/components/Analytics";
 
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: "/images/hero-kitchen.jpg",
         width: 1200,
         height: 630,
-        alt: "StropDesign – napínané stropy",
+        alt: "StropDesign, napínané stropy",
       },
     ],
   },
@@ -110,7 +110,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </AutoLocaleProvider>
-        <ChatWidget />
+        <LazyChatWidget />
         <CookieBanner />
       </body>
     </html>

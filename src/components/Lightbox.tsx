@@ -77,7 +77,7 @@ export default function Lightbox({
         {/* Caption & counter */}
         <div className="mt-4 text-center">
           {img.caption && (
-            <p className="text-white/80 text-sm font-light">{img.caption}</p>
+            <p className="text-white/80 text-sm font-normal">{img.caption}</p>
           )}
           <p className="text-white/40 text-xs mt-2">
             {currentIndex + 1} / {images.length}

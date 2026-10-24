@@ -30,12 +30,12 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden lg:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-5 xl:gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-[12px] font-normal tracking-[0.06em] uppercase text-muted hover:text-heading transition-colors duration-200"
+                className="text-[13px] font-normal tracking-[0.04em] xl:tracking-[0.06em] uppercase text-muted hover:text-heading whitespace-nowrap transition-colors duration-200"
               >
                 {link.label}
               </Link>
@@ -49,7 +49,7 @@ export default function Navbar() {
             href="https://www.facebook.com/profile.php?id=61582534764580"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent hover:text-accent-hover transition-colors duration-200"
+            className="hidden xl:inline-flex text-accent hover:text-accent-hover transition-colors duration-200"
             aria-label="Facebook"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -60,7 +60,7 @@ export default function Navbar() {
             href="https://www.instagram.com/strop_design/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent hover:text-accent-hover transition-colors duration-200"
+            className="hidden xl:inline-flex text-accent hover:text-accent-hover transition-colors duration-200"
             aria-label="Instagram"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -71,7 +71,7 @@ export default function Navbar() {
           </a>
           <a
             href={contactHref}
-            className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-accent-hover transition-all duration-200 rounded-full"
+            className="bg-accent text-white text-[12.5px] font-medium tracking-[0.08em] uppercase px-5 xl:px-6 py-2.5 whitespace-nowrap hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
             {d.nav.cta}
           </a>
@@ -125,7 +125,7 @@ export default function Navbar() {
           <a
             href={contactHref}
             onClick={() => setIsOpen(false)}
-            className="text-center bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
+            className="text-center bg-accent text-white text-[12.5px] font-medium tracking-[0.1em] uppercase px-6 py-3 hover:bg-accent-hover transition-all duration-200 rounded-full"
           >
             {d.nav.cta}
           </a>

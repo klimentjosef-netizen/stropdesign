@@ -28,7 +28,7 @@ export default async function ReferencePage() {
               <br />
               jsme <em className="italic text-accent">hrdí</em>.
             </h1>
-            <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
+            <p className="text-body text-[15px] leading-[1.75] font-normal max-w-xl">
               Každý projekt je originál. Podívejte se na naše dokončené realizace
               po celé ČR. Klikněte na fotku pro zvětšení.
             </p>

@@ -48,7 +48,7 @@ export default async function ProcessPageEN() {
               <br />
               <em className="italic text-accent">hassle-free</em>.
             </h1>
-            <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
+            <p className="text-body text-[15px] leading-[1.75] font-normal max-w-xl">
               The entire process is simple and stress-free. We take care of
               everything from consultation to final installation.
             </p>
@@ -75,14 +75,14 @@ export default async function ProcessPageEN() {
                   <h2 className="font-display text-2xl lg:text-3xl font-semibold mb-4 text-heading">
                     {step.title}
                   </h2>
-                  <p className="text-body text-sm leading-[1.8] font-light mb-6 max-w-lg">
+                  <p className="text-body text-sm leading-[1.8] font-normal mb-6 max-w-lg">
                     {step.description}
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {step.details.map((detail) => (
                       <div
                         key={detail}
-                        className="flex items-center gap-2.5 text-[12px] text-body"
+                        className="flex items-center gap-2.5 text-[13px] text-body"
                       >
                         <div className="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0" />
                         {detail}
@@ -111,13 +111,13 @@ export default async function ProcessPageEN() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b-2 border-accent/30">
-                    <th className="text-left py-3 pr-4 font-display font-semibold text-heading text-[13px]">
+                    <th className="text-left py-3 pr-4 font-display font-semibold text-heading text-[14px]">
                       Feature
                     </th>
-                    <th className="text-left py-3 px-4 font-display font-semibold text-accent text-[13px]">
+                    <th className="text-left py-3 px-4 font-display font-semibold text-accent text-[14px]">
                       Stretch ceiling
                     </th>
-                    <th className="text-left py-3 pl-4 font-display font-semibold text-muted text-[13px]">
+                    <th className="text-left py-3 pl-4 font-display font-semibold text-muted text-[14px]">
                       Drywall
                     </th>
                   </tr>
@@ -125,16 +125,16 @@ export default async function ProcessPageEN() {
                 <tbody>
                   {comparisonRowsEn.map((row, i) => (
                     <tr key={i} className="border-b border-border">
-                      <td className="py-3.5 pr-4 font-medium text-heading text-[13px]">
+                      <td className="py-3.5 pr-4 font-medium text-heading text-[14px]">
                         {row.feature}
                       </td>
-                      <td className="py-3.5 px-4 text-body text-[13px]">
+                      <td className="py-3.5 px-4 text-body text-[14px]">
                         <span className="flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                           {row.strop}
                         </span>
                       </td>
-                      <td className="py-3.5 pl-4 text-muted text-[13px]">
+                      <td className="py-3.5 pl-4 text-muted text-[14px]">
                         <span className="flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
                           {row.sdk}
@@ -159,12 +159,12 @@ export default async function ProcessPageEN() {
             <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-4 text-heading">
               Ready to get started?
             </h2>
-            <p className="text-body text-sm leading-[1.7] font-light mb-8">
+            <p className="text-body text-sm leading-[1.7] font-normal mb-8">
               Just get in touch. We respond within 48 hours and prepare a tailor-made offer.
             </p>
             <Link
               href="/en/kontakt#kontakt-formular"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+              className="inline-block bg-accent text-white text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Free enquiry
             </Link>

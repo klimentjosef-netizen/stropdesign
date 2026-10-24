@@ -10,7 +10,7 @@ export interface Reference {
 
 export const references: Reference[] = [
   {
-    title: "HHSpa — hvězdná obloha",
+    title: "HHSpa, hvězdná obloha",
     meta: "Wellness · kompletní stropy",
     tag: "Hvězdná obloha + LED",
     gradient: "from-[#0a0a1a] to-[#050510]",

@@ -47,12 +47,12 @@ export default function Surfaces({ surfaces }: SurfacesProps) {
       <RevealOnScroll>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-5">
-            <span className="text-muted text-[10px] tracking-[0.16em] uppercase">
+            <span className="text-muted text-[12px] tracking-[0.16em] uppercase">
               {d.surfaces.eyebrow}
             </span>
             <a
               href={sluzbyHref}
-              className="text-accent text-[10px] tracking-[0.1em] uppercase hover:text-accent-hover transition-colors"
+              className="text-accent text-[12px] tracking-[0.1em] uppercase hover:text-accent-hover transition-colors"
             >
               {d.surfaces.viewAll}
             </a>
@@ -137,7 +137,7 @@ export default function Surfaces({ surfaces }: SurfacesProps) {
                       <div className="px-1.5 py-1 md:px-2.5 md:py-2">
                         <div className="flex items-baseline justify-between gap-1">
                           <span
-                            className="text-[8px] md:text-[10px] tracking-[0.05em] transition-colors duration-200 whitespace-nowrap"
+                            className="text-[8px] md:text-[12px] tracking-[0.05em] transition-colors duration-200 whitespace-nowrap"
                             style={{
                               color: isHovered || isSelected ? surface.accent : undefined,
                               fontWeight: isHovered || isSelected ? 500 : 400,
@@ -164,7 +164,7 @@ export default function Surfaces({ surfaces }: SurfacesProps) {
                             marginTop: isSelected ? 6 : 0,
                           }}
                         >
-                          <p className="text-body text-[9px] leading-[1.6] font-light mb-2">
+                          <p className="text-body text-[11px] leading-[1.6] font-normal mb-2">
                             {surface.description}
                           </p>
                           <ul className="flex flex-col gap-0.5">

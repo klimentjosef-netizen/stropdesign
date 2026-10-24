@@ -46,7 +46,7 @@ body {
 
 /* Gradient text utility */
 .text-gradient {
-  background: linear-gradient(135deg, #847631, #6E6329);
+  background: linear-gradient(135deg, #7A6D2D, #655A24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -178,4 +178,16 @@ body {
 .btn-glow-pulse:hover {
   animation: none;
   box-shadow: 0 0 30px rgba(132,118,49,0.45), 0 0 60px rgba(132,118,49,0.25);
+}
+
+/* Respect the OS "reduce motion" setting: no decorative animation, instant transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

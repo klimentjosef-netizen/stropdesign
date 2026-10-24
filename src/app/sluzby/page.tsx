@@ -15,6 +15,15 @@ export const metadata: Metadata = {
   },
 };
 
+// Spread the last row(s) evenly so no card is left alone in a row
+// (3 per row on desktop; a remainder of 1 becomes 2 + 2, of 2 becomes 2).
+function gridSpan(i: number, n: number) {
+  const r = n % 3;
+  const wide = (r === 1 && i >= n - 4) || (r === 2 && i >= n - 2);
+  const mdFull = n % 2 === 1 && i === n - 1 ? " md:col-span-2" : "";
+  return (wide ? "lg:col-span-3" : "lg:col-span-2") + mdFull;
+}
+
 export default async function SluzbyPage() {
   const surfaces = await getSurfaces("cs");
   return (
@@ -29,7 +38,7 @@ export default async function SluzbyPage() {
               <br />
               pro každý <em className="italic text-accent">interiér</em>.
             </h1>
-            <p className="text-body text-[15px] leading-[1.75] font-light max-w-xl">
+            <p className="text-body text-[15px] leading-[1.75] font-normal max-w-xl">
               Široký výběr povrchů a barev. Každý typ má specifické vlastnosti
               a vizuální efekt. Poradíme vám s výběrem na míru.
             </p>
@@ -57,15 +66,15 @@ export default async function SluzbyPage() {
               Naše typy napínaných stropů
             </h2>
           </RevealOnScroll>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
           {surfaces.map((product, i) => (
-            <RevealOnScroll key={product.name} delay={i * 80}>
+            <RevealOnScroll key={product.name} delay={i * 80} className={gridSpan(i, surfaces.length)}>
               <div className="bg-white border border-border flex flex-col h-full group hover:border-accent/30 transition-colors duration-300 rounded-2xl overflow-hidden">
                 {product.image && (
                   <div className="h-48 relative overflow-hidden" style={{ background: product.color }}>
                     <Image
                       src={product.image}
-                      alt={`Napínaný strop – povrch ${product.name}`}
+                      alt={`Napínaný strop, povrch ${product.name}`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover"
@@ -73,7 +82,7 @@ export default async function SluzbyPage() {
                   </div>
                 )}
                 <div className="p-8 flex flex-col flex-grow">
-                <div className="text-accent text-[10px] tracking-[0.12em] uppercase font-medium mb-4">
+                <div className="text-accent text-[12px] tracking-[0.12em] uppercase font-medium mb-4">
                   {product.priceLabel}
                 </div>
 
@@ -81,13 +90,13 @@ export default async function SluzbyPage() {
                   {product.name}
                 </h3>
 
-                <p className="text-body text-sm leading-[1.7] font-light mb-6 flex-grow">
+                <p className="text-body text-sm leading-[1.7] font-normal mb-6 flex-grow">
                   {product.description}
                 </p>
 
                 <ul className="flex flex-col gap-2 mb-6">
                   {product.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-[12px] text-body">
+                    <li key={f} className="flex items-center gap-2.5 text-[13px] text-body">
                       <div className="w-1 h-1 bg-accent rounded-full flex-shrink-0" />
                       {f}
                     </li>
@@ -96,7 +105,7 @@ export default async function SluzbyPage() {
 
                 <Link
                   href="/kontakt#kontakt-formular"
-                  className="text-center border border-accent/30 text-accent text-[10px] font-medium tracking-[0.1em] uppercase px-4 py-2.5 hover:bg-accent hover:text-white transition-all duration-200 rounded-full"
+                  className="text-center border border-accent/30 text-accent text-[12px] font-medium tracking-[0.1em] uppercase px-4 py-2.5 hover:bg-accent hover:text-white transition-all duration-200 rounded-full"
                 >
                   Poptat tento povrch
                 </Link>
@@ -115,13 +124,13 @@ export default async function SluzbyPage() {
             <h2 className="font-display text-[clamp(24px,3vw,36px)] font-semibold mb-4 text-heading">
               Nevíte, jaký povrch zvolit?
             </h2>
-            <p className="text-body text-sm leading-[1.7] font-light mb-8">
+            <p className="text-body text-sm leading-[1.7] font-normal mb-8">
               Poradíme vám na základě vaší místnosti, osvětlení a požadavků.
               Stačí nám napsat nebo zavolat.
             </p>
             <Link
               href="/kontakt#kontakt-formular"
-              className="inline-block bg-accent text-white text-[12px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
+              className="inline-block bg-accent text-white text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-4 hover:bg-accent-hover transition-colors duration-200 rounded-full"
             >
               Nezávazná poptávka
             </Link>

@@ -71,7 +71,7 @@ export default function Hero() {
   return (
     <section
       className="relative w-full overflow-hidden flex items-center justify-center"
-      style={{ height: "100vh", background: "#F7F4EE" }}
+      style={{ minHeight: "100dvh", background: "#F7F4EE" }}
     >
       {/* Dot grid — hidden on mobile */}
       <div
@@ -103,8 +103,8 @@ export default function Hero() {
         >
           <div className="w-10 h-px bg-accent" />
           <span
-            className="text-[10px] font-semibold tracking-[0.2em] uppercase"
-            style={{ color: "var(--gold, #A8935A)" }}
+            className="text-[13px] font-semibold tracking-[0.18em] uppercase"
+            style={{ color: "#7A6D2D" }}
           >
             {d.hero.eyebrow}
           </span>
@@ -113,11 +113,8 @@ export default function Hero() {
 
         {/* Heading */}
         <h1
-          className={`font-display font-bold leading-[1.06] tracking-tight mb-5 transition-all duration-900 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className="font-display font-bold leading-[1.06] tracking-tight mb-5"
           style={{
-            transitionDelay: "0.7s",
             fontSize: "clamp(48px, 5.5vw, 82px)",
             color: "#111",
           }}
@@ -134,14 +131,11 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p
-          className={`font-light leading-[1.8] mb-10 transition-all duration-900 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className="leading-[1.7] mb-10"
           style={{
-            transitionDelay: "0.9s",
-            fontSize: 14,
-            color: "#666",
-            maxWidth: 480,
+            fontSize: 17,
+            color: "#4a4740",
+            maxWidth: 520,
           }}
         >
           {d.hero.subtitle}
@@ -149,21 +143,21 @@ export default function Hero() {
 
         {/* CTAs */}
         <div
-          className={`flex items-center gap-5 mb-16 transition-all duration-900 ${
+          className={`flex flex-wrap items-center justify-center gap-x-5 gap-y-4 mb-16 transition-all duration-900 ${
             loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
           style={{ transitionDelay: "1.1s" }}
         >
           <a
             href="#povrchy"
-            className="btn-shimmer btn-glow-pulse bg-accent text-white text-[10.5px] font-bold tracking-[0.15em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full hover:brightness-110 transition-all duration-200"
+            className="bg-accent text-white text-[14px] font-semibold tracking-[0.08em] uppercase px-6 py-3.5 lg:px-8 lg:py-4 rounded-full whitespace-nowrap hover:bg-accent-hover active:scale-[0.98] transition-all duration-200"
           >
             {d.hero.cta}
           </a>
           <a
             href={refHref}
-            className="flex items-center gap-2.5 text-[11px] font-medium tracking-[0.06em] group transition-colors duration-200"
-            style={{ color: "#999" }}
+            className="flex items-center gap-2.5 text-[14px] font-medium group transition-colors duration-200"
+            style={{ color: "#2b2a27" }}
           >
             <span className="block w-6 h-px bg-current group-hover:w-10 transition-all duration-300" />
             <span className="group-hover:text-accent transition-colors duration-200">
@@ -201,8 +195,8 @@ export default function Hero() {
                 <span ref={stat.ref}>0</span>
               </div>
               <div
-                className="text-[9px] font-semibold tracking-[0.15em] uppercase"
-                style={{ color: "#bbb" }}
+                className="text-[13px] font-medium tracking-[0.04em]"
+                style={{ color: "#6b675e" }}
               >
                 {stat.label}
               </div>
@@ -211,26 +205,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <div
-        className={`absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-1000 ${
-          loaded ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ transitionDelay: "2.2s", zIndex: 10 }}
-      >
-        <div
-          className="w-px h-7 animate-pulse"
-          style={{
-            background: "linear-gradient(to bottom, rgba(168,147,90,0.4), transparent)",
-          }}
-        />
-        <span
-          className="text-[8.5px] font-semibold tracking-[0.18em] uppercase"
-          style={{ color: "rgba(168,147,90,0.35)" }}
-        >
-          {d.hero.scroll}
-        </span>
-      </div>
     </section>
   );
 }

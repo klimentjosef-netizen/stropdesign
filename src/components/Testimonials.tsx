@@ -103,7 +103,7 @@ export default function Testimonials() {
 
               <Stars count={t.rating} />
 
-              <p className="mt-6 mb-6 text-body text-[15px] leading-[1.8] font-light italic relative z-10">
+              <p className="mt-6 mb-6 text-body text-[15px] leading-[1.8] font-normal italic relative z-10">
                 &ldquo;{t.text}&rdquo;
               </p>
 
@@ -112,7 +112,7 @@ export default function Testimonials() {
               <p className="font-display text-base font-semibold text-heading">
                 {t.name}
               </p>
-              <p className="text-muted text-[12px] tracking-[0.04em] mt-0.5">
+              <p className="text-muted text-[13px] tracking-[0.04em] mt-0.5">
                 {t.subtitle}
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function Testimonials() {
                 className="inline-flex items-center gap-2.5 bg-white border border-border rounded-full px-6 py-3 hover:border-accent/30 transition-colors duration-300 group"
               >
                 <GoogleIcon />
-                <span className="text-body text-[13px] font-medium group-hover:text-heading transition-colors">
+                <span className="text-body text-[14px] font-medium group-hover:text-heading transition-colors">
                   {d.testimonials.viewAllReviews}
                 </span>
                 <svg
@@ -171,7 +171,7 @@ export default function Testimonials() {
                 <p className="font-display text-2xl font-bold text-accent">
                   {stat.value}
                 </p>
-                <p className="text-muted text-[11px] tracking-[0.04em] mt-1">
+                <p className="text-muted text-[12.5px] tracking-[0.04em] mt-1">
                   {stat.label}
                 </p>
               </div>

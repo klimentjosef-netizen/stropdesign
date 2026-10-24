@@ -6,7 +6,7 @@ const cs = {
     references: "Reference",
     blog: "Blog",
     contact: "Kontakt",
-    cta: "Poptávka zdarma",
+    cta: "Nezávazná poptávka",
   },
   hero: {
     title1: "Napínané stropy,",
@@ -18,6 +18,7 @@ const cs = {
     cta: "Spočítat cenu",
     ctaSecondary: "Prohlédnout reference",
     scroll: "Prohlédnout",
+    imageAlt: "Napínaný strop s hvězdnou oblohou a LED osvětlením, wellness HHSPA Ostrava",
     stat1: "200+",
     stat1Label: "realizací",
     stat2: "5.0",
@@ -49,6 +50,7 @@ const cs = {
     email: "E-mail",
     phone: "Telefon",
     room: "Typ místnosti a přibližná plocha",
+    roomPlaceholder: "Např. obývací pokoj, 25 m²",
     message: "Zpráva (nepovinné)",
     submit: "Odeslat poptávku",
     sending: "Odesílám…",
@@ -87,6 +89,8 @@ const cs = {
     subtitle: "Google recenze",
   },
   references: {
+    prevPhoto: "Předchozí fotka",
+    nextPhoto: "Další fotka",
     eyebrow: "Reference",
     title: "Realizace, na které jsme hrdí",
     showAll: "Zobrazit vše",

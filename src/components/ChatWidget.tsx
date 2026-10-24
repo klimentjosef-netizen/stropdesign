@@ -41,6 +41,7 @@ const t = {
     openChat: "Otevřít chat",
     tooltipCta:
       "Popište co potřebujete a ihned dostanete orientační cenu",
+    closeHint: "Zavřít",
     pcs: "ks",
     currency: "Kč",
     surfaceLabel: "povrch",
@@ -85,6 +86,7 @@ const t = {
     openChat: "Open chat",
     tooltipCta:
       "Describe what you need and get an indicative price right away",
+    closeHint: "Close",
     pcs: "pcs",
     currency: "CZK",
     surfaceLabel: "surface",
@@ -164,10 +166,10 @@ function InquiryCard({
   const l = t[locale];
   return (
     <div className="mt-3 bg-accent-soft border border-accent/20 rounded-sm p-4">
-      <div className="text-[11px] font-medium text-heading mb-2 tracking-[0.04em]">
+      <div className="text-[12.5px] font-medium text-heading mb-2 tracking-[0.04em]">
         {l.configSummary}
       </div>
-      <div className="flex flex-col gap-1 text-[11px] text-body mb-3">
+      <div className="flex flex-col gap-1 text-[12.5px] text-body mb-3">
         <div className="flex justify-between">
           <span className="text-muted">{l.surface}</span>
           <span className="font-medium">{data.surface}</span>
@@ -199,7 +201,7 @@ function InquiryCard({
       </div>
       <button
         onClick={onSend}
-        className="w-full bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase py-3 hover:bg-accent-hover transition-colors rounded-sm"
+        className="w-full bg-accent text-white text-[12.5px] font-medium tracking-[0.1em] uppercase py-3 hover:bg-accent-hover transition-colors rounded-sm"
       >
         {l.sendInquiry}
       </button>
@@ -280,12 +282,12 @@ function SendInquiryForm({
         <p className="font-display text-base font-semibold text-heading mb-1">
           {l.sent}
         </p>
-        <p className="text-[12px] text-muted">
+        <p className="text-[13px] text-muted">
           {l.sentFollowUp}
         </p>
         <button
           onClick={onClose}
-          className="mt-3 text-[11px] text-accent hover:underline"
+          className="mt-3 text-[12.5px] text-accent hover:underline"
         >
           {l.close}
         </button>
@@ -295,34 +297,40 @@ function SendInquiryForm({
 
   return (
     <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-2.5">
-      <p className="text-[12px] text-body mb-1">
+      <p className="text-[13px] text-body mb-1">
         {l.formPrompt}
       </p>
-      <input
-        type="text"
-        placeholder={l.fullName}
-        required
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
-      />
-      <input
-        type="email"
-        placeholder={l.email}
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
-      />
-      <input
-        type="tel"
-        placeholder={l.phone}
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        className="bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm"
-      />
-      {error && <p className="text-red-600 text-[11px]">{error}</p>}
-      <label className="flex items-start gap-2 cursor-pointer text-[11px] text-body leading-[1.5]">
+      <label className="flex flex-col gap-1">
+        <span className="text-[12.5px] font-medium text-heading">{l.fullName}</span>
+        <input
+          type="text"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full bg-white border border-border-dark/60 text-heading text-[14px] px-3 py-2.5 outline-none focus:border-accent rounded-lg"
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-[12.5px] font-medium text-heading">{l.email}</span>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full bg-white border border-border-dark/60 text-heading text-[14px] px-3 py-2.5 outline-none focus:border-accent rounded-lg"
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-[12.5px] font-medium text-heading">{l.phone}</span>
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full bg-white border border-border-dark/60 text-heading text-[14px] px-3 py-2.5 outline-none focus:border-accent rounded-lg"
+        />
+      </label>
+      {error && <p className="text-red-600 text-[12.5px]">{error}</p>}
+      <label className="flex items-start gap-2 cursor-pointer text-[12.5px] text-body leading-[1.5]">
         <input
           type="checkbox"
           required
@@ -335,7 +343,7 @@ function SendInquiryForm({
       <button
         type="submit"
         disabled={sending || !gdprConsent}
-        className="bg-accent text-white text-[11px] font-medium tracking-[0.1em] uppercase py-3 hover:bg-accent-hover transition-colors rounded-sm disabled:opacity-60"
+        className="bg-accent text-white text-[12.5px] font-medium tracking-[0.1em] uppercase py-3 hover:bg-accent-hover transition-colors rounded-sm disabled:opacity-60"
       >
         {sending ? l.sending : l.sendInquiry}
       </button>
@@ -347,6 +355,28 @@ export default function ChatWidget() {
   const locale = useLocale();
   const l = t[locale];
   const [isOpen, setIsOpen] = useState(false);
+  // Hint bubble: shown once per visit after a short delay, hides itself so it
+  // never permanently covers page content (forms, FAQ, stats on mobile).
+  const [showHint, setShowHint] = useState(false);
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("chat-hint-seen") === "1";
+    } catch {}
+    if (seen) return;
+    const show = setTimeout(() => setShowHint(true), 8000);
+    const hide = setTimeout(() => dismissHint(), 8000 + 9000);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
+    };
+  }, []);
+  const dismissHint = () => {
+    setShowHint(false);
+    try {
+      sessionStorage.setItem("chat-hint-seen", "1");
+    } catch {}
+  };
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [pendingImage, setPendingImage] = useState<ChatImage | null>(null);
@@ -525,7 +555,10 @@ export default function ChatWidget() {
   return (
     <>
       <button
-        onClick={() => setIsOpen((o) => !o)}
+        onClick={() => {
+          dismissHint();
+          setIsOpen((o) => !o);
+        }}
         className={`fixed bottom-6 right-6 z-[90] w-14 h-14 bg-accent text-white rounded-full shadow-lg hover:bg-accent-hover transition-all duration-300 hover:scale-105 flex items-center justify-center${isOpen ? " hidden sm:flex" : ""}`}
         aria-label={l.openChat}
       >
@@ -547,13 +580,32 @@ export default function ChatWidget() {
         )}
       </button>
 
-      {!isOpen && messages.length === 0 && (
+      {showHint && !isOpen && messages.length === 0 && (
         <>
           <div
-            className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[11px] font-medium px-3 py-2 rounded-sm shadow-lg pointer-events-none max-w-[220px] text-center leading-[1.5]"
-            style={{ animation: "chatSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both" }}
+            className="fixed bottom-[5.5rem] right-6 z-[89] bg-dark text-white text-[14px] font-medium pl-4 pr-9 py-3 rounded-xl shadow-lg max-w-[250px] leading-[1.45]"
+            style={{ animation: "chatSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both" }}
           >
-            {l.tooltipCta}
+            <button
+              type="button"
+              onClick={() => {
+                dismissHint();
+                setIsOpen(true);
+              }}
+              className="text-left"
+            >
+              {l.tooltipCta}
+            </button>
+            <button
+              type="button"
+              onClick={dismissHint}
+              aria-label={l.closeHint}
+              className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-white/50 hover:text-white"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M1 1l8 8M9 1l-8 8" />
+              </svg>
+            </button>
             <div className="absolute -bottom-1 right-5 w-2 h-2 bg-dark rotate-45" />
           </div>
           <div className="fixed bottom-6 right-6 z-[89] w-14 h-14 rounded-full animate-ping bg-accent/20 pointer-events-none" />
@@ -578,10 +630,10 @@ export default function ChatWidget() {
               <MascotA size={32} />
             </div>
             <div className="flex-1">
-              <div className="text-white text-[13px] font-medium">
+              <div className="text-white text-[14px] font-medium">
                 Strop kecka
               </div>
-              <div className="text-white/50 text-[10px]">
+              <div className="text-white/50 text-[12px]">
                 {l.chatSubtitle}
               </div>
             </div>
@@ -620,13 +672,13 @@ export default function ChatWidget() {
                     <path d="M10 3l-5 5 5 5" />
                   </svg>
                 </button>
-                <div className="text-white text-[13px] font-medium">
+                <div className="text-white text-[14px] font-medium">
                   {l.sendInquiry}
                 </div>
               </div>
 
               <div className="p-4 border-b border-border bg-light-secondary">
-                <div className="flex flex-col gap-1 text-[11px]">
+                <div className="flex flex-col gap-1 text-[12.5px]">
                   <div className="flex justify-between">
                     <span className="text-muted">{l.surface}</span>
                     <span className="font-medium">{inquiryForm.surface}</span>
@@ -666,7 +718,7 @@ export default function ChatWidget() {
                 <p className="text-heading text-[14px] font-medium mb-1">
                   {l.heroTitle}
                 </p>
-                <p className="text-muted text-[12px] leading-[1.6] mb-4">
+                <p className="text-muted text-[13px] leading-[1.6] mb-4">
                   {l.heroDescription}
                 </p>
                 <div className="flex flex-col gap-1.5 w-full">
@@ -678,7 +730,7 @@ export default function ChatWidget() {
                     <button
                       key={q}
                       onClick={() => sendMessageWithTracking(q)}
-                      className="text-left text-[11px] text-body bg-light-secondary border border-border px-3 py-2 rounded-sm hover:border-accent hover:text-accent transition-colors"
+                      className="text-left text-[12.5px] text-body bg-light-secondary border border-border px-3 py-2 rounded-sm hover:border-accent hover:text-accent transition-colors"
                     >
                       {q}
                     </button>
@@ -699,7 +751,7 @@ export default function ChatWidget() {
                 >
                   <div
                     ref={isStreamingThis ? streamingRef : undefined}
-                    className={`max-w-[85%] text-[12px] leading-[1.7] px-3.5 py-2.5 rounded-sm whitespace-pre-wrap ${
+                    className={`max-w-[85%] text-[13px] leading-[1.7] px-3.5 py-2.5 rounded-sm whitespace-pre-wrap ${
                       msg.role === "user"
                         ? "bg-accent text-white"
                         : "bg-light-secondary text-body border border-border"
@@ -761,7 +813,7 @@ export default function ChatWidget() {
                   alt=""
                   className="w-12 h-12 object-cover rounded-sm flex-shrink-0"
                 />
-                <span className="text-[11px] text-body flex-1 truncate">
+                <span className="text-[12.5px] text-body flex-1 truncate">
                   {l.attachPhoto}
                 </span>
                 <button
@@ -774,7 +826,7 @@ export default function ChatWidget() {
               </div>
             )}
             {photoError && (
-              <p className="text-red-600 text-[11px] mb-2">{photoError}</p>
+              <p className="text-red-600 text-[12.5px] mb-2">{photoError}</p>
             )}
             <div className="flex gap-2 items-end">
               <input
@@ -810,7 +862,7 @@ export default function ChatWidget() {
                 onKeyDown={handleKeyDown}
                 placeholder={l.inputPlaceholder}
                 rows={1}
-                className="flex-1 bg-light-secondary border border-border text-heading text-[12px] px-3 py-2.5 outline-none focus:border-accent rounded-sm resize-none max-h-[80px]"
+                className="flex-1 bg-light-secondary border border-border text-heading text-[13px] px-3 py-2.5 outline-none focus:border-accent rounded-sm resize-none max-h-[80px]"
                 style={{ minHeight: "38px" }}
               />
               <button
